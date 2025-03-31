@@ -6,6 +6,13 @@
     },
     {
       "path": "./tsconfig.node.json"
+    },{
+      "compilerOptions": {
+        "strict": false,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": false
+      }
     }
   ],
   "compilerOptions": {
