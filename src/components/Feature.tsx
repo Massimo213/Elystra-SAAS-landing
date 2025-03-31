@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 /**
  * Assets
  */
-import { ArrowRight } from 'lucide-react';
+
 
 /**
  * Constants

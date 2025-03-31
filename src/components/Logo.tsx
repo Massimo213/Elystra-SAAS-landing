@@ -6,7 +6,7 @@
 /**
  * Assets
  */
-import { favicon } from '@/assets';
+
 import { logo } from '@/assets';
 
 type LogoProps = {

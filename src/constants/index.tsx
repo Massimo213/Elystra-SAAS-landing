@@ -11,13 +11,8 @@ import { MenuItem } from '@/types';
  * Assets
  */
 import {
-  Blocks,
-  Files,
+  
   UserRoundPen,
-  GitFork,
-  LaptopMinimal,
-  ArrowBigDownDash,
-  CreditCard,
   Twitter,
   Github,
   Linkedin,
@@ -36,7 +31,7 @@ import {
 import {
   feature1,
   feature2,
-  feature3,
+
   blog1,
   blog2,
   blog3,
