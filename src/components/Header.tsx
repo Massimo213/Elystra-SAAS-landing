@@ -60,6 +60,7 @@ const Header = () => {
                               >
                                 <div className='w-10 h-10 bg-foreground/10 rounded-sm shadow-sm border-t border-foreground/5 flex-shrink-0 grid place-items-center'>
                                   {icon}
+                                 
                                 </div>
 
                                 <div>
