@@ -119,10 +119,11 @@ const Hero = () => {
             variants={heroChildVariant}
             className='flex justify-center gap-2 mt-6 md:mt-10'
           >
-            <div className='text-white'>
-            <Button>Start Free Trial</Button>
-            </div>
 
+
+<a href='https://my.elystra.online/sign-up'>
+            <Button>Start Free Trial</Button>
+</a>
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="secondary">
@@ -148,7 +149,7 @@ const Hero = () => {
         </div>
 
         <div className='relative mt-12 max-w-screen-xl mx-auto isolate rounded-xl md:mt-16'>
-        <motion.figure
+          <motion.figure
             className='bg-background/60 border border-slate-800 backdrop-blur-3xl rounded-xl shadow-2xl overflow-hidden'
             initial={{
               y: 120,

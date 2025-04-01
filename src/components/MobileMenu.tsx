@@ -79,14 +79,17 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
       <Separator className='bg-muted-foreground/20' />
 
       <div className='flex items-center gap-2 mt-4'>
+      <a href ='https://my.elystra.online/sign-up'>
         <Button
           variant='ghost'
           className='w-full'
         >
           Sign In
         </Button>
-
+        </a>
+       <a href ='https://my.elystra.online/sign-up'>
         <Button className='w-full'>Free Trial</Button>
+        </a>
       </div>
     </div>
   );

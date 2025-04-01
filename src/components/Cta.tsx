@@ -59,9 +59,11 @@ const Cta = () => {
               viewport={{ once: true }}
               className='flex items-center gap-3 lg:gap-4'
             >
+              <a href='https://my.elystra.online/sign-up'>
               <Button className='bg-foreground text-background hover:bg-foreground/95'>
                 Free Trial
               </Button>
+              </a>
 
               <Button
                 variant='outline'
