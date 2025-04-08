@@ -19,7 +19,7 @@ export default function Pricing() {
           we've got a plan that fits your needs.
         </p>
         <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {pricingTiers.map((tier, tierIdx) => (
+          {pricingTiers.map((tier) => (
             <div
               key={tier.name}
               className={`flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-10 ${
