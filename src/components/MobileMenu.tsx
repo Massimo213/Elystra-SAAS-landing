@@ -13,6 +13,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { Separator } from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
 
 /**
  * Assets
@@ -79,16 +80,18 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
       <Separator className='bg-muted-foreground/20' />
 
       <div className='flex items-center gap-2 mt-4'>
-      <a href ='https://my.elystra.online/sign-up'>
-        <Button
-          variant='ghost'
-          className='w-full'
-        >
-          Sign In
-        </Button>
+        <Link to="/privacy">
+          <Button variant="ghost" className="w-full">
+            Privacy
+          </Button>
+        </Link>
+        <a href='https://my.elystra.online/sign-up'>
+          <Button variant='ghost' className='w-full'>
+            Sign In
+          </Button>
         </a>
-       <a href ='https://my.elystra.online/sign-up'>
-        <Button className='w-full'>Free Trial</Button>
+        <a href='https://my.elystra.online/sign-up'>
+          <Button className='w-full'>Get Started</Button>
         </a>
       </div>
     </div>

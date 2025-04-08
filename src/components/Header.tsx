@@ -24,6 +24,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { Link } from 'react-router-dom';
 
 /**
  * Assets
@@ -60,7 +61,6 @@ const Header = () => {
                               >
                                 <div className='w-10 h-10 bg-foreground/10 rounded-sm shadow-sm border-t border-foreground/5 flex-shrink-0 grid place-items-center'>
                                   {icon}
-                                 
                                 </div>
 
                                 <div>
@@ -74,7 +74,6 @@ const Header = () => {
                                 </div>
                               </a>
                             </NavigationMenuLink>
-                            
                           </li>
                         ))}
                       </ul>
@@ -94,29 +93,23 @@ const Header = () => {
         </NavigationMenu>
 
         <div className='flex items-center gap-2 justify-end max-lg:hidden'>
+          
           <a href='https://my.elystra.online/sign-up'>
-          <Button variant='ghost'>Sign In</Button>
+            <Button variant='ghost'>Sign In</Button>
           </a>
           <a href='https://my.elystra.online/sign-up'>
-          <Button>Free Trial</Button>
+            <Button>Get Started</Button>
           </a>
         </div>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant='outline'
-              size='icon'
-              className='lg:hidden'
-            >
-              <Menu />
+          <PopoverTrigger asChild className='lg:hidden'>
+            <Button variant='ghost' size='icon'>
+              <Menu className='h-5 w-5' />
             </Button>
           </PopoverTrigger>
 
-          <PopoverContent
-            align='end'
-            className='bg-background/50 backdrop-blur-3xl border-foreground/5 border-x-0 border-b-0 rounded-lg overflow-hidden'
-          >
+          <PopoverContent className='w-80'>
             <MobileMenu navMenu={navMenu} />
           </PopoverContent>
         </Popover>

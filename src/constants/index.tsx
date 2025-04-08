@@ -55,7 +55,12 @@ export const navMenu: MenuItem[] = [
   {
     href: 'https://www.youtube.com/watch?v=j5JzvDKqB24&t=11s',
     label: 'Demo',
+  },
+  {
+    href: '#privacy',
+    label: 'Privacy',
   }
+
 ];
 
 // Hero
