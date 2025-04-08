@@ -49,7 +49,7 @@ export const navMenu: MenuItem[] = [
   },
   
   {
-    href: '/pricing',
+    href: '#pricing',
     label: 'Pricing',
   },
   {

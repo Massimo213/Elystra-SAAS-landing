@@ -19,7 +19,7 @@ import Process from '@/components/Process';
 import Overview from '@/components/Overview';
 import Review from '@/components/Review';
 import Cta from '@/components/Cta';
-
+import Pricing from '@/components/Pricing';
 
 const App = () => {
   return (
@@ -34,6 +34,7 @@ const App = () => {
           <Process />
           <Overview />
           <Review />
+          <Pricing />
           <Cta />
         </main>
 
