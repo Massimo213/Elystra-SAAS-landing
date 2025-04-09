@@ -1,4 +1,4 @@
-import { Shield, Lock, Zap, X, Database, Key, Bell, Cloud } from 'lucide-react';
+import { Shield, Lock, Zap, X } from 'lucide-react';
 
 export default function PrivacyPolicy() {
   return (
