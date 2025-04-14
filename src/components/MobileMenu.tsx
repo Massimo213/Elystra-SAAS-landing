@@ -43,7 +43,6 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
                     className='w-full justify-between'
                   >
                     {label}
-
                     <ChevronsUpDown />
                   </Button>
                 </CollapsibleTrigger>
@@ -57,7 +56,11 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
                           variant='ghost'
                           className='w-full justify-start text-muted-foreground hover:bg-transparent'
                         >
-                          <a href={href}>{label}</a>
+                          {href.startsWith('/') ? (
+                            <Link to={href}>{label}</Link>
+                          ) : (
+                            <a href={href}>{label}</a>
+                          )}
                         </Button>
                       </li>
                     ))}
@@ -70,7 +73,11 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
                 variant='ghost'
                 className='w-full justify-start'
               >
-                <a href={href}>{label}</a>
+                {href.startsWith('/') ? (
+                  <Link to={href}>{label}</Link>
+                ) : (
+                  <a href={href}>{label}</a>
+                )}
               </Button>
             )}
           </li>

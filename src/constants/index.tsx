@@ -11,7 +11,6 @@ import { MenuItem } from '@/types';
  * Assets
  */
 import {
-  
   UserRoundPen,
   Twitter,
   Github,
@@ -31,7 +30,6 @@ import {
 import {
   feature1,
   feature2,
-
   blog1,
   blog2,
   blog3,
@@ -42,25 +40,22 @@ import {
 
 // Header
 export const navMenu: MenuItem[] = [
-  
   {
     href: '#feature',
     label: 'Features',
   },
-  
   {
     href: '#pricing',
     label: 'Pricing',
   },
   {
-    href: 'https://www.youtube.com/watch?v=j5JzvDKqB24&t=11s',
-    label: 'Demo',
+    href: '',
+    label: 'About',
   },
   {
-    href: '#privacy',
+    href: '/privacy',
     label: 'Privacy',
   }
-
 ];
 
 // Hero
@@ -68,28 +63,27 @@ export const heroData = {
   sectionSubtitle: 'ALL-IN-ONE AI EMAIL ASSISTANT',
   sectionTitle: 'Tired of Emails Owning You? Meet ',
   decoTitle: 'Elystra',
-  sectionText:'Elystra writes, sorts, and manages your inbox so you don’t have to. One AI-powered workspace. Every account. Zero overwhelm '
+  sectionText: 'Elystra writes, sorts, and manages your inbox so you do not have to. One AI-powered workspace. Every account. Zero overwhelm'
 };
 
 // Feature
 export const featureData = {
   sectionSubtitle: 'Features',
-  sectionTitle: 'Everything You Wish Email Could Do, Now It Does  ',
-  sectionText:
-    'Elystra handles the writing, organizing, and account juggling. You stay focused, efficient, and 10 steps ahead  sno keyboard smashing required.',
+  sectionTitle: 'Everything You Wish Email Could Do, Now It Does',
+  sectionText: 'Elystra handles the writing, organizing, and account juggling. You stay focused, efficient, and 10 steps ahead. No keyboard smashing required.',
   features: [
     {
       icon: <Bot size={32} />,
       iconBoxColor: 'bg-blue-600',
       title: 'Inbox Chatbot',
-      desc: 'Ask Elystra to find, draft, summarize, or snoop,your personal ChatGPT, trained on your email life.',
+      desc: 'Ask Elystra to find, draft, summarize, or snoop. Your personal ChatGPT, trained on your email life.',
       imgSrc: feature1,
     },
     {
       icon: <Pen size={32} />,
       iconBoxColor: 'bg-cyan-500',
       title: 'AI-Powered Email Writer',
-      desc: 'Elystra writes your emails for you faster, smarter, and always in your voice. Whether it’s a quick reply or a formal message, just tell it what you need and hit send.',
+      desc: 'Elystra writes your emails for you faster, smarter, and always in your voice. Whether it is a quick reply or a formal message, just tell it what you need and hit send.',
       imgSrc: feature2,
     },
     {
@@ -117,8 +111,7 @@ export const featureData = {
 export const processData = {
   sectionSubtitle: 'How it works',
   sectionTitle: 'Easy Process to Get Started',
-  sectionText:
-    'Discover how it works by leveraging advanced algorithms and data analysis techniques.',
+  sectionText: 'Discover how it works by leveraging advanced algorithms and data analysis techniques.',
   list: [
     {
       icon: <LogIn size={32} />,
@@ -126,19 +119,19 @@ export const processData = {
       text: 'Click on Sign In. Pick the email you want to use to manage all your inboxes. This will be your main Elystra account.',
     },
     {
-      icon: < LayoutDashboard size={32} />,
-      title: 'You’re taken to your dashboard',
-      text: 'Right after choosing your main email, we’ll send you straight to your Elystra dashboard.',
+      icon: <LayoutDashboard size={32} />,
+      title: 'You are taken to your dashboard',
+      text: 'Right after choosing your main email, we will send you straight to your Elystra dashboard.',
     },
     {
       icon: <PlusCircle size={32} />,
       title: 'Click "Add Account"',
-      text: 'In your dashboard, tap the “Add Account” button to connect more email accounts.',
+      text: 'In your dashboard, tap the "Add Account" button to connect more email accounts.',
     },
     {
       icon: <Inbox size={32} />,
       title: 'Connect your other inboxes',
-      text: 'Click Add Accounts to pick the other inboxes you want Elystra to help with. That’s it—no setup, no tech stuff.',
+      text: 'Click Add Accounts to pick the other inboxes you want Elystra to help with. That is it—no setup, no tech stuff.',
     },
   ],
 };
@@ -147,8 +140,7 @@ export const processData = {
 export const overviewData = {
   sectionSubtitle: 'Overview',
   sectionTitle: 'The Only AI You will Ever Need For Your Inbox',
-  sectionText:
-    'Let Elystra manage, write, and organize your emails — so you never miss what matters.',
+  sectionText: 'Let Elystra manage, write, and organize your emails — so you never miss what matters.',
   listTitle: 'More than 1200+ people around the world are already using',
   list: [
     {
@@ -167,16 +159,15 @@ export const overviewData = {
 };
 
 // Review
-// Reviews
 export const reviewData = {
   sectionSubtitle: 'Reviews',
   sectionTitle: 'What Our Users Are Saying',
   reviewCard: [
     {
       title: 'Emailing feels effortless now.',
-      text: 'Elystra writes most of my emails for me. It’s like having a smart assistant 24/7.',
+      text: 'Elystra writes most of my emails for me. It is like having a smart assistant 24/7.',
       reviewAuthor: 'Wade Warren',
-      date: ' 4 days ago',
+      date: '4 days ago',
     },
     {
       title: 'Support is fast and actually helpful.',
@@ -188,18 +179,16 @@ export const reviewData = {
       title: 'Finally, something better than Gmail.',
       text: 'Other email tools just feel outdated now. Elystra is smoother, smarter, and actually fun to use.',
       reviewAuthor: 'Marvin McKinney',
-      date: '2 day ago',
+      date: '2 days ago',
     },
   ],
 };
-
 
 // Blog
 export const blogData = {
   sectionSubtitle: 'Our Blog',
   sectionTitle: 'Resource Center',
-  sectionText:
-    'Unlock the potential of our resource center, accessing valuable information and insights for your business growth.',
+  sectionText: 'Unlock the potential of our resource center, accessing valuable information and insights for your business growth.',
   blogs: [
     {
       imgSrc: blog1,
@@ -239,7 +228,7 @@ export const blogData = {
 
 // Cta
 export const ctaData = {
-  text: 'Boost your productivity by working on  what actually matters.',
+  text: 'Boost your productivity by working on what actually matters.',
 };
 
 // Footer

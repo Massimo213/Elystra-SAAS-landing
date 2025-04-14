@@ -22,6 +22,7 @@ import Review from '@/components/Review';
 import Cta from '@/components/Cta';
 import Pricing from '@/components/Pricing';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
+import About from '@/components/About';
 
 const MainContent = () => (
   <main>
@@ -44,6 +45,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<MainContent />} />
+          <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
       </div>
