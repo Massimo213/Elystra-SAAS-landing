@@ -32,7 +32,7 @@ export const pricingTiers: PricingTier[] = [
   },
   {
     name: "Professional",
-    price: 14.99,
+    price: 12.99,
     isMonthly: true,
     tagline: "Take control of your inbox, effortlessly.",
     features: [
@@ -51,7 +51,7 @@ export const pricingTiers: PricingTier[] = [
   },
   {
     name: "Lifetime Pro",
-    price: 89,
+    price: 49.99,
     isMonthly: false,
     tagline: "One-time payment. Infinite clarity.",
     features: [
