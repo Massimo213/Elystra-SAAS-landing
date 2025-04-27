@@ -1,4 +1,4 @@
-import { Shield, Lock, Zap, X, Mail, Globe, Clock, Settings, AlertCircle, Users, FileText, Cookie } from 'lucide-react';
+import { Shield,  Zap,  Mail, Globe, Settings, AlertCircle, Users, FileText, Cookie } from 'lucide-react';
 import { motion } from "framer-motion";
 
 export default function PrivacyPolicy() {
