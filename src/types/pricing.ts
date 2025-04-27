@@ -20,9 +20,9 @@ export const pricingTiers: PricingTier[] = [
     isMonthly: false,
     tagline: "Start smarter. Save time — for free.",
     features: [
-      { name: "Connect 1 Gmail or Outlook account", included: true },
-      { name: "10 AI-generated replies/day", included: true },
-      { name: "AI chatbot for email search & summary", included: true },
+      { name: "Connect 1 Google account", included: true },
+      { name: "15 AI-generated email replies/day", included: true },
+      { name: " 15 AI chatbot for email search & summary", included: true },
       { name: "Email prioritization (Top Threads Only)", included: true },
       { name: "Dark mode", included: true },
       { name: "Spam filtering", included: true },
@@ -66,4 +66,5 @@ export const pricingTiers: PricingTier[] = [
     ],
     cta: "Go Lifetime",
   },
+  
 ]

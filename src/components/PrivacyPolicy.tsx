@@ -1,120 +1,300 @@
-import { Shield, Lock, Zap, X } from 'lucide-react';
+import { Shield, Lock, Zap, X, Mail, Globe, Clock, Settings, AlertCircle, Users, FileText, Cookie } from 'lucide-react';
+import { motion } from "framer-motion";
 
 export default function PrivacyPolicy() {
   return (
-    <div id='privacy'>
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-[#fafafa] py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Privacy Overview
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-2xl text-center"
+        >
+          <h1 className="text-4xl font-bold tracking-tight text-[#1a1a1a] sm:text-6xl">
+            Privacy Policy
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Elystra takes your privacy seriously. In an era where data protection is paramount, we're committed to maintaining the highest standards of security and transparency.
+          <p className="mt-6 text-lg leading-8 text-[#666666]">
+            At Elystra, we believe privacy is a fundamental human right. We're committed to maintaining the highest standards of security and transparency in how we handle your data.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <div className="prose prose-lg mx-auto max-w-2xl text-gray-600">
-            <h2 className="text-2xl font-bold text-gray-900">Introduction</h2>
-            <p>
-              The regulatory landscape governing privacy is undergoing significant change worldwide, and governments and consumers alike are demanding increased transparency and individual control. Elystra welcomes these changes. Our success depends on maintaining the trust of our users through secure, transparent, and ethical data practices.
-            </p>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8">Personal Data We Collect</h2>
-            <p>
-              Elystra's data collection is minimal and purposeful. By default, we do not collect or store the content of your personal email messages. To function properly, Elystra accesses:
-            </p>
-            <ul className="list-disc pl-6">
-              <li>Your name and email address</li>
-              <li>OAuth access tokens for supported email providers</li>
-              <li>Basic account information necessary for service operation</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8">How We Use Your Data</h2>
-            <p>
-              Your data is used exclusively to operate and maintain Elystra's services. We do not:
-            </p>
-            <ul className="list-disc pl-6">
-              <li>Use cookies for advertising purposes</li>
-              <li>Extract data from email content for tracking</li>
-              <li>Share your data with third parties for marketing</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8">AI and Data Processing</h2>
-            <p>
-              Elystra's AI features leverage state-of-the-art language models. Your data is:
-            </p>
-            <ul className="list-disc pl-6">
-              <li>Processed in real-time only</li>
-              <li>Never used to train or improve models</li>
-              <li>Never stored for analysis or training purposes</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8">Security Measures</h2>
-            <p>
-              We implement rigorous security measures to protect your data:
-            </p>
-            <ul className="list-disc pl-6">
-              <li>End-to-end encryption for all communications</li>
-              <li>Regular security audits and updates</li>
-              <li>Compliance with industry security standards</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8">Your Rights</h2>
-            <p>
-              You have the right to:
-            </p>
-            <ul className="list-disc pl-6">
-              <li>Access your personal data</li>
-              <li>Request data correction or deletion</li>
-              <li>Opt-out of data collection</li>
-              <li>Export your data at any time</li>
-            </ul>
-
-            <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="flex flex-col items-center text-center">
-                <Shield className="h-12 w-12 text-indigo-600" />
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">Secure Access</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Industry-standard OAuth2 authentication ensures your data remains secure and under your control.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center">
-                <Lock className="h-12 w-12 text-indigo-600" />
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">Data Control</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Your data is processed in real-time only, with no storage or training on personal information.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center">
-                <Zap className="h-12 w-12 text-indigo-600" />
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">Instant Revocation</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Revoke access instantly through your email provider's settings at any time.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center">
-                <X className="h-12 w-12 text-indigo-600" />
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">No Data Mining</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Your inbox remains private, with no analysis or mining for unnecessary data.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-16 text-center">
-              <p className="text-lg leading-8 text-gray-600">
-                And if you ever feel even 1% uneasy, you're free to walk away—no commitment, no lock-in, no dark patterns. Just clarity, control, and choice.
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none"
+        >
+          <div className="prose prose-lg mx-auto max-w-2xl text-[#666666]">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Mail className="h-6 w-6 text-[#1a1a1a]" />
+                Introduction & Scope
+              </h2>
+              <p className="mt-4">
+                Welcome to Elystra, an email productivity and AI-powered communication service operated by Elystra Technologies, Inc. ("Elystra", "we", "us", or "our"). We recognize that privacy is a fundamental human right. This Privacy Policy explains how we collect, use, disclose, and otherwise process your personal data when you access our website ("Site"), our application ("App"), and our services ("Service").
               </p>
-            </div>
+              <p className="mt-4">
+                References to "you" or "your" mean the individual whose data we process. Elystra is designed as a powerful productivity layer that integrates with your existing email services, such as Gmail, Outlook, and other supported providers.
+              </p>
+              <p className="mt-4">
+                Rather than replacing your inbox, Elystra connects securely to your email accounts through industry-standard OAuth 2.0 authorization protocols, empowering you to manage and enhance your email experience with the help of cutting-edge AI technologies.
+              </p>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-[#1a1a1a]">Through Elystra, you can:</h3>
+                <ul className="mt-4 space-y-2 list-disc pl-6">
+                  <li>Organize your inbox more intelligently</li>
+                  <li>Draft high-quality emails faster using AI</li>
+                  <li>Receive real-time suggestions and prioritization</li>
+                  <li>Manage multiple accounts seamlessly in one modern interface</li>
+                </ul>
+                <p className="mt-4 font-semibold">Elystra does not replace your email provider — it supercharges it.</p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Shield className="h-6 w-6 text-[#1a1a1a]" />
+                Information We Collect
+              </h2>
+              <div className="mt-6 space-y-6">
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Personal Information You Provide</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>Account Information: When you sign up, we collect your name, email address, and OAuth tokens from email providers. Passwords are never stored.</li>
+                    <li>Billing Information: Payment details handled securely by Stripe  
+                      (https://stripe.com/privacy), not stored on Elystra servers.</li>
+                    <li>Communication: If you contact support, respond to surveys, or interact with us, we collect your communications.</li>
+                    <li>Marketing Preferences: Subscription preferences for promotional or product updates.</li>
+                    <li>Email Metadata: Sender, recipient, timestamps, subject lines — but not email content unless needed for a requested action.</li>
+                  </ul>
+                </div>
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Information Collected Automatically</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>Device Info: Type, OS, browser, system language, settings.</li>
+                    <li>Usage Data: Features you use, app performance, session length.</li>
+                    <li>Cookies and Similar Technologies: For authentication, analytics, improving functionality.</li>
+                  </ul>
+                </div>
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Information From Third Parties</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>Social Media: Public info from LinkedIn, Twitter, etc. if you engage with our pages.</li>
+                    <li>Third-Party Login Providers: Google, Microsoft — basic profile information.</li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Settings className="h-6 w-6 text-[#1a1a1a]" />
+                How We Use Your Information
+              </h2>
+              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Service Operations</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>Connect email accounts</li>
+                    <li>Organize messages</li>
+                    <li>Send AI-powered drafts</li>
+                    <li>Authenticate and manage accounts</li>
+                  </ul>
+                </div>
+
+
+          
+          
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Security & Improvement</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>Protect against unauthorized access</li>
+                    <li>Detect and prevent fraud</li>
+                    <li>Analyze usage trends</li>
+                    <li>Send service communications</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="mt-6 font-semibold text-[#1a1a1a]">We never sell your data to third parties.</p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Zap className="h-6 w-6 text-[#1a1a1a]" />
+                AI Data Processing
+              </h2>
+              <div className="mt-6 space-y-6">
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Our Commitment to Privacy-First AI</h3>
+                  <p className="mt-4">
+                    At Elystra, we believe in harnessing the power of AI while maintaining the highest standards of privacy and data protection. Our AI features are designed with your privacy as the top priority.
+                  </p>
+                </div>
+
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">How We Process Your Data</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>
+                      <span className="font-semibold">Real-Time Processing Only:</span> Your email content is processed in real-time by our AI models only when you request specific actions, such as composing replies or organizing threads. We never store or analyze your emails without your explicit request.
+                    </li>
+                    <li>
+                      <span className="font-semibold">No Training on User Data:</span> We do not use your emails or any personal data to train or improve our AI models. Our models are trained on publicly available data and are regularly updated to maintain high performance without compromising your privacy.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Ephemeral Processing:</span> AI-generated outputs are temporary and only stored if you explicitly choose to save them. All intermediate processing data is automatically deleted after your request is completed.
+                    </li>
+                  </ul>
+                </div>
+
+              
+
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Security Measures</h3>
+                  <ul className="mt-4 space-y-2 list-disc pl-6">
+                    <li>All AI processing is performed in secure, encrypted environments</li>
+                    <li>We implement strict access controls to prevent unauthorized use of AI features</li>
+                    <li>Regular security audits ensure our AI systems meet the highest privacy standards</li>
+                    <li>We maintain detailed logs of AI processing activities for transparency and accountability</li>
+                  </ul>
+                </div>
+
+                <div className="bg-[#f0e7ff] p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a]">Transparency and Trust</h3>
+                  <p className="mt-4">
+                    We believe in being transparent about how our AI systems work. If you have any questions about our AI processing or would like to learn more about our privacy-first approach to AI, please don't hesitate to contact our privacy team at privacy@elystra.com.
+                  </p>
+                  <p className="mt-4">
+                    Your trust is our top priority, and we're committed to ensuring that our AI features enhance your productivity while maintaining the highest standards of privacy and data protection.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Globe className="h-6 w-6 text-[#1a1a1a]" />
+                International Data Transfers
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <ul className="space-y-2 list-disc pl-6">
+                  <li>Your data may be processed outside your country (e.g., in the U.S.).</li>
+                  <li>We comply with GDPR standard contractual clauses (SCCs) for international transfers.</li>
+                  <li>If required, we will implement supplementary measures.</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Cookie className="h-6 w-6 text-[#1a1a1a]" />
+                Cookie Policy
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <p className="mb-4">We use cookies to:</p>
+                <ul className="space-y-2 list-disc pl-6">
+                  <li>Authenticate sessions</li>
+                  <li>Analyze performance</li>
+                  <li>Personalize user experience</li>
+                  <li>Facilitate marketing (only if consented)</li>
+                </ul>
+                <p className="mt-4">You can manage cookies through your browser settings.</p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.6 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Users className="h-6 w-6 text-[#1a1a1a]" />
+                Children's Privacy
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <ul className="space-y-2 list-disc pl-6">
+                  <li>Elystra is not intended for individuals under 16.</li>
+                  <li>We do not knowingly collect personal data from children.</li>
+                  <li>If you believe a child has provided data, contact us and we will promptly delete it.</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.8 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <FileText className="h-6 w-6 text-[#1a1a1a]" />
+                Changes to This Privacy Policy
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <ul className="space-y-2 list-disc pl-6">
+                  <li>We may update this Privacy Policy to reflect changes in law or Service updates.</li>
+                  <li>We will notify you via email or through the App if material changes occur.</li>
+                  <li>Effective date and revision history will be posted at the top of this page.</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 2 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <AlertCircle className="h-6 w-6 text-[#1a1a1a]" />
+                Contact Us
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <p className="text-lg">
+                  If you have questions, concerns, or complaints regarding privacy, you can contact us at:
+                  <br />
+                  <a href="mailto:elystrahelpmeteam@gmail.com" className="text-[#1a1a1a] hover:text-[#666666] font-semibold">
+                    elystrahelpmeteam@gmail.com
+                  </a>
+                </p>
+                <p className="mt-4">
+                  We're committed to addressing your privacy concerns promptly and transparently. Your trust is our top priority, and we're here to help you understand and control your data.
+                </p>
+              </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
     </div>
   );
 } 
