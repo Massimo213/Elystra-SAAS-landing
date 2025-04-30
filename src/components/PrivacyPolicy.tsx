@@ -181,7 +181,7 @@ export default function PrivacyPolicy() {
                 <div className="bg-[#f0e7ff] p-6 rounded-lg">
                   <h3 className="text-lg font-semibold text-[#1a1a1a]">Transparency and Trust</h3>
                   <p className="mt-4">
-                    We believe in being transparent about how our AI systems work. If you have any questions about our AI processing or would like to learn more about our privacy-first approach to AI, please don't hesitate to contact our privacy team at privacy@elystra.com.
+                    We believe in being transparent about how our AI systems work. If you have any questions about our AI processing or would like to learn more about our privacy-first approach to AI, please don't hesitate to contact our privacy team at elystrahelpmeteam@gmail.com.
                   </p>
                   <p className="mt-4">
                     Your trust is our top priority, and we're committed to ensuring that our AI features enhance your productivity while maintaining the highest standards of privacy and data protection.
