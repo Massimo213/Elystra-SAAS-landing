@@ -99,11 +99,18 @@ export const featureData = {
       desc: 'Your eyes (and soul) will thank you.',
     },
     {
+      icon: <Inbox size={32} />,
+      iconBoxColor: 'bg-green-500',
+      title: 'Smart Reminders',
+      desc: 'Never miss an important email again. Elystra automatically sets reminders.',
+    },
+    {
       icon: <Folder size={32} />,
       iconBoxColor: 'bg-purple-500',
       title: 'Smart Folders (Coming Soon)',
       desc: 'Custom folders that auto-sort your chaos into calm.',
     },
+    
   ],
 };
 

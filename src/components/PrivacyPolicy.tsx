@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-2xl text-center"
+          className="mx-auto max-w-2xl text-center" 
         >
           <h1 className="text-4xl font-bold tracking-tight text-[#1a1a1a] sm:text-6xl">
             Privacy Policy
@@ -212,7 +212,70 @@ export default function PrivacyPolicy() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.3 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Shield className="h-6 w-6 text-[#1a1a1a]" />
+                Third-Party Data Sharing
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <p className="mb-4">
+                  Elystra shares user data only with essential third-party service providers that help us deliver our core functionalities. These providers do not have permission to use the data for any purpose outside of providing services to Elystra.
+                </p>
+                <h3 className="text-lg font-semibold text-[#1a1a1a] mt-4">We share Google user data with the following third parties:</h3>
+                <ul className="mt-4 space-y-2 list-disc pl-6">
+                  <li>
+                    <span className="font-semibold">OpenAI</span> – to generate AI-written email drafts and summaries. Email data is processed in real-time only and never stored.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Vercel / Hosting Provider</span> – for hosting the application infrastructure (non-email content such as UI assets and session metadata).
+                  </li>
+                  <li>
+                    <span className="font-semibold">Stripe</span> – for handling payment processing and subscription management. Only necessary billing data is shared.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Google / Gmail API</span> – for accessing and managing emails on your behalf using OAuth 2.0, as requested by you.
+                  </li>
+                </ul>
+                <p className="mt-4">
+                  All providers are contractually bound to protect user data and comply with data protection laws, including GDPR and CCPA.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.4 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Settings className="h-6 w-6 text-[#1a1a1a]" />
+                Data Retention and Deletion of Google User Data
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <p className="mb-4">
+                  Elystra retains access tokens and metadata from your Google account only as long as your account remains active or until you revoke access.
+                </p>
+                <ul className="space-y-2 list-disc pl-6">
+                  <li>If you delete your Elystra account or revoke access via your Google account permissions page, all related Google data and tokens are deleted from our systems automatically.</li>
+                  <li>We do not store the content of your emails on our servers.</li>
+                  <li>You can request manual deletion of your data at any time by emailing: <a href="mailto:privacy@elystra.com" className="text-[#1a1a1a] hover:text-[#666666]">privacy@elystra.com</a></li>
+                </ul>
+                <p className="mt-4">
+                  We permanently delete OAuth access tokens and any cached metadata within <span className="font-semibold">30 days</span> of account deletion or access revocation.
+                </p>
+                <p className="mt-4">
+                  Elystra is committed to full compliance with Google API Services User Data Policy, including the Limited Use requirements.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.5 }}
               className="mt-12"
             >
               <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">

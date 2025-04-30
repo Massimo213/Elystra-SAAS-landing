@@ -64,7 +64,7 @@ export const pricingTiers: PricingTier[] = [
       { name: "Custom AI prompt profiles", included: true },
       { name: "Dedicated founder support (1:1 access)", included: true },
     ],
-    cta: "Go Lifetime",
+  cta: "Go Lifetime",
   },
   
 ]
