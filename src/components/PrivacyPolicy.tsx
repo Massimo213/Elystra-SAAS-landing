@@ -59,7 +59,27 @@ export default function PrivacyPolicy() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-12"
+            >
+              <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
+                <Shield className="h-6 w-6 text-[#1a1a1a]" />
+                Use of Aurinko for Gmail Integration
+              </h2>
+              <div className="mt-6 bg-[#f0e7ff] p-6 rounded-lg">
+                <p className="mb-4">
+                  Elystra uses a third-party provider called <span className="font-semibold">Aurinko</span> to securely manage access to Gmail accounts. Aurinko handles all Gmail-related OAuth authentication and Gmail API communication on our behalf.
+                </p>
+                <p>
+                  Elystra does not store or request Google OAuth tokens directly. All access to Gmail is managed through Aurinko's secure infrastructure, which is designed to meet Google's security requirements and data protection standards.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-12"
             >
               <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
@@ -99,7 +119,7 @@ export default function PrivacyPolicy() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               className="mt-12"
             >
               <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
@@ -136,7 +156,7 @@ export default function PrivacyPolicy() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-12"
             >
               <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
@@ -193,7 +213,7 @@ export default function PrivacyPolicy() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+              transition={{ duration: 0.6, delay: 1 }}
               className="mt-12"
             >
               <h2 className="text-2xl font-bold text-[#1a1a1a] flex items-center gap-2">
