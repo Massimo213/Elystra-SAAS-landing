@@ -146,21 +146,21 @@ export const processData = {
 // Overview
 export const overviewData = {
   sectionSubtitle: 'Overview',
-  sectionTitle: 'The Only AI You will Ever Need For Your Inbox',
-  sectionText: 'Let Elystra manage, write, and organize your emails — so you never miss what matters.',
-  listTitle: 'More than 1200+ people around the world are already using',
+  sectionTitle: 'Win Back Your Time with Elystra',
+  sectionText: 'Let Elystra handle your inbox so you gain hours each week to focus on what truly matters.',
+  listTitle: 'Your Time Savings',
   list: [
     {
-      title: '700',
-      text: 'Active Monthly Users',
+      title: '10h+',
+      text: 'Average hours won per week to reinvest in growth',
     },
     {
-      title: '10+',
-      text: 'Saved Hours Per User Weekly',
+      title: '520h+',
+      text: 'Estimated annual hours saved for deeper focus',
     },
     {
-      title: '94%',
-      text: 'User Satisfaction',
+      title: '2x',
+      text: 'Faster decision-making with instant email summaries',
     },
   ],
 };
