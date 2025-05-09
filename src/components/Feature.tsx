@@ -74,7 +74,7 @@ const Feature = () => {
             className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3'
           >
             {featureData.features.map(
-              ({ icon, iconBoxColor, title, desc, imgSrc }, index) => (
+              ({ icon, iconBoxColor, title, desc}, index) => (
                 <FeatureCard
                   key={index}
                   classes='xl:col-span-1'
@@ -103,18 +103,7 @@ const Feature = () => {
                       </motion.p>
                     </div>
 
-                    {imgSrc && (
-                      <motion.figure
-                        variants={variants.fadeInUp}
-                        className='p-6 pt-0'
-                      >
-                        <img
-                          src={imgSrc}
-                          alt={title}
-                          className='rounded-lg shadow-lg'
-                        />
-                      </motion.figure>
-                    )}
+                   
                   </>
                 </FeatureCard>
               )

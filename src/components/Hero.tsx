@@ -6,13 +6,11 @@
 /**
  * Node modules
  */
-import { useRef } from 'react';
+
 import {
   motion,
   Variants,
-  useScroll,
-  useSpring,
-  useTransform,
+ 
 } from 'motion/react';
 
 /**
@@ -65,16 +63,20 @@ const heroChildVariant: Variants = {
 };
 
 const Hero = () => {
-  const heroBannerRef = useRef<HTMLElement>(null);
+  // const heroBannerRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: heroBannerRef,
-    offset: ['start 1080px', '50% start'],
-  });
+  // const { scrollYProgress } = useScroll({
+  //   target: heroBannerRef,
+  //   offset: ['start 1080px', '50% start'],
+  // });
 
-  const scrollYTransform = useTransform(scrollYProgress, [0, 1], [0.85, 1.15]);
+  // const scrollYTransform = useTransform(scrollYProgress, [0, 1], [0.85, 1.15]);
 
- 
+  // const scale = useSpring(scrollYTransform, {
+  //   stiffness: 300,
+  //   damping: 30,
+  //   restDelta: 0.001,
+  // });
 
   return (
     <section className='py-10 md:py-16'>
