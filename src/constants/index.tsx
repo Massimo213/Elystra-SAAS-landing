@@ -22,7 +22,7 @@ import {
   FileText,
   Highlighter,
   Clock,
-  Shield
+ 
 } from 'lucide-react';
 
 import {
@@ -124,23 +124,13 @@ export const processData = {
     },
     {
       icon: <Clock size={32} />,
-      title: 'Wait 60 Seconds',
+      title: 'AI Drafts Your Proposal',
       text: 'Our AI listens, extracts key details, and drafts your proposal automatically.',
-    },
-    {
-      icon: <Highlighter size={32} />,
-      title: 'Review & Customize',
-      text: 'Click yellow highlights to adjust prices or dates. Hit "Update" to refresh the proposal.',
     },
     {
       icon: <FileText size={32} />,
       title: 'Download & Share',
       text: 'Get your polished PDF or copy to Notion. Send it, get signed, and get paid.',
-    },
-    {
-      icon: <Shield size={32} />,
-      title: 'Privacy First',
-      text: 'Your raw recording auto-deletes after 24 hours. Client information stays private, always.',
     },
   ],
 };
@@ -150,7 +140,7 @@ export const overviewData = {
   sectionSubtitle: 'Overview',
   sectionTitle: 'Win Back Your Billable Hours',
   sectionText:
-    'Stop burning evenings writing proposals. Drop your client call, let our AI draft the scope, and get back to paid work in minutes. More than 1,200 early adopters already swear by the time they’ve reclaimed.',
+    'Stop burning evenings writing proposals. Drop your client call, let our AI draft the scope, and get back to paid work in minutes. More than 1,200 early adopters already swear by the time they have reclaimed.',
   listTitle: 'What You Reclaim',
   list: [
     {
@@ -167,7 +157,7 @@ export const overviewData = {
     },
     {
       title: '1,200+',
-      text: 'Early adopters already using Call → Proposal every week',
+      text: 'Early adopters already using Call → Proposal every week',
     },
   ],
 };
@@ -187,7 +177,7 @@ export const reviewData = {
     },
     {
       title: 'Saved me a whole Saturday.',
-      text: 'Writing proposals used to eat my weekends. Now it’s drag‑drop, quick edit, download. Three proposals done in an hour.',
+      text: 'Writing proposals used to eat my weekends. Now it is drag‑drop, quick edit, download. Three proposals done in an hour.',
       reviewAuthor: 'Ethan Brooks · Marketing consultant',
       date: '1 week ago',
     },
