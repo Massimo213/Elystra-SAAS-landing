@@ -26,8 +26,7 @@ import {
 } from 'lucide-react';
 
 import {
-  feature1,
-  feature2,
+  
   blog1,
   blog2,
   blog3,
@@ -76,14 +75,14 @@ export const featureData = {
       iconBoxColor: 'bg-blue-600',
       title: 'One-Click Upload',
       desc: 'Simply drag-and-drop your Zoom/Meet MP4 or paste audio. Zero setup—no Drive scopes, no OAuth friction.',
-      imgSrc: feature1,
+       
     },
     {
       icon: <Bot size={32} />,
       iconBoxColor: 'bg-cyan-500',
       title: 'AI Transcription',
       desc: 'Watch the progress bar as our AI transcribes your call in real-time. No more re-watching or manual note-taking.',
-      imgSrc: feature2,
+      
     },
     {
       icon: <FileJson size={32} />,

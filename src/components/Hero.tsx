@@ -26,7 +26,7 @@ import ReactPlayer from 'react-player/youtube';
 /**
  * Assets
  */
-import { heroBanner } from '@/assets';
+
 import { CirclePlay } from 'lucide-react';
 
 /**
@@ -74,11 +74,7 @@ const Hero = () => {
 
   const scrollYTransform = useTransform(scrollYProgress, [0, 1], [0.85, 1.15]);
 
-  const scale = useSpring(scrollYTransform, {
-    stiffness: 300,
-    damping: 30,
-    restDelta: 0.001,
-  });
+ 
 
   return (
     <section className='py-10 md:py-16'>
