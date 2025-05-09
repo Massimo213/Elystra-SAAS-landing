@@ -50,7 +50,8 @@ const heroChildVariant: Variants = {
   start: {
     y: 30,
     opacity: 0,
-    filter: 'blur(5px)',
+    filter: 'blur(5px)'
+    
   },
   end: {
     y: 0,
@@ -147,70 +148,129 @@ const Hero = () => {
             </Dialog>
           </motion.div>
         </div>
+        {/* PROBLEM SECTION - Improved readability and styling */}
+        <section className="section bg-background py-20">
+          <div className="container max-w-5xl mx-auto">
+            {/* Section Label */}
+            <div className="flex justify-center mb-8">
+              <span className="inline-block px-5 py-1.5 rounded-full bg-primary/20 text-primary font-bold tracking-wide text-sm shadow border border-primary/30">
+                THE PROBLEM
+              </span>
+            </div>
+            {/* Big Headline */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center text-4xl md:text-5xl font-extrabold mb-12 section-title text-foreground"
+            >
+              Manually writing proposals is <span className="text-primary">tedious</span> and <span className="text-primary">slows down</span> your workflow.
+            </motion.h2>
+            {/* Pain Tiles */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {([
+                {
+                  icon: 'X',
+                  title: 'Re‑watching Calls Drains Time',
+                  desc: 'Reviewing calls eats up your evenings and weekends.'
+                },
+                {
+                  icon: 'X',
+                  title: 'Blank‑Page Panic',
+                  desc: 'Staring at a blank doc slows you down and kills momentum.'
+                },
+                {
+                  icon: 'X',
+                  title: 'Copy‑Paste Mess',
+                  desc: 'Jumping between old docs leads to errors and wasted time.'
+                },
+                {
+                  icon: 'X',
+                  title: 'Ghost Risk',
+                  desc: "If you don't send fast, clients disappear."
+                }
+              ]).map((item, idx) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * idx }}
+                  whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(80,80,200,0.10)' }}
+                  className="flex flex-col items-center bg-white rounded-2xl shadow-xl border border-primary/10 px-7 py-10 text-center transition-all duration-300 hover:border-primary/40 hover:shadow-2xl"
+                >
+                  <div className="mb-4 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary to-blue-500">
+                    <span className="text-white text-2xl font-bold">{item.icon}</span>
+                  </div>
+                  <div className="font-bold text-lg text-gray-900 mb-2">{item.title}</div>
+                  <div className="text-muted-foreground text-base">{item.desc}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        <div className='relative mt-12 max-w-screen-xl mx-auto isolate rounded-xl md:mt-16'>
-          <motion.figure
-            className='bg-background/60 border border-slate-800 backdrop-blur-3xl rounded-xl shadow-2xl overflow-hidden'
-            initial={{
-              y: 120,
-              opacity: 0,
-              filter: 'blur(5px)',
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              filter: 'blur(0)',
-            }}
-            transition={{
-              duration: 1.5,
-              delay: 0.5,
-              ease: 'backInOut',
-            }}
-            ref={heroBannerRef}
-            style={{ scale }}
-          >
-            <img
-              src={heroBanner}
-              width={1468}
-              height={815}
-              alt='Elystra dashboard'
-            />
-          </motion.figure>
-
-          {/* Blurry glow effect */}
-          <motion.div
-            className='absolute bg-primary inset-5 blur-[50px] -z-10'
-            initial={{
-              scale: 0.8,
-              opacity: 0,
-            }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-            }}
-            transition={{
-              duration: 2,
-              delay: 0.5,
-              ease: 'backInOut',
-            }}
-          ></motion.div>
-          <motion.div
-            className='absolute inset-0 bg-primary blur-[200px] scale-y-75 scale-x-125 rounded-full -z-10'
-            initial={{
-              scale: 0.4,
-              opacity: 0,
-            }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-            }}
-            transition={{
-              duration: 2,
-              delay: 1.5,
-              ease: 'backOut',
-            }}
-          ></motion.div>
-        </div>
+        {/* SOLUTION SECTION - Improved readability and styling */}
+        <section className="section bg-background py-20">
+          <div className="container max-w-5xl mx-auto">
+            {/* Section Label */}
+            <div className="flex justify-center mb-8">
+              <span className="inline-block px-5 py-1.5 rounded-full bg-primary/20 text-primary font-bold tracking-wide text-sm shadow border border-primary/30">
+                THE SOLUTION
+              </span>
+            </div>
+            {/* Big Headline */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center text-4xl md:text-5xl font-extrabold mb-12 section-title text-foreground"
+            >
+              With Elystra, proposals are <span className="text-primary">instant</span> and <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent font-bold">client-ready</span>.
+            </motion.h2>
+            {/* Solution Tiles */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {([
+                {
+                  icon: '✓',
+                  title: 'Auto-Transcribed Instantly',
+                  desc: 'Upload your call, and Elystra transcribes it in seconds.'
+                },
+                {
+                  icon: '✓',
+                  title: 'AI Pulls Deliverables & Budget',
+                  desc: 'No more manual note-taking—AI extracts what matters.'
+                },
+                {
+                  icon: '✓',
+                  title: 'Client-Ready Scope of Work in One Click',
+                  desc: 'Get a polished, branded proposal ready to send.'
+                },
+                {
+                  icon: '✓',
+                  title: 'Deals Close Faster',
+                  desc: 'Send proposals same-day and win more business.'
+                }
+              ]).map((item, idx) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * idx }}
+                  whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(80,80,200,0.10)' }}
+                  className="flex flex-col items-center bg-white rounded-2xl shadow-xl border border-primary/10 px-7 py-10 text-center transition-all duration-300 hover:border-primary/40 hover:shadow-2xl"
+                >
+                  <div className="mb-4 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary to-blue-500">
+                    <span className="text-white text-2xl font-bold">{item.icon}</span>
+                  </div>
+                  <div className="font-bold text-lg text-gray-900 mb-2">{item.title}</div>
+                  <div className="text-muted-foreground text-base">{item.desc}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
       </motion.div>
     </section>
   );
