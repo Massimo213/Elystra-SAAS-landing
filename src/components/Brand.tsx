@@ -29,7 +29,7 @@ const Brand = () => {
           viewport={{ once: true }}
           className='text-center mb-4 md:mb-6'
         >
-Relied on by high-achievers, multitaskers, and people who just want their email to behave        
+Trusted by top‑billing freelancers, fast‑moving consultants, and small agencies that would rather close deals than wrestle with paperwork.       
 </motion.p>
 
         <motion.div

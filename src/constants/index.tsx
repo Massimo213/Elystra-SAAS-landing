@@ -24,7 +24,13 @@ import {
   LogIn,
   LayoutDashboard,
   PlusCircle,
-  Inbox
+  Inbox,
+  Upload,
+  FileJson,
+  FileText,
+  Highlighter,
+  Clock,
+  Shield
 } from 'lucide-react';
 
 import {
@@ -60,85 +66,90 @@ export const navMenu: MenuItem[] = [
 
 // Hero
 export const heroData = {
-  sectionSubtitle: 'ALL-IN-ONE AI EMAIL ASSISTANT',
-  sectionTitle: 'Tired of Emails Owning You? Meet ',
-  decoTitle: 'Elystra',
-  sectionText: 'Elystra writes, sorts, and manages your inbox so you do not have to. One AI-powered workspace. Every account. Zero overwhelm'
+  sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
+  sectionTitle: 'Stop Re‑Watching Calls. Close the Deal in ',
+  decoTitle: '60 Seconds',
+  sectionText: 'Drop your Meetings recording and download a polished proposal in under 60 seconds. Bill sooner. Sleep earlier.'
 };
 
-// Feature
+
+// Featu  
 export const featureData = {
   sectionSubtitle: 'Features',
-  sectionTitle: 'Everything You Wish Email Could Do, Now It Does',
-  sectionText: 'Elystra handles the writing, organizing, and account juggling. You stay focused, efficient, and 10 steps ahead. No keyboard smashing required.',
+  sectionTitle: 'From Calls to Ready Proposals in 60 Seconds',
+  sectionText: 'Transform your client calls into professional proposals automatically. No more re-watching recordings or manual note-taking.',
   features: [
     {
-      icon: <Bot size={32} />,
+      icon: <Upload size={32} />,
       iconBoxColor: 'bg-blue-600',
-      title: 'Inbox Chatbot',
-      desc: 'Ask Elystra to find, draft, summarize, or snoop. Your personal ChatGPT, trained on your email life.',
+      title: 'One-Click Upload',
+      desc: 'Simply drag-and-drop your Zoom/Meet MP4 or paste audio. Zero setup—no Drive scopes, no OAuth friction.',
       imgSrc: feature1,
     },
     {
-      icon: <Pen size={32} />,
+      icon: <Bot size={32} />,
       iconBoxColor: 'bg-cyan-500',
-      title: 'AI-Powered Email Writer',
-      desc: 'Elystra writes your emails for you faster, smarter, and always in your voice. Whether it is a quick reply or a formal message, just tell it what you need and hit send.',
+      title: 'AI Transcription',
+      desc: 'Watch the progress bar as our AI transcribes your call in real-time. No more re-watching or manual note-taking.',
       imgSrc: feature2,
     },
     {
-      icon: <UserRoundPen size={32} />,
+      icon: <FileJson size={32} />,
       iconBoxColor: 'bg-yellow-500',
-      title: 'All Accounts, One Interface',
-      desc: 'Manage all your inboxes in a single, seamless dashboard.',
+      title: 'Smart Extraction',
+      desc: 'AI automatically extracts deliverables, timeline, budget, and next steps from your conversation.',
     },
     {
-      icon: <Moon size={32} />,
+      icon: <FileText size={32} />,
       iconBoxColor: 'bg-red-500',
-      title: 'Dark Mode',
-      desc: 'Your eyes (and soul) will thank you.',
+      title: 'One-Click Proposal',
+      desc: 'Generate a branded PDF or export to Notion/Markdown with a single click. Close deals faster.',
     },
     {
-      icon: <Inbox size={32} />,
+      icon: <Highlighter size={32} />,
       iconBoxColor: 'bg-green-500',
-      title: 'Smart Reminders',
-      desc: 'Never miss an important email again. Elystra automatically sets reminders.',
+      title: 'Quick Edit & Review',
+      desc: 'Yellow highlights show AI-detected items for easy review. Build trust and reduce errors.',
     },
     {
-      icon: <Folder size={32} />,
+      icon: <Clock size={32} />,
       iconBoxColor: 'bg-purple-500',
-      title: 'Smart Folders (Coming Soon)',
-      desc: 'Custom folders that auto-sort your chaos into calm.',
+      title: 'Save Hours',
+      desc: 'Turn a 2-4 hour manual process into a 60-second automated workflow.',
     },
-    
   ],
 };
 
 // Process
 export const processData = {
   sectionSubtitle: 'How it works',
-  sectionTitle: 'Easy Process to Get Started',
-  sectionText: 'Discover how it works by leveraging advanced algorithms and data analysis techniques.',
+  sectionTitle: 'From Recording to Proposal in 3 Simple Steps',
+  sectionText: 'Transform your client calls into professional proposals in minutes, not hours.',
   list: [
     {
-      icon: <LogIn size={32} />,
-      title: 'Choose your main email',
-      text: 'Click on Sign In. Pick the email you want to use to manage all your inboxes. This will be your main Elystra account.',
+      icon: <Upload size={32} />,
+      title: 'Upload Your Recording',
+      text: 'Drag in your Zoom/Meet recording. Watch the progress bar while it uploads securely.',
     },
     {
-      icon: <LayoutDashboard size={32} />,
-      title: 'You are taken to your dashboard',
-      text: 'Right after choosing your main email, we will send you straight to your Elystra dashboard.',
+      icon: <Clock size={32} />,
+      title: 'Wait 60 Seconds',
+      text: 'Our AI listens, extracts key details, and drafts your proposal automatically.',
     },
     {
-      icon: <PlusCircle size={32} />,
-      title: 'Click "Add Account"',
-      text: 'In your dashboard, tap the "Add Account" button to connect more email accounts.',
+      icon: <Highlighter size={32} />,
+      title: 'Review & Customize',
+      text: 'Click yellow highlights to adjust prices or dates. Hit "Update" to refresh the proposal.',
     },
     {
-      icon: <Inbox size={32} />,
-      title: 'Connect your other inboxes',
-      text: 'Click Add Accounts to pick the other inboxes you want Elystra to help with. That is it—no setup, no tech stuff.',
+      icon: <FileText size={32} />,
+      title: 'Download & Share',
+      text: 'Get your polished PDF or copy to Notion. Send it, get signed, and get paid.',
+    },
+    {
+      icon: <Shield size={32} />,
+      title: 'Privacy First',
+      text: 'Your raw recording auto-deletes after 24 hours. Client information stays private, always.',
     },
   ],
 };
@@ -146,50 +157,58 @@ export const processData = {
 // Overview
 export const overviewData = {
   sectionSubtitle: 'Overview',
-  sectionTitle: 'Win Back Your Time with Elystra',
-  sectionText: 'Let Elystra handle your inbox so you gain hours each week to focus on what truly matters.',
-  listTitle: 'Your Time Savings',
+  sectionTitle: 'Win Back Your Billable Hours',
+  sectionText:
+    'Stop burning evenings writing proposals. Drop your client call, let our AI draft the scope, and get back to paid work in minutes. More than 1,200 early adopters already swear by the time they’ve reclaimed.',
+  listTitle: 'What You Reclaim',
   list: [
     {
-      title: '10h+',
-      text: 'Average hours won per week to reinvest in growth',
+      title: '3 h+',
+      text: 'Average hours saved on every single proposal',
     },
     {
-      title: '520h+',
-      text: 'Estimated annual hours saved for deeper focus',
+      title: '12 h+',
+      text: 'Typical weekly time won for solo consultants & freelancers',
     },
     {
-      title: '2x',
-      text: 'Faster decision-making with instant email summaries',
+      title: '50 %',
+      text: 'Increase in deal‑close speed when proposals arrive the same day',
+    },
+    {
+      title: '1,200+',
+      text: 'Early adopters already using Call → Proposal every week',
     },
   ],
 };
 
+
+
 // Review
 export const reviewData = {
   sectionSubtitle: 'Reviews',
-  sectionTitle: 'What Our Users Are Saying',
+  sectionTitle: 'What Users Really Think',
   reviewCard: [
     {
-      title: 'Emailing feels effortless now.',
-      text: 'Elystra writes most of my emails for me. It is like having a smart assistant 24/7.',
-      reviewAuthor: 'Wade Warren',
-      date: '4 days ago',
+      title: 'Closed the deal before lunch.',
+      text: 'Uploaded a 45‑min discovery call at 9 AM, sent the AI‑generated proposal by 10. Client signed the same afternoon.',
+      reviewAuthor: 'Jasmine Patel · Web‑dev freelancer',
+      date: '3 days ago',
     },
     {
-      title: 'Support is fast and actually helpful.',
-      text: 'Whenever I needed help, the Elystra team was quick and knew exactly what to do.',
-      reviewAuthor: 'Dianne Russell',
+      title: 'Saved me a whole Saturday.',
+      text: 'Writing proposals used to eat my weekends. Now it’s drag‑drop, quick edit, download. Three proposals done in an hour.',
+      reviewAuthor: 'Ethan Brooks · Marketing consultant',
       date: '1 week ago',
     },
     {
-      title: 'Finally, something better than Gmail.',
-      text: 'Other email tools just feel outdated now. Elystra is smoother, smarter, and actually fun to use.',
-      reviewAuthor: 'Marvin McKinney',
-      date: '2 days ago',
+      title: 'No more blank‑page panic.',
+      text: 'The draft is 90 % there—deliverables, timeline, pricing table. I tweak a few numbers and hit send. Total game‑changer.',
+      reviewAuthor: 'Lena Kim · UX designer',
+      date: '5 days ago',
     },
   ],
 };
+
 
 // Blog
 export const blogData = {
@@ -235,7 +254,7 @@ export const blogData = {
 
 // Cta
 export const ctaData = {
-  text: 'Boost your productivity by working on what actually matters.',
+  text: 'Transform your client calls into professional proposals in minutes, not hours.',
 };
 
 // Footer
@@ -352,5 +371,61 @@ export const footerData = {
       href: '#',
       icon: <Youtube size={18} />,
     },
+  ],
+};
+
+// Pricing 
+export const pricingData = { 
+  sectionSubtitle: 'Pricing',
+  sectionTitle: 'Ready to Close Deals ?',
+  sectionText: 'Start free, scale as you grow. Limited Founder Pass available for early adopters.',
+  plans: [
+    {
+      name: 'Starter (Beta-Free)',
+      price: 0,
+      isMonthly: false,
+      tagline: 'Try it free, no card required',
+      features: [
+        { name: '2 proposal per month', included: true },
+        { name: 'Up to 20 min of audio', included: true },
+        { name: 'PDF + Notion export', included: true },
+        { name: 'Basic support', included: true },
+      ],
+      cta: 'Start Free',
+      popular: false,
+    },
+    {
+      name: 'Pro',
+      price: 19,
+      isMonthly: true,
+      tagline: 'Most popular among our users',
+      features: [
+        { name: 'Up to 10 proposals / month', included: true },
+        { name: '5 hours audio included', included: true },
+        { name: '$0.10 / extra min', included: true },
+        { name: 'Custom logo on PDFs', included: true },
+        { name: 'Priority support', included: true },
+      ],
+      cta: 'Get Started',
+      popular: true,
+      badge: 'Most Popular',
+    },
+    {
+      name: 'Founder Pass',
+      price: 59,
+      isMonthly: false,
+      tagline: 'Limited to first 25 users',
+      features: [
+        { name: 'Lifetime access', included: true },
+        { name: '10 hours transcription / month', included: true },
+        { name: 'Priority feature voting', included: true },
+        { name: '"Founding Member" badge', included: true },
+        { name: 'Priority support', included: true },
+      ],
+      cta: 'Claim Founder Pass',
+      popular: false,
+      badge: '25 spots left',
+    },
+   
   ],
 };
