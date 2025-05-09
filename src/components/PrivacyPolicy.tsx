@@ -7,7 +7,7 @@
  * Node modules
  */
 import { motion } from 'motion/react';
-import { Shield, Lock, Clock, Mail, FileText, AlertCircle, Book, Scale, Database, Globe, Key, Cookie, Users, RefreshCw, Building2 } from 'lucide-react';
+import {  Book, Scale, Database, Key, Building2 } from 'lucide-react';
 
 /**
  * Components

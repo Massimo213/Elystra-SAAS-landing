@@ -12,7 +12,7 @@ import { motion } from 'motion/react';
  * Components
  */
 import FeatureCard from '@/components/FeatureCard';
-import { Button } from '@/components/ui/button';
+
 
 /**
  * Assets

@@ -11,20 +11,12 @@ import { MenuItem } from '@/types';
  * Assets
  */
 import {
-  UserRoundPen,
   Twitter,
   Github,
   Linkedin,
   Instagram,
   Youtube,
   Bot,
-  Pen,
-  Moon,
-  Folder,
-  LogIn,
-  LayoutDashboard,
-  PlusCircle,
-  Inbox,
   Upload,
   FileJson,
   FileText,
