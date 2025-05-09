@@ -60,7 +60,7 @@ export const navMenu: MenuItem[] = [
 export const heroData = {
   sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
   sectionTitle: 'Stop Re‑Watching Calls. Close the Deal in ',
-  decoTitle: '60 Seconds',
+  decoTitle: 'Minutes',
   sectionText: 'Drop your Meetings recording and download a polished proposal in under 60 seconds. Bill sooner. Sleep earlier.'
 };
 

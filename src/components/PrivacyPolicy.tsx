@@ -227,7 +227,7 @@ const PrivacyPolicy = () => {
                       <tbody className='divide-y divide-gray-200'>
                         <tr>
                           <td className='px-6 py-4 text-sm font-medium text-gray-900'>Access / Portability</td>
-                          <td className='px-6 py-4 text-sm text-gray-600'>Email privacy@c2p.app</td>
+                          <td className='px-6 py-4 text-sm text-gray-600'>elystrahelpmeteam@gmail.com</td>
                           <td className='px-6 py-4 text-sm text-gray-600'>30 days</td>
                         </tr>
                         <tr>
