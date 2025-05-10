@@ -63,7 +63,7 @@ const heroChildVariant: Variants = {
 };
 
 const Hero = () => {
-  // const heroBannerRef = useRef<HTMLElement>(null);
+  // const heroBannerRef = useRef<HTMLElement>( null);
 
   // const { scrollYProgress } = useScroll({
   //   target: heroBannerRef,
@@ -78,6 +78,7 @@ const Hero = () => {
   //   restDelta: 0.001,
   // });
 
+  
   return (
     <section className='py-10 md:py-16'>
       <motion.div
@@ -113,7 +114,6 @@ const Hero = () => {
           >
             {heroData.sectionText}
           </motion.p>
-
           <motion.div
             variants={heroChildVariant}
             className='flex justify-center gap-2 mt-6 md:mt-10'
@@ -162,7 +162,7 @@ const Hero = () => {
               viewport={{ once: true }}
               className="text-center text-4xl md:text-5xl font-extrabold mb-12 section-title text-foreground"
             >
-              Manually writing proposals is <span className="text-primary">tedious</span> and <span className="text-primary">slows down</span> your workflow.
+              Manually writing <span className="text-primary">Proposals</span> and <span className="text-primary">Scopes of Work</span> is <span className="text-primary">tedious</span> and <span className="text-primary">slows down</span> your workflow.
             </motion.h2>
             {/* Pain Tiles */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
