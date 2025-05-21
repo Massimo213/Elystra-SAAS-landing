@@ -114,6 +114,7 @@ const Overview = () => {
                   />
                 </AspectRatio>
               </DialogContent>
+              
             </Dialog>
           </motion.div>
 

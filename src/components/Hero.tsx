@@ -120,15 +120,11 @@ const Hero = () => {
           >
 
 
-<a href='https://my.elystra.online/sign-up'>
-            <Button>Start Free Trial</Button>
+<a href='https://app.elystra.online/sign-up'>
+            <Button>Start Now </Button>
 </a>
             <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="secondary">
-                  <CirclePlay /> Watch Demo
-                </Button>
-              </DialogTrigger>
+              
 
               <DialogContent className='p-0 overflow-hidden max-w-[640px] xl:max-w-[1000px]'>
                 <AspectRatio ratio={16 / 9}>

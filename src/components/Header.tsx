@@ -101,10 +101,10 @@ const Header = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <div className='flex items-center gap-2 justify-end max-lg:hidden'>
-          <a href='https://my.elystra.online/sign-up'>
+          <a href='https://app.elystra.online/sign-up'>
             <Button variant='ghost'>Sign In</Button>
           </a>
-          <a href='https://my.elystra.online/sign-up'>
+          <a href='https://app.elystra.online/sign-up'>
             <Button>Get Started</Button>
           </a>
         </div>

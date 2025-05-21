@@ -111,7 +111,9 @@ export default function Pricing() {
                       : 'bg-white text-primary hover:bg-gray-50 hover:shadow-md border border-gray-200'
                   }`}
                 >
+                  <a href="https://app.elystra.online/">
                   {plan.cta}
+                  </a>
                 </Button>
               </motion.div>
             ))}

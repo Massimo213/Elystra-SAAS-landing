@@ -59,7 +59,7 @@ export const navMenu: MenuItem[] = [
 export const heroData = {
   sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
   sectionTitle: 'Stop Re‑Watching Calls. Close the Deal in ',
-  decoTitle: 'Minutes',
+  decoTitle: 'Seconds',
   sectionText: 'Drop your Meetings recording and download a polished proposal in under 60 seconds. Bill sooner. Sleep earlier.'
 };
 
@@ -67,7 +67,7 @@ export const heroData = {
 // Featu  
 export const featureData = {
   sectionSubtitle: 'Features',
-  sectionTitle: 'From Calls to Ready Proposals in 60 Seconds',
+  sectionTitle: 'From Calls to Ready Proposals in less 60 Seconds',
   sectionText: 'Transform your client calls into professional proposals automatically. No more re-watching recordings or manual note-taking.',
   features: [
     {
@@ -358,55 +358,53 @@ export const footerData = {
 // Pricing 
 export const pricingData = { 
   sectionSubtitle: 'Pricing',
-  sectionTitle: 'Ready to Close Deals ?',
-  sectionText: 'Start free, scale as you grow. Limited Founder Pass available for early adopters.',
+  sectionTitle: 'Choose Your Plan',
+  sectionText: 'Simple, transparent pricing for every business need',
   plans: [
     {
-      name: 'Starter (Beta-Free)',
+      name: ' Starter',
       price: 0,
       isMonthly: false,
-      tagline: 'Try it free, no card required',
+      tagline: 'Free plan to get you started',
       features: [
         { name: '2 proposal per month', included: true },
-        { name: 'Up to 20 min of audio', included: true },
-        { name: 'PDF + Notion export', included: true },
-        { name: 'Basic support', included: true },
+        { name: 'Up to 10 minutes of audio/video', included: true },
+        { name: 'Basic PDF export', included: true },
+        { name: '7-day access to generated proposals', included: true },
       ],
       cta: 'Start Free',
       popular: false,
     },
     {
-      name: 'Pro',
-      price: 19,
+      name: 'Professional',
+      price: 29,
       isMonthly: true,
-      tagline: 'Most popular among our users',
+      tagline: 'Most popular for freelancers & small teams',
       features: [
-        { name: 'Up to 10 proposals / month', included: true },
-        { name: '5 hours audio included', included: true },
-        { name: '$0.10 / extra min', included: true },
-        { name: 'Custom logo on PDFs', included: true },
-        { name: 'Priority support', included: true },
+        { name: '20 proposals per month', included: true },
+        { name: 'Up to 1 GB of upload per audio/video file', included: true },
+        { name: 'PDF export with download options', included: true },
+        { name: '30-day access to all proposals', included: true },
+        { name: 'Email support', included: true },
       ],
       cta: 'Get Started',
       popular: true,
       badge: 'Most Popular',
     },
     {
-      name: 'Founder Pass',
-      price: 59,
-      isMonthly: false,
-      tagline: 'Limited to first 25 users',
+      name: ' Business',
+      price: 69,
+      isMonthly: true,
+      tagline: 'For growing teams with higher volume',
       features: [
-        { name: 'Lifetime access', included: true },
-        { name: '10 hours transcription / month', included: true },
-        { name: 'Priority feature voting', included: true },
-        { name: '"Founding Member" badge', included: true },
-        { name: 'Priority support', included: true },
+        { name: 'Unlimited  proposals per month', included: true },
+        { name: 'Up to 3 GB of upload per audio/video file', included: true },
+        { name: 'PDF export with download options', included: true },
+        { name: '90-day access to all proposals', included: true },
+        { name: 'Priority email support', included: true },
       ],
-      cta: 'Claim Founder Pass',
+      cta: 'Upgrade to Business',
       popular: false,
-      badge: '25 spots left',
     },
-   
   ],
 };
