@@ -17,7 +17,7 @@ import {
  * Components
  */
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import ReactPlayer from 'react-player/youtube';
 
@@ -25,7 +25,7 @@ import ReactPlayer from 'react-player/youtube';
  * Assets
  */
 
-import { CirclePlay } from 'lucide-react';
+
 
 /**
  * Constants
