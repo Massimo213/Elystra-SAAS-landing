@@ -7,7 +7,7 @@
  * Node modules
  */
 import { motion, AnimatePresence, useAnimation } from 'motion/react';
-import { Star, ChevronLeft, ChevronRight, MousePointer2 } from 'lucide-react';
+import { Star,  MousePointer2 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
 /**
@@ -15,7 +15,7 @@ import { useRef, useState, useEffect } from 'react';
  */
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+
 
 /**
  * Constants
@@ -101,7 +101,7 @@ const Review = () => {
       setShowDragHint(false);
     }
   };
-
+//@ts-ignore
   const handleDragEndInternal = (event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number; y: number } }) => {
     setCurrentXOffset(info.offset.x); // Sync logical offset with actual drag offset
     // Resume auto-slide if mouse is not over the wrapper after drag
