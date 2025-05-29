@@ -29,9 +29,9 @@ const MainContent = () => (
   <main>
     <Hero />
     <Brand />
-    <Feature />
+    <Process />  
     <Review />
-    <Process />
+    <Feature />
     <Overview />
     <About/>
     <Pricing />
