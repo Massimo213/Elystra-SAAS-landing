@@ -12,6 +12,7 @@ import { Routes, Route } from 'react-router-dom';
 /**
  * Components
  */
+import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Brand from '@/components/Brand';
@@ -41,7 +42,9 @@ const MainContent = () => (
 
 const App = () => {
   return (
+    
     <ReactLenis root>
+      <Analytics /> 
       <div className='relative isolate overflow-hidden'>
         <Header />
         <Routes>
@@ -51,6 +54,7 @@ const App = () => {
         </Routes>
       </div>
     </ReactLenis>
+   
   );
 };
 
