@@ -10,8 +10,7 @@ import { motion } from 'motion/react';
 
 /**
  * Assets
- */
-import { brands } from '@/assets';
+
 
 /**
  * Framer motion variants
