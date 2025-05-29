@@ -26,11 +26,16 @@ const Brand = () => {
           variants={variants.fadeInUp}
           initial='start'
           whileInView='end'
-          viewport={{ once: true }}
-          className='text-center mb-4 md:mb-6'
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut"}}
+          className='text-xl md:text-2xl lg:text-3xl font-semibold text-center text-foreground mb-8 md:mb-12 leading-tight md:leading-snug'
         >
-Trusted by top‑billing freelancers, fast‑moving consultants, and small agencies that would rather close deals than wrestle with paperwork.       
-</motion.p>
+          Join the Ranks of High-Performers: Elite Freelancers, Agile Consultants, 
+          and Growth-Driven Agencies Who Choose <br className="hidden sm:block lg:hidden" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-sky-500 to-emerald-500 dark:from-primary dark:via-sky-400 dark:to-emerald-400 font-bold pb-1">
+            Speed & Success
+          </span> Over Endless Paperwork.
+        </motion.p>
 
         <motion.div
           variants={variants.staggerContainer}
@@ -40,7 +45,7 @@ Trusted by top‑billing freelancers, fast‑moving consultants, and small agenc
           className='flex justify-center flex-wrap gap-5 md:gap-10'
         >
           
-          {brands.map((brand, index) => (
+          {/* {brands.map((brand, index) => (
             <motion.figure
               variants={variants.fadeInUp}
               key={index}
@@ -51,7 +56,7 @@ Trusted by top‑billing freelancers, fast‑moving consultants, and small agenc
                 className='opacity-[0.6] '
               />
             </motion.figure>
-          ))}
+          ))} */}
         </motion.div>
       </div>
     </section>

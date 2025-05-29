@@ -3,128 +3,119 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
+    <div id='about'>
     <section className="min-h-screen bg-[#fafafa] py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-6xl font-bold text-[#1a1a1a] mb-20"
+          className="text-5xl md:text-6xl font-bold text-[#1a1a1a] mb-16 text-center"
         >
-          About Us
+          The Market Waits for No One. <br className="hidden md:block" /> Win with <span className="text-[#7c3aed]">Elystra's</span> Unmatched Speed.
         </motion.h1>
 
-        {/* First Profile */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex gap-16 items-start mb-32"
+          className="mb-12 text-center"
         >
-          <div className="w-[240px] h-[240px] rounded-full overflow-hidden flex-shrink-0">
-            <div className="w-full h-full bg-[#f0e7ff] flex items-center justify-center">
-              <span className="text-2xl text-[#1a1a1a]">Massimo</span>
-            </div>
-          </div>
-          <div>
-            <div className="mb-6">
-              <h2 className="text-4xl font-bold text-[#1a1a1a] mb-2">Massimo</h2>
-              <p className="text-lg text-[#666666]">Founder & CEO</p>
-            </div>
-            <div className="space-y-4">
-              <p className="text-xl leading-relaxed">
-                <span className="bg-[#f0e7ff] px-1">
-                  I started Elystra because my own inbox was driving me crazy with endless emails to manage.
-                </span>
-              </p>
-              <p className="text-xl leading-relaxed text-[#666666]">
-                As a privacy advocate and AI enthusiast, I wanted to create something that would make email 
-                work faster and smarter for everyone, while keeping your data secure and private.
-              </p>
-            </div>
-          </div>
+          <p className="text-xl lg:text-2xl leading-relaxed text-[#333333] max-w-3xl mx-auto">
+            Tired of proposals taking <span className="font-semibold text-[#1a1a1a]">hours, not minutes?</span> 
+            Frustrated by deals dragging on while you could be delivering impactful work? 
+            In today's hyper-fast market, <span className="bg-[#f0e7ff] px-1">speed is your ultimate weapon.</span>
+          </p>
         </motion.div>
 
-        {/* Second Profile */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex gap-16 items-start mb-32"
+          className="mb-16 p-8 bg-white shadow-xl rounded-lg"
         >
-          <div className="w-[240px] h-[240px] rounded-full overflow-hidden flex-shrink-0">
-            <div className="w-full h-full bg-[#f0e7ff] flex items-center justify-center">
-              <span className="text-2xl text-[#1a1a1a]">Nizaryt</span>
-            </div>
-          </div>
-          <div>
-            <div className="mb-6">
-              <h2 className="text-4xl font-bold text-[#1a1a1a] mb-2">Nizaryt</h2>
-              <p className="text-lg text-[#666666]">Co-founder & CTO</p>
-            </div>
-            <div className="space-y-4">
-              <p className="text-xl leading-relaxed">
-                <span className="bg-[#f0e7ff] px-1">
-                  With a deep passion for design and user experience, I ensure that Elystra isn't just 
-                  powerful, but a joy to use.
-                </span>
-              </p>
-              <p className="text-xl leading-relaxed text-[#666666]">
-                Every interaction, every animation, and every interface element is crafted to make 
-                your email experience seamless and intuitive.
-              </p>
-            </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-[#1a1a1a] mb-6 text-center">
+            Enter Elystra: Your Fast-Track to <span className="text-[#7c3aed]">Dominance</span>.
+          </h2>
+          <div className="space-y-6 text-center">
+            <p className="text-xl lg:text-2xl leading-relaxed text-[#333333]">
+              Create client-winning proposals in <strong className="text-[#7c3aed] bg-[#f0e7ff] px-1">under 60 seconds.</strong>
+            </p>
+            <p className="text-xl lg:text-2xl leading-relaxed text-[#333333]">
+              Move from initial contact to delivering real work in <strong className="text-[#7c3aed] bg-[#f0e7ff] px-1">days, not weeks.</strong>
+            </p>
+            <p className="text-lg lg:text-xl leading-relaxed text-[#666666]">
+              While others are still drafting cover letters, you're closing deals and focusing on what truly matters: your clients and your core work.
+            </p>
           </div>
         </motion.div>
 
-        {/* Team Together */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex gap-16 items-start"
+          className="grid md:grid-cols-3 gap-8 mb-16 text-left"
         >
-          <div className="w-[240px] h-[240px] rounded-full overflow-hidden flex-shrink-0">
-            <div className="w-full h-full bg-[#f0e7ff] flex items-center justify-center">
-              <span className="text-2xl text-[#1a1a1a]">Team</span>
-            </div>
+          {/* Freelancers & Agencies */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-3">For Freelancers & Agencies:</h3>
+            <p className="text-lg leading-relaxed text-[#333333]">
+              Stop drowning in admin. Start <span className="font-semibold text-[#7c3aed]">scaling your income.</span> Elystra reclaims countless billable hours. 
+              Take on <span className="italic">more</span> clients, deliver <span className="italic">faster</span>, and see your earnings soar while peers are buried in paperwork. 
+              Don't just compete; <strong className="bg-[#f0e7ff] px-1">dominate your niche.</strong>
+            </p>
           </div>
-          <div>
-            <div className="mb-6">
-              <h2 className="text-4xl font-bold text-[#1a1a1a] mb-2">Together</h2>
-              <p className="text-lg text-[#666666]">The Dream Team</p>
-            </div>
-            <div className="space-y-4">
-              <p className="text-xl leading-relaxed">
-                <span className="bg-[#f0e7ff] px-1">
-                  United by our shared vision for privacy-first technology and ethical AI,
-                  we're building Elystra to be the email assistant we always wished existed.
-                </span>
-              </p>
-              <p className="text-xl leading-relaxed text-[#666666]">
-                Our complementary skills and relentless pursuit of excellence make us the 
-                perfect team to revolutionize email management.
-              </p>
-            </div>
+
+          {/* Executives & Leaders */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-3">For Executives & Leaders:</h3>
+            <p className="text-lg leading-relaxed text-[#333333]">
+              Is your team equipped to win? Elystra empowers them to operate at <span className="font-semibold text-[#7c3aed]">peak velocity</span>, slashing turnaround times and boosting output. 
+              Lead your industry, or risk being outpaced by those who've already embraced the future. <strong className="bg-[#f0e7ff] px-1">The market won't wait.</strong>
+            </p>
           </div>
+
+          {/* Sales Teams */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-3">For Sales Professionals:</h3>
+            <p className="text-lg leading-relaxed text-[#333333]">
+              Tired of hot leads going cold? Be <span className="font-semibold text-[#7c3aed]">first to the punch.</span> Generate compelling proposals on the fly and shorten your sales cycle dramatically. 
+              Top performers are leveraging this speed. <strong className="bg-[#f0e7ff] px-1">Are you ready to join them?</strong>
+            </p>
+          </div>
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mb-16 text-center"
+        >
+          <p className="text-xl lg:text-2xl leading-relaxed text-[#1a1a1a] max-w-3xl mx-auto font-semibold">
+            The Elystra advantage is real. This isn't just efficiency; it's seizing a <span className="text-[#7c3aed]">rapidly closing window</span> to redefine what's possible.
+          </p>
+           <p className="text-lg lg:text-xl leading-relaxed text-[#666666] max-w-2xl mx-auto mt-4">
+            Don't be the one wondering 'what if?'. The tools to outperform, outpace, and outmaneuver are here. The only question is, <span className="italic">will you use them?</span>
+          </p>
         </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20 text-center"
+          transition={{ duration: 0.6, delay: 1.0 }}
+          className="mt-12 text-center"
         >
           <Button 
-            variant="outline" 
+            variant="default" 
             size="lg"
-            className="text-[#1a1a1a] border-[#1a1a1a] hover:bg-[#f0e7ff] hover:text-[#1a1a1a] transition-all duration-300"
+            className="bg-[#7c3aed] text-white hover:bg-[#6b2db0] text-xl px-10 py-6 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Get in Touch
+            Unlock Your Speed Advantage Now
           </Button>
         </motion.div>
       </div>
     </section>
+    </div>
   );
 };
 

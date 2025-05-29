@@ -46,7 +46,7 @@ export const navMenu: MenuItem[] = [
     label: 'Pricing',
   },
   {
-    href: '',
+    href: '#about',
     label: 'About',
   },
   {
@@ -58,7 +58,7 @@ export const navMenu: MenuItem[] = [
 // Hero
 export const heroData = {
   sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
-  sectionTitle: 'Stop Re‑Watching Calls. Close the Deal in ',
+  sectionTitle: 'Skip Tedious Replays. Get Proposals Signed in ',
   decoTitle: 'Seconds',
   sectionText: 'Drop your Meetings recording and download a polished proposal in under 60 seconds. Bill sooner. Sleep earlier.'
 };
@@ -171,21 +171,39 @@ export const reviewData = {
   reviewCard: [
     {
       title: 'Closed the deal before lunch.',
-      text: 'Uploaded a 45‑min discovery call at 9 AM, sent the AI‑generated proposal by 10. Client signed the same afternoon.',
-      reviewAuthor: 'Jasmine Patel · Web‑dev freelancer',
+      text: 'Uploaded a 45‑min discovery call at 9 AM, sent the AI‑generated proposal by 10. Client signed the same afternoon. Elystra is pure speed!',
+      reviewAuthor: 'Jasmine P. · Freelance Web Developer',
       date: '3 days ago',
     },
     {
       title: 'Saved me a whole Saturday.',
-      text: 'Writing proposals used to eat my weekends. Now it is drag‑drop, quick edit, download. Three proposals done in an hour.',
-      reviewAuthor: 'Ethan Brooks · Marketing consultant',
+      text: 'Writing proposals used to eat my weekends. Now it is drag‑drop, quick edit, download. Three proposals done in an hour. Unbelievable transformation.',
+      reviewAuthor: 'Ethan B. · Marketing Consultant',
       date: '1 week ago',
     },
     {
       title: 'No more blank‑page panic.',
-      text: 'The draft is 90 % there—deliverables, timeline, pricing table. I tweak a few numbers and hit send. Total game‑changer.',
-      reviewAuthor: 'Lena Kim · UX designer',
+      text: 'The draft is 90% there—deliverables, timeline, pricing. I just tweak and send. If you value your time, this is a no-brainer.',
+      reviewAuthor: 'Lena K. · UX/UI Designer',
       date: '5 days ago',
+    },
+    {
+      title: "Got In Early - Best Decision!",
+      text: "So glad I was one of the first to discover Elystra! It felt like a secret weapon from day one. The edge it gives me is incredible. Plus, their team actually listens to early users – felt like I got VIP treatment!",
+      reviewAuthor: 'Alex R. · Growth Strategist',
+      date: '2 months ago',
+    },
+    {
+      title: "How Is This Not EVERYWHERE?!",
+      text: "Seriously, I'm almost hesitant to share how good Elystra is. It's the kind of tool that gives you an actual, measurable edge. My proposal workflow is lightyears ahead. Stunned it's not famous... yet. Get it before your competitors do!",
+      reviewAuthor: 'Maria S. · Sales Director',
+      date: '3 weeks ago',
+    },
+    {
+      title: "My Competitors Are Still Typing...",
+      text: "While my competition is stuck in the old ways, I'm sending out stunning proposals lightning fast. Elystra isn't just a tool; it's my unfair advantage. The results? More deals, bigger clients, less stress. It's a game changer.",
+      reviewAuthor: 'Chloe B. · Agency Owner',
+      date: '6 weeks ago',
     },
   ],
 };

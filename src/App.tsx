@@ -29,11 +29,12 @@ const MainContent = () => (
     <Hero />
     <Brand />
     <Feature />
+    <Review />
     <Process />
     <Overview />
-    <Review />
+    <About/>
     <Pricing />
-    <Cta />
+    <Cta/>
     <PrivacyPolicy />
   </main>
 );
