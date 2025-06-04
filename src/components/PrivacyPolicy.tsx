@@ -7,7 +7,7 @@
  * Node modules
  */
 import { motion } from 'motion/react';
-import { Book, Scale, Database, Key, Building2, Share2, Archive, ShieldCheck, Globe, Link as LinkIcon, Users, FileText as FileTextIcon, Info } from 'lucide-react';
+import { Book, Scale, Database, Key, Building2, Share2, Archive, ShieldCheck,Link as LinkIcon, Users, FileText as FileTextIcon, Info } from 'lucide-react';
 
 /**
  * Components
@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Book size={20} md:size={24} />
+                      <Book size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>1. Welcome</h3>
                   </div>
@@ -119,7 +119,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Database size={20} md:size={24} />
+                      <Database size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>2. The Data We Collect</h3>
                   </div>
@@ -152,7 +152,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                      <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Key size={20} md:size={24} />
+                      <Key size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>3. How We Use Your Data</h3>
                   </div>
@@ -177,7 +177,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Share2 size={20} md:size={24} />
+                      <Share2 size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>4. How We Share Your Data</h3>
                   </div>
@@ -198,7 +198,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Archive size={20} md:size={24} />
+                      <Archive size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>5. Data Retention</h3>
                   </div>
@@ -244,7 +244,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <ShieldCheck size={20} md:size={24} />
+                      <ShieldCheck size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>6. Security Measures</h3>
                   </div>
@@ -274,7 +274,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Scale size={20} md:size={24} />
+                      <Scale size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>8. Your Rights & Choices</h3>
                   </div>
@@ -299,7 +299,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Users size={20} md:size={24} />
+                      <Users size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>9. Children</h3>
                   </div>
@@ -318,7 +318,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <LinkIcon size={20} md:size={24} />
+                      <LinkIcon size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>10. Third‑Party Links</h3>
                   </div>
@@ -332,7 +332,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <FileTextIcon size={20} md:size={24} />
+                      <FileTextIcon size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>11. Changes to This Policy</h3>
                   </div>
@@ -346,7 +346,7 @@ const PrivacyPolicy = () => {
                 <CardContent className='p-6'>
                   <div className='flex items-start md:items-center gap-4 mb-4'>
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
-                      <Building2 size={20} md:size={24} />
+                      <Building2 size={20} />
                     </div>
                     <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>12. Contact & 13. Effective Date</h3>
                   </div>
