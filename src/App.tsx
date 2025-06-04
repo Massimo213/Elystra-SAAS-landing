@@ -31,9 +31,9 @@ const MainContent = () => (
     <Brand />
     <Process />  
     <Review />
+    <About/>
     <Feature />
     <Overview />
-    <About/>
     <Pricing />
     <Cta/>
     <PrivacyPolicy />

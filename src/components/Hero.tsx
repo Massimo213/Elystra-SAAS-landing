@@ -331,7 +331,7 @@ const Hero = () => {
                 className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-sky-400 dark:from-primary dark:via-blue-400 dark:to-sky-300"
                 style={{ textShadow: '0 0 10px rgba(var(--primary-rgb), 0.3), 0 0 20px rgba(var(--primary-rgb), 0.2)' }} // Assuming primary color is set as CSS variable --primary-rgb
               >
-                Client-Winning Proposal
+                Client-Winning Proposal<div></div>
               </span>
                in Clicks
             </motion.h2>
