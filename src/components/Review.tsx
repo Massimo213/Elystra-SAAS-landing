@@ -8,7 +8,7 @@
  */
 import { motion, useScroll, useTransform, AnimatePresence, PanInfo } from 'motion/react';
 import { useState, useRef, useEffect } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight, Sparkles, TrendingUp } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react';
 
 /**
  * Constants
@@ -52,7 +52,7 @@ const Review = () => {
     }
   }, [isAutoPlaying]);
 
-  const handleDragEnd = (event: any, info: PanInfo) => {
+  const handleDragEnd = (_event: any, info: PanInfo) => {
     const threshold = 50;
     if (info.offset.x > threshold) {
       setDirection(-1);
@@ -340,7 +340,7 @@ const Review = () => {
                   setActiveIndex(index);
                 }}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  index === activeIndex ? 'bg-white w-6' : 'bg-white/40'
+                  index === activeIndex ? 'bg-white w-6': 'bg-white/40'
                 }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.8 }}

@@ -13,7 +13,6 @@ import { Play, Sparkles, ArrowRight, Zap, Crown, Shield } from 'lucide-react';
 /**
  * Components
  */
-import FeatureCard from '@/components/FeatureCard';
 
 
 /**
@@ -25,7 +24,6 @@ import FeatureCard from '@/components/FeatureCard';
  * Constants
  */
 import { featureData } from '@/constants';
-import { Link } from 'react-router';
 
 /**
  * Framer motion variants
@@ -46,7 +44,6 @@ interface FeatureDemoProps {
 
 const Feature = () => {
   const [activeFeature, setActiveFeature] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const containerRef = useRef(null);
   
   const { scrollYProgress } = useScroll({
@@ -161,8 +158,7 @@ const Feature = () => {
           whileTap={{ scale: 0.95 }}
           onClick={(e) => {
             e.stopPropagation();
-            setIsPlaying(true);
-            setTimeout(() => setIsPlaying(false), 2000);
+            setTimeout(() => setActiveFeature(index), 2000);
           }}
         >
           <Play size={16} />
