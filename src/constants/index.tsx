@@ -58,9 +58,10 @@ export const navMenu: MenuItem[] = [
 // Hero
 export const heroData = {
   sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
-  sectionTitle: 'Skip Tedious Replays. Get Proposals Signed in ',
-  decoTitle: 'Seconds',
-  sectionText: 'Drop your Meetings recording and download a polished proposal in under 60 seconds. Bill sooner. Sleep earlier.'
+  sectionTitle: "Your Time Isn't Free.Why Are You",
+  decoTitle: "Wasting It?",
+  sectionText: "Meet. Drop the recording. Get the signed proposal — in 60 seconds. Stop burning hours on paperwork. Start billing faster and looking 10x more professional."
+  
 };
 
 
@@ -73,40 +74,40 @@ export const featureData = {
     {
       icon: <Upload size={32} />,
       iconBoxColor: 'bg-blue-600',
-      title: 'One-Click Upload',
-      desc: 'Simply drag-and-drop your Zoom/Meet MP4 or paste audio. Zero setup—no Drive scopes, no OAuth friction.',
+      title: 'Multiple Export Formats',
+      desc: 'Export as PDF (Free), or unlock DOCX and Google Docs formats with Pro. Full editing and customization capabilities.',
        
     },
     {
       icon: <Bot size={32} />,
       iconBoxColor: 'bg-cyan-500',
-      title: 'AI Transcription',
-      desc: 'Watch the progress bar as our AI transcribes your call in real-time. No more re-watching or manual note-taking.',
+      title: 'Premium Templates',
+      desc: 'Access sector-specific, high-conversion templates: Technical Consulting, Marketing Strategy, Enterprise Transformation, and more.',
       
     },
     {
       icon: <FileJson size={32} />,
       iconBoxColor: 'bg-yellow-500',
-      title: 'Smart Extraction',
-      desc: 'AI automatically extracts deliverables, timeline, budget, and next steps from your conversation.',
+      title: 'Watermark-Free Delivery',
+      desc: 'Pro users get clean, professional proposals without watermarks. Present your work with complete brand integrity.',
     },
     {
       icon: <FileText size={32} />,
       iconBoxColor: 'bg-red-500',
-      title: 'One-Click Proposal',
-      desc: 'Generate a branded PDF or export to Notion/Markdown with a single click. Close deals faster.',
+      title: 'Priority Support',
+      desc: 'Pro gets 12-hour response times, Business gets 4-hour support. Peace of mind when stakes are high.',
     },
     {
       icon: <Highlighter size={32} />,
       iconBoxColor: 'bg-green-500',
-      title: 'Quick Edit & Review',
-      desc: 'Yellow highlights show AI-detected items for easy review. Build trust and reduce errors.',
+      title: 'Unlimited Document History',
+      desc: 'Pro and Business users keep all proposals accessible forever. Free users get 7-day access.',
     },
     {
       icon: <Clock size={32} />,
       iconBoxColor: 'bg-purple-500',
-      title: 'Save Hours',
-      desc: 'Turn a 2-4 hour manual process into a 60-second automated workflow.',
+      title: 'High-Volume Processing',
+      desc: 'Business plan handles up to 3GB files and unlimited proposals. Scale with your growing business.',
     },
   ],
 };
@@ -380,30 +381,33 @@ export const pricingData = {
   sectionText: 'Simple, transparent pricing for every business need',
   plans: [
     {
-      name: ' Starter',
+      name: 'Free',
       price: 0,
       isMonthly: false,
-      tagline: 'Free plan to get you started',
+      tagline: 'No credit card required. For new users to try the magic.',
       features: [
-        { name: '2 proposal per month', included: true },
-        { name: 'Up to 10 minutes of audio/video', included: true },
-        { name: 'Basic PDF export', included: true },
-        { name: '7-day access to generated proposals', included: true },
+        { name: '5 proposals / month', included: true },
+        {name: 'Export and Download in PDF ', included: true},
+        { name: 'Watermark removal', included: false },
+        { name: 'DOCX / GDocs exports', included: false },
+        { name: 'Premium templates', included: false },
+        { name: 'Priority support', included: false },
       ],
-      cta: 'Start Free',
+      cta: 'Try Free →',
       popular: false,
     },
     {
-      name: 'Professional',
+      name: 'Pro',
       price: 29,
       isMonthly: true,
-      tagline: 'Most popular for freelancers & small teams',
+      tagline: 'For serious freelancers, consultants, sales teams ,solopreneurs, an and agencies. This is where Elystra shines.',
       features: [
-        { name: '20 proposals per month', included: true },
-        { name: 'Up to 1 GB of upload per audio/video file', included: true },
-        { name: 'PDF export with download options', included: true },
-        { name: '30-day access to all proposals', included: true },
-        { name: 'Email support', included: true },
+        { name: '20 proposals / month', included: true },
+        { name: 'No watermark', included: true },
+        { name: 'Export as PDF, DOCX, GDocs', included: true },
+        { name: 'All premium templates unlocked', included: true },
+        { name: 'Priority support (12h response)', included: true },
+        { name: 'Unlimited document history', included: true },
       ],
       cta: 'Get Started',
       popular: true,
@@ -413,13 +417,13 @@ export const pricingData = {
       name: ' Business',
       price: 69,
       isMonthly: true,
-      tagline: 'For growing teams with higher volume',
+      tagline: ' One Time Payment for growing teams with higher volume ',
       features: [
+        {name: 'Everything in Pro', included: true},
         { name: 'Unlimited  proposals per month', included: true },
         { name: 'Up to 3 GB of upload per audio/video file', included: true },
-        { name: 'PDF export with download options', included: true },
         { name: '90-day access to all proposals', included: true },
-        { name: 'Priority email support', included: true },
+        { name: 'Support Response within  4 hours', included: true },
       ],
       cta: 'Upgrade to Business',
       popular: false,

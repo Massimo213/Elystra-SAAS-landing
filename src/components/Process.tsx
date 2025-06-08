@@ -6,151 +6,194 @@
 /**
  * Node modules
  */
-import { motion } from 'motion/react';
-
-/**
- * Components
- */
-
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 /**
  * Constants
  */
 import { processData } from '@/constants';
 
-/**
- * Framer motion variants
- */
-import * as variants from '@/lib/motionVariants';
+interface ProcessStepProps {
+  step: {
+    icon: React.ReactNode;
+    title: string;
+    text: string;
+  };
+  index: number;
+}
 
 const Process = () => {
-  return (
-    <section className='section relative overflow-hidden min-h-[700px] flex items-center justify-center'>
-      {/* Animated, vibrant glassy background */}
-      <motion.div 
-        className='absolute inset-0 bg-gradient-to-br from-primary/30 via-blue-400/10 to-background/80 blur-2xl opacity-80 pointer-events-none z-0'
-        animate={{
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          repeatType: 'reverse',
-        }}
-      />
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  const ProcessStep = ({ step, index }: ProcessStepProps) => (
+    <motion.div
+      className="relative flex flex-col items-center text-center"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.2, duration: 0.6 }}
+    >
+      {/* Connection Arrow */}
+      {index < processData.list.length - 1 && (
+        <motion.div
+          className="absolute -right-12 top-16 hidden lg:block z-10"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: (index * 0.2) + 0.4 }}
+        >
+          <ArrowRight className="text-white/40" size={24} />
+        </motion.div>
+      )}
+
+      {/* Step Card */}
       <motion.div
-        className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-blue-500/10 to-transparent rounded-full blur-3xl opacity-60 z-0'
+        className="relative w-72 h-80 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 overflow-hidden"
+        whileHover={{ 
+          scale: 1.02,
+          boxShadow: '0 20px 40px rgba(255, 255, 255, 0.1)'
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Subtle Background Pattern */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1), transparent 50%)',
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 p-8 h-full flex flex-col items-center text-center">
+          {/* Icon */}
+          <motion.div
+            className="w-16 h-16 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mb-6"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <span className="text-white text-2xl">{step.icon}</span>
+          </motion.div>
+
+          {/* Title */}
+          <h3 className="text-xl font-bold text-white mb-4 leading-tight">
+            {step.title}
+          </h3>
+
+          {/* Description */}
+          <p className="text-gray-300 leading-relaxed text-sm flex-1">
+            {step.text}
+          </p>
+        </div>
+
+        {/* Subtle Glow */}
+        <motion.div
+          className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-xl -z-10"
+          animate={{ opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 4, repeat: Infinity }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+
+  return (
+    <section ref={containerRef} className='section relative min-h-screen bg-gradient-to-br from-gray-900 via-black to-purple-900 overflow-hidden'>
+      {/* Simple Background */}
+      <motion.div
+        className="absolute inset-0 opacity-10"
+        style={{ y: backgroundY }}
+      >
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* Gradient Orb */}
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.1, 1],
-          opacity: [0.6, 0.8, 0.6],
         }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+        transition={{ duration: 8, repeat: Infinity }}
       />
-      <div className='container relative z-10'>
-        <div className='section-head text-center max-w-3xl mx-auto mb-16'>
-          <motion.p
-            variants={variants.fadeInUp}
-            initial='start'
-            whileInView='end'
-            viewport={{ once: true }}
-            className='section-subtitle'
-          >
-            {processData.sectionSubtitle}
-          </motion.p>
 
+      <motion.div style={{ opacity }} className='container relative z-10'>
+        {/* Header */}
+        <div className='section-head text-center max-w-4xl mx-auto mb-16'>
           <motion.h2
-            variants={variants.fadeInUp}
-            initial='start'
-            whileInView='end'
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className='section-title text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent drop-shadow-lg mb-4'
+            className='text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent leading-tight'
           >
             {processData.sectionTitle}
           </motion.h2>
 
           <motion.p
-            variants={variants.fadeInUp}
-            initial='start'
-            whileInView='end'
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className='section-text text-xl text-muted-foreground'
+            transition={{ delay: 0.2 }}
+            className='text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto'
           >
             {processData.sectionText}
           </motion.p>
         </div>
 
-        {/* Steps as beautiful glassmorphic circles with animated connectors */}
-        <div className='flex flex-col md:flex-row items-center justify-center gap-12 md:gap-8 xl:gap-20 relative'>
-          {processData.list.map(({ icon, title, text }, index) => (
-            <motion.div
+        {/* Simple Process Steps */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 xl:gap-24"
+        >
+          {processData.list.map((step, index) => (
+            <ProcessStep
               key={index}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 * index, type: 'spring', stiffness: 120 }}
-              whileHover={{
-                scale: 1.12,
-                rotateZ: [0, 2, -2, 0],
-                boxShadow: '0 8px 40px 0 rgba(80,80,200,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.10)',
-                transition: { duration: 0.4 },
-              }}
-              className='relative flex flex-col items-center text-center min-w-[220px] max-w-[320px] mx-auto group transition-all duration-300 z-10'
-              style={{ zIndex: 10 + (10 - index) }}
-            >
-              {/* Step number badge - bold, pill-shaped, high-contrast */}
-              <span className='absolute -top-7 left-1/2 -translate-x-1/2 z-20 px-7 py-2 rounded-full bg-white text-primary text-xl font-extrabold shadow-lg border-2 border-primary/20 tracking-wide drop-shadow-md flex items-center justify-center min-w-[70px] min-h-[44px]'>
-                {index + 1}
-              </span>
-              {/* Glassy, glowing circle with vibrant gradient */}
-              <motion.div
-                className='w-44 h-44 flex items-center justify-center rounded-full bg-gradient-to-br from-primary via-blue-400 to-blue-500 shadow-2xl mb-6 relative overflow-hidden group-hover:scale-105 transition-all duration-300 border-4 border-white/30'
-                animate={{ rotate: [0, 8, -8, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                {/* Glass overlay for depth */}
-                <div className='absolute inset-0 rounded-full bg-white/20 backdrop-blur-[2px] pointer-events-none' />
-                {/* Animated gradient glow */}
-                <motion.div
-                  className='absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 via-blue-400/20 to-transparent blur-2xl opacity-70 z-0'
-                  animate={{
-                    scale: [1, 1.08, 1],
-                    opacity: [0.7, 0.9, 0.7],
-                  }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <span className='relative z-10 text-5xl text-white drop-shadow-lg'>{icon}</span>
-              </motion.div>
-              <h3 className='text-2xl font-bold text-foreground mb-2 drop-shadow-sm'>{title}</h3>
-              <p className='text-lg text-muted-foreground'>{text}</p>
-              {/* Glowing ring accent */}
-              <motion.div
-                className='absolute -inset-4 rounded-full pointer-events-none z-[-1]'
-                animate={{
-                  boxShadow: [
-                    '0 0 0 0 rgba(80,80,200,0.10)',
-                    '0 0 60px 20px rgba(80,80,200,0.18)',
-                    '0 0 0 0 rgba(80,80,200,0.10)'
-                  ],
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              {/* Connector line to next step */}
-              {index < processData.list.length - 1 && (
-                <motion.div
-                  className='hidden md:block absolute top-1/2 right-[-70px] w-36 h-2 bg-gradient-to-r from-primary/40 via-blue-400/30 to-transparent rounded-full blur-[2px] shadow-lg z-0'
-                  initial={{ opacity: 0, scaleX: 0.7 }}
-                  animate={{ opacity: 1, scaleX: [0.7, 1.1, 1] }}
-                  transition={{ duration: 1.2, delay: 0.3 * index, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-                />
-              )}
-            </motion.div>
+              step={step}
+              index={index}
+            />
           ))}
-        </div>
-      </div>
+        </motion.div>
+
+        {/* Simple Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+          className="text-center mt-16"
+        >
+          <p className="text-white/60 text-sm">
+            Start transforming your calls into proposals today
+          </p>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

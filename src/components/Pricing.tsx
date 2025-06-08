@@ -1,5 +1,5 @@
 import { pricingData } from "@/constants";
-import { CheckIcon, Sparkles } from "lucide-react";
+import { CheckIcon, Sparkles, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -98,8 +98,14 @@ export default function Pricing() {
                         className="flex gap-x-3"
                         whileHover={{ x: 5, transition: { duration: 0.2 } }}
                       >
-                        <CheckIcon className={`h-6 w-5 flex-none ${plan.popular ? 'text-primary' : 'text-gray-400'}`} aria-hidden="true" />
-                        {feature.name}
+                        {feature.included ? (
+                          <CheckIcon className={`h-6 w-5 flex-none ${plan.popular ? 'text-primary' : 'text-green-500'}`} aria-hidden="true" />
+                        ) : (
+                          <X className="h-6 w-5 flex-none text-red-500" aria-hidden="true" />
+                        )}
+                        <span className={!feature.included ? 'text-gray-500 line-through' : ''}>
+                          {feature.name}
+                        </span>
                       </motion.li>
                     ))}
                   </ul>
