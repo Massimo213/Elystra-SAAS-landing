@@ -24,7 +24,7 @@ import { overviewData } from '@/constants';
 /**
  * Assets
  */
-import { overviewBanner } from '@/assets';
+import { overviewBanner, demoVideo } from '@/assets';
 import { Play } from 'lucide-react';
 
 /**
@@ -104,13 +104,15 @@ const Overview = () => {
               <DialogContent className='p-0 overflow-hidden max-w-[640px] xl:max-w-[1000px]'>
                 <AspectRatio ratio={16 / 9}>
                   <ReactPlayer
-                    url=''
+                    url={'https://www.youtube.com/watch?v=_Xv2CkRJ88o'}
                     style={{
                       minWidth: '100%',
                       maxWidth: '100%',
                       minHeight: '100%',
                       maxHeight: '100%',
                     }}
+                    controls
+                    playing
                   />
                 </AspectRatio>
               </DialogContent>
