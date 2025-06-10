@@ -24,7 +24,7 @@ import { overviewData } from '@/constants';
 /**
  * Assets
  */
-import { overviewBanner, demoVideo } from '@/assets';
+import { overviewBanner } from '@/assets';
 import { Play } from 'lucide-react';
 
 /**
