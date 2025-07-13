@@ -55,13 +55,12 @@ export const navMenu: MenuItem[] = [
   }
 ];
 
-// Hero
+// 
 export const heroData = {
   sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
   sectionTitle: "60 Seconds",
   decoTitle: "Proposals?",
   sectionText: "Meet. Drop the recording. Get the signed proposal — in 60 seconds. Stop burning hours on paperwork. Start billing faster and looking 10x more professional."
-  
 };
 
 

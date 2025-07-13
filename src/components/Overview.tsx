@@ -84,7 +84,7 @@ const Overview = () => {
                 alt=''
               />
             </figure>
-
+          
             <Dialog>
               <DialogTrigger asChild>
                 <Button
@@ -98,6 +98,7 @@ const Overview = () => {
                     fill='#fff'
                     size={50}
                   />
+                  
                 </Button>
               </DialogTrigger>
 
