@@ -83,7 +83,7 @@ const PrivacyPolicy = () => {
                 </div>
                 <div className='space-y-2'>
                   <p className='text-blue-700 font-medium'>🔒 Zero Training Policy</p>
-                  <p className='text-blue-700'>We never train models on your data and we use Standard Contractual Clauses for the few US services we rely on.</p>
+                  <p className='text-blue-700'>We never train models on your data and use Standard Contractual Clauses for the few US services we rely on.</p>
                 </div>
               </div>
             </CardContent>
@@ -335,7 +335,7 @@ const PrivacyPolicy = () => {
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
                       <Users size={20} />
                     </div>
-                                         <h3 id="your-rights" className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>6. Your Rights Under GDPR</h3>
+                    <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>6. Your Rights Under GDPR</h3>
                   </div>
                   <div className='space-y-4 text-gray-700 text-sm md:text-base'>
                     <p>As a data subject, you have the following rights under GDPR:</p>
@@ -405,11 +405,11 @@ const PrivacyPolicy = () => {
                     <div className='bg-blue-50 p-4 rounded-lg border border-blue-200'>
                       <h4 className='font-medium text-blue-800 mb-2'>How to Exercise Your Rights</h4>
                       <p className='text-blue-700 text-sm mb-2'>Contact us via:</p>
-                                             <ul className='text-blue-700 text-sm space-y-1'>
-                         <li>• Email: <strong>dpo@elystra.com</strong></li>
-                         <li>• Data Subject Access Request portal (in your account settings)</li>
-                         <li>• Response time: Verified within 3 days, fulfilled within 30 days</li>
-                       </ul>
+                      <ul className='text-blue-700 text-sm space-y-1'>
+                        <li>• Email: <strong>elystra.support@elystra.online</strong></li>
+                        <li>• Data Subject Access Request portal (in your account settings)</li>
+                        <li>• Response time: Verified within 3 days, fulfilled within 30 days</li>
+                      </ul>
                     </div>
                   </div>
                 </CardContent>
@@ -427,7 +427,7 @@ const PrivacyPolicy = () => {
                   </div>
                   <div className='space-y-4 text-gray-700 text-sm md:text-base'>
                     <p>Our service is designed for business use and is not intended for individuals under 16 years of age. We do not knowingly collect personal data from children under 16.</p>
-                                         <p>If you become aware that a child under 16 has provided us with personal data, please contact us immediately at <strong>dpo@elystra.com</strong> and we will promptly delete such data.</p>
+                    <p>If you become aware that a child under 16 has provided us with personal data, please contact us immediately at <strong>elystra.support@elystra.online</strong> and we will promptly delete such data.</p>
                   </div>
                 </CardContent>
               </Card>
@@ -443,7 +443,7 @@ const PrivacyPolicy = () => {
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
                       <ShieldCheck size={20} />
                     </div>
-                                         <h3 id="security-measures" className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>8. Security Measures</h3>
+                    <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>8. Security Measures</h3>
                   </div>
                   <div className='space-y-4 text-gray-700 text-sm md:text-base'>
                     <p>We implement appropriate technical and organizational measures to protect your personal data:</p>
@@ -507,7 +507,7 @@ const PrivacyPolicy = () => {
                     <div className='w-10 h-10 md:w-12 md:h-12 grid place-items-center rounded-lg bg-blue-50 text-blue-600 flex-shrink-0'>
                       <Globe size={20} />
                     </div>
-                                         <h3 id="international-transfers" className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>9. International Data Transfers</h3>
+                    <h3 className='text-lg md:text-xl font-semibold text-gray-900 mt-1 md:mt-0'>9. International Data Transfers</h3>
                   </div>
                   <div className='space-y-4 text-gray-700 text-sm md:text-base'>
                     <p>Your data is primarily stored and processed within the European Union:</p>
@@ -656,11 +656,11 @@ const PrivacyPolicy = () => {
                     <div className='grid md:grid-cols-2 gap-4'>
                       <div className='bg-gray-50 p-4 rounded-lg'>
                         <h4 className='font-medium text-gray-800 mb-2'>Data Protection Officer</h4>
-                                                 <ul className='space-y-1 text-sm'>
-                           <li><strong>Name:</strong> Massimo Yahya Mounadi</li>
-                           <li><strong>Email:</strong> dpo@elystra.com</li>
-                           <li><strong>Response Time:</strong> Within 72 hours</li>
-                         </ul>
+                        <ul className='space-y-1 text-sm'>
+                          <li><strong>Name:</strong> Massimo Yahya Mounadi</li>
+                          <li><strong>Email:</strong> elystra.support@elystra.online</li>
+                          <li><strong>Response Time:</strong> Within 72 hours</li>
+                        </ul>
                       </div>
                       <div className='bg-gray-50 p-4 rounded-lg'>
                         <h4 className='font-medium text-gray-800 mb-2'>Company Details</h4>
