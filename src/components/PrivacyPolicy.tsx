@@ -60,7 +60,7 @@ const PrivacyPolicy = () => {
             <p className='text-gray-600'>GDPR Compliant</p>
           </motion.div>
         </div>
-
+ 
         {/* Quick Summary Card */}
         <motion.div
           variants={variants.fadeInUp}
