@@ -44,7 +44,7 @@ const Overview = () => {
             viewport={{ once: true }}
             className='section-subtitle'
           >
-            {overviewData.sectionSubtitle}
+            {overviewData.sectionSubtitle} 
           </motion.p>
 
           <motion.h2
