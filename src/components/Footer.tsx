@@ -6,7 +6,6 @@
 /**
  * Components
  */
-import Logo from '@/components/Logo';
 
 /**
  * Constants
