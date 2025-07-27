@@ -7,7 +7,7 @@
  * Node modules
  */
 import { motion } from 'motion/react';
-import { Book, Scale, Database, Key, Building2, Share2, Archive, ShieldCheck, Link as LinkIcon, Users, FileText as FileTextIcon, Info, Globe, Clock, Lock, AlertTriangle } from 'lucide-react';
+import { Book, Scale, Database, Key, Building2, Share2, ShieldCheck, Users, FileText as FileTextIcon, Info, Globe, Clock, Lock, AlertTriangle } from 'lucide-react';
 
 /**
  * Components
@@ -60,7 +60,7 @@ const PrivacyPolicy = () => {
             <p className='text-gray-600'>GDPR Compliant</p>
           </motion.div>
         </div>
- 
+
         {/* Quick Summary Card */}
         <motion.div
           variants={variants.fadeInUp}
