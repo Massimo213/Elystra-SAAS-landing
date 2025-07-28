@@ -17,24 +17,19 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Brand from '@/components/Brand';
 import Feature from '@/components/Feature';
-import Process from '@/components/Process';
-import Overview from '@/components/Overview';
 import Review from '@/components/Review';
 import Cta from '@/components/Cta';
-import Pricing from '@/components/Pricing';
+
 import PrivacyPolicy from '@/components/PrivacyPolicy';
-import About from '@/components/About';
+// import About from '@/components/About';
 
 const MainContent = () => (
   <main>
     <Hero />
-    <Brand />
-    <Process />  
-    <Review />
-    <About/>
+    <Brand /> 
     <Feature />
-    <Overview />
-    <Pricing />
+    <Review />
+    {/* <About/> */}
     <Cta/>
     <PrivacyPolicy />
   </main>
@@ -42,14 +37,13 @@ const MainContent = () => (
 
 const App = () => {
   return (
-    
     <ReactLenis root>
       <Analytics /> 
       <div className='relative isolate overflow-hidden'>
         <Header />
         <Routes>
           <Route path="/" element={<MainContent />} />
-          <Route path="/about" element={<About />} />
+          {/* <Route path="/about" element={<About />} /> */}
           <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
       </div>

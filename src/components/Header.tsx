@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import Logo from '@/components/Logo';
+import Logo from '@/assets/LogoElystra.png';
 import MobileMenu from '@/components/MobileMenu';
 import {
   NavigationMenu,
@@ -40,7 +40,7 @@ const Header = () => {
     <header className='h-16 grid grid-cols-1 items-center md:h-20 lg:h-24'>
       <div className='container flex justify-between lg:grid lg:grid-cols-[1fr,3fr,1fr]'>
         <Link to="/">
-          <Logo variant='icon' />
+          <img src={Logo} alt="Elystra Logo" className='h-24 w-24' />
         </Link>
 
         <NavigationMenu className='max-lg:hidden mx-auto'>

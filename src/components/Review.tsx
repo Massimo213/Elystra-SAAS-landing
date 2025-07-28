@@ -1,366 +1,302 @@
 /**
- * @copyright 2024 codewithsadee
- * @license Apache-2.0
+ * Reviews.tsx — FIXED
+ * Stars, quotes, and text no longer overlap. Clear header row with star rating,
+ * quote becomes a soft background watermark, and spacing is reserved—no absolute overlays.
  */
 
-/**
- * Node modules
- */
-import { motion, useScroll, useTransform, AnimatePresence, PanInfo } from 'motion/react';
-import { useState, useRef, useEffect } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react';
-
-/**
- * Constants
- */
+import {
+  motion,
+  AnimatePresence,
+  Variants,
+  PanInfo,
+  useInView,
+} from 'motion/react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { Star, Quote, ChevronLeft, ChevronRight, ShieldCheck, Trophy } from 'lucide-react';
 import { reviewData } from '@/constants';
 
-interface ReviewCardProps {
-  review: {
-    title: string;
-    text: string;
-    reviewAuthor: string;
-    date: string;
-  };
+/* ---------- Variants ---------- */
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 28, filter: 'blur(8px)' },
+  show:   { opacity: 1, y: 0,  filter: 'blur(0px)', transition: { duration: 0.55, ease: 'easeOut' } },
+};
+
+const haloPulse: Variants = {
+  idle:  { opacity: 0.35, scale: 1 },
+  pulse: { opacity: [0.25, 0.55, 0.25], scale: [1, 1.04, 1], transition: { duration: 3.2, repeat: Infinity, ease: 'easeInOut' } },
+};
+
+/* ---------- Helpers ---------- */
+const cn = (...c: (string | false | undefined | null)[]) => c.filter(Boolean).join(' ');
+
+/* ---------- Components ---------- */
+const Stars = ({ count = 5, size = 14 }: { count?: number; size?: number }) => (
+  <div className="flex items-center gap-1">
+    {Array.from({ length: count }).map((_, i) => (
+      <Star key={i} className="text-amber-400 fill-amber-400" width={size} height={size} />
+    ))}
+  </div>
+);
+
+type CardData = (typeof reviewData.reviewCard)[number];
+
+const ReviewCard = ({
+  data,
+  active,
+  onClick,
+}: {
+  data: CardData;
   index: number;
-  isActive: boolean;
-  onClick: () => void;
-}
-
-const Review = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
-  // Auto-advance reviews
-  useEffect(() => {
-    if (isAutoPlaying) {
-      const interval = setInterval(() => {
-        setDirection(1);
-        setActiveIndex(prev => (prev + 1) % reviewData.reviewCard.length);
-      }, 4000);
-      return () => clearInterval(interval);
-    }
-  }, [isAutoPlaying]);
-
-  const handleDragEnd = (_event: any, info: PanInfo) => {
-    const threshold = 50;
-    if (info.offset.x > threshold) {
-      setDirection(-1);
-      setActiveIndex(prev => prev === 0 ? reviewData.reviewCard.length - 1 : prev - 1);
-    } else if (info.offset.x < -threshold) {
-      setDirection(1);
-      setActiveIndex(prev => (prev + 1) % reviewData.reviewCard.length);
-    }
-  };
-
-  const nextReview = () => {
-    setDirection(1);
-    setActiveIndex(prev => (prev + 1) % reviewData.reviewCard.length);
-  };
-
-  const prevReview = () => {
-    setDirection(-1);
-    setActiveIndex(prev => prev === 0 ? reviewData.reviewCard.length - 1 : prev - 1);
-  };
-
-  const ReviewCard = ({ review, index, isActive, onClick }: ReviewCardProps) => (
-    <motion.div
-      className={`relative cursor-pointer group transition-all duration-500 ${
-        isActive ? 'z-20' : 'z-10'
-      }`}
-      onClick={onClick}
-      whileHover={{ scale: isActive ? 1.02 : 1.05 }}
-      whileTap={{ scale: 0.98 }}
+  active: boolean;
+  onClick?: () => void;
+}) => {
+  return (
+    <motion.article
       layout
+      onClick={onClick}
+      className={cn(
+        'relative w-[20rem] md:w-[24rem] h-[22rem] md:h-[25rem] select-none cursor-pointer',
+        'rounded-[1.6rem] overflow-hidden',
+        'transition-all duration-500'
+      )}
+      style={{ transformStyle: 'preserve-3d' }}
+      whileHover={{ scale: active ? 1.02 : 1.04 }}
+      whileTap={{ scale: 0.98 }}
     >
+      {/* Warm border halo */}
       <motion.div
-        className={`relative w-80 h-80 md:w-96 md:h-96 rounded-3xl overflow-hidden backdrop-blur-2xl border-2 transition-all duration-700 ${
-          isActive 
-            ? 'bg-gradient-to-br from-white/20 to-white/10 border-white/30 shadow-2xl shadow-white/10' 
-            : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 shadow-lg'
-        }`}
-        animate={isActive ? {
-          y: [0, -5, 0],
-        } : {}}
-        transition={{ duration: 4, repeat: Infinity }}
+        variants={haloPulse}
+        initial="idle"
+        animate="pulse"
+        className="absolute -inset-1 rounded-[1.8rem] blur-md"
+        style={{
+          background:
+            'linear-gradient(120deg, rgba(251,146,60,0.45), rgba(244,63,94,0.45), rgba(217,70,239,0.45))',
+          opacity: active ? 0.5 : 0.2,
+        }}
+      />
+
+      {/* Glass body */}
+      <div
+        className={cn(
+          'relative z-10 h-full rounded-[1.6rem] border',
+          active
+            ? 'border-white/20 bg-white/[0.06] backdrop-blur-xl shadow-[0_0_40px_rgba(251,146,60,0.15)]'
+            : 'border-white/10 bg-white/[0.04] backdrop-blur-md'
+        )}
       >
-        {/* Subtle Background Pattern */}
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at ${30 + index * 20}% 40%, rgba(255, 255, 255, 0.1), transparent 60%)`,
-          }}
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%']
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
+        {/* Soft watermark quote in BACKGROUND, not over text */}
+        <Quote
+          aria-hidden
+          className="pointer-events-none absolute -right-4 -bottom-2 opacity-[0.06]"
+          size={160}
         />
 
-        {/* Quote Icon */}
-        <motion.div
-          className="absolute top-6 left-6 w-10 h-10 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center backdrop-blur-sm"
-          animate={isActive ? { 
-            scale: [1, 1.1, 1]
-          } : {}}
-          transition={{ duration: 3, repeat: Infinity }}
-        >
-          <Quote className="text-white/80" size={16} />
-        </motion.div>
-
-        {/* Star Rating */}
-        <div className="absolute top-6 right-6 flex gap-1">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            </motion.div>
-          ))}
+        {/* Header row — quote chip LEFT, stars RIGHT (no absolute overlap) */}
+        <div className="flex items-center justify-between px-6 pt-5">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-black/30 border border-white/10 backdrop-blur-md">
+            <Quote className="w-3.5 h-3.5 text-white/80" />
+            <span className="text-[11px] text-white/80">Verified review</span>
+          </div>
+          <div className="inline-flex items-center gap-2">
+            <Stars size={14} />
+            <span className="text-[11px] text-white/80">5.0</span>
+          </div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 p-8 h-full flex flex-col">
-          {/* Review Title */}
-          <motion.h3
-            className="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"
-            layoutId={`title-${index}`}
-          >
-            {review.title}
-          </motion.h3>
+        <div className="flex flex-col px-6 pb-6 pt-4 h-[calc(100%-58px)]">
+          <h3 className="text-[17px] md:text-[19px] font-semibold text-white/95 leading-snug mb-2">
+            {data.title}
+          </h3>
 
-          {/* Review Text */}
-          <motion.p
-            className="text-gray-200 leading-relaxed flex-1 text-sm md:text-base"
-            layoutId={`text-${index}`}
-          >
-            "{review.text}"
-          </motion.p>
+          <p className="text-[13.5px] md:text-[15px] text-slate-200/90 leading-relaxed flex-1">
+            “{data.text}”
+          </p>
 
-          {/* Author Info */}
-          <motion.div
-            className="mt-6 pt-4 border-t border-white/20"
-            layoutId={`author-${index}`}
-          >
-            <div className="flex items-center gap-3">
-              {/* Avatar */}
-              <motion.div
-                className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400/30 to-purple-500/30 border border-white/20 flex items-center justify-center font-bold text-white backdrop-blur-sm"
-                whileHover={{ scale: 1.05 }}
-              >
-                {review.reviewAuthor.split(' ').map(n => n[0]).join('')}
-              </motion.div>
-              
-              <div className="flex-1">
-                <p className="font-semibold text-white text-sm">{review.reviewAuthor}</p>
-                <p className="text-gray-300 text-xs">{review.date}</p>
-              </div>
-              
-              {/* Verified Badge */}
-              <motion.div
-                className="w-6 h-6 bg-green-500/80 rounded-full flex items-center justify-center"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <div className="w-2 h-2 bg-white rounded-full" />
-              </motion.div>
+          <div className="mt-5 pt-4 border-t border-white/10 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500/25 via-rose-500/25 to-fuchsia-500/25 border border-white/15 grid place-items-center text-white/90 text-xs font-semibold">
+              {data.reviewAuthor.split(' ').map((n) => n[0]).join('').slice(0, 2)}
             </div>
-          </motion.div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[13px] text-white/90 font-medium truncate">{data.reviewAuthor}</p>
+              <p className="text-[12px] text-white/60">{data.date}</p>
+            </div>
+            <div className="hidden sm:flex items-center gap-1 text-emerald-400/90">
+              <ShieldCheck className="w-4 h-4" />
+              <span className="text-[12px]">Verified</span>
+            </div>
+          </div>
         </div>
-
-        {/* Glow Effect for Active */}
-        {isActive && (
-          <motion.div
-            className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl -z-10"
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
-        )}
-      </motion.div>
-    </motion.div>
+      </div>
+    </motion.article>
   );
+};
+
+const Review = () => {
+  const TOTAL = reviewData.reviewCard.length;
+  const [idx, setIdx] = useState(0);
+  const [dir, setDir] = useState<1 | -1>(1);
+  const rootRef = useRef<HTMLElement>(null);
+  const inView = useInView(rootRef, { once: false, amount: 0.4 });
+
+  // autoplay only while in view
+  useEffect(() => {
+    if (!inView) return;
+    const t = setInterval(() => {
+      setDir(1);
+      setIdx((p) => (p + 1) % TOTAL);
+    }, 4600);
+    return () => clearInterval(t);
+  }, [inView, TOTAL]);
+
+  // keyboard nav (left/right)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!inView) return;
+      if (e.key === 'ArrowRight') { setDir(1); setIdx((p) => (p + 1) % TOTAL); }
+      if (e.key === 'ArrowLeft')  { setDir(-1); setIdx((p) => (p - 1 + TOTAL) % TOTAL); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [inView, TOTAL]);
+
+  const go = useCallback((next: boolean) => {
+    setDir(next ? 1 : -1);
+    setIdx((p) => (p + (next ? 1 : -1) + TOTAL) % TOTAL);
+  }, [TOTAL]);
+
+  const onDragEnd = (_: any, info: PanInfo) => {
+    const t = 60;
+    if (info.offset.x < -t) go(true);
+    else if (info.offset.x > t) go(false);
+  };
+
+  const prevIndex = (idx - 1 + TOTAL) % TOTAL;
+  const nextIndex = (idx + 1) % TOTAL;
 
   return (
-    <section ref={containerRef} className='section relative min-h-screen bg-gradient-to-br from-gray-900 via-black to-purple-900 overflow-hidden'>
-      {/* Animated Background */}
-      <motion.div
-        className="absolute inset-0 opacity-10"
-        style={{ y: backgroundY }}
-      >
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: Math.random() * 4,
-            }}
-          />
-        ))}
-      </motion.div>
-
-      {/* Gradient Orbs */}
-      <motion.div
-        className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{ duration: 25, repeat: Infinity }}
-      />
-
-      <motion.div style={{ opacity }} className='container relative z-10'>
+    <section ref={rootRef} className="relative overflow-hidden pt-16 md:pt-24">
+      <div className="container relative z-10">
         {/* Header */}
-        <div className='section-head text-center max-w-4xl mx-auto mb-20'>
+        <div className="text-center max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-white/10 to-white/5 rounded-full border border-white/20 backdrop-blur-lg mb-6"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md mb-5"
           >
-            <TrendingUp className="text-white/70" size={16} />
-            <span className="text-white/80 font-medium">{reviewData.sectionSubtitle}</span>
+            <Trophy className="w-4 h-4 text-white/75" />
+            <span className="text-[12px] text-white/80 tracking-wide uppercase">
+              {reviewData.sectionSubtitle || 'Reviews'}
+            </span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className='text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent leading-tight'
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.55 }}
+            className="text-4xl md:text-6xl font-black leading-tight bg-clip-text text-transparent"
+            style={{ backgroundImage: 'linear-gradient(90deg,#f8fafc,#e2e8f0)' }}
           >
-            {reviewData.sectionTitle}
+            {reviewData.sectionTitle || 'What Users Really Think'}
           </motion.h2>
         </div>
 
-        {/* Clean Review Carousel */}
-        <div className="relative">
-          {/* Navigation Arrows */}
-          <motion.button
-            onClick={prevReview}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-white/20 transition-all border border-white/20"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronLeft className="text-white" size={24} />
-          </motion.button>
+        {/* Carousel */}
+        <div className="relative mt-10 md:mt-14">
+          {/* Arrows */}
+          <div className="hidden md:block">
+            <button
+              aria-label="Previous review"
+              onClick={() => go(false)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/15 bg-white/10 backdrop-blur-md grid place-items-center hover:bg-white/20 transition"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            <button
+              aria-label="Next review"
+              onClick={() => go(true)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/15 bg-white/10 backdrop-blur-md grid place-items-center hover:bg-white/20 transition"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          </div>
 
-          <motion.button
-            onClick={nextReview}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-white/20 transition-all border border-white/20"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronRight className="text-white" size={24} />
-          </motion.button>
-
-          {/* Carousel */}
-          <motion.div 
-            className="flex items-center justify-center gap-8 px-16 py-8"
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            <AnimatePresence mode="wait">
+          {/* Track */}
+          <motion.div className="flex items-center justify-center gap-6 md:gap-8 px-10 md:px-16">
+            <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
-                key={activeIndex}
+                key={idx}
+                className="flex items-center gap-6 md:gap-8"
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
-                onDragEnd={handleDragEnd}
-                initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+                onDragEnd={onDragEnd}
+                initial={{ x: dir > 0 ? 320 : -320, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="flex items-center gap-8"
+                exit={{ x: dir > 0 ? -320 : 320, opacity: 0 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
               >
-                {/* Previous Card (Preview) */}
-                <motion.div 
-                  className="hidden lg:block opacity-40 scale-75"
-                  whileHover={{ opacity: 0.6, scale: 0.8 }}
-                >
+                {/* Prev preview (dimmed) */}
+                <div className="hidden lg:block opacity-45 scale-75 hover:opacity-60 hover:scale-[0.8] transition">
                   <ReviewCard
-                    review={reviewData.reviewCard[activeIndex === 0 ? reviewData.reviewCard.length - 1 : activeIndex - 1]}
-                    index={activeIndex === 0 ? reviewData.reviewCard.length - 1 : activeIndex - 1}
-                    isActive={false}
-                    onClick={prevReview}
+                    data={reviewData.reviewCard[prevIndex]}
+                    index={prevIndex}
+                    active={false}
+                    onClick={() => go(false)}
                   />
-                </motion.div>
+                </div>
 
-                {/* Active Card */}
+                {/* Active */}
                 <ReviewCard
-                  review={reviewData.reviewCard[activeIndex]}
-                  index={activeIndex}
-                  isActive={true}
-                  onClick={() => {}}
+                  data={reviewData.reviewCard[idx]}
+                  index={idx}
+                  active
                 />
 
-                {/* Next Card (Preview) */}
-                <motion.div 
-                  className="hidden lg:block opacity-40 scale-75"
-                  whileHover={{ opacity: 0.6, scale: 0.8 }}
-                >
+                {/* Next preview (dimmed) */}
+                <div className="hidden lg:block opacity-45 scale-75 hover:opacity-60 hover:scale-[0.8] transition">
                   <ReviewCard
-                    review={reviewData.reviewCard[(activeIndex + 1) % reviewData.reviewCard.length]}
-                    index={(activeIndex + 1) % reviewData.reviewCard.length}
-                    isActive={false}
-                    onClick={nextReview}
+                    data={reviewData.reviewCard[nextIndex]}
+                    index={nextIndex}
+                    active={false}
+                    onClick={() => go(true)}
                   />
-                </motion.div>
+                </div>
               </motion.div>
             </AnimatePresence>
           </motion.div>
 
-          {/* Pagination Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {reviewData.reviewCard.map((_, index) => (
-              <motion.button
-                key={index}
-                onClick={() => {
-                  setDirection(index > activeIndex ? 1 : -1);
-                  setActiveIndex(index);
-                }}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === activeIndex ? 'bg-white w-6': 'bg-white/40'
-                }`}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.8 }}
-              />
-            ))}
+          {/* Dots */}
+          <div className="mt-8 flex justify-center gap-2">
+            {reviewData.reviewCard.map((_, i) => {
+              const active = i === idx;
+              return (
+                <button
+                  key={i}
+                  aria-label={`Go to review ${i + 1}`}
+                  onClick={() => { setDir(i > idx ? 1 : -1); setIdx(i); }}
+                  className={cn(
+                    'h-2 rounded-full transition-all',
+                    active ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'
+                  )}
+                />
+              );
+            })}
           </div>
         </div>
 
-        {/* Simple Auto-play Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <p className="text-white/60 text-sm">
-            Join <span className="text-white font-semibold">1,200+</span> professionals who chose Elystra
-          </p>
-        </motion.div>
-      </motion.div>
+        {/* Bridge hairline */}
+        <div
+          className="mt-12 md:mt-16 h-px w-full"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(251,146,60,0), rgba(251,146,60,0.45), rgba(244,63,94,0.45), rgba(217,70,239,0.45), rgba(217,70,239,0))',
+          }}
+        />
+      </div>
     </section>
   );
 };

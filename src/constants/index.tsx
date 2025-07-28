@@ -16,13 +16,19 @@ import {
   Linkedin,
   Instagram,
   Youtube,
-  Bot,
   Upload,
-  FileJson,
   FileText,
-  Highlighter,
   Clock,
- 
+  Signature,
+  HandCoins,
+  Wallet,
+  Rocket,
+  BarChart3,
+  Link2,
+  Eye,
+  Timer,
+  ShieldCheck,
+  Calculator,
 } from 'lucide-react';
 
 import {
@@ -60,56 +66,101 @@ export const heroData = {
   sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
   sectionTitle: "60 Seconds",
   decoTitle: "Proposals?",
-  sectionText: "Meet. Drop the recording. Get the signed proposal — in 60 seconds. Stop burning hours on paperwork. Start billing faster and looking 10x more professional."
+  sectionText: "Meet. Drop the file. Get the signed proposal  in 60 seconds. Stop burning hours on paperwork. Start billing and outclose the competition."
 };
 
 
 // Featu  
+// constants/featureData.tsx
+// Outcomes-first copy — aligned with warm palette + greed triggers
+
+
 export const featureData = {
-  sectionSubtitle: 'Features',
-  sectionTitle: 'From Calls to Ready Proposals in less 60 Seconds',
-  sectionText: 'Transform your client calls into professional proposals automatically. No more re-watching recordings or manual note-taking.',
+  sectionSubtitle: 'Outcomes',
+  sectionTitle: 'Send. Sign. Deposit. In under 60 seconds.',
+  sectionText:
+    'Turn momentum into money. Elystra extracts scope from the call, builds an on‑brand proposal, and bundles e‑sign + deposit—before the competition finds a template.',
   features: [
     {
-      icon: <Upload size={32} />,
-      iconBoxColor: 'bg-blue-600',
-      title: 'Multiple Export Formats',
-      desc: 'Export as PDF (Free), or unlock DOCX and Google Docs formats with Pro. Full editing and customization capabilities.',
-       
+      icon: <Signature size={28} />,
+      iconBoxColor: 'bg-amber-600',
+      title: 'Instant E‑Sign',
+      benefit: 'Close while intent is at peak.',
+      desc: 'Clients sign in one click—no back‑and‑forth, no attachments. Your “yes” arrives before lunch.',
     },
     {
-      icon: <Bot size={32} />,
-      iconBoxColor: 'bg-cyan-500',
-      title: 'Premium Templates',
-      desc: 'Access sector-specific, high-conversion templates: Technical Consulting, Marketing Strategy, Enterprise Transformation, and more.',
-      
+      icon: <HandCoins size={28} />,
+      iconBoxColor: 'bg-rose-600',
+      title: 'Deposit Collected',
+      benefit: 'Cash hits first.',
+      desc: 'Attach a deposit link to the proposal. Typical teams collect 30–50% upfront the moment they send.',
     },
     {
-      icon: <FileJson size={32} />,
-      iconBoxColor: 'bg-yellow-500',
-      title: 'Watermark-Free Delivery',
-      desc: 'Pro users get clean, professional proposals without watermarks. Present your work with complete brand integrity.',
+      icon: <Rocket size={28} />,
+      iconBoxColor: 'bg-fuchsia-600',
+      title: '60‑Second Proposal',
+      benefit: 'From call → send in minutes.',
+      desc: 'Upload the recording. Elystra extracts deliverables, timeline, and budget. You review—then ship.',
     },
     {
-      icon: <FileText size={32} />,
-      iconBoxColor: 'bg-red-500',
-      title: 'Priority Support',
-      desc: 'Pro gets 12-hour response times, Business gets 4-hour support. Peace of mind when stakes are high.',
+      icon: <FileText size={28} />,
+      iconBoxColor: 'bg-emerald-600',
+      title: 'High‑Conversion Templates',
+      benefit: 'Persuasion, pre‑wired.',
+      desc: 'Vertical‑tuned templates that sell: consulting, marketing, transformation, and more—on brand, every time.',
     },
     {
-      icon: <Highlighter size={32} />,
-      iconBoxColor: 'bg-green-500',
-      title: 'Unlimited Document History',
-      desc: 'Pro and Business users keep all proposals accessible forever. Free users get 7-day access.',
+      icon: <Link2 size={28} />,
+      iconBoxColor: 'bg-orange-600',
+      title: 'Money‑Moving Integrations',
+      benefit: 'Ops that execute themselves.',
+      desc: 'Stripe, Google Docs, Drive, Slack, HubSpot. One send updates CRM, files the doc, pings the team, and requests payment.',
     },
     {
-      icon: <Clock size={32} />,
-      iconBoxColor: 'bg-purple-500',
-      title: 'High-Volume Processing',
-      desc: 'Business plan handles up to 3GB files and unlimited proposals. Scale with your growing business.',
+      icon: <Eye size={28} />,
+      iconBoxColor: 'bg-pink-600',
+      title: 'Live Proposal Tracking',
+      benefit: 'Call while they’re reading.',
+      desc: 'Open alerts, read time, and section heatmaps. Follow up when attention is highest.',
+    },
+    {
+      icon: <BarChart3 size={28} />,
+      iconBoxColor: 'bg-purple-700',
+      title: 'Performance Analytics',
+      benefit: 'Compete with numbers.',
+      desc: 'Win‑rate by template, deposit rate by deal size, fastest paths to “paid”. Replace opinions with data.',
+    },
+    {
+      icon: <Timer size={28} />,
+      iconBoxColor: 'bg-amber-700',
+      title: 'Time Back, Deals Up',
+      benefit: 'More sends = more wins.',
+      desc: 'Stop rewatching calls and formatting docs. Reinvest hours into pipeline and price.',
+    },
+    {
+      icon: <ShieldCheck size={28} />,
+      iconBoxColor: 'bg-emerald-700',
+      title: 'On‑Brand Compliance',
+      benefit: 'Polished at scale.',
+      desc: 'Logos, fonts, clauses, and SOW standards locked. Every proposal feels custom—without the manual work.',
+    },
+    {
+      icon: <Calculator size={28} />,
+      iconBoxColor: 'bg-rose-700',
+      title: 'ROI Calculator',
+      benefit: 'See the money, now.',
+      desc: 'Enter deal size and volume. Watch projected deposits climb the second you switch to Elystra.',
+    },
+    {
+      icon: <Wallet size={28} />,
+      iconBoxColor: 'bg-fuchsia-700',
+      title: 'Clean Outputs',
+      benefit: 'Edit anywhere.',
+      desc: 'PDF for free. Unlock DOCX & Google Docs on Pro. No watermarks. Full control when legal tweaks matter.',
     },
   ],
 };
+
 
 // Process
 export const processData = {
