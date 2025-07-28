@@ -224,7 +224,7 @@ const Hero = () => {
               animate={isDemoInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ delay: 0.45, duration: 0.6 }}
             >
-              From messy client calls to polished proposals in seconds. No friction. No fluff.
+              From messy client calls to polished proposals in seconds. No friction. 
             </motion.p>
           </motion.div>
 

@@ -48,12 +48,8 @@ export const navMenu: MenuItem[] = [
     label: 'Features',
   },
   {
-    href: '#pricing',
-    label: 'Pricing',
-  },
-  {
-    href: '#about',
-    label: 'About',
+    href: 'https://app.elystra.online/agencies',
+    label: 'Entreprises',
   },
   {
     href: '/privacy',
