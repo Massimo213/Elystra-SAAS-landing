@@ -155,41 +155,104 @@ const Hero = () => {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
-          className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+          className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
         >
           <div className="relative">
             <div className="flex -space-x-3 sm:-space-x-4">
-              <img src={p1} alt="User 1" className="w-10 h-10 sm:w-12 sm:h-10 rounded-full object-cover border-2 border-background shadow-md" />
-              <img src={p2} alt="User 2" className="w-10 h-10 sm:w-12 sm:h-10 rounded-full object-cover border-2 border-background shadow-md" />
-              <img src={p3} alt="User 3" className="w-10 h-10 sm:w-12 sm:h-10 rounded-full object-cover border-2 border-background shadow-md" />
-              <img src={p4} alt="User 4" className="w-10 h-10 sm:w-12 sm:h-10 rounded-full object-cover border-2 border-background shadow-md" />
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.1, zIndex: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img 
+                  src={p1} 
+                  alt="User 1" 
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-orange-500/30" 
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.1, zIndex: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img 
+                  src={p2} 
+                  alt="User 2" 
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-rose-500/30" 
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.1, zIndex: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img 
+                  src={p3} 
+                  alt="User 3" 
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-purple-500/30" 
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.1, zIndex: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img 
+                  src={p4} 
+                  alt="User 4" 
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-blue-500/30" 
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
+              </motion.div>
             </div>
-            {/* Simple hearts - no complex animations */}
-            {Array.from({ length: 6 }).map((_, i) => (
+            {/* Enhanced floating hearts animation */}
+            {Array.from({ length: 8 }).map((_, i) => (
               <motion.span
                 key={i}
-                className="absolute left-1/2 top-1/2 text-rose-400 text-sm pointer-events-none"
-                initial={{ opacity: 0, scale: 0.6, x: 0, y: 0 }}
+                className="absolute left-1/2 top-1/2 text-rose-400 text-base pointer-events-none"
+                initial={{ opacity: 0, scale: 0.5, x: 0, y: 0 }}
                 animate={{
-                  opacity: [0, 0.9, 0],
-                  scale: [0.6, 1, 0.85],
-                  x: [0, Math.round(Math.random() * 60 - 30), Math.round(Math.random() * 80 - 40)],
-                  y: [0, -40 - Math.random() * 24, -70 - Math.random() * 30],
+                  opacity: [0, 0.8, 0],
+                  scale: [0.5, 1.2, 0.9],
+                  x: [0, Math.round(Math.random() * 80 - 40), Math.round(Math.random() * 100 - 50)],
+                  y: [0, -50 - Math.random() * 30, -90 - Math.random() * 40],
                 }}
                 transition={{ 
-                  duration: 3 + Math.random() * 2, 
-                  delay: Math.random() * 2, 
+                  duration: 3.5 + Math.random() * 2, 
+                  delay: Math.random() * 3, 
                   repeat: Infinity, 
                   ease: 'easeOut' 
+                }}
+                style={{
+                  filter: 'drop-shadow(0 0 8px rgba(244, 63, 94, 0.4))'
                 }}
               >
                 ♥︎
               </motion.span>
             ))}
           </div>
-          <p className="text-sm sm:text-base text-slate-400 font-medium">
-            Loved and Trusted by more than 1200+ Users
-          </p>
+          <div className="text-center sm:text-left">
+            <p className="text-base sm:text-lg text-slate-300 font-semibold mb-1">
+              Loved and Trusted by more than 1200+ Users
+            </p>
+            <div className="flex items-center justify-center sm:justify-start gap-1">
+              {[...Array(5)].map((_, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + i * 0.1, duration: 0.3 }}
+                  className="text-yellow-400 text-sm"
+                >
+                  ★
+                </motion.span>
+              ))}
+              <span className="text-slate-400 text-sm ml-2 font-medium">4.9/5 rating</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* DEMO - Chrome safe */}
