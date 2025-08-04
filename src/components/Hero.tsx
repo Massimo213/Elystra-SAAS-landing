@@ -250,7 +250,7 @@ const Hero = () => {
                   ★
                 </motion.span>
               ))}
-              <span className="text-slate-400 text-sm ml-2 font-medium">4.9/5 rating</span>
+              <span className="text-slate-400 text-sm ml-2 font-medium">4.8/5 rating</span>
             </div>
           </div>
         </motion.div>
