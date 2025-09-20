@@ -19,6 +19,7 @@ import Brand from '@/components/Brand';
 import Feature from '@/components/Feature';
 import Review from '@/components/Review';
 import Cta from '@/components/Cta';
+import GetStarted from '@/components/GetStarted';
 
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 // import About from '@/components/About';
@@ -27,9 +28,9 @@ const MainContent = () => (
   <main>
     <Hero />
     <Brand /> 
+    <GetStarted />
     <Feature />
     <Review />
-    {/* <About/> */}
     <Cta/>
     <PrivacyPolicy />
   </main>
@@ -43,6 +44,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<MainContent />} />
+          <Route path="/get-started" element={<GetStarted />} />
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>

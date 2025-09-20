@@ -104,9 +104,9 @@ const Header = () => {
           <a href='https://app.elystra.online/sign-up'>
             <Button variant='ghost'>Sign In</Button>
           </a>
-          <a href='https://app.elystra.online/sign-up'>
+          <Link to='/get-started'>
             <Button>Get Started</Button>
-          </a>
+          </Link>
         </div>
 
         <Popover>

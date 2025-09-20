@@ -142,11 +142,15 @@ const Hero = () => {
 
           {/* CTA */}
           <motion.div variants={heroChildVariant} className="flex justify-center gap-2 mt-6 md:mt-8">
-            <a href="https://app.elystra.online/sign-up">
-              <Button className="bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white px-8 py-3 rounded-full font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                Start Now
-              </Button>
-            </a>
+            <Button 
+              onClick={() => {
+                const element = document.getElementById('get-started');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white px-8 py-3 rounded-full font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            >
+              Start Now
+            </Button>
           </motion.div>
         </div>
 
@@ -254,7 +258,7 @@ const Hero = () => {
             </div>
           </div>
         </motion.div>
-
+        
         {/* DEMO - Chrome safe */}
         <motion.div
           ref={demoRef}

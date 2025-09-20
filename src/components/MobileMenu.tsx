@@ -97,9 +97,9 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
             Sign In
           </Button>
         </a>
-        <a href='https://my.elystra.online/sign-up'>
+        <Link to='/get-started'>
           <Button className='w-full'>Get Started</Button>
-        </a>
+        </Link>
       </div>
     </div>
   );
