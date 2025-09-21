@@ -146,6 +146,7 @@ const HowItWorksModal = () => {
         </div>
 
         {/* Step 2 */}
+        
         <div className="flex gap-4">
           <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-rose-500 to-fuchsia-500 rounded-full flex items-center justify-center shadow-lg">
             <Zap className="w-5 h-5 text-white" />
