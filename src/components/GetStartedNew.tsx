@@ -11,19 +11,8 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { 
   Mail, 
   HelpCircle,
-  Clock,
   Shield,
-  DollarSign,
-  BarChart3,
-  Link2,
-  Calculator,
-  FileText,
-  Signature,
-  HandCoins,
-  Eye,
   CheckCircle,
-  X,
-  ArrowRight
 } from 'lucide-react';
 
 /* ---------------- Motion variants (subtle, professional) ---------------- */
