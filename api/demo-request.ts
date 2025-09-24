@@ -37,6 +37,9 @@ const EMAIL_CONFIG: EmailServiceConfig = {
   fromName: process.env.SENDGRID_FROM_NAME || 'Elystra Onboarding Team'
 };
 
+// ✅ Using professional domain email for cold calls
+// This will work once domain authentication is complete
+
 // 🔧 Debug logging for environment variables
 console.log('🔧 EMAIL CONFIG DEBUG:', {
   hasApiKey: !!EMAIL_CONFIG.apiKey,
@@ -229,7 +232,7 @@ P.S. - If you don't see this working within your first proposal cycle, we PayPal
 
   <div style="background: linear-gradient(135deg, #f97316, #dc2626); border-radius: 12px; padding: 24px; text-align: center; color: white; margin: 30px 0;">
     <h3 style="margin: 0 0 10px 0;">Zero-Risk Guarantee</h3>
-    <p style="margin: 0; font-size: 16px;">If you don't close a deal with this system, we PayPal you <strong>$250</strong> for your time.</p>
+    <p style="margin: 0; font-size: 16px;">If you don't close a deal with this system, we PayPal you <strong>$250</strong>. That's how confident we are on Elystra .</p>
   </div>
 
   <div style="text-align: center; margin: 30px 0;">
