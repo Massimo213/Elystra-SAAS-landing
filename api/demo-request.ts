@@ -270,38 +270,31 @@ async function logDemoRequest(request: DemoRequest, result: { success: boolean; 
  * Main API Handler - Vercel Serverless Function
  * POST /api/demo-request
  */
-export default async function handler(req: Request) {
+export default async function handler(req: any, res: any) {
   // Handle CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
+    res.status(200).end();
+    return;
   }
 
   if (req.method !== 'POST') {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Method not allowed' }),
-      { 
-        status: 405,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    res.status(405).json({ success: false, error: 'Method not allowed' });
+    return;
   }
 
   try {
     console.log('🌐 Incoming API request:', {
       method: req.method,
       timestamp: new Date().toISOString(),
-      clientIP: req.headers.get('x-forwarded-for') || 'unknown',
-      userAgent: req.headers.get('user-agent')?.substring(0, 100) || 'unknown'
+      clientIP: req.headers['x-forwarded-for'] || 'unknown',
+      userAgent: req.headers['user-agent']?.substring(0, 100) || 'unknown'
     });
 
-    const body: DemoRequest = await req.json();
+    const body: DemoRequest = req.body;
     console.log('📝 Request body parsed:', {
       email: body.email,
       source: body.source,
@@ -309,26 +302,16 @@ export default async function handler(req: Request) {
     });
     
     // Rate limiting check
-    const clientIP = req.headers.get('x-forwarded-for') || 'unknown';
+    const clientIP = req.headers['x-forwarded-for'] || 'unknown';
     if (!checkRateLimit(clientIP)) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Rate limit exceeded' }),
-        { 
-          status: 429,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      res.status(429).json({ success: false, error: 'Rate limit exceeded' });
+      return;
     }
     
     // Validation
     if (!body.email || !body.email.includes('@')) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Valid email required' }),
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      res.status(400).json({ success: false, error: 'Valid email required' });
+      return;
     }
 
     // Send email
@@ -344,21 +327,12 @@ export default async function handler(req: Request) {
         timestamp: new Date().toISOString()
       });
       
-      return new Response(
-        JSON.stringify({
-          success: true,
-          message: 'Demo email sent successfully',
-          estimatedDelivery: '2-3 minutes',
-          messageId: result.messageId
-        }),
-        { 
-          status: 200,
-          headers: { 
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-          }
-        }
-      );
+      res.status(200).json({
+        success: true,
+        message: 'Demo email sent successfully',
+        estimatedDelivery: '2-3 minutes',
+        messageId: result.messageId
+      });
     } else {
       console.error('🚨 API FAILURE - Email not sent:', {
         recipient: body.email,
@@ -366,13 +340,7 @@ export default async function handler(req: Request) {
         timestamp: new Date().toISOString()
       });
       
-      return new Response(
-        JSON.stringify({ success: false, error: result.error }),
-        { 
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      res.status(500).json({ success: false, error: result.error });
     }
 
   } catch (error) {
@@ -382,13 +350,7 @@ export default async function handler(req: Request) {
       timestamp: new Date().toISOString()
     });
     
-    return new Response(
-      JSON.stringify({ success: false, error: 'Internal server error' }),
-      { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 }
 
