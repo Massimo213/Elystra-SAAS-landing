@@ -5,7 +5,7 @@
  */
 
 import { motion, useInView, Variants } from 'motion/react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { 
@@ -44,6 +44,38 @@ const fadeInUp: Variants = {
 const validateEmail = (email: string): boolean => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
+};
+
+/* ---------------- Analytics types ---------------- */
+declare global {
+  function gtag(...args: any[]): void;
+}
+
+/* ---------------- UTM Parameter Capture ---------------- */
+interface TrackingData {
+  source: string;
+  medium?: string;
+  campaign?: string;
+  salesperson?: string;
+  callId?: string;
+  timestamp: string;
+  referrer: string;
+  userAgent: string;
+}
+
+const captureTrackingData = (): TrackingData => {
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  return {
+    source: urlParams.get('utm_source') || urlParams.get('source') || 'direct',
+    medium: urlParams.get('utm_medium') || 'unknown',
+    campaign: urlParams.get('utm_campaign') || 'default',
+    salesperson: urlParams.get('rep') || urlParams.get('salesperson') || 'unknown',
+    callId: urlParams.get('call_id') || urlParams.get('callId') || '',
+    timestamp: new Date().toISOString(),
+    referrer: document.referrer || 'direct',
+    userAgent: navigator.userAgent
+  };
 };
 
 /* ---------------- How it Works Modal ---------------- */
@@ -206,6 +238,12 @@ const EmailCapture = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [trackingData, setTrackingData] = useState<TrackingData | null>(null);
+
+  // Capture tracking data on component mount
+  useEffect(() => {
+    setTrackingData(captureTrackingData());
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -214,24 +252,73 @@ const EmailCapture = () => {
     
     setIsSubmitting(true);
     
-    // Create mailto link to onboarding@elystra.online
-    const subject = encodeURIComponent('Free Cycle Request');
-    const body = encodeURIComponent(`Hi Elystra team,
+    try {
+      // Automated email API call - replaces manual mailto
+      const response = await fetch('/api/demo-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          source: trackingData?.source === 'cold_call' ? 'cold_call' : 'website',
+          trackingData: {
+            utm_source: trackingData?.source,
+            utm_medium: trackingData?.medium,
+            utm_campaign: trackingData?.campaign,
+            salesperson: trackingData?.salesperson,
+            callId: trackingData?.callId,
+            referrer: trackingData?.referrer,
+            userAgent: trackingData?.userAgent,
+            timestamp: trackingData?.timestamp || new Date().toISOString()
+          }
+        })
+      });
 
-I'm ready to start my free cycle!
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitted(true);
+        
+        // Optional: Analytics tracking
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'demo_request', {
+            method: trackingData?.source || 'direct',
+            email_domain: email.split('@')[1],
+            source: trackingData?.source
+          });
+        }
+      } else {
+        // Fallback to mailto if API fails
+        console.warn('API failed, falling back to mailto:', result.error);
+        const subject = encodeURIComponent('Demo Request - Cold Call Prospect');
+        const body = encodeURIComponent(`Hi Elystra team,
 
-Email: ${email}
-Ready to transform my proposal workflow.
+Please send demo email to: ${email}
+Source: ${trackingData?.source || 'website'}
+Timestamp: ${new Date().toISOString()}
 
-Best regards`);
-    
-    window.location.href = `mailto:onboarding@elystra.online?subject=${subject}&body=${body}`;
-    
-    // Simulate processing
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    setSubmitted(true);
-    setIsSubmitting(false);
+API fallback - manual processing required.`);
+        
+        window.location.href = `mailto:onboarding@elystra.online?subject=${subject}&body=${body}`;
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error('Email automation failed:', error);
+      
+      // Fallback to mailto on network error
+      const subject = encodeURIComponent('Demo Request - System Error');
+      const body = encodeURIComponent(`Hi Elystra team,
+
+System error occurred. Please send demo email to: ${email}
+Error: ${error instanceof Error ? error.message : 'Unknown error'}
+Timestamp: ${new Date().toISOString()}`);
+      
+      window.location.href = `mailto:onboarding@elystra.online?subject=${subject}&body=${body}`;
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -244,9 +331,9 @@ Best regards`);
         <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
           <CheckCircle className="w-8 h-8 text-white" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 mb-2">Email Opened!</h3>
-        <p className="text-slate-600 mb-2">Send that email to get started</p>
-        <p className="text-sm text-green-600 font-semibold">Account ready in &lt;3 minutes</p>
+        <h3 className="text-xl font-bold text-slate-900 mb-2">Demo Request Sent!</h3>
+        <p className="text-slate-600 mb-2">Check your inbox in 2-3 minutes</p>
+        <p className="text-sm text-green-600 font-semibold">Demo + signup link coming your way</p>
       </motion.div>
     );
   }
@@ -278,20 +365,20 @@ Best regards`);
                 transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
               />
-              Opening Email...
+              Sending Demo...
             </div>
           ) : (
-            'Send Free Cycle Request'
+            'Get Demo + Signup Instructions'
           )}
         </Button>
       </form>
       
       <div className="mt-4 text-center space-y-1">
         <p className="text-sm text-slate-600">
-          Email sent to: <span className="font-semibold">onboarding@elystra.online</span>
+          Automated demo delivery to: <span className="font-semibold">your inbox</span>
         </p>
         <p className="text-xs text-slate-500">
-          No credit card • No commitment • Ready in 3 minutes
+          Demo + signup link • Account ready in 3 minutes • Zero commitment
         </p>
       </div>
     </div>
@@ -421,10 +508,10 @@ const GetStarted = () => {
             <div>
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-white mb-2">
-                  Start Your Free Cycle
+                  Get Your Demo + Account Access
                 </h2>
                 <p className="text-slate-300">
-                  No payment required • Account ready in 3 minutes
+                  Demo arrives in 2-3 minutes • Account setup included
                 </p>
               </div>
               
@@ -439,7 +526,7 @@ const GetStarted = () => {
                   <div className="w-8 h-8 bg-orange-500/20 rounded-full flex items-center justify-center">
                     <span className="text-orange-400 font-bold text-sm">1</span>
                   </div>
-                  <p className="text-slate-300">Send email → Account activated in 3 minutes</p>
+                  <p className="text-slate-300">Enter email → Demo + signup link sent automatically</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-rose-500/20 rounded-full flex items-center justify-center">
