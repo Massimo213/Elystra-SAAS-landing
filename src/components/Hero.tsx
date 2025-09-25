@@ -240,7 +240,7 @@ const Hero = () => {
           </div>
           <div className="text-center sm:text-left">
             <p className="text-base sm:text-lg text-slate-300 font-semibold mb-1">
-              Loved and Trusted by more than 1200+ Users
+              Loved and Trusted by more than 130 Agencies and  1200+ Users 
             </p>
             <div className="flex items-center justify-center sm:justify-start gap-1">
               {[...Array(5)].map((_, i) => (

@@ -29,8 +29,8 @@ const MainContent = () => (
     <Hero />
     <Brand /> 
     <GetStarted />
-    <Feature />
     <Review />
+    <Feature />
     <Cta/>
     <PrivacyPolicy />
   </main>

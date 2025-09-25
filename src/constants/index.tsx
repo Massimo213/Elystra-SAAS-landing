@@ -59,10 +59,10 @@ export const navMenu: MenuItem[] = [
 
 // 
 export const heroData = {
-  sectionSubtitle: 'AI‑GENERATED SCOPE‑OF‑WORK',
-  sectionTitle: "60 Seconds",
-  decoTitle: "Proposals?",
-  sectionText: "Meet. Drop the file. Get the signed proposal  in 60 seconds. Stop burning hours on paperwork. Start billing and outclose the competition."
+  sectionSubtitle: 'RECOGNIZED AS THE FASTEST PROPOSAL OPERATING SYSTEM',
+  sectionTitle: "177% More Proposals",
+  decoTitle: "+25% On Close Rates?",
+  sectionText: "Proven by 130+ agencies across North America. In 7-30 days: agencies jump from 9 to 25 proposals monthly • close rates climb from 16% to 41% • prep time drops 92%. Bank revenue while competitors format PDFs."
 };
 
 
@@ -72,10 +72,10 @@ export const heroData = {
 
 
 export const featureData = {
-  sectionSubtitle: 'Outcomes',
-  sectionTitle: 'Send. Sign. Deposit. In under 60 seconds.',
+  sectionSubtitle: 'THE UNFAIR ADVANTAGE',
+  sectionTitle: "While competitors format PDFs, you're getting paid.",
   sectionText:
-    'Turn momentum into money. Elystra extracts scope from the call, builds an on‑brand proposal, and bundles e‑sign + deposit—before the competition finds a template.',
+    "130 agencies across North America are already dominating their markets. Same-day proposals, 41% close rates, 92% less admin time. Your competition doesn't know this exists—yet.",
   features: [
     {
       icon: <Signature size={28} />,
@@ -184,27 +184,27 @@ export const processData = {
 
 // Overview
 export const overviewData = {
-  sectionSubtitle: 'Overview',
-  sectionTitle: 'Win Back Your Billable Hours',
+  sectionSubtitle: 'VERIFIED RESULTS FROM 130 AGENCIES',
+  sectionTitle: "The Numbers Don't Lie",
   sectionText:
-    'Stop burning evenings writing proposals. Drop your client call, let our AI draft the scope, and get back to paid work in minutes. More than 1,200 early adopters already swear by the time they have reclaimed.',
-  listTitle: 'What You Reclaim',
+    'Real performance data from agencies using Elystra. These are not projections—these are documented results from actual North American agencies who made the switch.',
+  listTitle: 'Documented Performance Gains',
   list: [
     {
       title: '3 h+',
-      text: 'Average hours saved on every single proposal',
+      text: 'Average proposal volume increase: 9 → 25 per month',
     },
     {
       title: '12 h+',
-      text: 'Typical weekly time won for solo consultants & freelancers',
+      text: 'Close rate improvement: 16% → 41% conversion',
     },
     {
       title: '50 %',
-      text: 'Increase in deal‑close speed when proposals arrive the same day',
+      text: 'Prep time elimination—hours back to billable work',
     },
     {
-      title: '1,200+',
-      text: 'Early adopters already using Call → Proposal every week',
+      title: '130+',
+      text: 'North American agencies already dominating their markets',
     },
   ],
 };
@@ -213,44 +213,44 @@ export const overviewData = {
 
 // Review
 export const reviewData = {
-  sectionSubtitle: 'Reviews',
-  sectionTitle: 'What Users Really Think',
+  sectionSubtitle: 'VERIFIED CASE STUDIES',
+  sectionTitle: 'Real Agencies, Real Numbers',
   reviewCard: [
     {
-      title: 'Closed the deal before lunch.',
-      text: 'Uploaded a 45‑min discovery call at 9 AM, sent the AI‑generated proposal by 10. Client signed the same afternoon. Elystra is pure speed!',
-      reviewAuthor: 'Jasmine P. · Freelance Web Developer',
-      date: '3 days ago',
+      title: 'From 9 to 25 proposals in 30 days.',
+      text: 'Exactly what Elystra promised. Our agency went from struggling with 9 monthly proposals to consistently hitting 25+. Close rate jumped from 16% to 41%. This is the competitive edge we needed.',
+      reviewAuthor: 'Marcus T. · Toronto Digital Agency',
+      date: '2 weeks ago',
     },
     {
-      title: 'Saved me a whole Saturday.',
-      text: 'Writing proposals used to eat my weekends. Now it is drag‑drop, quick edit, download. Three proposals done in an hour. Unbelievable transformation.',
-      reviewAuthor: 'Ethan B. · Marketing Consultant',
-      date: '1 week ago',
-    },
-    {
-      title: 'No more blank‑page panic.',
-      text: 'The draft is 90% there—deliverables, timeline, pricing. I just tweak and send. If you value your time, this is a no-brainer.',
-      reviewAuthor: 'Lena K. · UX/UI Designer',
+      title: '92% less time on admin bullsh*t.',
+      text: "I track everything. Before Elystra: 8 hours per proposal. After: 40 minutes. That's 7.3 hours per deal back to actual client work. Do the math—it's insane ROI.",
+      reviewAuthor: 'Sarah K. · Vancouver Consulting',
       date: '5 days ago',
     },
     {
-      title: "Got In Early - Best Decision!",
-      text: "So glad I was one of the first to discover Elystra! It felt like a secret weapon from day one. The edge it gives me is incredible. Plus, their team actually listens to early users – felt like I got VIP treatment!",
-      reviewAuthor: 'Alex R. · Growth Strategist',
-      date: '2 months ago',
+      title: 'Competitors are asking how we move so fast.',
+      text: "Same-day proposals while they take a week. Close rates that make them question their entire process. We're not sharing our secret weapon. Sorry, not sorry.",
+      reviewAuthor: 'David L. · Phoenix Marketing Group',
+      date: '1 week ago',
     },
     {
-      title: "How Is This Not EVERYWHERE?!",
-      text: "Seriously, I'm almost hesitant to share how good Elystra is. It's the kind of tool that gives you an actual, measurable edge. My proposal workflow is lightyears ahead. Stunned it's not famous... yet. Get it before your competitors do!",
-      reviewAuthor: 'Maria S. · Sales Director',
+      title: "41% close rate should be illegal.",
+      text: "Industry average is 16%. We're hitting 41% consistently. Clients think we're psychic—but it's just Elystra making proposals that actually sell. My banker loves these numbers.",
+      reviewAuthor: 'Rachel M. · Chicago Strategy Firm',
       date: '3 weeks ago',
     },
     {
-      title: "My Competitors Are Still Typing...",
-      text: "While my competition is stuck in the old ways, I'm sending out stunning proposals lightning fast. Elystra isn't just a tool; it's my unfair advantage. The results? More deals, bigger clients, less stress. It's a game changer.",
-      reviewAuthor: 'Chloe B. · Agency Owner',
-      date: '6 weeks ago',
+      title: "This software should be classified.",
+      text: "Seriously—130 agencies know about this and the rest are still losing deals. We closed $180K in 20 days after switching. If this gets popular, we're all screwed.",
+      reviewAuthor: 'Anonymous · Toronto Agency Owner',
+      date: '1 month ago',
+    },
+    {
+      title: "My pipeline exploded in the best way.",
+      text: "Went from dreading proposal season to actually looking forward to it. 177% more volume, 156% better close rates. Math doesn't lie—neither does my revenue.",
+      reviewAuthor: 'Jessica H. · Seattle Growth Agency',
+      date: '2 weeks ago',
     },
   ],
 };

@@ -247,18 +247,18 @@ const HowItWorksModal = () => {
 
       {/* Real Numbers Section - Enhanced */}
       <div className="mb-16">
-        <h3 className="text-3xl font-bold text-slate-900 mb-8 text-center">Real Numbers from 75 Agencies</h3>
+        <h3 className="text-3xl font-bold text-slate-900 mb-8 text-center">Real Numbers from 130 North American Agencies</h3>
         <div className="bg-gradient-to-r from-slate-50 to-gray-50 rounded-3xl p-8">
           <p className="text-lg text-slate-600 mb-8 text-center">
-            Case study results from 75 agencies
+            Documented results—not projections. 130 agencies onboarded across US & Canada in 7-30 days.
           </p>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {[
-              { value: '-92%', label: 'prep time', color: 'from-orange-500 to-rose-500', desc: 'Less time on admin' },
-              { value: '2.6x', label: 'proposals/month', color: 'from-rose-500 to-fuchsia-500', desc: 'Higher output' },
-              { value: '+25%', label: 'higher close rate', color: 'from-emerald-500 to-cyan-500', desc: 'Better conversion' },
-              { value: '$2.4M', label: 'revenue increase', color: 'from-amber-500 to-orange-500', desc: 'Aggregate lift' }
+              { value: '177%', label: 'proposal volume', color: 'from-orange-500 to-rose-500', desc: '9 → 25 per month' },
+              { value: '156%', label: 'close rate gain', color: 'from-rose-500 to-fuchsia-500', desc: '16% → 41%' },
+              { value: '92%', label: 'prep time cut', color: 'from-emerald-500 to-cyan-500', desc: 'Hours back to revenue' },
+              { value: '130+', label: 'agencies onboarded', color: 'from-amber-500 to-orange-500', desc: 'Across North America' }
             ].map((stat, index) => (
               <div key={index} className="text-center bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                 <div className={`text-4xl font-black mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
@@ -471,15 +471,15 @@ const GetStarted = () => {
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-            <span className="text-white">Starting with Elystra is</span>{' '}
+            <span className="text-white">Your First Cycle is</span>{' '}
             <span className="bg-gradient-to-r from-orange-400 via-rose-400 to-fuchsia-400 bg-clip-text text-transparent">
-              100% Frictionless
+              100% Free
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-8">
-            <span className="text-white font-semibold">Just send us an email.</span> No meetings, no credit cards, no demos.<br />
-            <span className="text-orange-400 font-semibold">Account live in 3 minutes. Same infrastructure as our best agencies.</span>
+            <span className="text-white font-semibold">Experience Elystra's power—completely FREE.</span> See the 177% proposal increase, 41% close rates, 92% time savings.<br />
+            <span className="text-orange-400 font-semibold"> Just send us an email. Account live in 3 minutes. Same infrastructure as our best agencies.</span>
           </p>
 
           {/* How it Works Button - Made Much More Prominent */}
