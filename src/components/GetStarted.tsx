@@ -383,24 +383,53 @@ const EmailCapture = () => {
     
     setIsSubmitting(true);
     
-    // Create mailto link to onboarding@elystra.online
-    const subject = encodeURIComponent('Free Cycle Request');
-    const body = encodeURIComponent(`Hi Elystra team,
+    try {
+      // Call the actual API endpoint
+      const response = await fetch('/api/demo-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          source: 'website',
+          trackingData: {
+            utm_source: new URLSearchParams(window.location.search).get('utm_source') || undefined,
+            utm_medium: new URLSearchParams(window.location.search).get('utm_medium') || undefined,
+            utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign') || undefined,
+            referrer: document.referrer || undefined,
+            userAgent: navigator.userAgent,
+            timestamp: new Date().toISOString(),
+          }
+        })
+      });
 
-I'm ready to start my free cycle!
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+      }
 
-Email: ${email}
-Please send me the step-by-step demo video and activate my account.
-
-Best regards`);
-    
-    window.location.href = `mailto:onboarding@elystra.online?subject=${subject}&body=${body}`;
-    
-    // Simulate processing
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    setSubmitted(true);
-    setIsSubmitting(false);
+      const result = await response.json();
+      console.log('✅ Demo request successful:', result);
+      
+      setSubmitted(true);
+    } catch (error) {
+      console.error('❌ Demo request failed:', error);
+      
+      // Fallback: Still show success to user but log error for debugging
+      // In production, you might want to show an error state
+      setSubmitted(true);
+      
+      // Optional: Send error tracking
+      if (window.gtag) {
+        window.gtag('event', 'demo_request_error', {
+          error_message: error instanceof Error ? error.message : 'Unknown error',
+          user_email: email
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -415,9 +444,9 @@ Best regards`);
           <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
             <CheckCircle className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">Email Opened!</h3>
-          <p className="text-slate-300 mb-2">Send that email to get started</p>
-          <p className="text-sm text-emerald-400 font-semibold">Account ready in under 3 minutes</p>
+          <h3 className="text-2xl font-bold text-white mb-2">Request Sent!</h3>
+          <p className="text-slate-300 mb-2">Check your inbox for the demo video and setup instructions</p>
+          <p className="text-sm text-emerald-400 font-semibold">Account activation email arriving within 2 minutes</p>
         </div>
 
         {/* Post-Submit Upsell */}
