@@ -83,3 +83,4 @@ User submits email → Frontend calls /api/demo-request → SendGrid sends email
 ```
 
 **No more manual email sending required!**
+

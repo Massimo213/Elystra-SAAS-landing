@@ -411,8 +411,8 @@ const EmailCapture = () => {
 
       const result = await response.json();
       console.log('✅ Demo request successful:', result);
-      
-      setSubmitted(true);
+    
+    setSubmitted(true);
     } catch (error) {
       console.error('❌ Demo request failed:', error);
       
@@ -428,7 +428,7 @@ const EmailCapture = () => {
         });
       }
     } finally {
-      setIsSubmitting(false);
+    setIsSubmitting(false);
     }
   };
 
@@ -441,8 +441,8 @@ const EmailCapture = () => {
       >
         {/* Success State */}
         <div className="text-center bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 backdrop-blur-xl rounded-3xl p-8 border border-emerald-500/20">
-          <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
-            <CheckCircle className="w-8 h-8 text-white" />
+        <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+          <CheckCircle className="w-8 h-8 text-white" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-2">Request Sent!</h3>
           <p className="text-slate-300 mb-2">Check your inbox for the demo video and setup instructions</p>
