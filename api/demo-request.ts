@@ -174,8 +174,8 @@ Thank you very much for your trust in Elystra!
 
 Your FREE trial is activated and ready to use. Your first proposal cycle is completely free - no cost, no risk, no friction.
 
-🚀 GET STARTED NOW:
-Simply use this email (${request.email}) to sign in at: https://app.elystra.online
+🚀 GET STARTED NOW - INSTANT ACCESS:
+Click your personalized trial link: https://app.elystra.online/flash-trial/1xB5NG5WT6dsQVRKNM-DpA41Bc9Z-81P
 
 That's it. Upload a client call or any file, get your professional proposal with e-signature and payment collection + Analytics tracking. Completely free.
 Set yourself to success !
@@ -209,10 +209,10 @@ The Elystra Team
   </div>
 
   <div style="background: linear-gradient(135deg, #10b981, #06b6d4); border-radius: 16px; padding: 35px; margin-bottom: 30px; text-align: center;">
-    <h2 style="color: white; font-size: 26px; margin-bottom: 15px;">🚀 Start Your FREE Trial Now</h2>
+    <h2 style="color: white; font-size: 26px; margin-bottom: 15px;">🚀 INSTANT ACCESS - Start Your FREE Trial Now</h2>
     <p style="color: rgba(255,255,255,0.95); margin-bottom: 25px; font-size: 17px;">Your first proposal cycle is completely free - no cost, no risk, no friction</p>
-    <a href="https://app.elystra.online" style="display: inline-block; background: white; color: #1f2937; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Get Started →</a>
-    <p style="color: rgba(255,255,255,0.85); margin-top: 15px; font-size: 14px;">Use this email: <strong>${request.email}</strong></p>
+    <a href="https://app.elystra.online/flash-trial/1xB5NG5WT6dsQVRKNM-DpA41Bc9Z-81P" style="display: inline-block; background: white; color: #1f2937; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Access Your Trial Instantly →</a>
+    <p style="color: rgba(255,255,255,0.85); margin-top: 15px; font-size: 14px;">Ready to use immediately - no waiting</p>
   </div>
 
   <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin-bottom: 30px;">
@@ -220,15 +220,15 @@ The Elystra Team
     <div style="color: #4b5563; font-size: 16px; line-height: 1.8;">
       <div style="display: flex; align-items: center; margin-bottom: 15px;">
         <span style="background: #10b981; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; font-size: 14px;">1</span>
-        <span>Sign in with your email: <strong>${request.email}</strong></span>
+        <span>Click your trial link above - instant access</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 15px;">
         <span style="background: #06b6d4; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; font-size: 14px;">2</span>
-        <span>Upload any client call or meeting recording</span>
+        <span>Upload any client call or any file</span>
       </div>
       <div style="display: flex; align-items: center;">
         <span style="background: #8b5cf6; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; font-size: 14px;">3</span>
-        <span>Get your professional proposal with e-signature & payment collection</span>
+        <span>Get your professional proposal with e-signature & payment collection + Analytics tracking</span>
       </div>
     </div>
   </div>
@@ -236,7 +236,7 @@ The Elystra Team
   <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center;">
     <h4 style="color: #92400e; margin: 0 0 15px 0; font-size: 18px; font-weight: 600;">Need Help Getting Started? (Optional)</h4>
     <p style="color: #a16207; margin-bottom: 20px; font-size: 15px;">If you need to book a 10-min demo with us</p>
-    <a href="https://calendly.com/onboarding-elystra/30min" style="display: inline-block; background: #f59e0b; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">Book 10-Min Demo →</a>
+    <a href="https://calendly.com/onboarding-elystra" style="display: inline-block; background: #f59e0b; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">Book 10-Min Demo →</a>
   </div>
 
   <div style="text-align: center; padding: 25px; background: #f1f5f9; border-radius: 12px;">
