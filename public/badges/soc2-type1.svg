@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="60" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#374151" text-anchor="middle" letter-spacing="1">AICPA</text>
+  <text x="60" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">SOC 2®</text>
+  <text x="60" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" fill="#6B7280" text-anchor="middle">TYPE I</text>
+</svg>

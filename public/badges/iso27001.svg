@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="60" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">ISO</text>
+  <text x="60" y="73" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#111827" text-anchor="middle">27001</text>
+</svg>

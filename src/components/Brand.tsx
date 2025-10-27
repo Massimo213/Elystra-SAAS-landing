@@ -18,7 +18,7 @@ const Brand = () => {
   const headline = useMemo(
     () => [
       'Close while intent is at peak.',
-      'Cash in before the follow‑up.',
+      ,
     ],
     []
   );
@@ -62,17 +62,7 @@ const Brand = () => {
         </div>
 
         {/* Subcopy */}
-        <motion.p
-          variants={fadeInUp}
-          initial="start"
-          whileInView="end"
-          viewport={{ once: true, amount: 0.35 }}
-          className="mt-6 md:mt-8 text-center text-lg md:text-xl text-slate-300 max-w-3xl mx-auto"
-        >
-          Elystra listens once and does the paperwork for you. Structured scope. On‑brand proposal.
-          E‑sign baked in. Deposit link included. Fewer steps. More wins.
-        </motion.p>
-
+       
         {/* Benefit chips (elegant, not childish) */}
         <motion.div
           variants={fadeInUp}

@@ -57,7 +57,72 @@ const PrivacyPolicy = () => {
           >
             <p className='text-gray-600 text-lg font-medium'>Elystra Technologies Ltd.</p>
             <p className='text-gray-600'>Last Updated: 15 January 2025</p>
-            <p className='text-gray-600'>GDPR Compliant</p>
+          </motion.div>
+          
+          {/* Security & Compliance Badges */}
+          <motion.div
+            variants={variants.fadeInUp}
+            initial='start'
+            whileInView='end'
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className='mt-8'
+          >
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+              {/* SOC 2 Type I */}
+              <motion.img
+                src="/badges/soc2-type1.svg"
+                alt="SOC 2 Type I Certified"
+                className="w-16 h-16 drop-shadow-md"
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* SOC 2 Type II */}
+              <motion.img
+                src="/badges/soc2-type2.svg"
+                alt="SOC 2 Type II Certified"
+                className="w-16 h-16 drop-shadow-md"
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* ISO 27001 */}
+              <motion.img
+                src="/badges/iso27001.svg"
+                alt="ISO 27001 Certified"
+                className="w-16 h-16 drop-shadow-md"
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* GDPR */}
+              <motion.img
+                src="/badges/gdpr.svg"
+                alt="GDPR Compliant"
+                className="w-16 h-16 drop-shadow-md"
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* CCPA */}
+              <motion.img
+                src="/badges/ccpa.svg"
+                alt="CCPA Compliant"
+                className="w-16 h-16 drop-shadow-md"
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* HIPAA */}
+              <motion.img
+                src="/badges/hipaa.svg"
+                alt="HIPAA Compliant"
+                className="w-16 h-16 drop-shadow-md"
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
           </motion.div>
         </div>
 

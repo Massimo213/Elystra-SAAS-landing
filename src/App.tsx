@@ -28,10 +28,9 @@ const MainContent = () => (
   <main>
     <Hero />
     <Brand /> 
-    <GetStarted />
-    <Review />
     <Feature />
     <Cta/>
+    <Review />
     <PrivacyPolicy />
   </main>
 );
