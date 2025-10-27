@@ -62,7 +62,7 @@ export const heroData = {
   sectionSubtitle: 'AI-POWERED PROPOSAL GENERATION',
   sectionTitle: "Where Proposals Become Revenue",
   decoTitle: "Instantly.",
-  sectionText: "Elystra turns your call notes into signed, paid proposals in under 4 minutes. 145+ agencies closed $4.1M last quarter—proposal, signature, and Stripe payment in one motion."
+  sectionText: "Elystra turns your call Recording/Notes into signed, paid proposals in under 4 minutes. 145+ agencies closed $4.1M last quarter—proposal, signature, and Stripe payment in one motion."
 };
 
 

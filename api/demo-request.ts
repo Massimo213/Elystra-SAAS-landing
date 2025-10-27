@@ -168,25 +168,27 @@ function generateDemoEmail(request: DemoRequest) {
     : `Thank You for Trusting Elystra - Your Free Trial Awaits`;
 
   const textBody = `
-Hi there!
+Hi,
 
-Thank you very much for your trust in Elystra! 
+Thank you for trusting Elystra.
 
-Your FREE trial is activated and ready to use. Your first proposal cycle is completely free - no cost, no risk, no friction.
+Your trial is live. First proposal completely free.
 
-🚀 GET STARTED NOW - INSTANT ACCESS:
-Click your personalized trial link: https://app.elystra.online/flash-trial/1xB5NG5WT6dsQVRKNM-DpA41Bc9Z-81P
+→ Start now: https://app.elystra.online/flash-trial/n4pkcIMOKAals5s0lo8LAmYke7AKMOsp
 
-That's it. Upload a client call or any file, get your professional proposal with e-signature and payment collection + Analytics tracking. Completely free.
-Set yourself to success !
+Upload a call recording or meeting notes. Get a branded proposal with e-signature and Stripe payment ready in under 4 minutes.
 
- NEED HELP GETTING STARTED? 
-If you need to book a 10-min demo with us: https://calendly.com/onboarding-elystra
+That's it. No setup, no learning curve.
 
-Your first cycle is on us - experience the power of Elystra with zero risk.
+---
+
+Need a quick walkthrough first?
+Book 10 minutes: https://calendly.com/onboarding-elystra
 
 Best,
 The Elystra Team
+
+P.S. — Your first cycle is completely on us. Experience what 145+ agencies use to close $4.1M/quarter.
 `;
 
   const htmlBody = `
@@ -195,54 +197,135 @@ The Elystra Team
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Elystra Free Trial is Ready</title>
+  <title>Your Elystra Trial is Live</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;">
   
-  <div style="text-align: center; margin-bottom: 30px;">
-    <h1 style="color: #1f2937; font-size: 32px; margin-bottom: 10px;">
-      Thank You for Your Trust! 🙏
-    </h1>
-    <p style="color: #6b7280; font-size: 18px; font-weight: 500;">
-      Your Elystra free trial is activated and ready to use
-    </p>
-  </div>
-
-  <div style="background: linear-gradient(135deg, #10b981, #06b6d4); border-radius: 16px; padding: 35px; margin-bottom: 30px; text-align: center;">
-    <h2 style="color: white; font-size: 26px; margin-bottom: 15px;">🚀 INSTANT ACCESS - Start Your FREE Trial Now</h2>
-    <p style="color: rgba(255,255,255,0.95); margin-bottom: 25px; font-size: 17px;">Your first proposal cycle is completely free - no cost, no risk, no friction</p>
-    <a href="https://app.elystra.online/flash-trial/1xB5NG5WT6dsQVRKNM-DpA41Bc9Z-81P" style="display: inline-block; background: white; color: #1f2937; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Access Your Trial Instantly →</a>
-    <p style="color: rgba(255,255,255,0.85); margin-top: 15px; font-size: 14px;">Ready to use immediately - no waiting</p>
-  </div>
-
-  <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin-bottom: 30px;">
-    <h3 style="color: #1f2937; font-size: 22px; margin-bottom: 20px; text-align: center;">How It Works (Simple & Fast)</h3>
-    <div style="color: #4b5563; font-size: 16px; line-height: 1.8;">
-      <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <span style="background: #10b981; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; font-size: 14px;">1</span>
-        <span>Click your trial link above - instant access</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <span style="background: #06b6d4; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; font-size: 14px;">2</span>
-        <span>Upload any client call or any file</span>
-      </div>
-      <div style="display: flex; align-items: center;">
-        <span style="background: #8b5cf6; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; font-size: 14px;">3</span>
-        <span>Get your professional proposal with e-signature & payment collection + Analytics tracking</span>
-      </div>
-    </div>
-  </div>
-
-  <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center;">
-    <h4 style="color: #92400e; margin: 0 0 15px 0; font-size: 18px; font-weight: 600;">Need Help Getting Started? (Optional)</h4>
-    <p style="color: #a16207; margin-bottom: 20px; font-size: 15px;">If you need to book a 10-min demo with us</p>
-    <a href="https://calendly.com/onboarding-elystra" style="display: inline-block; background: #f59e0b; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">Book 10-Min Demo →</a>
-  </div>
-
-  <div style="text-align: center; padding: 25px; background: #f1f5f9; border-radius: 12px;">
-    <p style="color: #334155; font-size: 16px; margin-bottom: 5px; font-weight: 600;">Your first cycle is on us - experience Elystra with zero risk</p>
-    <p style="color: #64748b; font-size: 14px; margin: 0;">Questions? Just reply to this email - we're here to help</p>
-  </div>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        
+        <!-- Main Container -->
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding: 0 0 40px 0;">
+              <h1 style="margin: 0; font-size: 17px; font-weight: 400; color: #0a0a0a; line-height: 1.5;">
+                Hi,
+              </h1>
+            </td>
+          </tr>
+          
+          <!-- Body Content -->
+          <tr>
+            <td style="padding: 0 0 24px 0;">
+              <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.6;">
+                Thank you for trusting Elystra.
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding: 0 0 32px 0;">
+              <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.6;">
+                Your trial is live. <span style="font-weight: 500;">First proposal completely free.</span>
+              </p>
+            </td>
+          </tr>
+          
+          <!-- Primary CTA -->
+          <tr>
+            <td style="padding: 0 0 40px 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding: 32px; background-color: #0a0a0a; border-radius: 8px;">
+                    <a href="https://app.elystra.online/flash-trial/n4pkcIMOKAals5s0lo8LAmYke7AKMOsp" 
+                       style="display: inline-block; padding: 14px 32px; background-color: #ffffff; color: #0a0a0a; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 6px; letter-spacing: -0.01em;">
+                      Start Your Trial →
+                    </a>
+                    <p style="margin: 20px 0 0 0; font-size: 14px; color: #a1a1a1; line-height: 1.4;">
+                      No setup required · Ready in seconds
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- How it Works -->
+          <tr>
+            <td style="padding: 0 0 24px 0;">
+              <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.6;">
+                Upload a call recording or meeting notes. Get a branded proposal with e-signature and Stripe payment ready <span style="font-weight: 500;">in under 4 minutes.</span>
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding: 0 0 48px 0;">
+              <p style="margin: 0; font-size: 17px; color: #525252; line-height: 1.6;">
+                That's it. No setup, no learning curve.
+              </p>
+            </td>
+          </tr>
+          
+          <!-- Divider -->
+          <tr>
+            <td style="padding: 0 0 48px 0;">
+              <div style="width: 100%; height: 1px; background-color: #e5e5e5;"></div>
+            </td>
+          </tr>
+          
+          <!-- Secondary CTA -->
+          <tr>
+            <td style="padding: 0 0 12px 0;">
+              <p style="margin: 0; font-size: 15px; color: #737373; line-height: 1.5;">
+                Need a quick walkthrough first?
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding: 0 0 48px 0;">
+              <a href="https://calendly.com/onboarding-elystra" 
+                 style="display: inline-block; color: #0a0a0a; text-decoration: none; font-size: 15px; font-weight: 500; border-bottom: 1px solid #0a0a0a; padding-bottom: 1px;">
+                Book 10 minutes
+              </a>
+            </td>
+          </tr>
+          
+          <!-- Signature -->
+          <tr>
+            <td style="padding: 0 0 8px 0;">
+              <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.5;">
+                Best,
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding: 0 0 48px 0;">
+              <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.5;">
+                The Elystra Team
+              </p>
+            </td>
+          </tr>
+          
+          <!-- P.S. -->
+          <tr>
+            <td style="padding: 24px 0 0 0; border-top: 1px solid #e5e5e5;">
+              <p style="margin: 0; font-size: 14px; color: #737373; line-height: 1.6;">
+                <span style="font-weight: 500;">P.S.</span> — Your first cycle is completely on us. Experience what 145+ agencies use to close $4.1M/quarter.
+              </p>
+            </td>
+          </tr>
+          
+        </table>
+        
+      </td>
+    </tr>
+  </table>
 
 </body>
 </html>
