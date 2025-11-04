@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Mail, Lock, ArrowRight, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
 import Logo from '@/components/Logo';
 
 const SignIn = () => {
@@ -102,7 +102,7 @@ const SignIn = () => {
         {/* Header */}
         <header className="w-full py-6 px-6">
           <Link to="/" className="inline-block">
-            <Logo className="h-8" />
+            <Logo />
           </Link>
         </header>
 
