@@ -5,7 +5,6 @@
 
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { ctaData } from '@/constants';
 import { ctaBanner } from '@/assets';
 import { Signature, HandCoins, Eye, FileText, ShieldCheck, ArrowRight } from 'lucide-react';
 

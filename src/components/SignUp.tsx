@@ -115,7 +115,7 @@ const SignUp = () => {
         {/* Header */}
         <header className="w-full py-6 px-6">
           <Link to="/" className="inline-block">
-            <Logo className="h-8" />
+            <Logo />
           </Link>
         </header>
 
