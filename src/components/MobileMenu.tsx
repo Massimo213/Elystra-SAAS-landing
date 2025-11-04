@@ -92,11 +92,11 @@ const MobileMenu = ({ navMenu }: MobileMenuProps) => {
             Privacy
           </Button>
         </Link>
-        <a href='https://my.elystra.online/sign-up'>
+        <Link to="/sign-in">
           <Button variant='ghost' className='w-full'>
             Sign In
           </Button>
-        </a>
+        </Link>
         <Link to='/get-started'>
           <Button className='w-full'>Get Started</Button>
         </Link>

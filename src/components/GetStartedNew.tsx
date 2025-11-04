@@ -220,15 +220,13 @@ const HowItWorksModal = () => (
       {/* CTA */}
       <div className="bg-yellow-50 rounded-2xl p-6 text-center">
         <p className="text-slate-800 mb-4">
-          Email us at{' '}
-          <span className="font-semibold underline text-slate-900">
-            onboarding@elystra.online
-          </span>{' '}
-          and watch the next prospect sign before their latte cools.
+          See how agencies close deals 3x faster. Book a live demo and we'll walk you through the complete flow.
         </p>
-        <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold">
-          Start Free Trial
-        </Button>
+        <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
+          <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold">
+            Book Your Demo
+          </Button>
+        </a>
       </div>
     </div>
   </DialogContent>
@@ -447,7 +445,7 @@ const GetStarted = () => {
                 </div>
               </div>
               <div className="bg-slate-800/50 border-l-4 border-green-500 p-4 rounded-r-lg">
-                <p className="text-slate-200 font-semibold mb-1">If no deal closes after your trial,</p>
+                <p className="text-slate-200 font-semibold mb-1">If no deal closes in your first 30 days,</p>
                 <p className="text-green-400 font-bold">we PayPal you $250 for wasting your time.</p>
               </div>
             </div>

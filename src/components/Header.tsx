@@ -102,10 +102,10 @@ const Header = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <div className='flex items-center gap-3 justify-end max-lg:hidden'>
-          <a href='https://app.elystra.online/sign-up'>
+          <Link to='/sign-in'>
             <Button variant='ghost' className='hover:bg-white/5'>Sign In</Button>
-          </a>
-          <Link to='/get-started'>
+          </Link>
+          <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
             <motion.div
               className="relative group"
               whileHover={{ scale: 1.03 }}
@@ -175,11 +175,11 @@ const Header = () => {
                 />
                 
                 <span className="relative z-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
-                  Get Started
+                  Book a Demo
                 </span>
               </button>
             </motion.div>
-          </Link>
+          </a>
         </div>
 
         <Popover>

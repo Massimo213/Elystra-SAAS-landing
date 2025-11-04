@@ -13,7 +13,7 @@ import {
 } from 'motion/react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight, ShieldCheck, Trophy } from 'lucide-react';
-import { reviewData } from '@/constants';
+import { reviewData, profileImages } from '@/constants';
 
 /* ---------- Variants ---------- */
 const fadeInUp: Variants = {
@@ -115,9 +115,11 @@ const ReviewCard = ({
           </p>
 
           <div className="mt-5 pt-4 border-t border-white/10 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500/25 via-rose-500/25 to-fuchsia-500/25 border border-white/15 grid place-items-center text-white/90 text-xs font-semibold">
-              {data.reviewAuthor.split(' ').map((n) => n[0]).join('').slice(0, 2)}
-            </div>
+            <img 
+              src={profileImages[data.avatar as keyof typeof profileImages]} 
+              alt={data.reviewAuthor}
+              className="w-10 h-10 rounded-full object-cover border border-white/20"
+            />
             <div className="flex-1 min-w-0">
               <p className="text-[13px] text-white/90 font-medium truncate">{data.reviewAuthor}</p>
               <p className="text-[12px] text-white/60">{data.date}</p>

@@ -79,7 +79,7 @@ const Cta = () => {
                 className="text-[30px] leading-tight md:text-[42px] lg:text-[50px] font-black
                            text-transparent bg-clip-text bg-[linear-gradient(90deg,#f8fafc,#e2e8f0)]"
               >
-                {ctaData?.text || 'Send. Sign. Deposit. In under 60 seconds.'}
+                Send. Sign. Deposit. In under 60 seconds.
               </motion.h2>
 
               {/* Subcopy */}
@@ -90,8 +90,7 @@ const Cta = () => {
                 transition={{ delay: 0.05 }}
                 className="mt-4 text-slate-300 text-base md:text-lg"
               >
-                Upload the call. Elystra builds an on‑brand proposal with e‑sign + deposit in one send.
-                Your competitor is still picking a template.
+                See exactly how agencies are closing deals 3x faster. Book a personalized demo—we'll show you the entire flow from call recording to signed proposal with payment.
               </motion.p>
 
               {/* Benefit badges */}
@@ -116,7 +115,7 @@ const Cta = () => {
                 transition={{ delay: 0.15 }}
                 className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
               >
-                <a href="https://app.elystra.online/sign-up">
+                <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
                   <Button
                     className="h-12 px-7 text-white rounded-full"
                     style={{
@@ -124,17 +123,17 @@ const Cta = () => {
                       boxShadow: '0 0 26px rgba(251,146,60,0.35)',
                     }}
                   >
-                    Start Free — collect deposits this week
+                    Book a Demo — See it live
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
 
-                <a href="https://app.elystra.online/pricing">
+                <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="outline"
                     className="h-12 px-6 rounded-full border-white/20 text-white hover:bg-white/[0.06]"
                   >
-                    See Pricing
+                    Schedule a Call
                   </Button>
                 </a>
               </motion.div>
@@ -146,7 +145,7 @@ const Cta = () => {
                 viewport={{ once: true }}
                 className="mt-4 text-white/65 text-sm"
               >
-                Trusted by <span className="text-white font-semibold">1,200+</span> professionals. Minutes to send. Money in first.
+                <span className="text-white font-semibold">140+</span> agencies booked a demo and never looked back. Average demo: 7 minutes. Setup: same day.
               </motion.p>
             </div>
           </div>

@@ -110,17 +110,17 @@ export default function Pricing() {
                     ))}
                   </ul>
                 </div>
-                <Button
-                  className={`mt-8 w-full transition-all duration-300 ${
-                    plan.popular 
-                      ? 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20' 
-                      : 'bg-white text-primary hover:bg-gray-50 hover:shadow-md border border-gray-200'
-                  }`}
-                >
-                  <a href="https://app.elystra.online/">
-                  {plan.cta}
-                  </a>
-                </Button>
+                <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
+                  <Button
+                    className={`mt-8 w-full transition-all duration-300 ${
+                      plan.popular 
+                        ? 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20' 
+                        : 'bg-white text-primary hover:bg-gray-50 hover:shadow-md border border-gray-200'
+                    }`}
+                  >
+                    {plan.cta}
+                  </Button>
+                </a>
               </motion.div>
             ))}
           </motion.div>

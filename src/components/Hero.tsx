@@ -14,10 +14,6 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
-import p1 from '@/assets/p1.png';
-import p2 from '@/assets/p2.png';
-import p3 from '@/assets/p3.png';
-import p4 from '@/assets/p4.png';
 import demoVideo from '@/assets/EIUM_DEMO (1) (1).mp4';
 
 import { heroData } from '@/constants';
@@ -386,11 +382,8 @@ const Hero = () => {
                 }}
               />
               
-            <Button 
-              onClick={() => {
-                const element = document.getElementById('get-started');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
+            <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
+              <Button 
                 className="relative text-lg md:text-xl px-12 md:px-16 py-6 md:py-8 rounded-[28px] font-bold border-0 overflow-hidden transition-all duration-300"
                 style={{
                   background: 'linear-gradient(135deg, #fb923c 0%, #f43f5e 100%)',
@@ -439,9 +432,10 @@ const Hero = () => {
                 />
                 
                 <span className="relative z-10 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                  Get Started Free
+                  Book a Call
                 </span>
-            </Button>
+              </Button>
+            </a>
               
               {/* Bottom reflection */}
               <div
@@ -455,113 +449,6 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Social Proof */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
-          className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-        >
-          <div className="relative">
-            <div className="flex -space-x-3 sm:-space-x-4">
-              <motion.div
-                className="relative"
-                whileHover={{ scale: 1.1, zIndex: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <img 
-                  src={p1} 
-                  alt="User 1" 
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-orange-500/30" 
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
-              </motion.div>
-              <motion.div
-                className="relative"
-                whileHover={{ scale: 1.1, zIndex: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <img 
-                  src={p2} 
-                  alt="User 2" 
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-rose-500/30" 
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
-              </motion.div>
-              <motion.div
-                className="relative"
-                whileHover={{ scale: 1.1, zIndex: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <img 
-                  src={p3} 
-                  alt="User 3" 
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-purple-500/30" 
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
-              </motion.div>
-              <motion.div
-                className="relative"
-                whileHover={{ scale: 1.1, zIndex: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <img 
-                  src={p4} 
-                  alt="User 4" 
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-3 border-white/20 shadow-xl ring-2 ring-blue-500/30" 
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
-              </motion.div>
-            </div>
-            {/* Enhanced floating hearts animation */}
-            {Array.from({ length: 8 }).map((_, i) => (
-              <motion.span
-                key={i}
-                className="absolute left-1/2 top-1/2 text-rose-400 text-base pointer-events-none"
-                initial={{ opacity: 0, scale: 0.5, x: 0, y: 0 }}
-                animate={{
-                  opacity: [0, 0.8, 0],
-                  scale: [0.5, 1.2, 0.9],
-                  x: [0, Math.round(Math.random() * 80 - 40), Math.round(Math.random() * 100 - 50)],
-                  y: [0, -50 - Math.random() * 30, -90 - Math.random() * 40],
-                }}
-                transition={{ 
-                  duration: 3.5 + Math.random() * 2, 
-                  delay: Math.random() * 3, 
-                  repeat: Infinity, 
-                  ease: 'easeOut' 
-                }}
-                style={{
-                  filter: 'drop-shadow(0 0 8px rgba(244, 63, 94, 0.4))'
-                }}
-              >
-                ♥︎
-              </motion.span>
-            ))}
-          </div>
-          <div className="text-center sm:text-left">
-            <p className="text-base sm:text-lg text-slate-300 font-semibold mb-1">
-              Loved and Trusted by more than 130 Agencies and  1200+ Users 
-            </p>
-            <div className="flex items-center justify-center sm:justify-start gap-1">
-              {[...Array(5)].map((_, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + i * 0.1, duration: 0.3 }}
-                  className="text-yellow-400 text-sm"
-                >
-                  ★
-                </motion.span>
-              ))}
-              <span className="text-slate-400 text-sm ml-2 font-medium">4.8/5 rating</span>
-            </div>
-          </div>
-        </motion.div>
-        
-       
-        
         {/* DEMO - Chrome safe */}
         <motion.div
           ref={demoRef}

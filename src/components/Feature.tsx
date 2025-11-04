@@ -372,7 +372,9 @@ const FinalCTA = () => {
           />
           
           <a
-            href="#get-started"
+            href="https://calendly.com/onboarding-elystra/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="relative block px-16 md:px-20 py-7 md:py-9 rounded-[32px] text-xl md:text-2xl font-bold text-white overflow-hidden border-0"
             style={{
               background: 'linear-gradient(135deg, #fb923c 0%, #f43f5e 100%)',
@@ -420,7 +422,7 @@ const FinalCTA = () => {
             />
             
             <span className="relative z-10 drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
-              Get Started Free
+              Book a Demo
             </span>
           </a>
         </motion.div>
@@ -432,7 +434,7 @@ const FinalCTA = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-slate-400 text-base mt-8"
         >
-          No credit card. No setup. Watch the demo, send your first proposal.
+          See the entire flow live. 7 minutes. Zero pitch—pure product demo.
         </motion.p>
       </div>
     </motion.div>

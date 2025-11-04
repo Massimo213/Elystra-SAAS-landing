@@ -41,19 +41,31 @@ import {
   avatar3,
 } from '@/assets';
 
+import p1 from '@/assets/p1.png';
+import p2 from '@/assets/p2.png';
+import p3 from '@/assets/p3.png';
+import p4 from '@/assets/p4.png';
+
+// Export profile images for Review component
+export const profileImages = { p1, p2, p3, p4 };
+
 // Header
 export const navMenu: MenuItem[] = [
   {
-    href: '#feature',
-    label: 'Features',
-  },
-  {
-    href: 'https://app.elystra.online/agencies',
-    label: 'Entreprises',
+    href: '#get-started',
+    label: 'Get Started',
   },
   {
     href: '/privacy',
     label: 'Privacy',
+  },
+  {
+    href: '#feature',
+    label: 'Feature',
+  },
+  {
+    href: '#faq',
+    label: 'FAQ',
   }
 ];
 
@@ -75,7 +87,7 @@ export const featureData = {
   sectionSubtitle: 'THE UNFAIR ADVANTAGE',
   sectionTitle: "While competitors format PDFs, you're getting paid.",
   sectionText:
-    "130 agencies across North America are already dominating their markets. Same-day proposals, 41% close rates, 92% less admin time. Your competition doesn't know this exists—yet.",
+    "140 agencies across North America are already dominating their markets. Same-day proposals, 41% close rates, 92% less admin time. Your competition doesn't know this exists—yet.",
   features: [
     {
       icon: <Signature size={28} />,
@@ -184,7 +196,7 @@ export const processData = {
 
 // Overview
 export const overviewData = {
-  sectionSubtitle: 'VERIFIED RESULTS FROM 130 AGENCIES',
+  sectionSubtitle: 'VERIFIED RESULTS FROM 140 AGENCIES',
   sectionTitle: "The Numbers Don't Lie",
   sectionText:
     'Real performance data from agencies using Elystra. These are not projections—these are documented results from actual North American agencies who made the switch.',
@@ -203,7 +215,7 @@ export const overviewData = {
       text: 'Prep time elimination—hours back to billable work',
     },
     {
-      title: '130+',
+      title: '140+',
       text: 'North American agencies already dominating their markets',
     },
   ],
@@ -217,40 +229,32 @@ export const reviewData = {
   sectionTitle: 'Real Agencies, Real Numbers',
   reviewCard: [
     {
-      title: 'From 9 to 25 proposals in 30 days.',
-      text: 'Exactly what Elystra promised. Our agency went from struggling with 9 monthly proposals to consistently hitting 25+. Close rate jumped from 16% to 41%. This is the competitive edge we needed.',
-      reviewAuthor: 'Marcus T. · Toronto Digital Agency',
+      title: 'Time & Admin Waste Gone',
+      text: 'Before Elystra we were spending 4 to 6 hours drafting proposals every week, and still losing deals because clients just went silent. With Elystra, proposals get built during the call. Clients sign while they\'re still emotionally warm. The biggest change wasn\'t "magic ROI" — it\'s the removal of the waiting gap. That gap was costing us real money.',
+      reviewAuthor: 'Marcus T.',
       date: '2 weeks ago',
+      avatar: 'p1',
     },
     {
-      title: '92% less time on admin bullsh*t.',
-      text: "I track everything. Before Elystra: 8 hours per proposal. After: 40 minutes. That's 7.3 hours per deal back to actual client work. Do the math—it's insane ROI.",
-      reviewAuthor: 'Sarah K. · Vancouver Consulting',
+      title: 'We Didn\'t Change Our Process — Just Accelerated It',
+      text: 'I expected a headache. New software usually means training the team, changing workflows, re-learning steps. Elystra didn\'t demand any of that. We literally kept our same call → scope → send flow. The only difference is now signing and payment happen in the same window. No back-and-forth. No chasing. It\'s just tighter.',
+      reviewAuthor: 'Sarah K.',
       date: '5 days ago',
+      avatar: 'p2',
     },
     {
-      title: 'Competitors are asking how we move so fast.',
-      text: "Same-day proposals while they take a week. Close rates that make them question their entire process. We're not sharing our secret weapon. Sorry, not sorry.",
-      reviewAuthor: 'David L. · Phoenix Marketing Group',
+      title: 'Close Rate Lift Was Gradual, Not Overnight',
+      text: 'We didn\'t "double revenue." Let\'s be realistic — what happened was our close rate increased slowly over 3 weeks, from ~23% to ~38%. Because we kept more momentum and fewer deals stalled. Not dramatic. Just consistent improvement that compounds. And honestly, that\'s more valuable than hype.',
+      reviewAuthor: 'David L.',
       date: '1 week ago',
+      avatar: 'p3',
     },
     {
-      title: "41% close rate should be illegal.",
-      text: "Industry average is 16%. We're hitting 41% consistently. Clients think we're psychic—but it's just Elystra making proposals that actually sell. My banker loves these numbers.",
-      reviewAuthor: 'Rachel M. · Chicago Strategy Firm',
+      title: 'Clients Sign Faster When They Don\'t Leave the Call',
+      text: 'Our prospects always liked the proposal. The issue was timing — once they left the call, their attention got pulled away. Elystra simply keeps them in the decision window. We sign more within the same conversation. Not because we became better closers — because we reduced friction.',
+      reviewAuthor: 'Rachel M.',
       date: '3 weeks ago',
-    },
-    {
-      title: "This software should be classified.",
-      text: "Seriously—130 agencies know about this and the rest are still losing deals. We closed $180K in 20 days after switching. If this gets popular, we're all screwed.",
-      reviewAuthor: 'Anonymous · Toronto Agency Owner',
-      date: '1 month ago',
-    },
-    {
-      title: "My pipeline exploded in the best way.",
-      text: "Went from dreading proposal season to actually looking forward to it. 177% more volume, 156% better close rates. Math doesn't lie—neither does my revenue.",
-      reviewAuthor: 'Jessica H. · Seattle Growth Agency',
-      date: '2 weeks ago',
+      avatar: 'p4',
     },
   ],
 };
@@ -300,7 +304,7 @@ export const blogData = {
 
 // Cta
 export const ctaData = {
-  text: 'Transform your client calls into professional proposals in minutes, not hours.',
+  text: 'See how agencies are closing deals 3x faster. Book a 7-min demo.',
 };
 
 // Footer
@@ -440,7 +444,7 @@ export const pricingData = {
         { name: '25MB file uploads', included: true },
         { name: 'Email support', included: true },
       ],
-      cta: 'Current Plan',
+      cta: 'Book a Demo',
       popular: false,
     },
     {
@@ -461,7 +465,7 @@ export const pricingData = {
         { name: 'Priority support (within 3 hours)', included: true },
         { name: 'Referral program access', included: true },
       ],
-      cta: 'Upgrade to Professional',
+      cta: 'Book a Demo',
       popular: true,
       badge: 'Most Popular',
     },
@@ -483,7 +487,7 @@ export const pricingData = {
         { name: 'One-time payment - no recurring fees', included: true },
         { name: 'Priority feature requests', included: true },
       ],
-      cta: 'Join the Waitlist',
+      cta: 'Book a Demo',
       popular: false,
       badge: 'Exclusive Offer',
     },

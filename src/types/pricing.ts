@@ -28,7 +28,7 @@ export const pricingTiers: PricingTier[] = [
       { name: "Spam filtering", included: true },
       { name: "Community support", included: true },
     ],
-    cta: "Get Started Free",
+    cta: "Book a Demo",
   },
   {
     name: "Professional",

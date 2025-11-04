@@ -20,6 +20,8 @@ import Feature from '@/components/Feature';
 import Review from '@/components/Review';
 import Cta from '@/components/Cta';
 import GetStarted from '@/components/GetStarted';
+import SignIn from '@/components/SignIn';
+import SignUp from '@/components/SignUp';
 
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 // import About from '@/components/About';
@@ -31,7 +33,7 @@ const MainContent = () => (
     <Feature />
     <Cta/>
     <Review />
-    <PrivacyPolicy />
+    <GetStarted />
   </main>
 );
 
@@ -44,6 +46,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/get-started" element={<GetStarted />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
