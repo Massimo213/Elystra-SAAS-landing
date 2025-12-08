@@ -40,6 +40,14 @@ const faqData: FaqItem[] = [
     accentColor: 'from-fuchsia-500 to-purple-500',
   },
   {
+    id: 'flexibility-rail',
+    question: 'Will Elystra work with my revenue model (retainers, projects, performance, hybrids)?',
+    answer:
+      'Yes. Elystra is built as a flexible revenue rail. Whether you run retainers, one‑off projects, hybrid retainers + upsells, performance fees, or irregular recurring work, you don’t have to change your model. Elystra adapts to your existing discovery → scope → signature → deposit flows and removes the bottleneck between “yes” and “committed” — proposals, signatures, and Stripe payments all ride the same rail. The result: no switching cost, one lane for every deal type, and an anti‑churn advantage competitors can’t copy.',
+    icon: <Target className="w-5 h-5" />,
+    accentColor: 'from-orange-500 to-fuchsia-500',
+  },
+  {
     id: 'custom-pricing',
     question: 'Will it work with custom pricing or service scopes?',
     answer: 'Yes. We build your template on the demo call. Drag → Drop → Send → Get Paid.',
@@ -59,6 +67,62 @@ const faqData: FaqItem[] = [
     answer: 'Elystra removes the delay. They sign and pay inside the call window, not days later.',
     icon: <TrendingUp className="w-5 h-5" />,
     accentColor: 'from-orange-500 to-rose-500',
+  },
+  {
+    id: 'pricing-structure',
+    question: 'How does pricing work?',
+    answer:
+      'Simple: pay for speed, not seats. Flat monthly pricing with unlimited users, proposals, signatures, and deposits. No per-seat tax. No per-proposal penalty. You grow — the price doesn’t.',
+    icon: <DollarSign className="w-5 h-5" />,
+    accentColor: 'from-emerald-500 to-lime-500',
+  },
+  {
+    id: 'high-ticket',
+    question: 'Does Elystra work for high-ticket agencies?',
+    answer:
+      'Elystra was built for high-ticket. $5K, $50K, $150K proposals follow the same workflow. Scope extraction stays accurate, Stripe deposits stay instant, and perceived risk disappears.',
+    icon: <TrendingUp className="w-5 h-5" />,
+    accentColor: 'from-purple-500 to-fuchsia-500',
+  },
+  {
+    id: 'complex-onboarding',
+    question: 'What if I have a complex, multi-step onboarding process?',
+    answer:
+      'Elystra auto-builds it. Once the deal signs, Elystra triggers PM checklists, client onboarding steps, file requests, workspace access, CRM updates, internal notifications, and finance tasks—everything pre-filled from the proposal.',
+    icon: <Puzzle className="w-5 h-5" />,
+    accentColor: 'from-sky-500 to-cyan-500',
+  },
+  {
+    id: 'sales-calls',
+    question: 'Do I need to change my sales calls?',
+    answer:
+      'No. Elystra adapts to your call—not the opposite. Talk normally, ask questions normally, and Elystra extracts everything automatically.',
+    icon: <Zap className="w-5 h-5" />,
+    accentColor: 'from-orange-500 to-amber-500',
+  },
+  {
+    id: 'learning-curve',
+    question: 'What’s the learning curve?',
+    answer:
+      'Five minutes. If you can talk, you can close. You don’t learn Elystra—you use your mic and Elystra does the rest.',
+    icon: <Clock className="w-5 h-5" />,
+    accentColor: 'from-rose-500 to-pink-500',
+  },
+  {
+    id: 'existing-system',
+    question: 'What if I already have a proposal system?',
+    answer:
+      'If it requires typing, formatting, exporting, or waiting—you don’t have a system. Elystra removes 90–100% of manual steps. Whatever you use today is slower, period.',
+    icon: <Target className="w-5 h-5" />,
+    accentColor: 'from-red-500 to-orange-500',
+  },
+  {
+    id: 'retainers',
+    question: 'Does Elystra support retainers?',
+    answer:
+      'Yes. Set the monthly rate, Elystra auto-generates the retainer agreement, the client signs, Stripe handles recurring billing, and you get predictable cash every month or quarter. No chasing, no manual invoicing, no admin.',
+    icon: <DollarSign className="w-5 h-5" />,
+    accentColor: 'from-amber-500 to-rose-500',
   },
 ];
 

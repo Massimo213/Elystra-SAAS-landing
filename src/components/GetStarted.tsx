@@ -39,6 +39,7 @@ const GetStarted = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
+  
   return (
     <section 
       id="get-started" 

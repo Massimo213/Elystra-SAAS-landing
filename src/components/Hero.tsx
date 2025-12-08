@@ -18,6 +18,8 @@ import demoVideo from '@/assets/EIUM_DEMO (1) (1).mp4';
 
 import { heroData } from '@/constants';
 import Title from './Title';
+import VideoMaskedHero from './VideoMaskedHero';
+import './VideoMaskedHero.css';
 
 /* ---------------- Motion variants (Chrome-safe - no filters) ---------------- */
 const heroVariant: Variants = { 
@@ -449,7 +451,12 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* DEMO - Chrome safe */}
+        {/* 
+          ====================================================================
+          OLD DEMO SECTION - COMMENTED OUT (Will restore when new demo ready)
+          ====================================================================
+        */}
+        {/* 
         <motion.div
           ref={demoRef}
           variants={demoVariants}
@@ -491,7 +498,6 @@ const Hero = () => {
             animate={isDemoInView ? { scale: 1, opacity: 1 } : { scale: 0.98, opacity: 0 }}
             transition={{ delay: 0.35, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            {/* Restored rotating border - kinetic energy for demo */}
             <motion.div
               className="absolute -inset-1 rounded-3xl opacity-75 bg-gradient-to-r from-orange-500 via-rose-500 to-purple-500"
               animate={{ rotate: [0, 360] }}
@@ -520,7 +526,6 @@ const Hero = () => {
                     </video>
                   </AspectRatio>
 
-                  {/* Simple overlay UI - no backdrop-blur */}
                   <div className="pointer-events-none absolute inset-0 rounded-3xl">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                     <div className="absolute top-3 right-3">
@@ -560,7 +565,17 @@ const Hero = () => {
             </Dialog>
           </motion.div>
         </motion.div>
+        */}
+
+        {/* 
+          ====================================================================
+          NEW KILLER VIDEO-MASKED HERO
+          ====================================================================
+        */}
       </motion.div>
+
+      {/* CINEMATIC VIDEO-MASKED TEXT SECTION */}
+      {/* <VideoMaskedHero /> */}
     </section>
   );
 };

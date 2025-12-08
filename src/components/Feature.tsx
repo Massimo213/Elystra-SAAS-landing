@@ -4,7 +4,7 @@
  */
 
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Zap, Repeat, TrendingUp } from 'lucide-react';
+import { Zap, Repeat, TrendingUp, Rocket } from 'lucide-react';
 import { useRef } from 'react';
 
 /* --------------------------------
@@ -14,11 +14,13 @@ const pillars = [
   {
     icon: Zap,
     number: '01',
-    title: 'Close Instantly',
+    title: 'Close in the call',
     headline: 'Sign and pay before the call ends.',
-    message: 'Proposal sent. Stripe link attached. Signature captured. Deposit landed—while their hand is still warm from shaking yours.',
-    metric: '4 minutes average',
-    metricLabel: 'call to cash',
+    lines: [
+      'Same-call close. No “send it over.”',
+      'Card in, cash hits. Stripe fires on the call.',
+      '4-minute average. Talk → sign → paid.',
+    ],
     gradient: 'from-orange-600/20 via-orange-500/5 to-transparent',
     glowColor: 'rgba(251,146,60,0.2)',
     accentColor: 'text-orange-400',
@@ -28,11 +30,13 @@ const pillars = [
   {
     icon: Repeat,
     number: '02',
-    title: 'Operate Automatically',
-    headline: 'Everything updates itself.',
-    message: 'Invoice created. HubSpot logged. Slack pinged. Google Drive filed. Stripe payment requested. Team notified. You said three sentences.',
-    metric: '92% reduction',
-    metricLabel: 'in admin time',
+    title: 'Ops that move themselves',
+    headline: 'You sell. Elystra drags the rest of the company with it.',
+    lines: [
+      'Zero manual follow-through. CRM, Slack, ClickUp update themselves.',
+      'Finance already knows. PO + invoice + tasks pre-filled.',
+      'No DM babysitting. Everyone gets what they need, instantly.',
+    ],
     gradient: 'from-rose-600/20 via-rose-500/5 to-transparent',
     glowColor: 'rgba(244,63,94,0.2)',
     accentColor: 'text-rose-400',
@@ -42,16 +46,34 @@ const pillars = [
   {
     icon: TrendingUp,
     number: '03',
-    title: 'Scale Intelligently',
-    headline: 'Know what prints money. Do more of it.',
-    message: 'Which template converts at 41%? Which deal size deposits fastest? Which clients sign same-day? Stop guessing. Start compounding.',
-    metric: '$4.1M closed',
-    metricLabel: 'last quarter by 145 agencies',
+    title: 'Know what prints money',
+    headline: 'See exactly what converts. Kill everything else.',
+    lines: [
+      'Templates ranked by cash. Not vibes. Numbers.',
+      'Reps exposed. Who closes in 6 minutes, who drags.',
+      'Board story on tap. Revenue views, no spreadsheets.',
+    ],
     gradient: 'from-purple-600/20 via-purple-500/5 to-transparent',
     glowColor: 'rgba(217,70,239,0.2)',
     accentColor: 'text-purple-400',
     iconBg: 'bg-purple-500/10',
     iconBorder: 'border-purple-500/30',
+  },
+  {
+    icon: Rocket,
+    number: '04',
+    title: 'The Speed-to-Money Engine',
+    headline: 'Compress talk → scope → proposal → sign → pay into one motion.',
+    lines: [
+      'Same headcount. More closed revenue.',
+      'Zero blind spots. You see every stall + every buyer.',
+      '145+ agencies. $4.1M closed last quarter.',
+    ],
+    gradient: 'from-sky-600/20 via-sky-500/5 to-transparent',
+    glowColor: 'rgba(56,189,248,0.2)',
+    accentColor: 'text-sky-400',
+    iconBg: 'bg-sky-500/10',
+    iconBorder: 'border-sky-500/30',
   },
 ];
 
@@ -177,30 +199,20 @@ const PillarBand = ({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
             </h3>
                   
                   {/* Headline */}
-                  <h4 className="text-4xl md:text-6xl font-black text-white mb-4 md:mb-6 leading-[1.1]">
+                  <h4 className="text-4xl md:text-6xl font-black text-white mb-6 leading-[1.1]">
                     {pillar.headline}
                   </h4>
-                  
-                  {/* Message */}
-                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-6 md:mb-8 max-w-2xl">
-                    {pillar.message}
-                  </p>
-                  
-                  {/* Metric badge */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
-                    className="inline-flex items-baseline gap-3 px-5 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm"
-                  >
-                    <span className={`text-3xl md:text-4xl font-bold ${pillar.accentColor}`}>
-                      {pillar.metric}
-                    </span>
-                    <span className="text-sm text-slate-400">
-                      {pillar.metricLabel}
-                    </span>
-                  </motion.div>
+                  <div className="space-y-3 mb-8 text-left">
+                    {pillar.lines.map((line, bulletIndex) => (
+                      <div
+                        key={bulletIndex}
+                        className="text-lg md:text-xl text-slate-200/90 flex items-start gap-3"
+                      >
+                        <span className="mt-2 h-[6px] w-[6px] rounded-full bg-white/70 shrink-0" />
+                        <span>{line}</span>
+                      </div>
+                    ))}
+                  </div>
                 </motion.div>
               </div>
             </div>
