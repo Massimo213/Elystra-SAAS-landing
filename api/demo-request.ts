@@ -213,7 +213,7 @@ P.S. — Your first cycle is completely on us. Experience what 145+ agencies use
             <td style="padding: 0 0 40px 0;">
               <h1 style="margin: 0; font-size: 17px; font-weight: 400; color: #0a0a0a; line-height: 1.5;">
                 Hi,
-              </h1>
+    </h1>
             </td>
           </tr>
           
@@ -222,10 +222,10 @@ P.S. — Your first cycle is completely on us. Experience what 145+ agencies use
             <td style="padding: 0 0 24px 0;">
               <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.6;">
                 Thank you for trusting Elystra.
-              </p>
+    </p>
             </td>
           </tr>
-          
+
           <tr>
             <td style="padding: 0 0 32px 0;">
               <p style="margin: 0; font-size: 17px; color: #0a0a0a; line-height: 1.6;">

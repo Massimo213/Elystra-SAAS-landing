@@ -225,34 +225,34 @@ export const overviewData = {
 
 // Review
 export const reviewData = {
-  sectionSubtitle: 'VERIFIED CASE STUDIES',
-  sectionTitle: 'Real Agencies, Real Numbers',
+  sectionSubtitle: 'VERIFIED OUTCOMES',
+  sectionTitle: 'What happens after the demo.',
   reviewCard: [
     {
-      title: 'Time & Admin Waste Gone',
-      text: 'Before Elystra we were spending 4 to 6 hours drafting proposals every week, and still losing deals because clients just went silent. With Elystra, proposals get built during the call. Clients sign while they\'re still emotionally warm. The biggest change wasn\'t "magic ROI" — it\'s the removal of the waiting gap. That gap was costing us real money.',
-      reviewAuthor: 'Marcus T.',
+      title: 'The “Yes” stopped leaking',
+      text: 'We booked the demo because we were tired of verbal yeses turning into silence. Week one: proposals went out the same day, and we signed 3 deals that normally would’ve dragged for weeks. The win wasn’t better sales — it was killing the delay between agreement and commitment.',
+      reviewAuthor: 'Marcus T.  Agency Owner',
       date: '2 weeks ago',
       avatar: 'p1',
     },
     {
-      title: 'We Didn\'t Change Our Process — Just Accelerated It',
-      text: 'I expected a headache. New software usually means training the team, changing workflows, re-learning steps. Elystra didn\'t demand any of that. We literally kept our same call → scope → send flow. The only difference is now signing and payment happen in the same window. No back-and-forth. No chasing. It\'s just tighter.',
-      reviewAuthor: 'Sarah K.',
+      title: 'We didn’t change our process. We compressed it.',
+      text: 'I expected onboarding and retraining. Instead, we kept our exact flow: call → scope → send. The difference is the client signs and pays in the same window, so deals don’t “cool off.” If you’re on the fence, book the demo , you’ll see it in 10 minutes.',
+      reviewAuthor: 'Sarah K. Ops Lead',
       date: '5 days ago',
       avatar: 'p2',
     },
     {
-      title: 'Close Rate Lift Was Gradual, Not Overnight',
-      text: 'We didn\'t "double revenue." Let\'s be realistic — what happened was our close rate increased slowly over 3 weeks, from ~23% to ~38%. Because we kept more momentum and fewer deals stalled. Not dramatic. Just consistent improvement that compounds. And honestly, that\'s more valuable than hype.',
-      reviewAuthor: 'David L.',
+      title: 'Close rate moved for one reason: speed',
+      text: 'No “overnight miracle.” Over ~3 weeks we moved from ~23% to ~38% close rate because fewer deals stalled after the call. Momentum compounds. The demo made it obvious: Elystra isn’t a proposal tool , it’s a timing advantage.',
+      reviewAuthor: 'David L.  Founder',
       date: '1 week ago',
       avatar: 'p3',
     },
     {
-      title: 'Clients Sign Faster When They Don\'t Leave the Call',
-      text: 'Our prospects always liked the proposal. The issue was timing — once they left the call, their attention got pulled away. Elystra simply keeps them in the decision window. We sign more within the same conversation. Not because we became better closers — because we reduced friction.',
-      reviewAuthor: 'Rachel M.',
+      title: 'We stopped chasing signatures',
+      text: 'Our issue wasn’t the offer — it was follow-up hell. When the proposal, signature, and deposit happen right after the call, the deal is simply cleaner. We’ve cut the “did you see it?” loop and it made the whole agency feel calmer.',
+      reviewAuthor: 'Rachel M.  Sales Director',
       date: '3 weeks ago',
       avatar: 'p4',
     },

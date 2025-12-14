@@ -7,6 +7,7 @@
 import { motion, useInView, Variants } from 'motion/react';
 import { useRef } from 'react';
 import Faq from '@/components/Faq';
+import { SparklesCore } from '@/components/ui/sparkles';
 
 /* ---------------- Motion variants (smooth, professional) ---------------- */
 const containerVariants: Variants = {
@@ -46,8 +47,22 @@ const GetStarted = () => {
       ref={sectionRef}
       className="py-24 md:py-32 bg-black relative overflow-hidden"
     >
-      {/* Background elements matching Feature section */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* ✨ SPARKLES BACKGROUND */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <SparklesCore
+          id="getstarted-sparkles"
+          background="transparent"
+          minSize={0.5}
+          maxSize={1.6}
+          particleDensity={80}
+          speed={2}
+          className="w-full h-full"
+          particleColor="#f43f5e"
+        />
+      </div>
+      
+      {/* Background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
         <div className="absolute top-20 left-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-fuchsia-500/10 rounded-full blur-3xl" />
@@ -57,7 +72,7 @@ const GetStarted = () => {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="container max-w-5xl mx-auto px-4 relative z-10"
+        className="container max-w-5xl mx-auto px-4 relative z-[5]"
       >
         
         {/* Hero Header */}

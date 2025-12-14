@@ -6,6 +6,7 @@
 import { motion, AnimatePresence, Variants } from 'motion/react';
 import { useState } from 'react';
 import { ChevronDown, Zap, Clock, DollarSign, Puzzle, TrendingUp, Target } from 'lucide-react';
+import { SparklesCore } from '@/components/ui/sparkles';
 
 /* ---------------- Type Definitions ---------------- */
 interface FaqItem {
@@ -227,8 +228,22 @@ const Faq = () => {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-32 bg-black">
-      <div className="container max-w-3xl mx-auto px-4">
+    <section id="faq" className="py-20 md:py-32 bg-black relative overflow-hidden">
+      {/* ✨ SPARKLES BACKGROUND */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <SparklesCore
+          id="faq-sparkles"
+          background="transparent"
+          minSize={0.4}
+          maxSize={1.4}
+          particleDensity={60}
+          speed={1.5}
+          className="w-full h-full"
+          particleColor="#fb923c"
+        />
+      </div>
+      
+      <div className="container max-w-3xl mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

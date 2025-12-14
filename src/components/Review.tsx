@@ -14,6 +14,7 @@ import {
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight, ShieldCheck, Trophy } from 'lucide-react';
 import { reviewData, profileImages } from '@/constants';
+import { SparklesCore } from '@/components/ui/sparkles';
 
 /* ---------- Variants ---------- */
 const fadeInUp: Variants = {
@@ -178,7 +179,21 @@ const Review = () => {
   const nextIndex = (idx + 1) % TOTAL;
 
   return (
-    <section ref={rootRef} className="relative overflow-hidden pt-16 md:pt-24">
+    <section ref={rootRef} className="relative overflow-hidden pt-16 md:pt-24 bg-black">
+      {/* ✨ SPARKLES BACKGROUND */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <SparklesCore
+          id="review-sparkles"
+          background="transparent"
+          minSize={0.5}
+          maxSize={1.5}
+          particleDensity={70}
+          speed={1.8}
+          className="w-full h-full"
+          particleColor="#e879f9"
+        />
+      </div>
+      
       <div className="container relative z-10">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto">
