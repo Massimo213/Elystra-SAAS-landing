@@ -71,7 +71,7 @@ export const navMenu: MenuItem[] = [
 
 // 
 export const heroData = {
-  sectionSubtitle: 'AI-POWERED PROPOSAL GENERATION',
+  sectionSubtitle: 'FROM YES TO PAID — IN 4 MINUTES',
   sectionTitle: "Where Proposals Become Revenue",
   decoTitle: "Instantly.",
   sectionText: "If a proposal isn’t signed in 4 minutes, you’ve already lost the deal. Elystra makes sure you never lose another one."
