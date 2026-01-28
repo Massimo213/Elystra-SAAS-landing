@@ -71,10 +71,12 @@ export const navMenu: MenuItem[] = [
 
 // 
 export const heroData = {
-  sectionSubtitle: 'WHERE YES BECOMES REVENUE',
-  sectionTitle: "Where Proposals Become Revenue",
-  decoTitle: "Instantly.",
-  sectionText: "If a proposal isn’t signed in 4 minutes, you’ve already lost the deal. Elystra makes sure you never lose another one."
+  sectionSubtitle: 'PROPOSAL SOFTWARE FOR AGENCIES',
+  sectionTitle: 'Deals die in the gap',
+  decoTitle: "between yes and paid.",
+  sectionText: "Elystra is a proposal, signature, and payment rail for marketing and advertising agencies. One piece of software that turns call recordings into live proposals with e-sign + Stripe on the same screen.",
+  buttonText: "Book a 7-Minute Demo",
+  buttonSubtext: "Not a course. Not a playbook. Pure SaaS infrastructure that sits under your existing sales calls."
 };
 
 
@@ -87,14 +89,14 @@ export const featureData = {
   sectionSubtitle: 'THE UNFAIR ADVANTAGE',
   sectionTitle: "While competitors format PDFs, you're getting paid.",
   sectionText:
-    "140 agencies across North America are already dominating their markets. Same-day proposals, 41% close rates, 92% less admin time. Your competition doesn't know this exists—yet.",
+    "140 agencies across North America are already dominating their markets. Same-day proposals, 41% close rates, 92% less admin time. Your competition doesn't know this exists yet.",
   features: [
     {
       icon: <Signature size={28} />,
       iconBoxColor: 'bg-amber-600',
       title: 'Instant E‑Sign',
       benefit: 'Close while intent is at peak.',
-      desc: 'Clients sign in one click—no back‑and‑forth, no attachments. Your “yes” arrives before lunch.',
+      desc: 'Clients sign in one click. No back‑and‑forth, no attachments. Your "yes" arrives before lunch.',
     },
     {
       icon: <HandCoins size={28} />,
@@ -108,14 +110,14 @@ export const featureData = {
       iconBoxColor: 'bg-fuchsia-600',
       title: '60‑Second Proposal',
       benefit: 'From call → send in minutes.',
-      desc: 'Upload the recording. Elystra extracts deliverables, timeline, and budget. You review—then ship.',
+      desc: 'Upload the recording. Elystra extracts deliverables, timeline, and budget. You review, then ship.',
     },
     {
       icon: <FileText size={28} />,
       iconBoxColor: 'bg-emerald-600',
       title: 'High‑Conversion Templates',
       benefit: 'Persuasion, pre‑wired.',
-      desc: 'Vertical‑tuned templates that sell: consulting, marketing, transformation, and more—on brand, every time.',
+      desc: 'Vertical‑tuned templates that sell: consulting, marketing, transformation, and more. On brand, every time.',
     },
     {
       icon: <Link2 size={28} />,
@@ -150,7 +152,7 @@ export const featureData = {
       iconBoxColor: 'bg-emerald-700',
       title: 'On‑Brand Compliance',
       benefit: 'Polished at scale.',
-      desc: 'Logos, fonts, clauses, and SOW standards locked. Every proposal feels custom—without the manual work.',
+      desc: 'Logos, fonts, clauses, and SOW standards locked. Every proposal feels custom without the manual work.',
     },
     {
       icon: <Calculator size={28} />,
@@ -199,7 +201,7 @@ export const overviewData = {
   sectionSubtitle: 'VERIFIED RESULTS FROM 140 AGENCIES',
   sectionTitle: "The Numbers Don't Lie",
   sectionText:
-    'Real performance data from agencies using Elystra. These are not projections—these are documented results from actual North American agencies who made the switch.',
+    'Real performance data from agencies using Elystra. These are not projections. These are documented results from actual North American agencies who made the switch.',
   listTitle: 'Documented Performance Gains',
   list: [
     {
@@ -212,7 +214,7 @@ export const overviewData = {
     },
     {
       title: '50 %',
-      text: 'Prep time elimination—hours back to billable work',
+      text: 'Prep time elimination. Hours back to billable work',
     },
     {
       title: '140+',
@@ -225,12 +227,13 @@ export const overviewData = {
 
 // Review
 export const reviewData = {
-  sectionSubtitle: 'VERIFIED OUTCOMES',
-  sectionTitle: 'What happens after the demo.',
+  sectionSubtitle: 'REAL RESULTS',
+  sectionTitle: 'What happens after agencies switch to Elystra?',
+  sectionDescription: 'Real operators who were tired of 2-week proposal chases. They decided to close while they still had the "yes".',
   reviewCard: [
     {
       title: 'The “Yes” stopped leaking',
-      text: 'We booked the demo because we were tired of verbal yeses turning into silence. Week one: proposals went out the same day, and we signed 3 deals that normally would’ve dragged for weeks. The win wasn’t better sales — it was killing the delay between agreement and commitment.',
+      text: 'We booked the demo because we were tired of verbal yeses turning into silence. Week one: proposals went out the same day, and we signed 3 deals that normally would have dragged for weeks. The win was not better sales. It was killing the delay between agreement and commitment.',
       reviewAuthor: 'Marcus T.  Agency Owner',
       date: '2 weeks ago',
       avatar: 'p1',
@@ -251,7 +254,7 @@ export const reviewData = {
     },
     {
       title: 'We stopped chasing signatures',
-      text: 'Our issue wasn’t the offer — it was follow-up hell. When the proposal, signature, and deposit happen right after the call, the deal is simply cleaner. We’ve cut the “did you see it?” loop and it made the whole agency feel calmer.',
+      text: 'Our issue was not the offer. It was follow-up hell. When the proposal, signature, and deposit happen right after the call, the deal is simply cleaner. We cut the "did you see it?" loop and it made the whole agency feel calmer.',
       reviewAuthor: 'Rachel M.  Sales Director',
       date: '3 weeks ago',
       avatar: 'p4',

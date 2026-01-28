@@ -220,6 +220,18 @@ const Review = () => {
           >
             {reviewData.sectionTitle || 'What Users Really Think'}
           </motion.h2>
+          
+          {reviewData.sectionDescription && (
+            <motion.p
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.55 }}
+              className="mt-5 text-lg md:text-xl text-slate-300/90 max-w-2xl mx-auto"
+            >
+              {reviewData.sectionDescription}
+            </motion.p>
+          )}
         </div>
 
         {/* Carousel */}

@@ -169,10 +169,17 @@ const Hero = () => {
                 />
                 
                 <span className="relative z-10 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                  Book a Call
+                  {heroData.buttonText || 'Book a Call'}
                 </span>
               </Button>
             </a>
+              
+              {/* Button subtext */}
+              {heroData.buttonSubtext && (
+                <p className="mt-4 text-sm text-slate-300/80 max-w-xs mx-auto text-center">
+                  {heroData.buttonSubtext}
+                </p>
+              )}
               
               {/* Bottom reflection */}
               <div
@@ -307,6 +314,59 @@ const Hero = () => {
           NEW KILLER VIDEO-MASKED HERO
           ====================================================================
         */}
+      </motion.div>
+
+      {/* Metrics Strip - directly under hero */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="relative z-10 border-t border-white/10 bg-black/60"
+      >
+        <div className="container py-6 md:py-8">
+          <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-4 text-sm md:text-base">
+            <div className="text-center">
+              <span className="text-2xl md:text-3xl font-bold text-white">145+</span>
+              <span className="ml-2 text-slate-400">agencies</span>
+            </div>
+            <div className="hidden md:block w-px h-8 bg-white/20" />
+            <div className="text-center">
+              <span className="text-2xl md:text-3xl font-bold text-white">$4.1M</span>
+              <span className="ml-2 text-slate-400">pushed through last quarter</span>
+            </div>
+            <div className="hidden md:block w-px h-8 bg-white/20" />
+            <div className="text-center">
+              <span className="text-2xl md:text-3xl font-bold text-white">+20-30%</span>
+              <span className="ml-2 text-slate-400">close-rate without more leads</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Elystra in Plain Terms */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
+        className="relative z-10 border-t border-white/10 bg-slate-900/50"
+      >
+        <div className="container py-10 md:py-12">
+          <h3 className="text-center text-lg md:text-xl font-semibold text-white mb-6">Elystra in plain terms</h3>
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-sm md:text-base text-slate-300">
+            <div className="flex items-start gap-3">
+              <span className="mt-1 w-2 h-2 rounded-full bg-orange-400 shrink-0" />
+              <span><strong className="text-white">No migration.</strong> We sit on top of your CRM/PM. You keep your tools.</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="mt-1 w-2 h-2 rounded-full bg-rose-400 shrink-0" />
+              <span><strong className="text-white">Works with retainers, projects, performance.</strong> You do not change your offer; we just remove the gap between "yes" and "paid".</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="mt-1 w-2 h-2 rounded-full bg-purple-400 shrink-0" />
+              <span><strong className="text-white">Flat monthly. No per-seat. No % of deals.</strong> If you do not close more, it is a bad deal and you should cancel.</span>
+            </div>
+          </div>
+        </div>
       </motion.div>
 
     </section>

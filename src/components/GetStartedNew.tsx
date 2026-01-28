@@ -102,7 +102,7 @@ const HowItWorksModal = () => (
           <div className="flex-1">
             <h3 className="text-xl font-bold text-slate-900 mb-3">Send One Email</h3>
             <p className="text-slate-700 mb-2">
-              Shoot any address—Gmail or work—to{' '}
+              Shoot any address (Gmail or work) to{' '}
               <span className="text-green-600 font-semibold underline cursor-pointer">
                 onboarding@elystra.online
               </span>.
@@ -149,7 +149,7 @@ const HowItWorksModal = () => (
 
       {/* What You Get */}
       <div className="mb-12">
-        <h3 className="text-2xl font-bold text-slate-900 mb-6">What You Get—Every Cycle</h3>
+        <h3 className="text-2xl font-bold text-slate-900 mb-6">What You Get, Every Cycle</h3>
         <div className="space-y-4">
           {[
             {
@@ -166,7 +166,7 @@ const HowItWorksModal = () => (
             },
             {
               title: 'Analytics Dashboard',
-              detail: 'See views, time spent, signed, paid—real-time proposal intelligence.'
+              detail: 'See views, time spent, signed, paid. Real-time proposal intelligence.'
             },
             {
               title: 'CRM & All Your Favorite Tools',
@@ -476,10 +476,10 @@ const GetStarted = () => {
             {/* Testimonial */}
             <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-8">
               <blockquote className="text-lg font-semibold text-white mb-4">
-                "This software should be illegal — we closed{' '}
+                "This software should be illegal. We closed{' '}
                 <span className="text-orange-400">$180K in 20 days.</span>"
               </blockquote>
-              <cite className="text-slate-400">— Toronto Agency Owner</cite>
+              <cite className="text-slate-400">Toronto Agency Owner</cite>
             </div>
           </motion.div>
 

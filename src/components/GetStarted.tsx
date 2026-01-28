@@ -86,7 +86,7 @@ const GetStarted = () => {
           </h1>
           
           <p className="text-lg md:text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-12">
-            Elystra auto-builds your proposal, sends it live, gets the signature, and charges the card — in under 4 minutes.<br />
+            Elystra auto-builds your proposal, sends it live, gets the signature, and charges the card in under 4 minutes.<br />
             <span className="text-slate-400">No PDFs. No waiting. No admin. Just cash.</span>
           </p>
 

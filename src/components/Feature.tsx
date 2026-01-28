@@ -14,13 +14,14 @@ const pillars = [
   {
     icon: Zap,
     number: '01',
-    title: 'Close in the call',
-    headline: 'Sign and pay before the call ends.',
+    title: 'Proposal, Sign, Pay. One rail.',
+    headline: 'Build and send a branded proposal in minutes, not days.',
     lines: [
-      'Same-call close. No “send it over.”',
-      'Card in, cash hits. Stripe fires on the call.',
-      '4-minute average. Talk → sign → paid.',
+      'Signature and payment live on the same screen. No separate Stripe links, no chasing invoices.',
+      'Use it for same-call closes or 3-call consultative deals.',
+      'The rail adapts to your process, not the other way around.',
     ],
+    payoff: 'Net effect: the second someone says "yes", your team can send a branded proposal with signature + deposit in under 4 minutes. Same call, same style, same deal.',
     gradient: 'from-orange-600/20 via-orange-500/5 to-transparent',
     glowColor: 'rgba(251,146,60,0.2)',
     accentColor: 'text-orange-400',
@@ -31,12 +32,14 @@ const pillars = [
     icon: Repeat,
     number: '02',
     title: 'Ops that move themselves',
-    headline: 'You sell. Elystra drags the rest of the company with it.',
+    headline: 'Once a deal signs, Elystra pushes:',
     lines: [
-      'Zero manual follow-through. CRM, Slack, ClickUp update themselves.',
-      'Finance already knows. PO + invoice + tasks pre-filled.',
-      'No DM babysitting. Everyone gets what they need, instantly.',
+      'Deal + amount to your CRM.',
+      'Tasks + checklists to your PM tool.',
+      'Notifications to Slack/Email.',
+      'Invoice + PO to Finance.',
     ],
+    payoff: "Sales stops doing follow-through admin. One close updates the whole company.",
     gradient: 'from-rose-600/20 via-rose-500/5 to-transparent',
     glowColor: 'rgba(244,63,94,0.2)',
     accentColor: 'text-rose-400',
@@ -49,10 +52,11 @@ const pillars = [
     title: 'Know what prints money',
     headline: 'See exactly what converts. Kill everything else.',
     lines: [
-      'Templates ranked by cash. Not vibes. Numbers.',
-      'Reps exposed. Who closes in 6 minutes, who drags.',
-      'Board story on tap. Revenue views, no spreadsheets.',
+      'Templates ranked by cash collected, not "views".',
+      'Reps exposed: who closes in 6 minutes, who drags.',
+      'Board-ready revenue views. No spreadsheets.',
     ],
+    payoff: 'One screen: "SEO retainers closed $84K last month, creative audits closed $12K." Kill the audits, double down on SEO.',
     gradient: 'from-purple-600/20 via-purple-500/5 to-transparent',
     glowColor: 'rgba(217,70,239,0.2)',
     accentColor: 'text-purple-400',
@@ -62,13 +66,14 @@ const pillars = [
   {
     icon: Rocket,
     number: '04',
-    title: 'The Speed-to-Money Engine',
-    headline: 'Compress talk → scope → proposal → sign → pay into one motion.',
+    title: 'The Proposal-to-Cash Rail',
+    headline: 'Used by 145+ agencies. $4.1M closed last quarter.',
     lines: [
-      'Same headcount. More closed revenue.',
-      'Zero blind spots. You see every stall + every buyer.',
-      '145+ agencies. $4.1M closed last quarter.',
+      'Same headcount, more closed revenue.',
+      '145+ agencies pushed $4.1M through Elystra last quarter alone.',
+      'Average close-rate uplift: 20-30% without touching lead volume.',
     ],
+    payoff: "You do not improve proposals. You remove the gap where deals die.",
     gradient: 'from-sky-600/20 via-sky-500/5 to-transparent',
     glowColor: 'rgba(56,189,248,0.2)',
     accentColor: 'text-sky-400',
@@ -202,7 +207,7 @@ const PillarBand = ({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
                   <h4 className="text-4xl md:text-6xl font-black text-white mb-6 leading-[1.1]">
                     {pillar.headline}
                   </h4>
-                  <div className="space-y-3 mb-8 text-left">
+                  <div className="space-y-3 mb-6 text-left">
                     {pillar.lines.map((line, bulletIndex) => (
                       <div
                         key={bulletIndex}
@@ -212,6 +217,11 @@ const PillarBand = ({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
                         <span>{line}</span>
                       </div>
                     ))}
+                  </div>
+                  
+                  {/* Payoff line */}
+                  <div className={`text-base md:text-lg font-medium ${pillar.accentColor} border-l-2 pl-4`} style={{ borderColor: pillar.glowColor }}>
+                    {pillar.payoff}
                   </div>
                 </motion.div>
               </div>
@@ -250,69 +260,85 @@ const PillarBand = ({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
 };
 
 /* --------------------------------
-   Stats Bar - Dramatic Reveal
+   Micro Use-Cases Section
 ----------------------------------*/
-const StatsBar = () => {
-  const stats = [
-    { value: '145', label: 'agencies', glow: 'rgba(251,146,60,0.3)' },
-    { value: '$4.1M', label: 'closed last quarter', glow: 'rgba(244,63,94,0.3)' },
-    { value: '92%', label: 'less admin time', glow: 'rgba(217,70,239,0.3)' },
+const UseCases = () => {
+  const cases = [
+    {
+      title: 'For performance / media agencies',
+      points: [
+        'Client says "yes" on the call.',
+        'Elystra builds scope from the recording, sends proposal, gets signature and deposit before they open another tab.',
+        'You hang up with cash, not "we will get back to you".',
+      ],
+      gradient: 'from-orange-500/20 to-transparent',
+      accentColor: 'text-orange-400',
+      borderColor: 'border-orange-500/30',
+    },
+    {
+      title: 'For brand / creative / strategy shops',
+      points: [
+        '2-3 call sales cycle stays the same.',
+        'Elystra removes friction between calls: proposals sent same day, signatures + deposits on one rail, automatic follow-up until they commit or clearly say no.',
+        'You stop losing the "we loved it, just got busy" deals.',
+      ],
+      gradient: 'from-purple-500/20 to-transparent',
+      accentColor: 'text-purple-400',
+      borderColor: 'border-purple-500/30',
+    },
   ];
-  
+
   return (
-    <div className="relative overflow-hidden">
-      {/* Dramatic background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-slate-900 to-black" />
+    <div className="relative py-16 md:py-24">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-slate-900/50 to-black" />
       
-      {/* Animated light beam */}
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(90deg, transparent, rgba(251,146,60,0.1), transparent)',
-        }}
-        animate={{
-          x: ['-100%', '200%'],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-      />
-      
-      <div className="relative border-y border-white/10">
-        <div className="container py-12 md:py-16">
-          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                className="text-center group"
-              >
-                {/* Stat glow */}
-                <motion.div
-                  className="absolute -inset-4 rounded-full opacity-0 group-hover:opacity-100"
-                  style={{
-                    background: stat.glow,
-                    filter: 'blur(30px)',
-                  }}
-                  transition={{ duration: 0.5 }}
-                />
+      <div className="container relative z-10">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
+            Send. Sign. Deposit.
+          </h3>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            Two ways agencies use the rail. The $4.1M and 145+ agencies came from these exact patterns.
+          </p>
+        </motion.div>
+
+        {/* Use case cards */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {cases.map((useCase, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+              className={`relative rounded-2xl border ${useCase.borderColor} bg-white/[0.02] backdrop-blur-sm p-8`}
+            >
+              {/* Gradient overlay */}
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${useCase.gradient} opacity-50`} />
+              
+              <div className="relative z-10">
+                <h4 className={`text-xl font-bold ${useCase.accentColor} mb-6`}>
+                  {useCase.title}
+                </h4>
                 
-                <div className="relative">
-                  <div className="text-5xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-rose-400 to-purple-400 mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-base md:text-lg text-slate-400 font-medium">
-                    {stat.label}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                <ul className="space-y-4">
+                  {useCase.points.map((point, j) => (
+                    <li key={j} className="flex items-start gap-3 text-slate-200/90">
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
@@ -446,7 +472,7 @@ const FinalCTA = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-slate-400 text-base mt-8"
         >
-          See the entire flow live. 7 minutes. Zero pitch—pure product demo.
+          See the entire flow live. 7 minutes. Zero pitch, pure product demo.
         </motion.p>
       </div>
     </motion.div>
@@ -509,15 +535,15 @@ const Feature = () => {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* 3 Pillar Bands */}
+        {/* 4 Pillar Bands */}
         <div className="space-y-0">
           {pillars.map((pillar, i) => (
             <PillarBand key={i} pillar={pillar} index={i} />
             ))}
           </div>
 
-        {/* Stats Bar */}
-        <StatsBar />
+        {/* Micro Use-Cases */}
+        <UseCases />
         
         {/* Final CTA */}
         <FinalCTA />

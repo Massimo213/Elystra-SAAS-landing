@@ -29,7 +29,7 @@ const faqData: FaqItem[] = [
   {
     id: 'first-deal',
     question: 'How fast can I close my first deal with Elystra?',
-    answer: 'Most agencies close their first call-to-cash cycle within 24–72 hours — often on the same call.',
+    answer: 'Most agencies close their first call-to-cash cycle within 24-72 hours. Often on the same call.',
     icon: <Clock className="w-5 h-5" />,
     accentColor: 'from-rose-500 to-pink-500',
   },
@@ -44,7 +44,7 @@ const faqData: FaqItem[] = [
     id: 'flexibility-rail',
     question: 'Will Elystra work with my revenue model (retainers, projects, performance, hybrids)?',
     answer:
-      'Yes. Elystra is built as a flexible revenue rail. Whether you run retainers, one‑off projects, hybrid retainers + upsells, performance fees, or irregular recurring work, you don’t have to change your model. Elystra adapts to your existing discovery → scope → signature → deposit flows and removes the bottleneck between “yes” and “committed” — proposals, signatures, and Stripe payments all ride the same rail. The result: no switching cost, one lane for every deal type, and an anti‑churn advantage competitors can’t copy.',
+      'Yes. Elystra is built as a flexible revenue rail. Whether you run retainers, one-off projects, hybrid retainers + upsells, performance fees, or irregular recurring work, you do not have to change your model. Elystra adapts to your existing discovery to scope to signature to deposit flows and removes the bottleneck between "yes" and "committed". Proposals, signatures, and Stripe payments all ride the same rail. The result: no switching cost, one lane for every deal type, and an anti-churn advantage competitors cannot copy.',
     icon: <Target className="w-5 h-5" />,
     accentColor: 'from-orange-500 to-fuchsia-500',
   },
@@ -58,7 +58,7 @@ const faqData: FaqItem[] = [
   {
     id: 'pricing',
     question: 'How does pricing work?',
-    answer: 'Costs less than losing one deal. Avg user captures $10K–$50K in revenue they were previously losing — per quarter.',
+    answer: 'Costs less than losing one deal. Avg user captures $10K-$50K in revenue they were previously losing. Per quarter.',
     icon: <DollarSign className="w-5 h-5" />,
     accentColor: 'from-green-500 to-emerald-500',
   },
@@ -73,7 +73,7 @@ const faqData: FaqItem[] = [
     id: 'pricing-structure',
     question: 'How does pricing work?',
     answer:
-      'Simple: pay for speed, not seats. Flat monthly pricing with unlimited users, proposals, signatures, and deposits. No per-seat tax. No per-proposal penalty. You grow — the price doesn’t.',
+      'Simple: pay for speed, not seats. Flat monthly pricing with unlimited users, proposals, signatures, and deposits. No per-seat tax. No per-proposal penalty. You grow, the price does not.',
     icon: <DollarSign className="w-5 h-5" />,
     accentColor: 'from-emerald-500 to-lime-500',
   },
@@ -89,7 +89,7 @@ const faqData: FaqItem[] = [
     id: 'complex-onboarding',
     question: 'What if I have a complex, multi-step onboarding process?',
     answer:
-      'Elystra auto-builds it. Once the deal signs, Elystra triggers PM checklists, client onboarding steps, file requests, workspace access, CRM updates, internal notifications, and finance tasks—everything pre-filled from the proposal.',
+      'Elystra auto-builds it. Once the deal signs, Elystra triggers PM checklists, client onboarding steps, file requests, workspace access, CRM updates, internal notifications, and finance tasks. Everything pre-filled from the proposal.',
     icon: <Puzzle className="w-5 h-5" />,
     accentColor: 'from-sky-500 to-cyan-500',
   },
@@ -97,7 +97,7 @@ const faqData: FaqItem[] = [
     id: 'sales-calls',
     question: 'Do I need to change my sales calls?',
     answer:
-      'No. Elystra adapts to your call—not the opposite. Talk normally, ask questions normally, and Elystra extracts everything automatically.',
+      'No. Elystra adapts to your call, not the opposite. Talk normally, ask questions normally, and Elystra extracts everything automatically.',
     icon: <Zap className="w-5 h-5" />,
     accentColor: 'from-orange-500 to-amber-500',
   },
@@ -105,7 +105,7 @@ const faqData: FaqItem[] = [
     id: 'learning-curve',
     question: 'What’s the learning curve?',
     answer:
-      'Five minutes. If you can talk, you can close. You don’t learn Elystra—you use your mic and Elystra does the rest.',
+      'Five minutes. If you can talk, you can close. You do not learn Elystra. You use your mic and Elystra does the rest.',
     icon: <Clock className="w-5 h-5" />,
     accentColor: 'from-rose-500 to-pink-500',
   },
@@ -113,7 +113,7 @@ const faqData: FaqItem[] = [
     id: 'existing-system',
     question: 'What if I already have a proposal system?',
     answer:
-      'If it requires typing, formatting, exporting, or waiting—you don’t have a system. Elystra removes 90–100% of manual steps. Whatever you use today is slower, period.',
+      'If it requires typing, formatting, exporting, or waiting, you do not have a system. Elystra removes 90-100% of manual steps. Whatever you use today is slower. Period.',
     icon: <Target className="w-5 h-5" />,
     accentColor: 'from-red-500 to-orange-500',
   },

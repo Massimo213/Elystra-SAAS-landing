@@ -18,7 +18,7 @@ export const pricingTiers: PricingTier[] = [
     name: "Explorer",
     price: 0,
     isMonthly: false,
-    tagline: "Start smarter. Save time — for free.",
+    tagline: "Start smarter. Save time for free.",
     features: [
       { name: "Connect 1 Google account", included: true },
       { name: "15 AI-generated email replies/day", included: true },

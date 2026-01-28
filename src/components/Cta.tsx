@@ -6,7 +6,7 @@
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { ctaBanner } from '@/assets';
-import { Signature, HandCoins, Eye, FileText, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Signature, HandCoins, Eye, FileText, ShieldCheck } from 'lucide-react';
 
 const glow =
   'linear-gradient(90deg, rgba(251,146,60,0.55), rgba(244,63,94,0.55), rgba(217,70,239,0.55))';
@@ -89,7 +89,7 @@ const Cta = () => {
                 transition={{ delay: 0.05 }}
                 className="mt-4 text-slate-300 text-base md:text-lg"
               >
-                See exactly how agencies are closing deals 3x faster. Book a personalized demo—we'll show you the entire flow from call recording to signed proposal with payment.
+                See exactly how agencies are closing deals 3x faster. Book a personalized demo. We will show you the entire flow from call recording to signed proposal with payment.
               </motion.p>
 
               {/* Benefit badges */}
@@ -114,18 +114,7 @@ const Cta = () => {
                 transition={{ delay: 0.15 }}
                 className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
               >
-                <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    className="h-12 px-7 text-white rounded-full"
-                    style={{
-                      background: 'linear-gradient(90deg, rgba(251,146,60,1), rgba(244,63,94,1), rgba(217,70,239,1))',
-                      boxShadow: '0 0 26px rgba(251,146,60,0.35)',
-                    }}
-                  >
-                    Book a Demo — See it live
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </a>
+                
 
                 <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
                   <Button
