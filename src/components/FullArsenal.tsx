@@ -1,76 +1,104 @@
 /**
- * Feature.tsx
- * ELYSTRA — Transformation Pillars tied to hard numbers
+ * FullArsenal.tsx
+ * ELYSTRA — 4 Brutal Modules
  */
 
 import { motion, Variants } from 'framer-motion';
-import { FileText, Workflow, BarChart3, Zap, ArrowRight } from 'lucide-react';
+import { 
+  FileText, CreditCard, BarChart3, Plug, 
+  ArrowRight, CheckCircle
+} from 'lucide-react';
 
-/* ---------------- Pillar Data with Numbers ---------------- */
-const pillars = [
+/* ---------------- 4 Core Modules ---------------- */
+const modules = [
   {
     num: '01',
     icon: FileText,
-    title: 'Proposal, Sign, Pay. One Rail.',
-    desc: 'Build and send branded proposals in minutes. Signature and payment live on the same screen. No separate Stripe links, no chasing invoices.',
-    netEffect: 'Average agency goes from 3–7 days between "yes" and send… to under 10 minutes.',
+    title: 'Proposal Engine',
+    tagline: 'Notes or transcript in → branded proposal out. 30 seconds. No deck surgery.',
+    bullets: [
+      'AI drafts from call recordings',
+      'On-brand templates locked',
+      'Pricing auto-calculated',
+      'One-click send with tracking',
+    ],
     color: 'violet',
   },
   {
     num: '02',
-    icon: Workflow,
-    title: 'Ops That Move Themselves',
-    desc: 'One close updates CRM, PM tool, Slack, and Finance automatically. Sales stops doing follow-through admin.',
-    netEffect: 'Your ops team saves 8–12 hours per week on manual handoffs. Zero dropped balls.',
-    color: 'blue',
+    icon: CreditCard,
+    title: 'Close Rail',
+    tagline: 'Review → sign → pay on one screen. E-sign + Stripe baked in. No invoicing gap.',
+    bullets: [
+      'Embedded e-signature',
+      'Stripe payment same screen',
+      'No DocuSign tab-hopping',
+      'Deposit collected instantly',
+    ],
+    color: 'emerald',
   },
   {
     num: '03',
     icon: BarChart3,
-    title: 'Know What Prints Money',
-    desc: 'Templates ranked by cash collected, not views. Rep performance exposed. Board-ready revenue analytics.',
-    netEffect: 'Kill 10–30% of offers that never convert and pour budget into the ones that do — using data, not vibes.',
-    color: 'emerald',
+    title: 'Deal Intelligence & Follow-Up',
+    tagline: 'Behavioral X-ray on every deal. Follow-up queue ranked by buying signals, not tasks.',
+    bullets: [
+      'Time on pricing tracked',
+      'Reopens & shares detected',
+      'Decision-maker activity visible',
+      'Auto-sequences until commit',
+    ],
+    color: 'amber',
   },
   {
     num: '04',
-    icon: Zap,
-    title: 'The Proposal-to-Cash Rail',
-    desc: 'You don\'t improve proposals. You remove the gap where deals die. Send. Sign. Deposit.',
-    netEffect: '+20–30% close-rate lift without a single extra lead.',
-    color: 'amber',
+    icon: Plug,
+    title: 'Ops & Client Portal',
+    tagline: 'One close updates CRM, PM, Slack, Finance — client gets a portal with everything.',
+    bullets: [
+      'CRM auto-updated',
+      'PM tasks triggered',
+      'Finance notified',
+      'Client portal included',
+    ],
+    color: 'blue',
   },
 ];
 
 const colorConfig: Record<string, { 
   gradient: string; 
   border: string; 
+  glow: string;
   bg: string;
   text: string;
 }> = {
   violet: {
     gradient: 'from-violet-500/20 to-purple-500/10',
     border: 'border-violet-500/20',
+    glow: 'rgba(139, 92, 246, 0.15)',
     bg: 'bg-violet-500/10',
     text: 'text-violet-400',
   },
-  blue: {
-    gradient: 'from-blue-500/20 to-indigo-500/10',
-    border: 'border-blue-500/20',
-    bg: 'bg-blue-500/10',
-    text: 'text-blue-400',
-  },
   emerald: {
-    gradient: 'from-emerald-500/20 to-teal-500/10',
+    gradient: 'from-emerald-500/20 to-green-500/10',
     border: 'border-emerald-500/20',
+    glow: 'rgba(16, 185, 129, 0.15)',
     bg: 'bg-emerald-500/10',
     text: 'text-emerald-400',
   },
   amber: {
     gradient: 'from-amber-500/20 to-orange-500/10',
     border: 'border-amber-500/20',
+    glow: 'rgba(245, 158, 11, 0.15)',
     bg: 'bg-amber-500/10',
     text: 'text-amber-400',
+  },
+  blue: {
+    gradient: 'from-blue-500/20 to-indigo-500/10',
+    border: 'border-blue-500/20',
+    glow: 'rgba(59, 130, 246, 0.15)',
+    bg: 'bg-blue-500/10',
+    text: 'text-blue-400',
   },
 };
 
@@ -79,7 +107,7 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12 }
+    transition: { staggerChildren: 0.1 }
   }
 };
 
@@ -92,14 +120,14 @@ const cardVariants: Variants = {
   }
 };
 
-/* ---------------- Pillar Card ---------------- */
-interface PillarCardProps {
-  pillar: typeof pillars[0];
+/* ---------------- Module Card ---------------- */
+interface ModuleCardProps {
+  module: typeof modules[0];
 }
 
-const PillarCard = ({ pillar }: PillarCardProps) => {
-  const Icon = pillar.icon;
-  const config = colorConfig[pillar.color];
+const ModuleCard = ({ module }: ModuleCardProps) => {
+  const Icon = module.icon;
+  const config = colorConfig[module.color];
 
   return (
     <motion.div
@@ -108,8 +136,10 @@ const PillarCard = ({ pillar }: PillarCardProps) => {
       className="group relative"
     >
       {/* Card */}
-      <div className="relative bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] 
-                     hover:border-white/[0.1] transition-all duration-300 h-full">
+      <div 
+        className="relative bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] 
+                  hover:border-white/[0.1] transition-all duration-300 h-full"
+      >
         {/* Inner gradient */}
         <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-20 rounded-2xl`} />
         
@@ -122,7 +152,7 @@ const PillarCard = ({ pillar }: PillarCardProps) => {
             WebkitTextFillColor: 'transparent',
           }}
         >
-          {pillar.num}
+          {module.num}
         </div>
         
         <div className="relative z-10">
@@ -132,27 +162,25 @@ const PillarCard = ({ pillar }: PillarCardProps) => {
               <Icon className={`w-5 h-5 ${config.text}`} />
             </div>
             <span className={`text-xs tracking-[0.15em] ${config.text} opacity-70`}>
-              PILLAR {pillar.num}
+              MODULE {module.num}
             </span>
           </div>
           
           {/* Title */}
-          <h3 className="text-xl font-light text-white mb-4">{pillar.title}</h3>
+          <h3 className="text-xl font-light text-white mb-3">{module.title}</h3>
           
-          {/* Description */}
-          <p className="text-sm text-zinc-400 font-light mb-6 leading-relaxed">{pillar.desc}</p>
+          {/* Tagline */}
+          <p className="text-sm text-zinc-400 font-light mb-6 leading-relaxed">{module.tagline}</p>
           
-          {/* Net Effect - The Money Shot */}
-          <div 
-            className="p-4 rounded-xl"
-            style={{
-              background: `linear-gradient(135deg, ${config.bg.replace('bg-', 'rgba(').replace('/10', ', 0.1)')} 0%, rgba(0,0,0,0.2) 100%)`,
-              border: `1px solid ${config.border.replace('border-', 'rgba(').replace('/20', ', 0.15)')}`,
-            }}
-          >
-            <p className="text-xs tracking-[0.1em] uppercase text-zinc-500 mb-2">Net Effect</p>
-            <p className={`text-sm font-light ${config.text}`}>{pillar.netEffect}</p>
-          </div>
+          {/* Bullets */}
+          <ul className="space-y-2">
+            {module.bullets.map((bullet, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <CheckCircle className={`w-3.5 h-3.5 ${config.text} shrink-0`} />
+                <span className="text-xs text-zinc-500 font-light">{bullet}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </motion.div>
@@ -160,19 +188,19 @@ const PillarCard = ({ pillar }: PillarCardProps) => {
 };
 
 /* ---------------- Main Component ---------------- */
-const Feature = () => {
+const FullArsenal = () => {
   return (
     <section className="relative py-28 md:py-36 overflow-hidden bg-transparent">
       {/* Optimized Background - Static gradients */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
-          className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-50"
+          className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-50"
           style={{
             background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%)',
           }}
         />
         <div 
-          className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full opacity-40"
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-40"
           style={{
             background: 'radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 60%)',
           }}
@@ -196,25 +224,55 @@ const Feature = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              The Four Transformation Pillars
+              Four Modules. One Rail.
             </span>
           </h2>
           <p className="text-lg font-extralight text-zinc-500 max-w-2xl mx-auto">
-            Each pillar ties directly to money. No fluff. Just measurable impact.
+            Everything you need to go from call to cash. Nothing you don't.
           </p>
         </motion.div>
 
-        {/* Pillars Grid */}
+        {/* Modules Grid - 2x2 */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          {pillars.map((pillar) => (
-            <PillarCard key={pillar.num} pillar={pillar} />
+          {modules.map((module) => (
+            <ModuleCard key={module.num} module={module} />
           ))}
+        </motion.div>
+
+        {/* Result Line */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-16 text-center"
+        >
+          <div 
+            className="inline-block px-8 py-4 rounded-2xl"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(16, 185, 129, 0.05) 100%)',
+              border: '1px solid rgba(139, 92, 246, 0.15)',
+            }}
+          >
+            <p className="text-base md:text-lg text-zinc-300 font-light">
+              <span className="text-white font-medium">Result:</span> your team stops "chasing paperwork".{' '}
+              <span 
+                style={{
+                  background: 'linear-gradient(135deg, #a855f7 0%, #10b981 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                They talk, the rail does the rest.
+              </span>
+            </p>
+          </div>
         </motion.div>
 
         {/* CTA */}
@@ -223,7 +281,7 @@ const Feature = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
+          className="mt-12 text-center"
         >
           <motion.a
             href="#demo"
@@ -235,7 +293,7 @@ const Feature = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="text-sm font-light text-white">See the Numbers in Your Context</span>
+            <span className="text-sm font-light text-white">See All Four in Action</span>
             <ArrowRight className="w-4 h-4 text-violet-400 group-hover:translate-x-1 transition-transform" />
           </motion.a>
         </motion.div>
@@ -244,4 +302,4 @@ const Feature = () => {
   );
 };
 
-export default Feature;
+export default FullArsenal;

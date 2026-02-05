@@ -1,129 +1,74 @@
 /**
- * Faq.tsx — Production-grade FAQ component
- * Apple-inspired accordion with glass morphism, staggered animations, and micro-interactions
+ * Faq.tsx
+ * ELYSTRA — Full FAQ with objection-killing answers
+ * Speaks in money, risk, and time — not features
  */
 
-import { motion, AnimatePresence, Variants } from 'motion/react';
 import { useState } from 'react';
-import { ChevronDown, Zap, Clock, DollarSign, Puzzle, TrendingUp, Target } from 'lucide-react';
-import { SparklesCore } from '@/components/ui/sparkles';
-
-/* ---------------- Type Definitions ---------------- */
-interface FaqItem {
-  id: string;
-  question: string;
-  answer: string;
-  icon: React.ReactNode;
-  accentColor: string;
-}
+import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 /* ---------------- FAQ Data ---------------- */
-const faqData: FaqItem[] = [
+const faqs = [
   {
-    id: 'workflow',
-    question: 'Does Elystra require me to change my workflow?',
-    answer: 'No. Elystra layers on top of what you already do. No migration, no setup, no training.',
-    icon: <Puzzle className="w-5 h-5" />,
-    accentColor: 'from-orange-500 to-amber-500',
+    q: "Does Elystra require me to change my workflow?",
+    a: "No.\nYou keep your sales calls, your CRM, your PM tool, your pricing.\n\nElystra sits under your current process and removes one thing only: the 2–14 day gap between \"yes\" and money in the account.\n\nIf you can run a call, send a proposal, and collect a payment — you already know how to \"use\" Elystra. We just compress it into one rail.",
   },
   {
-    id: 'first-deal',
-    question: 'How fast can I close my first deal with Elystra?',
-    answer: 'Most agencies close their first call-to-cash cycle within 24-72 hours. Often on the same call.',
-    icon: <Clock className="w-5 h-5" />,
-    accentColor: 'from-rose-500 to-pink-500',
+    q: "How fast can I close my first deal with Elystra?",
+    a: "Usually within 24–72 hours of turning it on.\n\nFor most agencies:\n• Demo day: we build your first template on the call.\n• Same day: you run a real prospect through the rail.\n• Within 1–3 days: that deal is either signed + paid, or you have a crystal-clear \"no\".\n\nOur 30-day guarantee is built around this: \"Run at least one real deal through Elystra. If your close-rate doesn't move, you pay nothing.\"",
   },
   {
-    id: 'replacement',
-    question: 'What tools does Elystra replace?',
-    answer: 'Proposal software, DocuSign, Stripe requests, and follow-up chasing.',
-    icon: <Zap className="w-5 h-5" />,
-    accentColor: 'from-fuchsia-500 to-purple-500',
+    q: "What tools does Elystra replace?",
+    a: "At minimum:\n• Proposal software (PandaDoc/Proposify/etc.)\n• DocuSign / e-signature tools\n• Stripe payment links / manual invoices\n• Spreadsheet tracking of \"who signed / who paid / which template works\"\n\nIn many shops it also quietly replaces:\n• A chunk of sales admin headcount\n• A chunk of \"follow-up\" time that never happens\n\nYou keep your CRM and PM. Elystra becomes the proposal → sign → pay layer that connects them.",
   },
   {
-    id: 'flexibility-rail',
-    question: 'Will Elystra work with my revenue model (retainers, projects, performance, hybrids)?',
-    answer:
-      'Yes. Elystra is built as a flexible revenue rail. Whether you run retainers, one-off projects, hybrid retainers + upsells, performance fees, or irregular recurring work, you do not have to change your model. Elystra adapts to your existing discovery to scope to signature to deposit flows and removes the bottleneck between "yes" and "committed". Proposals, signatures, and Stripe payments all ride the same rail. The result: no switching cost, one lane for every deal type, and an anti-churn advantage competitors cannot copy.',
-    icon: <Target className="w-5 h-5" />,
-    accentColor: 'from-orange-500 to-fuchsia-500',
+    q: "Will Elystra work with my revenue model (retainers, projects, performance, hybrids)?",
+    a: "Yes. The rail doesn't care what you sell.\n• Monthly retainers\n• One-off projects\n• Performance / rev-share\n• Hybrid retainers + upsells\n• Irregular, \"we build a custom thing each time\" work\n\nYou define how you charge. Elystra just ensures that once someone says \"yes\", they sign and pay inside that same motion instead of drifting for 2–3 weeks.",
   },
   {
-    id: 'custom-pricing',
-    question: 'Will it work with custom pricing or service scopes?',
-    answer: 'Yes. We build your template on the demo call. Drag → Drop → Send → Get Paid.',
-    icon: <Target className="w-5 h-5" />,
-    accentColor: 'from-emerald-500 to-teal-500',
+    q: "Will it work with custom pricing or service scopes?",
+    a: "Yes. That's the default, not the edge case.\n• We build your first templates on the demo call.\n• You or your team tweak scope, pricing, clauses per deal.\n• The system keeps everything on-brand, trackable and fast.\n\nIf your current \"custom scope\" approach is \"Copy old deck → rewrite → reformat → export PDF\"… you'll feel the speed difference in the first week.",
   },
   {
-    id: 'pricing',
-    question: 'How does pricing work?',
-    answer: 'Costs less than losing one deal. Avg user captures $10K-$50K in revenue they were previously losing. Per quarter.',
-    icon: <DollarSign className="w-5 h-5" />,
-    accentColor: 'from-green-500 to-emerald-500',
+    q: "How does pricing work?",
+    a: "Flat monthly. Unlimited users. Unlimited proposals. Unlimited signatures. Unlimited deposits.\n\nNo per-seat tax. No per-proposal tax. No % of deals.\n\nIf you're losing even one deal a month to the \"we'll get back to you\" gap, Elystra is cheaper than your current system.\n\nAnd if the first 30 days don't move your close-rate? We refund you and switch you off. No forms, no \"conditions\".",
   },
   {
-    id: 'slow-clients',
-    question: 'What if my clients are slow to sign?',
-    answer: 'Elystra removes the delay. They sign and pay inside the call window, not days later.',
-    icon: <TrendingUp className="w-5 h-5" />,
-    accentColor: 'from-orange-500 to-rose-500',
+    q: "What if my clients are slow to sign?",
+    a: "That's exactly what Elystra is built to kill.\n\nSlow signing usually means:\n• proposal went cold in their inbox\n• no clear payment path\n• no structured follow-up\n• multiple people internally, no one owning the decision\n\nElystra attacks all of that:\n• They review → sign → pay on one screen\n• Behavioral X-ray shows who's reading what, when, and with whom\n• Follow-up queue tells your team who to call now vs who to ignore\n\nYour \"slow\" clients either commit inside the call window, or they cleanly disqualify themselves. No more 3-week limbo.",
   },
   {
-    id: 'pricing-structure',
-    question: 'How does pricing work?',
-    answer:
-      'Simple: pay for speed, not seats. Flat monthly pricing with unlimited users, proposals, signatures, and deposits. No per-seat tax. No per-proposal penalty. You grow, the price does not.',
-    icon: <DollarSign className="w-5 h-5" />,
-    accentColor: 'from-emerald-500 to-lime-500',
+    q: "Does Elystra work for high-ticket agencies?",
+    a: "Yes. Elystra was built for high-ticket first.\n\nWhether it's $5K retainers, $50K projects, or $150K+ scopes — they all run on the same rail:\n• scoped from the call\n• signed on the proposal page\n• deposit collected immediately\n• internal onboarding triggered automatically\n\nThe bigger the deal, the more expensive your current \"gap\" is. Elystra makes that gap smaller.",
   },
   {
-    id: 'high-ticket',
-    question: 'Does Elystra work for high-ticket agencies?',
-    answer:
-      'Elystra was built for high-ticket. $5K, $50K, $150K proposals follow the same workflow. Scope extraction stays accurate, Stripe deposits stay instant, and perceived risk disappears.',
-    icon: <TrendingUp className="w-5 h-5" />,
-    accentColor: 'from-purple-500 to-fuchsia-500',
+    q: "What if I have a complex, multi-step onboarding process?",
+    a: "Elystra doesn't remove steps. It removes manual handoffs.\n\nAfter signature + payment, you can have Elystra:\n• create the deal in your CRM\n• fire tasks + checklists in your PM tool\n• send Slack/Email notifications to your team\n• trigger finance workflows (invoice, PO, records)\n\nYour internal process can stay as complex as you like. You just stop depending on humans to remember 12 steps after every close.",
   },
   {
-    id: 'complex-onboarding',
-    question: 'What if I have a complex, multi-step onboarding process?',
-    answer:
-      'Elystra auto-builds it. Once the deal signs, Elystra triggers PM checklists, client onboarding steps, file requests, workspace access, CRM updates, internal notifications, and finance tasks. Everything pre-filled from the proposal.',
-    icon: <Puzzle className="w-5 h-5" />,
-    accentColor: 'from-sky-500 to-cyan-500',
+    q: "Do I need to change my sales calls?",
+    a: "No.\n• You don't need a new script.\n• You don't need \"Elystra-style closing lines\".\n• You don't need training modules.\n\nTalk the way you talk today. Elystra listens to the call / notes, builds the proposal, and gives you a rail where \"yes\" automatically routes to signed + paid.\n\nIf anything, Elystra lets you be more direct: \"If this makes sense, we'll send you the proposal while we're still on the call and you can sign + pay in one motion.\"",
   },
   {
-    id: 'sales-calls',
-    question: 'Do I need to change my sales calls?',
-    answer:
-      'No. Elystra adapts to your call, not the opposite. Talk normally, ask questions normally, and Elystra extracts everything automatically.',
-    icon: <Zap className="w-5 h-5" />,
-    accentColor: 'from-orange-500 to-amber-500',
+    q: "What is the learning curve?",
+    a: "For a closer who can already sell: about one deal.\n• We set up your first templates on the demo + onboarding.\n• You run one real call through it.\n• After that, you repeat the same clicks.\n\nIf someone can't pick this up in under 5 minutes, they don't have a tech problem. They have a performance problem.",
   },
   {
-    id: 'learning-curve',
-    question: 'What’s the learning curve?',
-    answer:
-      'Five minutes. If you can talk, you can close. You do not learn Elystra. You use your mic and Elystra does the rest.',
-    icon: <Clock className="w-5 h-5" />,
-    accentColor: 'from-rose-500 to-pink-500',
+    q: "What if I already have a proposal system?",
+    a: "Then you know its limits better than anyone.\n\nIf your current \"system\" still involves typing into a doc, formatting, exporting, attaching, waiting… you don't have a system. You have manual labor with nicer UI.\n\nElystra isn't \"another proposal tool\". It's:\n• proposal generation from call\n• signature on the page\n• payment on the page\n• follow-up automation\n• deal intelligence\n• ops handoff\n\nIf your current stack truly closes deals on the call with full analytics and zero admin, keep it. If not, Elystra will feel like cheating.",
   },
   {
-    id: 'existing-system',
-    question: 'What if I already have a proposal system?',
-    answer:
-      'If it requires typing, formatting, exporting, or waiting, you do not have a system. Elystra removes 90-100% of manual steps. Whatever you use today is slower. Period.',
-    icon: <Target className="w-5 h-5" />,
-    accentColor: 'from-red-500 to-orange-500',
+    q: "Does Elystra support retainers?",
+    a: "Yes. This is where it prints the most money.\n\nA typical retainer flow:\n1. You set monthly/quarterly rate inside Elystra.\n2. Client signs the retainer agreement on the proposal page.\n3. Stripe handles recurring billing on autopilot.\n4. You get predictable cash every month/quarter with zero chasing.\n\nNo manual invoices. No \"just bumping this to the top of your inbox.\" You either have a live retainer lane, or you don't.",
   },
   {
-    id: 'retainers',
-    question: 'Does Elystra support retainers?',
-    answer:
-      'Yes. Set the monthly rate, Elystra auto-generates the retainer agreement, the client signs, Stripe handles recurring billing, and you get predictable cash every month or quarter. No chasing, no manual invoicing, no admin.',
-    icon: <DollarSign className="w-5 h-5" />,
-    accentColor: 'from-amber-500 to-rose-500',
+    q: "What if my team does not use it?",
+    a: "Then two things are true:\n1. Your close-rate and time-to-cash won't change.\n2. You shouldn't keep paying for Elystra.\n\nWe don't make money if Elystra becomes \"another icon on the dock\". Our best customers make it clear internally: \"This is the rail. Deals run on this or they don't run.\"\n\nWe support you with templates, onboarding, and a simple playbook. But enforcement is on your side. If you won't enforce it, don't book a demo.",
+  },
+  {
+    q: "Who is Elystra not for?",
+    a: "• Agencies who are comfortable waiting 7–21 days for signed proposals\n• Teams who hate process and ignore any tool you give them\n• Owners who want \"shiny\" software, not more closed revenue\n\nIf you're happy typing into docs, sending PDFs, chasing signatures, waiting for Stripe invoices to be paid… you don't need Elystra.\n\nIf you look at your pipeline and know there's money dying between \"yes\" and \"paid\", the only logical next step is to see the rail live for 7 minutes.\n\nBook the demo. Judge it in your own numbers.",
   },
 ];
 
@@ -132,130 +77,132 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.2,
-    },
-  },
+    transition: { staggerChildren: 0.05 }
+  }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
+  hidden: { opacity: 0, y: 15 },
+  visible: { 
+    opacity: 1, 
     y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
+    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
+  }
 };
 
-/* ---------------- FAQ Item Component ---------------- */
-const FaqAccordionItem = ({ item, isOpen, onToggle }: { 
-  item: FaqItem; 
-  isOpen: boolean; 
+/* ---------------- FAQ Item ---------------- */
+interface FaqItemProps {
+  faq: { q: string; a: string };
+  isOpen: boolean;
   onToggle: () => void;
-}) => {
+}
+
+const FaqItem = ({ faq, isOpen, onToggle }: FaqItemProps) => {
   return (
-    <motion.div
-      variants={itemVariants}
-      className="border-b border-white/10"
-    >
-      <button
-        onClick={onToggle}
-        className="w-full py-6 flex items-center justify-between gap-6 text-left group"
+    <motion.div variants={itemVariants} className="group">
+      <div 
+        className={`relative bg-black/30 rounded-xl border transition-all duration-300
+                   ${isOpen ? 'border-violet-500/30' : 'border-white/[0.06] hover:border-white/[0.1]'}`}
       >
-        {/* Question */}
-        <h3 className={`
-          text-lg md:text-xl font-semibold leading-tight transition-colors duration-200
-          ${isOpen ? 'text-white' : 'text-slate-300 group-hover:text-white'}
-        `}>
-          {item.question}
-        </h3>
-
-        {/* Chevron */}
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="flex-shrink-0"
-        >
-          <ChevronDown className={`
-            w-5 h-5 transition-colors duration-200
-            ${isOpen ? 'text-orange-400' : 'text-slate-500 group-hover:text-slate-400'}
-          `} />
-        </motion.div>
-      </button>
-
-      {/* Answer */}
-      <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
-            key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="overflow-hidden"
-          >
-            <div className="pb-6 pr-12">
-              <p className="text-slate-400 text-base md:text-lg leading-relaxed">
-                {item.answer}
-              </p>
-            </div>
-          </motion.div>
+          <div
+            className="absolute inset-0 rounded-xl opacity-20"
+            style={{
+              background: 'radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15) 0%, transparent 60%)',
+            }}
+          />
         )}
-      </AnimatePresence>
+        
+        <button
+          onClick={onToggle}
+          className="relative z-10 w-full flex items-center justify-between gap-4 p-5 text-left"
+        >
+          <span className={`text-sm md:text-base font-light transition-colors duration-300
+                          ${isOpen ? 'text-white' : 'text-zinc-300'}`}>
+            {faq.q}
+          </span>
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+            className={`shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-300
+                       ${isOpen ? 'bg-violet-500/20 border border-violet-500/30' : 'bg-white/[0.03] border border-white/[0.06]'}`}
+          >
+            <ChevronDown className={`w-4 h-4 transition-colors duration-300
+                                    ${isOpen ? 'text-violet-400' : 'text-zinc-500'}`} />
+          </motion.div>
+        </button>
+        
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="overflow-hidden"
+            >
+              <div className="relative z-10 px-5 pb-5 pt-0">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-4" />
+                <p className="text-sm text-zinc-400 font-light leading-relaxed whitespace-pre-line">
+                  {faq.a}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };
 
-/* ---------------- Main FAQ Component ---------------- */
+/* ---------------- Main Component ---------------- */
 const Faq = () => {
-  const [openItems, setOpenItems] = useState<Set<string>>(new Set(['workflow']));
-
-  const toggleItem = (id: string) => {
-    setOpenItems(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  };
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 md:py-32 bg-black relative overflow-hidden">
-      {/* ✨ SPARKLES BACKGROUND */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <SparklesCore
-          id="faq-sparkles"
-          background="transparent"
-          minSize={0.4}
-          maxSize={1.4}
-          particleDensity={60}
-          speed={1.5}
-          className="w-full h-full"
-          particleColor="#fb923c"
+    <section className="relative py-24 md:py-32 overflow-hidden bg-transparent">
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full opacity-40"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(139, 92, 246, 0.08) 0%, transparent 60%)',
+          }}
         />
       </div>
-      
-      <div className="container max-w-3xl mx-auto px-4 relative z-10">
-        {/* Section Header */}
+
+      <div className="relative z-10 max-w-3xl mx-auto px-6">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Frequently asked questions
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)',
+              border: '1px solid rgba(139, 92, 246, 0.2)',
+            }}
+          >
+            <HelpCircle className="w-4 h-4 text-violet-400" />
+            <span className="text-xs tracking-[0.15em] uppercase text-violet-400">FAQ</span>
+          </div>
+
+          <h2 className="text-3xl md:text-4xl font-extralight tracking-tight mb-4">
+            <span 
+              style={{
+                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Frequently Asked Questions
+            </span>
           </h2>
-          <p className="text-lg text-slate-400">
+          <p className="text-base font-extralight text-zinc-500">
             Real questions from agencies. Straight answers.
           </p>
         </motion.div>
@@ -265,125 +212,38 @@ const Faq = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true }}
+          className="space-y-3"
         >
-          {faqData.map(item => (
-            <FaqAccordionItem
-              key={item.id}
-              item={item}
-              isOpen={openItems.has(item.id)}
-              onToggle={() => toggleItem(item.id)}
+          {faqs.map((faq, index) => (
+            <FaqItem
+              key={index}
+              faq={faq}
+              isOpen={openIndex === index}
+              onToggle={() => setOpenIndex(openIndex === index ? null : index)}
             />
           ))}
         </motion.div>
 
-        {/* CTA Footer */}
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 pt-12 border-t border-white/10"
+          transition={{ delay: 0.3 }}
+          className="mt-12 text-center"
         >
-          <div className="text-center">
-            <p className="text-slate-400 mb-8 text-lg">
-              Still have questions?
-            </p>
-            
-            <motion.div
-              className="inline-block"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+          <p className="text-sm text-zinc-500 font-light">
+            Still have questions?{' '}
+            <a 
+              href="https://calendly.com/onboarding-elystra/30min" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-violet-400 hover:text-violet-300 transition-colors underline underline-offset-4"
             >
-              <div className="relative group">
-                {/* Glow layer behind button */}
-                <motion.div
-                  className="absolute -inset-2 rounded-[32px] opacity-60"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(251,146,60,0.6), rgba(244,63,94,0.6))',
-                    filter: 'blur(30px)',
-                  }}
-                  animate={{
-                    opacity: [0.4, 0.7, 0.4],
-                    scale: [0.95, 1.05, 0.95],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-                
-                <a 
-                  href="https://calendly.com/onboarding-elystra/30min" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <button
-                    className="relative text-lg px-12 py-5 rounded-[28px] font-bold text-white border-0 overflow-hidden transition-all duration-300"
-                    style={{
-                      background: 'linear-gradient(135deg, #fb923c 0%, #f43f5e 100%)',
-                      boxShadow: `
-                        0 1px 2px rgba(0, 0, 0, 0.1),
-                        0 2px 4px rgba(0, 0, 0, 0.1),
-                        0 4px 8px rgba(0, 0, 0, 0.1),
-                        0 8px 16px rgba(251, 146, 60, 0.3),
-                        0 16px 32px rgba(244, 63, 94, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                      `,
-                    }}
-                  >
-                    {/* Glass shine overlay */}
-                    <span
-                      className="absolute inset-0 rounded-[28px]"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 50%, transparent 100%)',
-                      }}
-                    />
-                    
-                    {/* Animated shimmer effect */}
-                    <motion.span
-                      className="absolute inset-0 rounded-[28px]"
-                      style={{
-                        background: 'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)',
-                      }}
-                      animate={{
-                        x: ['-200%', '200%'],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: 'linear',
-                        repeatDelay: 1,
-                      }}
-                    />
-                    
-                    {/* Inner glow on hover */}
-                    <span
-                      className="absolute inset-0 rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%)',
-                      }}
-                    />
-                    
-                    <span className="relative z-10 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                      Book a 7-Minute Demo
-                    </span>
-                  </button>
-                </a>
-                
-                {/* Bottom reflection */}
-                <div
-                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[90%] h-4 opacity-30"
-                  style={{
-                    background: 'radial-gradient(ellipse, rgba(251,146,60,0.4), transparent)',
-                    filter: 'blur(8px)',
-                  }}
-                />
-              </div>
-            </motion.div>
-          </div>
+              Book a demo and we will answer everything live
+            </a>
+          </p>
         </motion.div>
       </div>
     </section>
@@ -391,33 +251,3 @@ const Faq = () => {
 };
 
 export default Faq;
-
-/**
- * Post-mortem:
- * 
- * • Design intent: Radical simplicity. Zero decorative elements. Pure typography hierarchy.
- *   Single color accent (orange-400) for active states. Clean border separators. No cards,
- *   no backgrounds, no gradients—just content. Minimal animation: chevron rotate only.
- *   Inspired by Linear, Stripe, and modern SaaS documentation patterns.
- * 
- * • Trade-offs: Removed all visual flourish for maximum clarity. No stagger animations, no
- *   background effects, no icon system. Sacrificed "impressive" for "invisible"—best design
- *   is no design. User focuses on answers, not interface. Single 200ms transition everywhere.
- * 
- * • Performance constraints: Near-zero paint cost. Simple height animations with easeOut.
- *   No blur, no shadows, no transforms except chevron. Renders at 120fps on modern displays.
- *   Tiny bundle impact—removed 60% of previous component weight. Local state only, zero props.
- * 
- * • Color strategy: Monochrome slate scale (300/400/500) with single orange accent. White for
- *   active questions. Orange chevron when open. Efficient—three colors total. High contrast
- *   maintained (WCAG AAA). Color communicates state without decoration.
- * 
- * • Accessibility: Native button elements (semantic HTML). Clear focus states. Screen reader
- *   friendly—question always visible, answer announces on expand. Keyboard nav perfect.
- *   No motion complexity—safe for vestibular disorders. Tab order logical.
- * 
- * • Brilliance through constraint: Less is exponentially more. Every pixel intentional.
- *   Typography does the work. Spacing creates rhythm. Color signals state. Animation confirms
- *   interaction. Nothing else needed. This is senior-level restraint.
- */
-
