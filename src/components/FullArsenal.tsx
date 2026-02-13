@@ -137,7 +137,7 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
     >
       {/* Card */}
       <div 
-        className="relative bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] 
+        className="relative bg-black/50 rounded-2xl p-8 border border-white/[0.06] 
                   hover:border-white/[0.1] transition-all duration-300 h-full"
       >
         {/* Inner gradient */}

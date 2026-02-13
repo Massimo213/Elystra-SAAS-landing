@@ -3,8 +3,7 @@
  * ELYSTRA — Strategic Hero with new copy framework
  */
 
-import { motion, Variants, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, Variants } from 'framer-motion';
 import { ShieldCheck, ArrowRight, Sparkles, FileText, CreditCard, BarChart3, Users } from 'lucide-react';
 
 /* ---------------- Motion variants ---------------- */
@@ -27,16 +26,8 @@ const itemVariants: Variants = {
 
 /* ---------------- Hero ---------------- */
 const Hero = () => {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start']
-  });
-  
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
   return (
-    <section className="relative min-h-screen overflow-hidden bg-transparent" ref={heroRef}>
+    <section className="relative min-h-screen overflow-hidden bg-transparent">
       {/* Optimized Background */}
       <div className="absolute inset-0 z-[1] will-change-transform">
         <div 
@@ -67,10 +58,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <motion.div 
-        className="relative z-10 pt-32 md:pt-40 pb-20"
-        style={{ y: contentY }}
-      >
+      <div className="relative z-10 pt-32 md:pt-40 pb-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -79,7 +67,7 @@ const Hero = () => {
         >
           {/* Eyebrow */}
           <motion.div variants={itemVariants} className="mb-8">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08]">
               <Users className="w-4 h-4 text-violet-400" />
               <span className="text-xs tracking-[0.2em] uppercase text-zinc-400 font-light">
                 For Marketing & Advertising Agencies
@@ -156,7 +144,7 @@ const Hero = () => {
                 Whether you sell <span className="text-white">$3K retainers</span> or{' '}
                 <span className="text-white">$300K projects</span>, the pattern is the same:
                 <br className="hidden md:block" />
-                deals stall after the proposal, follow-up is manual, no one knows which offers print money,
+                deals stall after the proposal, follow-up is non-systematized, no one knows which offers print money,
                 <br className="hidden md:block" />
                 and{' '}
                 <span 
@@ -202,15 +190,12 @@ const Hero = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Shine effect */}
-              <motion.span
+              {/* Static shine highlight */}
+              <span
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)',
-                  backgroundSize: '200% 100%',
+                  background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
                 }}
-                animate={{ backgroundPosition: ['-100% 0', '200% 0'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 3 }}
               />
               
               <Sparkles className="w-6 h-6 relative z-10" />
@@ -241,7 +226,7 @@ const Hero = () => {
                 background: 'linear-gradient(135deg, rgba(139,92,246,0.4), rgba(168,85,247,0.2))',
               }}
             >
-              <div className="bg-black/80 backdrop-blur-xl rounded-3xl p-8 md:p-10">
+              <div className="bg-black/90 rounded-3xl p-8 md:p-10">
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     { 
@@ -265,9 +250,8 @@ const Hero = () => {
                       sub: 'by offer, by closer, by month'
                     },
                   ].map((item, i) => (
-                    <motion.div
+                    <div
                       key={i}
-                      whileHover={{ y: -2 }}
                       className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]
                                hover:bg-white/[0.04] hover:border-white/[0.1] transition-colors"
                     >
@@ -284,7 +268,7 @@ const Hero = () => {
                         <p className="text-white font-light text-sm">{item.text}</p>
                         <p className="text-xs text-zinc-500 mt-1">{item.sub}</p>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -323,7 +307,7 @@ const Hero = () => {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };

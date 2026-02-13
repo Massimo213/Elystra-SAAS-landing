@@ -267,7 +267,7 @@
    ========================================== */
 
 @layer utilities {
-  /* Premium glass card with refraction */
+  /* Premium glass card — no backdrop-filter for scroll perf */
   .glass-premium {
     @apply relative overflow-hidden;
     background: linear-gradient(
@@ -276,7 +276,6 @@
       rgba(255, 255, 255, 0.02) 50%,
       rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
   
@@ -295,9 +294,9 @@
     );
   }
   
-  /* Glass card with inner glow */
+  /* Glass card with inner glow — no backdrop-filter */
   .glass-glow {
-    @apply bg-white/[0.03] backdrop-blur-2xl;
+    @apply bg-white/[0.03];
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 
       inset 0 1px 1px rgba(255, 255, 255, 0.05),
@@ -311,13 +310,13 @@
       0 0 60px rgba(139, 92, 246, 0.1);
   }
   
-  /* Standard glass */
+  /* Standard glass — no backdrop-filter */
   .glass-card {
-    @apply bg-white/[0.02] border border-white/[0.06] backdrop-blur-xl;
+    @apply bg-white/[0.02] border border-white/[0.06];
   }
   
   .glass-card-hover {
-    @apply bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl
+    @apply bg-white/[0.03] border border-white/[0.08]
            hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-500;
   }
   
@@ -468,7 +467,7 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior removed — Lenis handles smooth scrolling */
   }
 
   body {

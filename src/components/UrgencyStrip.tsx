@@ -19,21 +19,11 @@ const UrgencyStrip = () => {
         borderBottom: '1px solid rgba(139, 92, 246, 0.2)',
       }}
     >
-      {/* Shimmer sweep */}
-      <motion.div
-        className="absolute inset-0 opacity-40"
+      {/* Static shimmer highlight */}
+      <div
+        className="absolute inset-0 opacity-20"
         style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%)',
-          backgroundSize: '200% 100%',
-        }}
-        animate={{
-          backgroundPosition: ['-100% 0', '200% 0'],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'linear',
-          repeatDelay: 2,
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)',
         }}
       />
 

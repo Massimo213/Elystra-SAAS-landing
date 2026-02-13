@@ -8,11 +8,10 @@ import { motion, Variants } from 'framer-motion';
 import { Zap, Sparkles, Target, Rocket } from 'lucide-react';
 
 const fadeInUp: Variants = {
-  start: { y: 30, opacity: 0, filter: 'blur(10px)' },
+  start: { y: 30, opacity: 0 },
   end: { 
     y: 0, 
     opacity: 1, 
-    filter: 'blur(0px)', 
     transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } 
   },
 };
@@ -54,36 +53,16 @@ const Brand = () => {
             variants={fadeInUp}
             className="text-4xl md:text-5xl lg:text-6xl font-extralight tracking-tight"
           >
-            <motion.span
+            <span
               style={{
                 backgroundImage: 'linear-gradient(135deg, #fb923c 0%, #f43f5e 40%, #e879f9 70%, #a855f7 100%)',
-                backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
-              animate={{
-                backgroundPosition: ['0% 50%', '200% 50%'],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
             >
               Close while intent is at peak.
-            </motion.span>
+            </span>
           </motion.h2>
-          
-          {/* Glow under headline */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-20 -z-10"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(251,146,60,0.1), transparent 70%)',
-              filter: 'blur(40px)',
-            }}
-            animate={{ opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
         </motion.div>
 
         {/* Benefit chips */}
@@ -103,22 +82,12 @@ const Brand = () => {
                 whileHover={{ scale: 1.04, y: -3 }}
                 className="group relative"
               >
-                {/* Hover glow */}
-                <motion.div 
-                  className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(251,146,60,0.15), transparent 70%)',
-                    filter: 'blur(15px)',
-                  }}
-                />
-                
                 {/* Chip */}
                 <div 
                   className="relative px-5 py-3 rounded-full flex items-center gap-3 transition-all duration-300"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
                     border: '1px solid rgba(255,255,255,0.08)',
-                    backdropFilter: 'blur(10px)',
                   }}
                 >
                   <div 

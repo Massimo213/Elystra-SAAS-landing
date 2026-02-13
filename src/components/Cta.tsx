@@ -38,11 +38,7 @@ const Cta = () => {
             border: '1px solid rgba(239, 68, 68, 0.2)',
           }}
         >
-          <motion.div 
-            className="w-2 h-2 rounded-full bg-red-400"
-            animate={{ opacity: [1, 0.5, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
+          <div className="w-2 h-2 rounded-full bg-red-400" />
           <span className="text-xs tracking-[0.12em] uppercase text-red-400">
             Limited pilot spots remaining
           </span>
@@ -136,48 +132,20 @@ const Cta = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
-            {/* Pulsing glow layers */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: 'radial-gradient(circle at center, rgba(139, 92, 246, 0.4), transparent 70%)',
-                filter: 'blur(25px)',
-              }}
-              animate={{
-                opacity: [0.5, 0.8, 0.5],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            
             {/* Button background */}
-            <motion.div
+            <div
               className="absolute inset-0 rounded-full"
               style={{
                 background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%)',
-                backgroundSize: '200% 200%',
+                boxShadow: '0 0 40px rgba(139, 92, 246, 0.3)',
               }}
-              animate={{
-                backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             />
             
-            {/* Shine sweep */}
-            <motion.div
+            {/* Static shine */}
+            <div
               className="absolute inset-0 rounded-full"
               style={{
-                background: 'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%)',
-                backgroundSize: '200% 100%',
-              }}
-              animate={{
-                backgroundPosition: ['-100% 0', '200% 0'],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                repeatDelay: 2,
-                ease: 'easeInOut',
+                background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
               }}
             />
             

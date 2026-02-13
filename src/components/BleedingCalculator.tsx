@@ -32,7 +32,6 @@ const BleedingCalculator = () => {
   const [proposalsPerMonth, setProposalsPerMonth] = useState(10);
   const [avgDealSize, setAvgDealSize] = useState(15000);
   const [closeRate, setCloseRate] = useState(30);
-  const [isHovered, setIsHovered] = useState(false);
 
   // Decay factor: 30% of lost deals were recoverable (conservative, defensible)
   const DECAY_FACTOR = 0.30;
@@ -85,12 +84,7 @@ const BleedingCalculator = () => {
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <AlertTriangle className="w-4 h-4 text-red-400" />
-            </motion.div>
+            <AlertTriangle className="w-4 h-4 text-red-400" />
             <span className="text-xs tracking-[0.25em] uppercase text-red-400/80 font-light">
               THE MATH YOUR COMPETITORS DON'T SHOW YOU
             </span>
@@ -106,10 +100,7 @@ const BleedingCalculator = () => {
             >
               How Much Are You{' '}
             </span>
-            <motion.span 
-              className="relative inline-block"
-              whileHover={{ scale: 1.02 }}
-            >
+            <span className="relative inline-block">
               <span 
                 style={{
                   background: 'linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%)',
@@ -119,13 +110,7 @@ const BleedingCalculator = () => {
               >
                 Bleeding
               </span>
-              <motion.span
-                className="absolute -inset-2 rounded-lg opacity-30 blur-xl -z-10"
-                style={{ background: 'linear-gradient(135deg, #f87171, #ef4444)' }}
-                animate={{ opacity: [0.2, 0.4, 0.2] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            </motion.span>
+            </span>
             <span 
               style={{
                 background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
@@ -148,24 +133,17 @@ const BleedingCalculator = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
           className="relative"
         >
-          {/* Animated border */}
-          <motion.div
+          {/* Static border gradient */}
+          <div
             className="absolute -inset-[1px] rounded-[2rem] overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, rgba(239,68,68,0.3), rgba(249,115,22,0.2), rgba(239,68,68,0.3))',
-              backgroundSize: '200% 200%',
             }}
-            animate={{
-              backgroundPosition: isHovered ? ['0% 0%', '100% 100%'] : ['0% 0%', '100% 100%', '0% 0%'],
-            }}
-            transition={{ duration: isHovered ? 2 : 8, repeat: Infinity, ease: 'easeInOut' }}
           />
           
-          <div className="relative bg-black/80 backdrop-blur-2xl rounded-[2rem] p-10 md:p-14 overflow-hidden">
+          <div className="relative bg-black/90 rounded-[2rem] p-10 md:p-14 overflow-hidden">
             {/* Inner atmospheric glow */}
             <div 
               className="absolute inset-0 opacity-30"
@@ -178,16 +156,15 @@ const BleedingCalculator = () => {
               {/* Inputs */}
               <div className="space-y-10">
                 <div className="flex items-center gap-4 mb-10">
-                  <motion.div 
+                  <div 
                     className="w-12 h-12 rounded-2xl flex items-center justify-center"
                     style={{
                       background: 'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))',
                       border: '1px solid rgba(255,255,255,0.08)',
                     }}
-                    whileHover={{ scale: 1.05 }}
                   >
                     <Calculator className="w-5 h-5 text-zinc-400" />
-                  </motion.div>
+                  </div>
                   <span className="text-xl font-extralight text-white tracking-wide">Your Numbers</span>
                 </div>
 
@@ -331,23 +308,16 @@ const BleedingCalculator = () => {
               {/* Results */}
               <div>
                 <div className="flex items-center gap-4 mb-10">
-                  <motion.div 
+                  <div 
                     className="w-12 h-12 rounded-2xl flex items-center justify-center"
                     style={{
                       background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05))',
                       border: '1px solid rgba(239, 68, 68, 0.2)',
+                      boxShadow: '0 0 30px rgba(239, 68, 68, 0.15)',
                     }}
-                    animate={{
-                      boxShadow: [
-                        '0 0 20px rgba(239, 68, 68, 0.1)',
-                        '0 0 40px rgba(239, 68, 68, 0.2)',
-                        '0 0 20px rgba(239, 68, 68, 0.1)',
-                      ],
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
                   >
                     <TrendingDown className="w-5 h-5 text-red-400" />
-                  </motion.div>
+                  </div>
                   <span className="text-xl font-extralight text-white tracking-wide">Your Deal Decay</span>
                 </div>
 
@@ -361,25 +331,19 @@ const BleedingCalculator = () => {
                     className="space-y-6"
                   >
                     {/* Monthly decay - MAIN NUMBER */}
-                    <motion.div 
+                    <div 
                       className="relative p-10 rounded-2xl overflow-hidden"
                       style={{
                         background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05))',
                         border: '1px solid rgba(239, 68, 68, 0.2)',
                       }}
-                      whileHover={{ scale: 1.02 }}
                     >
-                      {/* Pulsing background */}
-                      <motion.div
-                        className="absolute inset-0 opacity-50"
+                      {/* Static subtle glow */}
+                      <div
+                        className="absolute inset-0 opacity-30"
                         style={{
-                          background: 'radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.2), transparent 70%)',
+                          background: 'radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.15), transparent 70%)',
                         }}
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.3, 0.5, 0.3],
-                        }}
-                        transition={{ duration: 3, repeat: Infinity }}
                       />
                       
                       <div className="relative">
@@ -396,44 +360,37 @@ const BleedingCalculator = () => {
                           {recoverableDeals.toFixed(1)} deals/month dying in the gap
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Quarterly & Yearly */}
                     <div className="grid grid-cols-2 gap-4">
-                      <motion.div 
-                        className="p-6 rounded-2xl glass-glow"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                      >
+                      <div className="p-6 rounded-2xl glass-glow">
                         <p className="text-xs text-zinc-500 mb-3 font-light">Per Quarter</p>
                         <p className="text-3xl font-extralight text-orange-400">
                           <AnimatedNumber value={quarterlyDecay} prefix="$" />
                         </p>
-                      </motion.div>
-                      <motion.div 
-                        className="p-6 rounded-2xl glass-glow"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                      >
+                      </div>
+                      <div className="p-6 rounded-2xl glass-glow">
                         <p className="text-xs text-zinc-500 mb-3 font-light">Per Year</p>
                         <p className="text-3xl font-extralight text-red-400">
                           <AnimatedNumber value={yearlyDecay} prefix="$" />
                         </p>
-                      </motion.div>
+                      </div>
                     </div>
 
                     {/* The punchline */}
-                    <motion.div 
+                    <div 
                       className="p-6 rounded-2xl"
                       style={{
                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05))',
                         border: '1px solid rgba(16, 185, 129, 0.2)',
                       }}
-                      whileHover={{ scale: 1.01 }}
                     >
                       <p className="text-sm text-zinc-400 font-light">
                         <span className="text-emerald-400 font-medium">Elystra costs less than losing one deal.</span>{' '}
                         Average user recovers {formatCurrency(avgDealSize * 2)}-{formatCurrency(avgDealSize * 4)} in deals that were going dark. Per quarter.
                       </p>
-                    </motion.div>
+                    </div>
 
                     {/* CTA */}
                     <motion.a
@@ -451,13 +408,11 @@ const BleedingCalculator = () => {
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <motion.span
+                      <span
                         className="absolute inset-0"
                         style={{
-                          background: 'linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.3) 50%, transparent 80%)',
+                          background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
                         }}
-                        animate={{ x: ['-200%', '200%'] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
                       />
                       <span className="relative z-10">Stop the Bleeding</span>
                       <ArrowRight className="w-5 h-5 relative z-10" />

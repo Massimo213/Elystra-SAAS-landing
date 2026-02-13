@@ -157,23 +157,6 @@ const Header = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* Pulsing glow */}
-                <motion.div
-                  className="absolute -inset-1 rounded-full opacity-60"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(168, 85, 247, 0.4))',
-                    filter: 'blur(12px)',
-                  }}
-                  animate={{
-                    opacity: [0.4, 0.7, 0.4],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-                
                 <button
                   className="relative px-5 py-2.5 rounded-full font-light text-sm text-white 
                            overflow-hidden transition-all duration-300 flex items-center gap-2"
@@ -183,21 +166,11 @@ const Header = () => {
                     boxShadow: '0 2px 12px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
                   }}
                 >
-                  {/* Shine sweep */}
-                  <motion.span
+                  {/* Static shine */}
+                  <span
                     className="absolute inset-0 rounded-full"
                     style={{
-                      background: 'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)',
-                      backgroundSize: '200% 100%',
-                    }}
-                    animate={{
-                      backgroundPosition: ['-100% 0', '200% 0'],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1.5,
-                      ease: 'easeInOut',
+                      background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
                     }}
                   />
                   

@@ -136,18 +136,12 @@ const ProcessComparison = () => {
           viewport={{ once: true }}
           className="relative"
         >
-          {/* Animated outer glow */}
-          <motion.div
-            className="absolute -inset-[2px] rounded-[2rem] opacity-50"
+          {/* Static outer glow */}
+          <div
+            className="absolute -inset-[2px] rounded-[2rem] opacity-30"
             style={{
-              background: 'linear-gradient(135deg, rgba(239,68,68,0.3), transparent 50%, rgba(16,185,129,0.3))',
-              backgroundSize: '200% 200%',
-              filter: 'blur(20px)',
+              background: 'linear-gradient(135deg, rgba(239,68,68,0.2), transparent 50%, rgba(16,185,129,0.2))',
             }}
-            animate={{
-              backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
           />
           
           {/* Border gradient */}
@@ -160,7 +154,7 @@ const ProcessComparison = () => {
             <div className="w-full h-full bg-black rounded-[calc(2rem-1px)]" />
           </div>
           
-          <div className="relative bg-black/80 backdrop-blur-2xl rounded-[2rem] overflow-hidden border border-white/[0.05]">
+          <div className="relative bg-black/90 rounded-[2rem] overflow-hidden border border-white/[0.05]">
             {/* Inner glow */}
             <div 
               className="absolute inset-0 opacity-30"
@@ -225,12 +219,11 @@ const ProcessComparison = () => {
                     className="p-6 md:p-8 flex items-start gap-4"
                     style={{ background: 'rgba(16, 185, 129, 0.02)' }}
                   >
-                    <motion.div 
+                    <div 
                       className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5"
-                      whileHover={{ scale: 1.1 }}
                     >
                       <NewIcon className="w-3.5 h-3.5 text-emerald-400" />
-                    </motion.div>
+                    </div>
                     <span className="text-sm text-white font-light leading-relaxed">{row.newWay}</span>
                   </div>
                 </motion.div>
