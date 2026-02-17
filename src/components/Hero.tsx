@@ -8,7 +8,7 @@
  */
 
 import { motion, Variants } from "framer-motion";
-import { ShieldCheck, ArrowRight, Sparkles, Users } from "lucide-react";
+import { ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
 import { WavyBackground } from "@/components/ui/wavy-background";
 
 const container: Variants = {
@@ -146,15 +146,7 @@ const Hero = () => {
             />
 
             <div className="relative px-6 md:px-12 py-11 md:py-14 text-center">
-              {/* Eyebrow */}
-              <motion.div variants={item} className="mb-8">
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/55 border border-white/[0.12]">
-                  <Users className="w-4 h-4 text-violet-300" />
-                  <span className="text-xs tracking-[0.22em] uppercase text-zinc-200/90 font-light">
-                    For agencies sending 6+ proposals / month
-                  </span>
-                </div>
-              </motion.div>
+            
 
               {/* TITLE — bigger, sharper, more “poster” */}
               <motion.h1 variants={item} className="mb-6">
