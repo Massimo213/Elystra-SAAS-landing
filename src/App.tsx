@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Review from '@/components/Review';
 import Cta from '@/components/Cta';
-import GetStarted from '@/components/GetStarted';
+
 import SignIn from '@/components/SignIn';
 import SignUp from '@/components/SignUp';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
@@ -63,7 +63,7 @@ const MainContent = () => (
     <Guarantee />
     <Review />
     <Cta />
-    <GetStarted />
+   
     <Footer />
   </main>
 );
@@ -86,7 +86,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<MainContent />} />
-          <Route path="/get-started" element={<GetStarted />} />
+          
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
