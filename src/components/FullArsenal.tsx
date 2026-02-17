@@ -1,6 +1,6 @@
 /**
  * FullArsenal.tsx
- * ELYSTRA — 4 Brutal Modules
+ * ELYSTRA — Four Modules. One Rail.
  */
 
 import { motion, Variants } from 'framer-motion';
@@ -15,52 +15,62 @@ const modules = [
     num: '01',
     icon: FileText,
     title: 'Proposal Engine',
-    tagline: 'Notes or transcript in → branded proposal out. 30 seconds. No deck surgery.',
+    headline: 'Your proposal. Same structure. Done while the call is still warm.',
+    subline: "Call recording, notes, or docs in \u2192 your branded scope out. Elystra doesn\u2019t invent a new way to sell. It makes your existing way instant and consistent.",
     bullets: [
-      'AI drafts from call recordings',
-      'On-brand templates locked',
-      'Pricing auto-calculated',
-      'One-click send with tracking',
+      'Takes whatever you have \u2014 notes, transcript, Zoom/Loom link, existing doc \u2014 and turns it into a clean scope',
+      'Uses your proposal structure, your pricing logic, your language',
+      'Layout and branding are locked to your look; no slide surgery, no manual formatting',
+      'Output is send-ready by the time the prospect has finished "thinking about it"',
     ],
+    result: 'Proposals that used to take days are out while trust and urgency are still high.',
     color: 'violet',
   },
   {
     num: '02',
     icon: CreditCard,
     title: 'Close Rail',
-    tagline: 'Review → sign → pay on one screen. E-sign + Stripe baked in. No invoicing gap.',
+    headline: 'Review \u2192 sign \u2192 pay in one motion. No invoice gap.',
+    subline: 'The client sees the scope, signs, and pays on the same screen. No DocuSign hop, no Stripe link chase, no "I\u2019ll do it later".',
     bullets: [
-      'Embedded e-signature',
-      'Stripe payment same screen',
-      'No DocuSign tab-hopping',
-      'Deposit collected instantly',
+      'Client reviews the full scope, accepts, and signs on the proposal page',
+      'Deposit, retainer, or full fee collected in the same flow',
+      'No separate DocuSign tab, no separate Stripe invoice, no "I\u2019ll pay when I get to it"',
+      'Deal is marked closed, payment routed, and the job moves forward off that one action',
     ],
+    result: 'Once someone says "yes", there is no dead time for them to cool off or shop around.',
     color: 'emerald',
   },
   {
     num: '03',
     icon: BarChart3,
-    title: 'Deal Intelligence & Follow-Up',
-    tagline: 'Behavioral X-ray on every deal. Follow-up queue ranked by buying signals, not tasks.',
+    title: 'Deal Intelligence & Follow-Up Brain',
+    headline: 'Every proposal becomes a monitored asset, not a file you lose in email.',
+    subline: 'Elystra watches what happens after send and tells you exactly who to move on, when, and why.',
     bullets: [
-      'Time on pricing tracked',
-      'Reopens & shares detected',
-      'Decision-maker activity visible',
-      'Auto-sequences until commit',
+      'Tracks who opened, how long they stayed, and where they sat on pricing',
+      'Detects forwards and new decision-makers \u2014 turns "mystery CCs" into a visible map',
+      'Every deal is auto-ranked by heat so your team always knows which 5 to touch today',
+      'Follow-up queue gives concrete next moves (call, email, nudge) instead of generic "reminders"',
+      'When a deal is clearly dead, it\u2019s marked dead \u2014 no zombie pipeline',
     ],
+    result: 'Follow-up stops being guesswork and becomes a list of precise, high-leverage actions for your closers.',
     color: 'amber',
   },
   {
     num: '04',
     icon: Plug,
     title: 'Ops & Client Portal',
-    tagline: 'One close updates CRM, PM, Slack, Finance — client gets a portal with everything.',
+    headline: 'One close updates your entire stack. Your client gets a live control panel.',
+    subline: 'For the agency, a close pushes data into CRM, PM, finance, and Slack. For the client, the portal becomes the only place they expect to see agreements, payments, and renewals.',
     bullets: [
-      'CRM auto-updated',
-      'PM tasks triggered',
-      'Finance notified',
-      'Client portal included',
+      'One close updates CRM, creates PM tasks, notifies finance, and posts the win into your internal channels',
+      'All agreements, invoices, receipts, and renewals live in a single portal instead of 40 email threads',
+      'Clients can review past work, pay outstanding balances, and request new work without pinging your team',
+      'Portal activity (logins, document views, renewal clicks) feeds back into deal intelligence',
+      'Over time, clients get trained: "if it\u2019s not in the portal, it doesn\u2019t exist" \u2014 making it painful to leave',
     ],
+    result: "The rail doesn\u2019t end at \"paid\". It locks in the relationship and turns your client base into a recurring, visible, expandable book of business.",
     color: 'blue',
   },
 ];
@@ -135,7 +145,6 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
       whileHover={{ y: -4 }}
       className="group relative"
     >
-      {/* Card */}
       <div 
         className="relative bg-black/50 rounded-2xl p-8 border border-white/[0.06] 
                   hover:border-white/[0.1] transition-all duration-300 h-full"
@@ -156,7 +165,7 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
         </div>
         
         <div className="relative z-10">
-          {/* Icon + Number */}
+          {/* Icon + Module label */}
           <div className="flex items-center gap-4 mb-5">
             <div className={`w-12 h-12 rounded-xl ${config.bg} border ${config.border} flex items-center justify-center`}>
               <Icon className={`w-5 h-5 ${config.text}`} />
@@ -167,20 +176,37 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
           </div>
           
           {/* Title */}
-          <h3 className="text-xl font-light text-white mb-3">{module.title}</h3>
-          
-          {/* Tagline */}
-          <p className="text-sm text-zinc-400 font-light mb-6 leading-relaxed">{module.tagline}</p>
+          <h3 className="text-xl font-light text-white mb-2">{module.title}</h3>
+
+          {/* Headline */}
+          <p className="text-sm text-zinc-200 font-medium mb-3 leading-relaxed">{module.headline}</p>
+
+          {/* Subline */}
+          <p className="text-sm text-zinc-400 font-light mb-6 leading-relaxed">{module.subline}</p>
           
           {/* Bullets */}
-          <ul className="space-y-2">
+          <ul className="space-y-2.5 mb-6">
             {module.bullets.map((bullet, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <CheckCircle className={`w-3.5 h-3.5 ${config.text} shrink-0`} />
-                <span className="text-xs text-zinc-500 font-light">{bullet}</span>
+              <li key={i} className="flex items-start gap-2.5">
+                <CheckCircle className={`w-3.5 h-3.5 ${config.text} shrink-0 mt-0.5`} />
+                <span className="text-xs text-zinc-400 font-light leading-relaxed">{bullet}</span>
               </li>
             ))}
           </ul>
+
+          {/* Result */}
+          <div 
+            className="px-4 py-3 rounded-xl"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.06)',
+            }}
+          >
+            <p className="text-xs text-zinc-300 font-light leading-relaxed">
+              <span className="text-white font-medium">Result: </span>
+              {module.result}
+            </p>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -191,7 +217,7 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
 const FullArsenal = () => {
   return (
     <section className="relative py-28 md:py-36 overflow-hidden bg-transparent">
-      {/* Optimized Background - Static gradients */}
+      {/* Static background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
           className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-50"
@@ -232,7 +258,7 @@ const FullArsenal = () => {
           </p>
         </motion.div>
 
-        {/* Modules Grid - 2x2 */}
+        {/* Modules Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -245,7 +271,7 @@ const FullArsenal = () => {
           ))}
         </motion.div>
 
-        {/* Result Line */}
+        {/* Bottom result line */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

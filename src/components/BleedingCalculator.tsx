@@ -387,8 +387,8 @@ const BleedingCalculator = () => {
                       }}
                     >
                       <p className="text-sm text-zinc-400 font-light">
-                        <span className="text-emerald-400 font-medium">Elystra costs less than losing one deal.</span>{' '}
-                        Average user recovers {formatCurrency(avgDealSize * 2)}-{formatCurrency(avgDealSize * 4)} in deals that were going dark. Per quarter.
+                  
+                        Average user recovers <span className="text-emerald-400 font-medium">{formatCurrency(avgDealSize * 2)}-{formatCurrency(avgDealSize * 4)} </span>in deals that were going dark. Per quarter.
                       </p>
                     </div>
 

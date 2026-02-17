@@ -14,22 +14,24 @@ import {
 const comparisonData = [
   {
     step: 'Proposal Build',
-    oldWay: '30-60 minutes hunting templates, copying scopes',
-    newWay: '30 seconds. AI drafts from call recording.',
+    oldWay: '360 minutes to days hunting templates, copying scopes',
+    newWay: '16 seconds - 6 minutes .Your exact proposal that you spent hours on. Done in minutes with Elystra .  No matter how complex the proposal, Elystra builds it.',
     oldIcon: Clock,
     newIcon: Zap,
   },
   {
     step: 'Design & Brand',
-    oldWay: 'Manual formatting. Looks different every time.',
-    newWay: 'Auto-styled. On-brand in one pass.',
+    oldWay: 'Every proposal is rebuilt from scratch. Format, sections and wording manual.',
+    newWay: 'Elystra adapts to your proposal. Same structure, same story , just faster and better .',
     oldIcon: FileText,
     newIcon: Sparkles,
   },
   {
     step: 'Sending',
-    oldWay: 'Export PDF, attach email, wait for reply',
-    newWay: 'One click. Tracked. Viewer analytics.',
+    oldWay:
+      'You push a PDF / DocuSign link and pray. Maybe you see “opened”, but you still don’t know who read it, who matters, or if the deal is already dying.',
+    newWay:
+      'One send from Elystra and the rail takes over: every viewer is fingerprinted, decision-makers are surfaced, intent is scored, and the exact next move lands in your follow-up queue. No hope, no guessing — just controlled progression of the deal.',
     oldIcon: Send,
     newIcon: Zap,
   },
@@ -49,8 +51,8 @@ const comparisonData = [
   },
   {
     step: 'Follow-up',
-    oldWay: 'Manual reminders. Deals go cold.',
-    newWay: 'Auto-sequences until commit or decline.',
+    oldWay: 'Follow-up is random. Same template. Wrong timing. Deals rot',
+    newWay: ' Follow-up is signal-driven: the system tells you who, why, and what to send next.You follow Up with precison',
     oldIcon: AlertCircle,
     newIcon: Sparkles,
   },
@@ -248,7 +250,7 @@ const ProcessComparison = () => {
             }}
           >
             <p className="text-base md:text-lg text-zinc-300 font-light leading-relaxed">
-              If your stack still needs a separate tool for signature, another for Stripe, and manual follow-up —{' '}
+              If your stack still needs a separate tool for signature, another for Stripe, and manual follow-up,   {' '}
               <span className="text-white font-medium">you don't have a rail.</span>{' '}
               <span 
                 style={{
