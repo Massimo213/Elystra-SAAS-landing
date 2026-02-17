@@ -1,16 +1,9 @@
-/**
- * @copyright 2024 codewithsadee
- * @license Apache-2-0
- */
-
 import { ReactLenis } from 'lenis/react';
 import { Routes, Route } from 'react-router-dom';
 
 import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Brand from '@/components/Brand';
-import Feature from '@/components/Feature';
 import Review from '@/components/Review';
 import Cta from '@/components/Cta';
 import GetStarted from '@/components/GetStarted';
@@ -71,8 +64,6 @@ const MainContent = () => (
     <BleedingCalculator />
     <ProcessComparison />
     <FullArsenal />
-    <Brand />
-    <Feature />
     <Guarantee />
     <Review />
     <Cta />

@@ -323,7 +323,7 @@ const Review = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                20-30%
+                +23%
               </p>
               <p className="text-xs text-zinc-500 mt-1">avg close-rate lift</p>
             </div>

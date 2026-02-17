@@ -284,7 +284,9 @@ const FullArsenal = () => {
           className="mt-12 text-center"
         >
           <motion.a
-            href="#demo"
+            href="https://calendly.com/onboarding-elystra/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 px-8 py-4 rounded-full"
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
@@ -293,7 +295,7 @@ const FullArsenal = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="text-sm font-light text-white">See All Four in Action</span>
+            <span className="text-sm font-light text-white">Book a 7-Minute Demo</span>
             <ArrowRight className="w-4 h-4 text-violet-400 group-hover:translate-x-1 transition-transform" />
           </motion.a>
         </motion.div>

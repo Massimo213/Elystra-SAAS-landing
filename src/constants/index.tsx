@@ -402,7 +402,7 @@ export const footerData = {
       ],
     },
   ],
-  copyright: '© 2024 codewithsadee',
+  copyright: '© 2026 Elystra',
   socialLinks: [
     {
       href: '#',

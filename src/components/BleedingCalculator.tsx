@@ -414,7 +414,7 @@ const BleedingCalculator = () => {
                           background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
                         }}
                       />
-                      <span className="relative z-10">Stop the Bleeding</span>
+                      <span className="relative z-10">Book a 7-Minute Demo</span>
                       <ArrowRight className="w-5 h-5 relative z-10" />
                     </motion.a>
                   </motion.div>

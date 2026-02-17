@@ -78,7 +78,9 @@ const UrgencyStrip = () => {
           <span className="hidden lg:inline text-white/20">|</span>
           
           <motion.a
-            href="#demo"
+            href="https://calendly.com/onboarding-elystra/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full transition-all duration-200"
             style={{
               background: 'rgba(139, 92, 246, 0.2)',
