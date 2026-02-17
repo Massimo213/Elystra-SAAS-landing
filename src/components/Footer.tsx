@@ -4,7 +4,6 @@
  */
 
 import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
 import Logo from '@/assets/LogoElystra.png';
 
 const Footer = () => {

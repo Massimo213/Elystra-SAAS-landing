@@ -70,9 +70,7 @@ const UrgencyStrip = () => {
             >
               <Clock className="w-3 h-3 text-red-400" />
             </div>
-            <span className="text-zinc-300 font-light">
-              Every week you wait = another deal going dark
-            </span>
+            
           </motion.div>
           
           <span className="hidden lg:inline text-white/20">|</span>
