@@ -8,7 +8,7 @@ import { Shield } from 'lucide-react';
 
 const Guarantee = () => {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-transparent">
+    <section id="guarantee" className="relative py-20 md:py-28 overflow-hidden bg-transparent">
       <div className="absolute inset-0 pointer-events-none">
         <div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-50"

@@ -30,7 +30,7 @@ const GetStarted = () => {
 
   return (
     <section 
-      id="get-started" 
+      id="faq" 
       ref={sectionRef}
       className="py-24 md:py-32 bg-transparent relative overflow-hidden"
     >
@@ -81,7 +81,7 @@ const GetStarted = () => {
           </motion.a>
 
           <p className="mt-5 text-sm text-zinc-600 font-light">
-            30-day risk-free · No credit card required
+            30-day guarantee · close-rate moves or you pay nothing
           </p>
         </motion.div>
       </motion.div>

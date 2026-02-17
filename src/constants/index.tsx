@@ -11,11 +11,6 @@ import { MenuItem } from '@/types';
  * Assets
  */
 import {
-  Twitter,
-  Github,
-  Linkedin,
-  Instagram,
-  Youtube,
   Upload,
   FileText,
   Clock,
@@ -49,35 +44,30 @@ import p4 from '@/assets/p4.png';
 // Export profile images for Review component
 export const profileImages = { p1, p2, p3, p4 };
 
-// Header
+// Header — strategic anchor navigation
 export const navMenu: MenuItem[] = [
   {
-    href: '#get-started',
-    label: 'Get Started',
+    href: '#how-it-works',
+    label: 'How It Works',
   },
   {
-    href: '/privacy',
-    label: 'Privacy',
+    href: '#the-rail',
+    label: 'The Rail',
   },
   {
-    href: '#feature',
-    label: 'Feature',
+    href: '#proof',
+    label: 'Proof',
+  },
+  {
+    href: '#guarantee',
+    label: 'Guarantee',
   },
   {
     href: '#faq',
     label: 'FAQ',
-  }
+  },
 ];
 
-// 
-export const heroData = {
-  sectionSubtitle: 'PROPOSAL SOFTWARE FOR AGENCIES',
-  sectionTitle: 'Deals die in the gap',
-  decoTitle: "between yes and paid.",
-  sectionText: "Elystra is a proposal, signature, and payment rail for marketing and advertising agencies. One piece of software that turns call recordings into live proposals with e-sign + Stripe on the same screen.",
-  buttonText: "Book a 7-Minute Demo",
-  buttonSubtext: "Not a course. Not a playbook. Pure SaaS infrastructure that sits under your existing sales calls."
-};
 
 
 // Featu  
@@ -312,119 +302,7 @@ export const ctaData = {
 
 // Footer
 export const footerData = {
-  links: [
-    {
-      title: 'Product',
-      items: [
-        {
-          href: '#',
-          label: 'Components',
-        },
-        {
-          href: '#',
-          label: 'Pricing',
-        },
-        {
-          href: '#',
-          label: 'Dashboard',
-        },
-        {
-          href: '#',
-          label: 'Feature requests',
-        },
-      ],
-    },
-    {
-      title: 'Developers',
-      items: [
-        {
-          href: '#',
-          label: 'Documentation',
-        },
-        {
-          href: '#',
-          label: 'Discord server',
-        },
-        {
-          href: '#',
-          label: 'Support',
-        },
-        {
-          href: '#',
-          label: 'Glossary',
-        },
-        {
-          href: '#',
-          label: 'Changelog',
-        },
-      ],
-    },
-    {
-      title: 'Company',
-      items: [
-        {
-          href: '#',
-          label: 'About',
-        },
-        {
-          href: '#',
-          label: 'Careers',
-        },
-        {
-          href: '#',
-          label: 'Blog',
-        },
-        {
-          href: '#',
-          label: 'Contact',
-        },
-      ],
-    },
-    {
-      title: 'Legal',
-      items: [
-        {
-          href: '#',
-          label: 'Terms and Conditions',
-        },
-        {
-          href: '#',
-          label: 'Privacy Policy',
-        },
-        {
-          href: '#',
-          label: 'Data Processing Agreement',
-        },
-        {
-          href: '#',
-          label: 'Cookie manager',
-        },
-      ],
-    },
-  ],
   copyright: '© 2026 Elystra',
-  socialLinks: [
-    {
-      href: '#',
-      icon: <Twitter size={18} />,
-    },
-    {
-      href: '#',
-      icon: <Github size={18} />,
-    },
-    {
-      href: '#',
-      icon: <Linkedin size={18} />,
-    },
-    {
-      href: '#',
-      icon: <Instagram size={18} />,
-    },
-    {
-      href: '#',
-      icon: <Youtube size={18} />,
-    },
-  ],
 };
 
 // Pricing 

@@ -1,11 +1,11 @@
 /**
  * UrgencyStrip.tsx
- * ELYSTRA — PREMIUM TIER
- * Subtle urgency banner with cinematic effects
+ * ELYSTRA — Infrastructure-grade banner. No fake scarcity.
+ * States a fact. Links to action.
  */
 
 import { motion } from 'framer-motion';
-import { Clock, Users, Sparkles } from 'lucide-react';
+import { Zap, ArrowRight } from 'lucide-react';
 
 const UrgencyStrip = () => {
   return (
@@ -15,83 +15,35 @@ const UrgencyStrip = () => {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="relative overflow-hidden py-3"
       style={{
-        background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.15) 0%, rgba(168, 85, 247, 0.2) 50%, rgba(139, 92, 246, 0.15) 100%)',
-        borderBottom: '1px solid rgba(139, 92, 246, 0.2)',
+        background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.12) 0%, rgba(168, 85, 247, 0.18) 50%, rgba(139, 92, 246, 0.12) 100%)',
+        borderBottom: '1px solid rgba(139, 92, 246, 0.15)',
       }}
     >
-      {/* Static shimmer highlight */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)',
-        }}
-      />
-
-      {/* Subtle glow */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.2), transparent 70%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%)',
         }}
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-sm">
-          <motion.div 
-            className="flex items-center gap-2"
-            whileHover={{ scale: 1.02 }}
-          >
-            <div 
-              className="w-5 h-5 rounded flex items-center justify-center"
-              style={{
-                background: 'rgba(139, 92, 246, 0.2)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-              }}
-            >
-              <Users className="w-3 h-3 text-violet-400" />
-            </div>
+        <div className="flex items-center justify-center gap-x-5 text-sm">
+          <div className="flex items-center gap-2">
+            <Zap className="w-3.5 h-3.5 text-violet-400" />
             <span className="text-zinc-300 font-light">
-              <strong className="font-medium text-white">6 onboarding slots</strong> left this week
+              <strong className="font-medium text-white">145+ agencies</strong> are closing on the rail.
             </span>
-          </motion.div>
-          
-          <span className="hidden md:inline text-white/20">|</span>
-          
-          <motion.div 
-            className="flex items-center gap-2"
-            whileHover={{ scale: 1.02 }}
-          >
-            <div 
-              className="w-5 h-5 rounded flex items-center justify-center"
-              style={{
-                background: 'rgba(239, 68, 68, 0.15)',
-                border: '1px solid rgba(239, 68, 68, 0.25)',
-              }}
-            >
-              <Clock className="w-3 h-3 text-red-400" />
-            </div>
-            
-          </motion.div>
-          
-          <span className="hidden lg:inline text-white/20">|</span>
-          
-          <motion.a
+          </div>
+
+          <a
             href="https://calendly.com/onboarding-elystra/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full transition-all duration-200"
-            style={{
-              background: 'rgba(139, 92, 246, 0.2)',
-              border: '1px solid rgba(139, 92, 246, 0.3)',
-            }}
-            whileHover={{ 
-              scale: 1.03,
-              background: 'rgba(139, 92, 246, 0.3)',
-            }}
+            className="hidden md:flex items-center gap-1.5 text-xs text-violet-300 hover:text-white transition-colors font-light"
           >
-            <Sparkles className="w-3 h-3 text-violet-400" />
-            <span className="text-xs text-white font-light">Claim Your Spot</span>
-          </motion.a>
+            See it live
+            <ArrowRight className="w-3 h-3" />
+          </a>
         </div>
       </div>
     </motion.div>

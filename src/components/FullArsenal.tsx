@@ -216,7 +216,7 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
 /* ---------------- Main Component ---------------- */
 const FullArsenal = () => {
   return (
-    <section className="relative py-28 md:py-36 overflow-hidden bg-transparent">
+    <section id="the-rail" className="relative py-28 md:py-36 overflow-hidden bg-transparent">
       {/* Static background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div 

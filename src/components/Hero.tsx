@@ -130,7 +130,7 @@ const Hero = () => {
         >
           {/* Glass frame */}
           <div
-            className="relative rounded-[30px] border border-white/[0.10] bg-black/35 backdrop-blur-xl overflow-hidden"
+            className="relative rounded-[30px] border border-white/[0.10] bg-black/60 overflow-hidden"
             style={{
               boxShadow:
                 "0 0 0 1px rgba(255,255,255,0.05), 0 34px 100px rgba(0,0,0,0.72), 0 0 90px rgba(139,92,246,0.18)",
@@ -283,38 +283,12 @@ const Hero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {/* moving sheen */}
-                  <motion.span
+                  {/* Static sheen */}
+                  <span
                     className="absolute inset-0 rounded-full"
-                    initial={{ x: "-45%" }}
-                    animate={{ x: "45%" }}
-                    transition={{
-                      duration: 2.9,
-                      repeat: Infinity,
-                      repeatType: "mirror",
-                      ease: "easeInOut",
-                    }}
                     style={{
                       background:
-                        "linear-gradient(110deg, transparent 38%, rgba(255,255,255,0.18) 50%, transparent 62%)",
-                      opacity: 0.95,
-                    }}
-                  />
-
-                  {/* Soft pulse underlay */}
-                  <motion.span
-                    className="absolute inset-0 rounded-full opacity-30"
-                    initial={{ opacity: 0.18 }}
-                    animate={{ opacity: 0.32 }}
-                    transition={{
-                      duration: 1.6,
-                      repeat: Infinity,
-                      repeatType: "mirror",
-                      ease: "easeInOut",
-                    }}
-                    style={{
-                      background:
-                        "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.20), transparent 60%)",
+                        "linear-gradient(110deg, transparent 38%, rgba(255,255,255,0.12) 50%, transparent 62%)",
                     }}
                   />
 
@@ -336,7 +310,8 @@ const Hero = () => {
                 <p
                   className="mt-5 text-sm text-zinc-300/70 font-light"
                   style={{ textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
-                > Agencies uplift their close-rate with Elystra without adding a single new lead nor a dime .
+                >
+                  Same leads. Same team. Higher close-rate. That's the rail.
                 </p>
               </motion.div>
 
@@ -346,13 +321,13 @@ const Hero = () => {
                 className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-zinc-400/70"
               >
                 <span className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03]">
-                  No new headcount
+                  Proposals from calls in minutes
                 </span>
                 <span className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03]">
-                  Tracks views + intent
+                  Sign + pay on one screen
                 </span>
                 <span className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03]">
-                  E-sign → payment path
+                  Every deal tracked to close
                 </span>
               </motion.div>
             </div>

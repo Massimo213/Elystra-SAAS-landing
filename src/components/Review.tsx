@@ -202,7 +202,7 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
 /* ---------------- Main Component ---------------- */
 const Review = () => {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-transparent">
+    <section id="proof" className="relative py-24 md:py-32 overflow-hidden bg-transparent">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div 

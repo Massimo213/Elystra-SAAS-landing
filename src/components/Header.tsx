@@ -1,219 +1,276 @@
 /**
  * Header.tsx
- * ELYSTRA — PREMIUM TIER
- * Sophisticated glass navigation header
+ * ELYSTRA — Premium infrastructure navbar.
+ * Scroll-aware: transparent at top, glass on scroll.
+ * Brand presence + single dominant CTA.
  */
 
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '@/assets/LogoElystra.png';
-import MobileMenu from '@/components/MobileMenu';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
-import { motion } from 'framer-motion';
-import { Menu, Sparkles, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, ArrowRight, X, Menu } from 'lucide-react';
 import { navMenu } from '@/constants';
 
 const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Intersection observer for active section highlighting
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+    const ids = navMenu.map(m => m.href.replace('#', '')).filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith('#')) return;
+    e.preventDefault();
+    setMobileOpen(false);
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Solid background - no blur for performance */}
-      <div 
-        className="absolute inset-0 bg-black/90"
-      />
-      
-      {/* Bottom border */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-[1px]"
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
+          background: scrolled
+            ? 'rgba(0, 0, 0, 0.85)'
+            : 'transparent',
+          borderBottom: scrolled
+            ? '1px solid rgba(255,255,255,0.06)'
+            : '1px solid transparent',
         }}
-      />
+      >
+        {/* Subtle glow line at bottom when scrolled */}
+        {scrolled && (
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[1px]"
+            style={{
+              background: 'linear-gradient(90deg, transparent 10%, rgba(139,92,246,0.4) 50%, transparent 90%)',
+            }}
+          />
+        )}
 
-      <div className="relative h-16 md:h-20 flex items-center">
-        <div className="container flex justify-between items-center lg:grid lg:grid-cols-[1fr,3fr,1fr]">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img 
-              src={Logo} 
-              alt="Elystra" 
-              className="h-10 w-10 md:h-12 md:w-12" 
-            />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <NavigationMenu className="max-lg:hidden mx-auto">
-            <NavigationMenuList className="gap-1">
-              {navMenu.map(({ href, label, submenu }, index) => (
-                <NavigationMenuItem key={index}>
-                  {submenu ? (
-                    <>
-                      <NavigationMenuTrigger 
-                        className="bg-transparent hover:bg-white/[0.03] data-[state=open]:bg-white/[0.03]
-                                 text-zinc-400 hover:text-white data-[state=open]:text-white
-                                 font-light text-sm"
-                      >
-                        {label}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul 
-                          className="grid grid-cols-2 gap-2 p-3 w-[600px]"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(10,10,20,0.95) 100%)',
-                            backdropFilter: 'blur(20px)',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            borderRadius: '16px',
-                          }}
-                        >
-                          {submenu.map(({ href, icon, label, desc }, subIndex) => (
-                            <li key={subIndex}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to={href}
-                                  className="flex gap-3 select-none p-3 rounded-xl transition-all duration-200
-                                           hover:bg-white/[0.03] group"
-                                >
-                                  <div 
-                                    className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center
-                                             transition-all duration-200 group-hover:scale-105"
-                                    style={{
-                                      background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)',
-                                      border: '1px solid rgba(139, 92, 246, 0.2)',
-                                    }}
-                                  >
-                                    <span className="text-violet-400">{icon}</span>
-                                  </div>
-                                  <div>
-                                    <div className="text-sm text-white font-light mb-0.5 group-hover:text-white">
-                                      {label}
-                                    </div>
-                                    <p className="text-xs text-zinc-500 font-light leading-relaxed">
-                                      {desc}
-                                    </p>
-                                  </div>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <NavigationMenuLink asChild>
-                      {href.startsWith('/') ? (
-                        <Link
-                          to={href}
-                          className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-white/[0.03] 
-                                    text-zinc-400 hover:text-white font-light text-sm`}
-                        >
-                          {label}
-                        </Link>
-                      ) : (
-                        <a
-                          href={href}
-                          className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-white/[0.03] 
-                                    text-zinc-400 hover:text-white font-light text-sm`}
-                        >
-                          {label}
-                        </a>
-                      )}
-                    </NavigationMenuLink>
-                  )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          {/* CTA Buttons */}
-          <div className="flex items-center gap-3 justify-end max-lg:hidden">
-            <Link to="/sign-in">
-              <Button 
-                variant="ghost" 
-                className="text-zinc-400 hover:text-white hover:bg-white/[0.03] font-light text-sm"
-              >
-                Sign In
-              </Button>
-            </Link>
-            
-            <a 
-              href="https://calendly.com/onboarding-elystra/30min" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <motion.div
-                className="relative group"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <button
-                  className="relative px-5 py-2.5 rounded-full font-light text-sm text-white 
-                           overflow-hidden transition-all duration-300 flex items-center gap-2"
-                  style={{
-                    background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%)',
-                    backgroundSize: '200% 200%',
-                    boxShadow: '0 2px 12px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
-                  }}
-                >
-                  {/* Static shine */}
-                  <span
-                    className="absolute inset-0 rounded-full"
-                    style={{
-                      background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
-                    }}
-                  />
-                  
-                  {/* Top highlight */}
-                  <span 
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[1px]"
-                    style={{
-                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-                    }}
-                  />
-                  
-                  <Sparkles className="w-4 h-4 relative z-10" />
-                  <span className="relative z-10">Book Demo</span>
-                  <ArrowRight className="w-3.5 h-3.5 relative z-10 group-hover:translate-x-0.5 transition-transform" />
-                </button>
-              </motion.div>
-            </a>
-          </div>
-
-          {/* Mobile Menu */}
-          <Popover>
-            <PopoverTrigger asChild className="lg:hidden">
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-zinc-400 hover:text-white hover:bg-white/[0.03]"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent 
-              className="w-80 p-0 border-white/[0.08]"
+        <nav className="max-w-7xl mx-auto px-6 h-16 md:h-[72px] flex items-center justify-between">
+          {/* Brand */}
+          <Link to="/" className="flex items-center gap-3 group shrink-0">
+            <div className="relative">
+              <img
+                src={Logo}
+                alt="Elystra"
+                className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Subtle glow behind logo */}
+              <div
+                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                style={{
+                  background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%)',
+                  transform: 'scale(2)',
+                }}
+              />
+            </div>
+            <span
+              className="text-lg font-light tracking-tight hidden sm:block"
               style={{
-                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(10,10,20,0.95) 100%)',
-                backdropFilter: 'blur(20px)',
+                background: 'linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
-              <MobileMenu navMenu={navMenu} />
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
-    </header>
+              Elystra
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navMenu.map(({ href, label }) => {
+              const isActive = activeSection === href.replace('#', '');
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={(e) => handleNavClick(e, href)}
+                  className="relative px-4 py-2 text-sm font-light transition-colors duration-300"
+                  style={{
+                    color: isActive ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.45)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.8)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.45)';
+                  }}
+                >
+                  {label}
+                  {/* Active indicator dot */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-dot"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-violet-400"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Right side */}
+          <div className="flex items-center gap-4 shrink-0">
+            {/* Sign In — desktop only */}
+            <Link
+              to="/sign-in"
+              className="hidden lg:block text-sm font-light text-zinc-500 hover:text-white transition-colors duration-300"
+            >
+              Sign In
+            </Link>
+
+            {/* CTA */}
+            <a
+              href="https://calendly.com/onboarding-elystra/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:flex"
+            >
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="group relative flex items-center gap-2.5 px-6 py-2.5 rounded-full text-white text-sm font-light overflow-hidden cursor-pointer"
+                style={{
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%)',
+                  boxShadow: scrolled
+                    ? '0 0 30px rgba(139,92,246,0.3), inset 0 1px 0 rgba(255,255,255,0.15)'
+                    : '0 0 50px rgba(139,92,246,0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
+                }}
+              >
+                {/* Shine sweep on hover */}
+                <span
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                  style={{
+                    background: 'linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.15) 50%, transparent 80%)',
+                  }}
+                />
+                {/* Top edge highlight */}
+                <span
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px]"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)',
+                  }}
+                />
+                <Sparkles className="w-3.5 h-3.5 relative z-10" />
+                <span className="relative z-10 tracking-wide">Book Demo</span>
+                <ArrowRight className="w-3.5 h-3.5 relative z-10 group-hover:translate-x-0.5 transition-transform duration-300" />
+              </motion.button>
+            </a>
+
+            {/* Mobile toggle */}
+            <button
+              className="lg:hidden p-2 text-zinc-400 hover:text-white transition-colors"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Menu — full screen overlay */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[45] lg:hidden"
+            style={{ background: 'rgba(0,0,0,0.95)' }}
+          >
+            <nav className="flex flex-col items-center justify-center h-full gap-2 px-8">
+              {navMenu.map(({ href, label }, i) => (
+                <motion.a
+                  key={href}
+                  href={href}
+                  onClick={(e) => handleNavClick(e, href)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                  className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide"
+                >
+                  {label}
+                </motion.a>
+              ))}
+
+              {/* Divider */}
+              <div className="w-12 h-[1px] bg-white/10 my-4" />
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: navMenu.length * 0.06, duration: 0.4 }}
+              >
+                <Link
+                  to="/sign-in"
+                  className="text-sm text-zinc-500 hover:text-white transition-colors mb-6 block"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Sign In
+                </Link>
+              </motion.div>
+
+              <motion.a
+                href="https://calendly.com/onboarding-elystra/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: (navMenu.length + 1) * 0.06, duration: 0.4 }}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-light text-base mt-2"
+                style={{
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
+                  boxShadow: '0 0 40px rgba(139,92,246,0.35)',
+                }}
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>Book a 7-Minute Demo</span>
+                <ArrowRight className="w-4 h-4" />
+              </motion.a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

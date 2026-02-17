@@ -388,7 +388,7 @@ const BleedingCalculator = () => {
                     >
                       <p className="text-sm text-zinc-400 font-light">
                   
-                        Average user recovers <span className="text-emerald-400 font-medium">{formatCurrency(avgDealSize * 2)}-{formatCurrency(avgDealSize * 4)} </span>in deals that were going dark. Per quarter.
+                        Agencies on Elystra typically recover <span className="text-emerald-400 font-medium">{formatCurrency(avgDealSize * 2)}–{formatCurrency(avgDealSize * 4)}</span> in deals that were going dark. Per quarter.
                       </p>
                     </div>
 

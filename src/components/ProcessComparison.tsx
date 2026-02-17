@@ -14,15 +14,15 @@ import {
 const comparisonData = [
   {
     step: 'Proposal Build',
-    oldWay: '360 minutes to days hunting templates, copying scopes',
-    newWay: '16 seconds - 6 minutes .Your exact proposal that you spent hours on. Done in minutes with Elystra .  No matter how complex the proposal, Elystra builds it.',
+    oldWay: 'Hours to days hunting templates, copying scopes, formatting decks.',
+    newWay: 'Your exact proposal structure. Done in minutes. No matter how complex the scope, Elystra builds it.',
     oldIcon: Clock,
     newIcon: Zap,
   },
   {
     step: 'Design & Brand',
-    oldWay: 'Every proposal is rebuilt from scratch. Format, sections and wording manual.',
-    newWay: 'Elystra adapts to your proposal. Same structure, same story , just faster and better .',
+    oldWay: 'Every proposal rebuilt from scratch. Format, sections, and wording — all manual.',
+    newWay: 'Elystra adapts to your proposal. Same structure, same story — just faster and consistent.',
     oldIcon: FileText,
     newIcon: Sparkles,
   },
@@ -51,8 +51,8 @@ const comparisonData = [
   },
   {
     step: 'Follow-up',
-    oldWay: 'Follow-up is random. Same template. Wrong timing. Deals rot',
-    newWay: ' Follow-up is signal-driven: the system tells you who, why, and what to send next.You follow Up with precison',
+    oldWay: 'Follow-up is random. Same template. Wrong timing. Deals rot.',
+    newWay: 'Follow-up is signal-driven: the system tells you who to call, why, and what to send next. Precision, not guesswork.',
     oldIcon: AlertCircle,
     newIcon: Sparkles,
   },
@@ -78,7 +78,7 @@ const itemVariants: Variants = {
 
 const ProcessComparison = () => {
   return (
-    <section className="relative py-28 md:py-36 overflow-hidden bg-transparent">
+    <section id="how-it-works" className="relative py-28 md:py-36 overflow-hidden bg-transparent">
       {/* Optimized Background - Static gradients */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
@@ -250,7 +250,7 @@ const ProcessComparison = () => {
             }}
           >
             <p className="text-base md:text-lg text-zinc-300 font-light leading-relaxed">
-              If your stack still needs a separate tool for signature, another for Stripe, and manual follow-up,   {' '}
+              If your stack still needs a separate tool for signature, another for Stripe, and manual follow-up —{' '}
               <span className="text-white font-medium">you don't have a rail.</span>{' '}
               <span 
                 style={{

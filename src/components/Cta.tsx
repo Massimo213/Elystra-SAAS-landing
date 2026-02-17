@@ -135,7 +135,7 @@ const Cta = () => {
           transition={{ delay: 0.6 }}
           className="mt-8 text-sm text-zinc-600"
         >
-          No credit card required · See a real close happen
+          7 minutes. Real pipeline. Your numbers.
         </motion.p>
       </div>
     </section>
