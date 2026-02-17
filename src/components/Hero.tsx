@@ -1,11 +1,12 @@
 /**
  * Hero.tsx
- * ELYSTRA — Vortex + waves. Visual power. One screen: pain + outcome + proof + risk reversal.
+ * ELYSTRA — Waves (Hero only) + Vortex bleeds through from global.
+ * One screen: pain + outcome + proof + risk reversal.
  */
 
 import { motion, Variants } from 'framer-motion';
 import { ShieldCheck, ArrowRight, Sparkles, Users } from 'lucide-react';
-import { Vortex } from '@/components/ui/vortex';
+import { WavyBackground } from '@/components/ui/wavy-background';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -26,23 +27,29 @@ const itemVariants: Variants = {
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black">
-      {/* Vortex — contained to Hero only */}
+    <section className="relative min-h-screen overflow-hidden bg-transparent">
+      {/* Waves — Hero only, positioned at bottom half */}
       <div className="absolute inset-0 z-[1]">
-        <Vortex
-          particleCount={300}
-          baseHue={260}
-          rangeSpeed={0.8}
-          baseRadius={1.5}
-          rangeRadius={2.5}
-          backgroundColor="transparent"
+        <WavyBackground
+          colors={[
+            "rgba(139, 92, 246, 0.35)",
+            "rgba(168, 85, 247, 0.3)",
+            "rgba(192, 132, 252, 0.25)",
+            "rgba(99, 102, 241, 0.2)",
+            "rgba(139, 92, 246, 0.15)",
+          ]}
+          waveWidth={50}
+          blur={4}
+          speed="slow"
+          waveOpacity={0.4}
+          backgroundFill="transparent"
           containerClassName="w-full h-full"
         />
       </div>
 
-      {/* Gradient overlay on top of vortex for depth */}
+      {/* Gradient overlays for depth */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
-        {/* Top-down violet wash */}
+        {/* Top violet wash */}
         <div 
           className="absolute inset-0 opacity-60"
           style={{
@@ -52,18 +59,18 @@ const Hero = () => {
             `,
           }}
         />
-        {/* Bottom fade to black — clean transition into next section */}
+        {/* Bottom fade to black — seamless transition */}
         <div 
           className="absolute bottom-0 left-0 right-0 h-48"
           style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 40%, transparent 100%)',
           }}
         />
-        {/* Top subtle vignette */}
+        {/* Vignette */}
         <div 
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)',
+            background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
           }}
         />
       </div>
@@ -76,7 +83,7 @@ const Hero = () => {
           animate="visible"
           className="max-w-5xl mx-auto px-6 text-center"
         >
-          {/* Eyebrow — with filter */}
+          {/* Eyebrow */}
           <motion.div variants={itemVariants} className="mb-8">
             <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/40 border border-white/[0.1]">
               <Users className="w-4 h-4 text-violet-400" />
@@ -125,13 +132,13 @@ const Hero = () => {
             </p>
           </motion.div>
 
-          {/* Proof Strip — locked numbers */}
+          {/* Proof Strip */}
           <motion.div variants={itemVariants} className="mb-6">
             <div 
               className="inline-flex flex-wrap items-center justify-center gap-6 md:gap-10 px-8 py-4 rounded-2xl"
               style={{
-                background: 'rgba(0,0,0,0.4)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: 'rgba(0,0,0,0.5)',
+                border: '1px solid rgba(255,255,255,0.08)',
               }}
             >
               {[
@@ -156,7 +163,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Guarantee — one line */}
+          {/* Guarantee */}
           <motion.div variants={itemVariants} className="mb-10">
             <div 
               className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full"
@@ -172,7 +179,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Single CTA */}
+          {/* CTA */}
           <motion.div variants={itemVariants} className="mb-16">
             <motion.a
               href="https://calendly.com/onboarding-elystra/30min"
