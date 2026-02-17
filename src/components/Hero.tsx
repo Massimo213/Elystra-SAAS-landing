@@ -1,10 +1,11 @@
 /**
  * Hero.tsx
- * ELYSTRA — One screen: pain + outcome + proof + risk reversal
+ * ELYSTRA — Vortex + waves. Visual power. One screen: pain + outcome + proof + risk reversal.
  */
 
 import { motion, Variants } from 'framer-motion';
 import { ShieldCheck, ArrowRight, Sparkles, Users } from 'lucide-react';
+import { Vortex } from '@/components/ui/vortex';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -25,28 +26,45 @@ const itemVariants: Variants = {
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-transparent">
-      {/* Background */}
+    <section className="relative min-h-screen overflow-hidden bg-black">
+      {/* Vortex — contained to Hero only */}
       <div className="absolute inset-0 z-[1]">
+        <Vortex
+          particleCount={300}
+          baseHue={260}
+          rangeSpeed={0.8}
+          baseRadius={1.5}
+          rangeRadius={2.5}
+          backgroundColor="transparent"
+          containerClassName="w-full h-full"
+        />
+      </div>
+
+      {/* Gradient overlay on top of vortex for depth */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        {/* Top-down violet wash */}
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-60"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139, 92, 246, 0.25), transparent),
-              radial-gradient(ellipse 60% 40% at 70% 10%, rgba(168, 85, 247, 0.15), transparent)
+              radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139, 92, 246, 0.3), transparent 60%),
+              radial-gradient(ellipse 50% 40% at 70% 10%, rgba(168, 85, 247, 0.2), transparent 50%)
             `,
           }}
         />
-      </div>
-      
-      <div className="absolute inset-0 z-[2] pointer-events-none">
-        <div
-          className="absolute top-[10%] left-[20%] w-[500px] h-[500px] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%)' }}
+        {/* Bottom fade to black — clean transition into next section */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-48"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, transparent 100%)',
+          }}
         />
-        <div
-          className="absolute bottom-[20%] right-[15%] w-[400px] h-[400px] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%)' }}
+        {/* Top subtle vignette */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)',
+          }}
         />
       </div>
 
@@ -60,7 +78,7 @@ const Hero = () => {
         >
           {/* Eyebrow — with filter */}
           <motion.div variants={itemVariants} className="mb-8">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08]">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/40 border border-white/[0.1]">
               <Users className="w-4 h-4 text-violet-400" />
               <span className="text-xs tracking-[0.2em] uppercase text-zinc-400 font-light">
                 For agencies sending 8+ proposals / month
@@ -73,7 +91,7 @@ const Hero = () => {
             <span 
               className="block text-4xl md:text-5xl lg:text-6xl font-extralight tracking-tight leading-[1.15]"
               style={{
-                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.8) 100%)',
+                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.85) 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -109,7 +127,13 @@ const Hero = () => {
 
           {/* Proof Strip — locked numbers */}
           <motion.div variants={itemVariants} className="mb-6">
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            <div 
+              className="inline-flex flex-wrap items-center justify-center gap-6 md:gap-10 px-8 py-4 rounded-2xl"
+              style={{
+                background: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+            >
               {[
                 { value: '145+', label: 'agencies' },
                 { value: '$4.1M', label: 'closed last quarter' },
@@ -132,13 +156,13 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Guarantee — one line, right here */}
+          {/* Guarantee — one line */}
           <motion.div variants={itemVariants} className="mb-10">
             <div 
               className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full"
               style={{
-                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05))',
-                border: '1px solid rgba(16, 185, 129, 0.2)',
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05))',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
               }}
             >
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -157,7 +181,7 @@ const Hero = () => {
               className="group relative inline-flex items-center gap-4 px-12 py-6 rounded-full text-white font-medium text-xl overflow-hidden"
               style={{
                 background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
-                boxShadow: '0 0 60px rgba(139, 92, 246, 0.3)',
+                boxShadow: '0 0 60px rgba(139, 92, 246, 0.4)',
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -165,7 +189,7 @@ const Hero = () => {
               <span
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
+                  background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)',
                 }}
               />
               <Sparkles className="w-6 h-6 relative z-10" />
