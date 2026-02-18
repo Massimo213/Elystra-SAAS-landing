@@ -300,7 +300,7 @@ const BleedingCalculator = () => {
 
                 <div className="pt-6 border-t border-white/[0.06]">
                   <p className="text-xs text-zinc-600 font-light">
-                    Based on 145+ agencies: ~30% of "lost" deals are recoverable with proper follow-up timing.
+                    Based on 170+ agencies: ~30% of "lost" deals are recoverable with proper follow-up timing.
                   </p>
                 </div>
               </div>

@@ -217,8 +217,8 @@ const Hero = () => {
               <motion.div variants={item} className="mb-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   {[
-                    { value: "145+", label: "agencies onboarded" },
-                    { value: "$4.1M", label: "closed last quarter" },
+                    { value: "170+", label: "agencies onboarded" },
+                    { value: "$4.6M", label: "closed last quarter" },
                     { value: "+23%", label: "avg close-rate lift" },
                   ].map((s, idx) => (
                     <div

@@ -140,7 +140,7 @@ const SignUp = () => {
                     Start Free
                   </h1>
                   <p className="text-slate-400 text-lg">
-                    Join 145+ agencies closing $4.1M/quarter
+                    Join 170+ agencies closing $4.6M/quarter
                   </p>
                 </div>
 

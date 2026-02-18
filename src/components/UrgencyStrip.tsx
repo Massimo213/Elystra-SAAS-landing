@@ -31,7 +31,7 @@ const UrgencyStrip = () => {
           <div className="flex items-center gap-2">
             <Zap className="w-3.5 h-3.5 text-violet-400" />
             <span className="text-zinc-300 font-light">
-              <strong className="font-medium text-white">145+ agencies</strong> are closing on the rail.
+              <strong className="font-medium text-white">170+ agencies</strong> are closing on the rail.
             </span>
           </div>
 

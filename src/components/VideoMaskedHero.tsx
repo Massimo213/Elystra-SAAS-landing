@@ -196,7 +196,7 @@ const glowId = 'hero-word-glow';
           transition={{ delay: 0.5 }}
           className="text-slate-500 text-sm mt-6"
         >
-          Trusted by 145+ agencies • $4.1M closed quarterly
+          Trusted by 170+ agencies • $4.6M closed quarterly
         </motion.p>
       </div>
     </section>

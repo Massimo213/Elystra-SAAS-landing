@@ -295,7 +295,7 @@ const Review = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                145+
+                170+
               </p>
               <p className="text-xs text-zinc-500 mt-1">agencies on the rail</p>
             </div>
@@ -309,7 +309,7 @@ const Review = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                $4.1M
+                $4.6M
               </p>
               <p className="text-xs text-zinc-500 mt-1">closed last quarter</p>
             </div>
