@@ -49,9 +49,9 @@ const GetStarted = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
           <p className="text-lg font-extralight text-zinc-400 max-w-2xl mx-auto mb-10">
-            Proposal built from the call. Signed on screen. Deposit collected. Under 4 minutes.
+            Revenue infrastructure that closes the gap between client approval and money in your account.
             <br />
-            <span className="text-zinc-500">No PDFs. No waiting. No admin.</span>
+            <span className="text-zinc-500">170+ agencies. $4.6M closed last quarter. +23% avg close-rate lift.</span>
           </p>
 
           <motion.a
