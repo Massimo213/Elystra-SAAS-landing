@@ -18,7 +18,7 @@ import ProcessComparison from '@/components/ProcessComparison';
 import FullArsenal from '@/components/FullArsenal';
 import Guarantee from '@/components/Guarantee';
 import { Vortex } from '@/components/ui/vortex';
-import GetStarted from '@/components/GetStarted';
+import Faq from '@/components/Faq';
 
 /**
  * GLOBAL VORTEX — fixed, low particle count, scrolls under everything
@@ -64,7 +64,7 @@ const MainContent = () => (
     <Guarantee />
     <Review />
     <Cta />
-    <GetStarted />
+<Faq/>
     <Footer />
   </main>
 );
