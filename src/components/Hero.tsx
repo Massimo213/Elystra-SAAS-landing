@@ -15,16 +15,37 @@ const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 36, scale: 0.96 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] },
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
+const titleLine: Variants = {
+  hidden: { opacity: 0, y: 32, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.85, ease: [0.16, 0.84, 0.44, 1] },
+  },
+};
+
+const frameVariants: Variants = {
+  hidden: { opacity: 0, y: 48, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.9, ease: [0.16, 0.84, 0.44, 1] },
   },
 };
 
@@ -76,16 +97,16 @@ const Hero = () => {
           }}
         />
 
-        {/* Luminous orbs */}
+        {/* Luminous orbs — drifting */}
         <div
-          className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl opacity-40"
+          className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl opacity-40 hero-orb-drift"
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(168,85,247,0.65), transparent 60%)",
           }}
         />
         <div
-          className="absolute top-6 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-35"
+          className="absolute top-6 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-35 hero-orb-drift animation-delay-2000"
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(99,102,241,0.55), transparent 62%)",
@@ -128,13 +149,10 @@ const Hero = () => {
           animate="visible"
           className="max-w-6xl mx-auto px-6"
         >
-          {/* Glass frame */}
-          <div
-            className="relative rounded-[30px] border border-white/[0.10] bg-black/60 overflow-hidden"
-            style={{
-              boxShadow:
-                "0 0 0 1px rgba(255,255,255,0.05), 0 34px 100px rgba(0,0,0,0.72), 0 0 90px rgba(139,92,246,0.18)",
-            }}
+          {/* Glass frame — living glow, cinematic entrance */}
+          <motion.div
+            variants={frameVariants}
+            className="relative rounded-[30px] border border-white/[0.10] bg-black/60 overflow-hidden hero-frame-glow"
           >
             {/* Inner sheen */}
             <div
@@ -148,9 +166,23 @@ const Hero = () => {
             <div className="relative px-6 md:px-12 py-11 md:py-14 text-center">
             
 
-              {/* TITLE — bigger, sharper, more "poster" */}
-              <motion.h1 variants={item} className="mb-6">
-                {/* glow layer */}
+              {/* TITLE — staggered entrance + gradient shift */}
+              <motion.h1
+                variants={{
+                  hidden: { opacity: 0, y: 28, scale: 0.98 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                      duration: 0.6,
+                      staggerChildren: 0.12,
+                      delayChildren: 0.05,
+                    },
+                  },
+                }}
+                className="mb-6"
+              >
                 <div className="relative inline-block">
                   <div
                     className="absolute -inset-6 blur-3xl opacity-35"
@@ -160,19 +192,24 @@ const Hero = () => {
                     }}
                   />
                   <div className="relative" style={{ textShadow: glowTextShadow }}>
-                    <div className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1] text-white">
+                    <motion.div
+                      variants={titleLine}
+                      className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1] text-white"
+                    >
                       Control the Deal.
-                    </div>
-                    <div
-                      className="mt-2 text-[2.75rem] md:text-[3.9rem] lg:text-[5.0rem] font-light tracking-[-0.03em] leading-[1.1]"
+                    </motion.div>
+                    <motion.div
+                      variants={titleLine}
+                      className="mt-2 text-[2.75rem] md:text-[3.9rem] lg:text-[5.0rem] font-light tracking-[-0.03em] leading-[1.1] hero-gradient-shift"
                       style={{
-                        background: "linear-gradient(135deg, #a855f7 0%, #34d399 100%)",
+                        background: "linear-gradient(135deg, #a855f7 0%, #34d399 50%, #a855f7 100%)",
+                        backgroundSize: "200% 200%",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                       }}
                     >
                       Collect the Money.
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </motion.h1>
@@ -188,21 +225,31 @@ const Hero = () => {
                 and a clean path to payment.
               </motion.p>
 
-              {/* Proof tiles */}
-              <motion.div variants={item} className="mb-10">
+              {/* Proof tiles — breathe + stagger */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 28, scale: 0.98 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+                  },
+                }}
+                className="mb-10"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   {[
                     { value: "170+", label: "agencies onboarded" },
                     { value: "$4.6M", label: "closed last quarter" },
                     { value: "+23%", label: "avg close-rate lift" },
                   ].map((s, idx) => (
-                    <div
+                    <motion.div
                       key={idx}
-                      className="relative rounded-2xl border border-white/[0.10] bg-black/45 backdrop-blur-md px-5 py-5 overflow-hidden"
-                      style={{
-                        boxShadow:
-                          "0 0 0 1px rgba(255,255,255,0.04), 0 16px 55px rgba(0,0,0,0.55)",
-                      }}
+                      variants={item}
+                      whileHover={{ scale: 1.05, y: -4 }}
+                      className="relative rounded-2xl border border-white/[0.10] bg-black/50 px-5 py-5 overflow-hidden hero-tile-breathe"
+                      style={{ animationDelay: `${idx * 0.35}s` }}
                     >
                       <div
                         className="absolute -top-10 -right-10 w-44 h-44 rounded-full blur-2xl opacity-30"
@@ -219,20 +266,20 @@ const Hero = () => {
                           {s.label}
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
 
-              {/* Guarantee */}
+              {/* Guarantee — pulse */}
               <motion.div variants={item} className="mb-10">
                 <div
-                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full"
+                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full hero-guarantee-pulse"
                   style={{
                     background:
                       "linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(16, 185, 129, 0.08))",
                     border: "1px solid rgba(16, 185, 129, 0.32)",
-                    boxShadow: "0 0 50px rgba(16,185,129,0.10)",
+                    boxShadow: "0 0 50px rgba(16,185,129,0.1)",
                   }}
                 >
                   <ShieldCheck className="w-4 h-4 text-emerald-300" />
@@ -258,12 +305,21 @@ const Hero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {/* Static sheen */}
+                  {/* Moving shine */}
                   <span
-                    className="absolute inset-0 rounded-full"
+                    className="absolute inset-0 rounded-full overflow-hidden"
                     style={{
                       background:
-                        "linear-gradient(110deg, transparent 38%, rgba(255,255,255,0.12) 50%, transparent 62%)",
+                        "linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%)",
+                      backgroundSize: "50% 100%",
+                    }}
+                  />
+                  <span
+                    className="absolute inset-0 rounded-full hero-cta-shine pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%)",
+                      width: "40%",
                     }}
                   />
 
@@ -290,23 +346,28 @@ const Hero = () => {
                 </p>
               </motion.div>
 
-              {/* Micro-benefits */}
+              {/* Micro-benefits — hover lift */}
               <motion.div
                 variants={item}
                 className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-zinc-400/70"
               >
-                <span className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03]">
-                  Proposals from calls in minutes
-                </span>
-                <span className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03]">
-                  Sign + pay on one screen
-                </span>
-                <span className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03]">
-                  Every deal tracked to close
-                </span>
+                {[
+                  "Proposals from calls in minutes",
+                  "Sign + pay on one screen",
+                  "Every deal tracked to close",
+                ].map((text, i) => (
+                  <motion.span
+                    key={i}
+                    variants={item}
+                    whileHover={{ scale: 1.05, y: -1 }}
+                    className="px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] transition-colors hover:border-white/[0.12] hover:text-zinc-300"
+                  >
+                    {text}
+                  </motion.span>
+                ))}
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -8,6 +8,7 @@ import {
   FileText, CreditCard, BarChart3, Plug, 
   ArrowRight, CheckCircle
 } from 'lucide-react';
+import { CometCard } from '@/components/ui/comet-card';
 
 /* ---------------- 4 Core Modules ---------------- */
 const modules = [
@@ -142,13 +143,13 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{ y: -4 }}
-      className="group relative"
+      className="group relative h-full"
     >
-      <div 
-        className="relative bg-black/50 rounded-2xl p-8 border border-white/[0.06] 
-                  hover:border-white/[0.1] transition-all duration-300 h-full"
-      >
+      <CometCard rotateDepth={12} translateDepth={12} className="h-full">
+        <div 
+          className="relative bg-black/50 rounded-2xl p-8 border border-white/[0.06] 
+                    hover:border-white/[0.1] transition-colors duration-300 h-full"
+        >
         {/* Inner gradient */}
         <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-20 rounded-2xl`} />
         
@@ -209,6 +210,7 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
           </div>
         </div>
       </div>
+      </CometCard>
     </motion.div>
   );
 };

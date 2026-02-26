@@ -59,11 +59,12 @@ const MainContent = () => (
     <UrgencyStrip />
     <Hero />
     <BleedingCalculator />
-    <ProcessComparison />
     <FullArsenal />
-    <Guarantee />
+   <ProcessComparison />
+ 
     <Review />
     <Cta />
+    <Guarantee />
 <Faq/>
     <Footer />
   </main>

@@ -53,14 +53,15 @@ const Guarantee = () => {
               </span>
             </h2>
 
-            <p className="text-base md:text-lg text-zinc-300 font-light max-w-xl mx-auto leading-relaxed mb-3">
-              Run your real pipeline through Elystra for 30 days.
+            <p className="text-base md:text-lg text-zinc-300 font-light max-w-xl mx-auto leading-relaxed mb-4">
+              170 agencies run deals through Elystra. Closed revenue moves. Time-to-cash compresses.
             </p>
-            <p className="text-base md:text-lg text-zinc-300 font-light max-w-xl mx-auto leading-relaxed mb-3">
-              If your closed revenue and time-to-cash don't move, we refund the month.
+            <p className="text-base md:text-lg text-zinc-300 font-light max-w-xl mx-auto leading-relaxed mb-4">
+              Run your actual pipeline for 30 days. If Elystra doesn't pay for itself in closed revenue and leave you net profitable, you get the month back.
             </p>
-            <p className="text-sm text-zinc-500 font-light max-w-lg mx-auto mt-6">
-              If Elystra doesn't make you money, we don't keep yours.
+            
+            <p className="text-sm md:text-base text-zinc-400 font-medium max-w-lg mx-auto mt-6">
+              That's how confident we are at Elystra: either you win, or we don't get paid.
             </p>
           </div>
         </motion.div>
