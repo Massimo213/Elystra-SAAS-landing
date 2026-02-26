@@ -1,9 +1,9 @@
 /**
  * Hero.tsx — GREATNESS pass
  * Changes:
- * - Removed “Used by teams at …” logo strip (no placeholders).
+ * - Removed "Used by teams at …" logo strip (no placeholders).
  * - Single CTA button only (booking).
- * - CTA label keeps: “Want proof first? Book a 7-Minute Demo”.
+ * - CTA label keeps: "Want proof first? Book a 7-Minute Demo".
  * - Title made more visually dominant: heavier contrast, tighter tracking, glow layer, and controlled gradient flare.
  */
 
@@ -148,7 +148,7 @@ const Hero = () => {
             <div className="relative px-6 md:px-12 py-11 md:py-14 text-center">
             
 
-              {/* TITLE — bigger, sharper, more “poster” */}
+              {/* TITLE — bigger, sharper, more "poster" */}
               <motion.h1 variants={item} className="mb-6">
                 {/* glow layer */}
                 <div className="relative inline-block">
@@ -160,43 +160,18 @@ const Hero = () => {
                     }}
                   />
                   <div className="relative" style={{ textShadow: glowTextShadow }}>
-                    <div className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.04] text-white">
-                      Your problem isn’t leads.
+                    <div className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1] text-white">
+                      Control the Deal.
                     </div>
-
-                    <div className="mt-2 text-[2.75rem] md:text-[3.9rem] lg:text-[5.0rem] font-light tracking-[-0.03em] leading-[1.05]">
-                      <span className="text-zinc-200/90">It’s the </span>
-
-                      {/* “silent leak” — stronger, more premium */}
-                      <span className="relative inline-block align-baseline">
-                        <span
-                          className="absolute -inset-3 rounded-3xl blur-2xl opacity-45"
-                          style={{
-                            background:
-                              "radial-gradient(circle at 30% 30%, rgba(248,113,113,0.62), rgba(251,146,60,0.34), transparent 72%)",
-                          }}
-                        />
-                        <span
-                          className="relative"
-                          style={{
-                            background:
-                              "linear-gradient(135deg, #fb7185 0%, #fb923c 55%, #f59e0b 100%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            filter:
-                              "drop-shadow(0 6px 22px rgba(248,113,113,0.30))",
-                            letterSpacing: "-0.01em",
-                          }}
-                        >
-                          silent leak
-                        </span>
-                      </span>
-
-                      <span className="text-zinc-200/90"> between</span>
-                    </div>
-
-                    <div className="mt-2 text-[2.55rem] md:text-[3.7rem] lg:text-[4.8rem] font-light tracking-[-0.03em] leading-[1.06] text-zinc-200/85">
-                      “send me something” and “we got paid.”
+                    <div
+                      className="mt-2 text-[2.75rem] md:text-[3.9rem] lg:text-[5.0rem] font-light tracking-[-0.03em] leading-[1.1]"
+                      style={{
+                        background: "linear-gradient(135deg, #a855f7 0%, #34d399 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      Collect the Money.
                     </div>
                   </div>
                 </div>
@@ -208,9 +183,9 @@ const Hero = () => {
                 className="text-lg md:text-xl text-zinc-200/85 font-light max-w-3xl mx-auto leading-relaxed mb-10"
                 style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}
               >
-                Elystra runs everything between “I’m interested” and money in your account for  agencies.
-                Every serious opportunity becomes a tracked proposal, a buying
-                signal, and a clean path to payment .
+                Elystra standardizes and automates the path from interest to payment.
+                Every serious opportunity becomes a tracked proposal, a buying signal,
+                and a clean path to payment.
               </motion.p>
 
               {/* Proof tiles */}
