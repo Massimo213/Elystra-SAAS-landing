@@ -55,7 +55,7 @@ const GlobalVortex = () => (
  * PAGE FLOW
  */
 const MainContent = () => (
-  <main className="relative z-10 pt-16 md:pt-20">
+  <main className="relative z-10 pt-14 md:pt-16">
     <UrgencyStrip />
     <Hero />
     <BleedingCalculator />

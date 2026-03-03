@@ -13,7 +13,7 @@ const UrgencyStrip = () => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="relative overflow-hidden py-3"
+      className="relative overflow-hidden py-2"
       style={{
         background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.12) 0%, rgba(168, 85, 247, 0.18) 50%, rgba(139, 92, 246, 0.12) 100%)',
         borderBottom: '1px solid rgba(139, 92, 246, 0.15)',

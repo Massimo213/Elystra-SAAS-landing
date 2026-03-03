@@ -10,42 +10,47 @@
 import { motion, Variants } from "framer-motion";
 import { ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import { EncryptedText } from "@/components/ui/encrypted-text";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+
+const easeOutExpo = [0.16, 0.84, 0.44, 1] as const;
+const easeOutQuart = [0.25, 0.46, 0.45, 0.94] as const;
 
 const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.12, delayChildren: 0.2 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 36, scale: 0.96 },
+  hidden: { opacity: 0, y: 28, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.7, ease: [0.22, 0.61, 0.36, 1] },
+    transition: { duration: 0.8, ease: easeOutQuart },
   },
 };
 
 const titleLine: Variants = {
-  hidden: { opacity: 0, y: 32, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.85, ease: [0.16, 0.84, 0.44, 1] },
+    transition: { duration: 0.9, ease: easeOutExpo },
   },
 };
 
 const frameVariants: Variants = {
-  hidden: { opacity: 0, y: 48, scale: 0.97 },
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.9, ease: [0.16, 0.84, 0.44, 1] },
+    transition: { duration: 1, ease: easeOutExpo },
   },
 };
 
@@ -58,17 +63,9 @@ const Hero = () => {
       {/* Bottom Waves only */}
       <div className="absolute bottom-0 left-0 right-0 h-[46%] z-[1]">
         <WavyBackground
-          colors={[
-            "rgba(139, 92, 246, 0.42)",
-            "rgba(168, 85, 247, 0.32)",
-            "rgba(192, 132, 252, 0.26)",
-            "rgba(99, 102, 241, 0.22)",
-            "rgba(139, 92, 246, 0.14)",
-          ]}
-          waveWidth={52}
-          blur={5}
+          colors={["#a78bfa", "#8b5cf6", "#6366f1", "#818cf8"]}
           speed="slow"
-          waveOpacity={0.42}
+          waveOpacity={0.88}
           backgroundFill="transparent"
           containerClassName="w-full h-full"
         />
@@ -142,7 +139,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-28 md:pt-36 pb-16">
+      <div className="relative z-10 pt-4 md:pt-6 pb-16 flex flex-col justify-center min-h-[calc(100vh-6rem)]">
         <motion.div
           variants={container}
           initial="hidden"
@@ -163,7 +160,7 @@ const Hero = () => {
               }}
             />
 
-            <div className="relative px-6 md:px-12 py-11 md:py-14 text-center">
+            <div className="relative px-6 md:px-12 py-8 md:py-10 text-center">
             
 
               {/* TITLE — staggered entrance + gradient shift */}
@@ -181,7 +178,7 @@ const Hero = () => {
                     },
                   },
                 }}
-                className="mb-6"
+                className="mb-4"
               >
                 <div className="relative inline-block">
                   <div
@@ -194,9 +191,15 @@ const Hero = () => {
                   <div className="relative" style={{ textShadow: glowTextShadow }}>
                     <motion.div
                       variants={titleLine}
-                      className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1] text-white"
+                      className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1]"
                     >
-                      Control the Deal.
+                      <EncryptedText
+                        text="Control the Deal."
+                        encryptedClassName="text-zinc-500"
+                        revealedClassName="text-white"
+                        revealDelayMs={85}
+                        flipDelayMs={60}
+                      />
                     </motion.div>
                     <motion.div
                       variants={titleLine}
@@ -208,22 +211,35 @@ const Hero = () => {
                         WebkitTextFillColor: "transparent",
                       }}
                     >
-                      Collect the Money.
+                      <EncryptedText
+                        text="Collect the Money."
+                        encryptedClassName="text-zinc-500/80"
+                        revealedClassName="text-inherit"
+                        revealDelayMs={85}
+                        flipDelayMs={60}
+                        startDelayMs={1600}
+                      />
                     </motion.div>
                   </div>
                 </div>
               </motion.h1>
 
               {/* Subhead */}
-              <motion.p
+              <motion.div
                 variants={item}
-                className="text-lg md:text-xl text-zinc-200/85 font-light max-w-3xl mx-auto leading-relaxed mb-10"
+                className="mb-6 text-lg md:text-xl font-light max-w-3xl mx-auto leading-relaxed"
                 style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}
               >
-                Elystra standardizes and automates the path from interest to payment.
-                Every serious opportunity becomes a tracked proposal, a buying signal,
-                and a clean path to payment.
-              </motion.p>
+                <TextGenerateEffect
+                  words="Elystra standardizes and automates the path from interest to payment. Every serious opportunity becomes a tracked proposal, a buying signal, and a clean path to payment."
+                  className="font-light"
+                  wordClassName="text-zinc-200/90"
+                  filter={true}
+                  duration={0.5}
+                  staggerDelay={0.05}
+                  startDelay={3.4}
+                />
+              </motion.div>
 
               {/* Proof tiles — breathe + stagger */}
               <motion.div
@@ -236,7 +252,7 @@ const Hero = () => {
                     transition: { staggerChildren: 0.1, delayChildren: 0.05 },
                   },
                 }}
-                className="mb-10"
+                className="mb-6"
               >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   {[
@@ -272,7 +288,7 @@ const Hero = () => {
               </motion.div>
 
               {/* Guarantee — pulse */}
-              <motion.div variants={item} className="mb-10">
+              <motion.div variants={item} className="mb-6">
                 <div
                   className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full hero-guarantee-pulse"
                   style={{

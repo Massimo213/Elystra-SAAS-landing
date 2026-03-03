@@ -164,16 +164,16 @@
   100% { transform: translateX(120%); opacity: 0.6; }
 }
 
-/* Proof tiles — float + breathe, unmistakably alive */
+/* Proof tiles — gentle breathe */
 @keyframes hero-tile-breathe {
   0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 16px 55px rgba(0,0,0,0.55); }
-  50% { transform: translateY(-6px) scale(1.02); box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 24px 70px rgba(0,0,0,0.5), 0 0 40px rgba(139,92,246,0.15); }
+  50% { transform: translateY(-4px) scale(1.01); box-shadow: 0 0 0 1px rgba(255,255,255,0.07), 0 20px 60px rgba(0,0,0,0.52), 0 0 32px rgba(139,92,246,0.12); }
 }
 
-/* Guarantee badge — visible emerald pulse */
+/* Guarantee badge — soft emerald pulse */
 @keyframes hero-guarantee-pulse {
-  0%, 100% { box-shadow: 0 0 50px rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.28); }
-  50% { box-shadow: 0 0 90px rgba(16,185,129,0.28); border-color: rgba(16,185,129,0.45); }
+  0%, 100% { box-shadow: 0 0 50px rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.26); }
+  50% { box-shadow: 0 0 75px rgba(16,185,129,0.22); border-color: rgba(16,185,129,0.38); }
 }
 
 /* Gradient X animation */
@@ -313,8 +313,8 @@
   .hero-frame-glow { animation: hero-frame-glow 3.5s ease-in-out infinite; }
   .hero-gradient-shift { background-size: 200% 200%; animation: hero-gradient-shift 6s ease-in-out infinite; }
   .hero-cta-shine { animation: hero-cta-shine 2.5s ease-in-out 0.3s infinite; }
-  .hero-tile-breathe { animation: hero-tile-breathe 4s ease-in-out infinite; }
-  .hero-guarantee-pulse { animation: hero-guarantee-pulse 2.5s ease-in-out infinite; }
+  .hero-tile-breathe { animation: hero-tile-breathe 5s ease-in-out infinite; }
+  .hero-guarantee-pulse { animation: hero-guarantee-pulse 3.5s ease-in-out infinite; }
 }
 
 /* ==========================================
