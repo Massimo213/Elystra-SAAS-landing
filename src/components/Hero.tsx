@@ -231,7 +231,7 @@ const Hero = () => {
                 style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}
               >
                 <TextGenerateEffect
-                  words="Elystra is the sales infrastructure for agencies. The system that standardizes, controls, and accelerates the agency sales process after interest exists."
+                  words="Elystra is the sales infrastructure for agencies. The system that standardizes, controls, and accelerates the agency sales process after interest exists. Every serious opportunity becomes a tracked scope, a buying signal, and a clean path to payment."
                   className="font-light"
                   wordClassName="text-zinc-200/90"
                   filter={true}
