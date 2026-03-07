@@ -100,7 +100,7 @@ interface PillarCardProps {
 const PillarCard = ({ pillar }: PillarCardProps) => {
   const Icon = pillar.icon;
   const config = colorConfig[pillar.color];
-
+  
   return (
     <motion.div
       variants={cardVariants}
@@ -116,7 +116,7 @@ const PillarCard = ({ pillar }: PillarCardProps) => {
         {/* Number watermark */}
         <div 
           className="absolute -right-2 -top-4 text-[5rem] font-extralight tracking-tight opacity-[0.04] select-none"
-          style={{
+        style={{
             background: 'linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -130,13 +130,13 @@ const PillarCard = ({ pillar }: PillarCardProps) => {
           <div className="flex items-center gap-4 mb-5">
             <div className={`w-12 h-12 rounded-xl ${config.bg} border ${config.border} flex items-center justify-center`}>
               <Icon className={`w-5 h-5 ${config.text}`} />
-            </div>
+                  </div>
             <span className={`text-xs tracking-[0.15em] ${config.text} opacity-70`}>
               PILLAR {pillar.num}
             </span>
           </div>
-          
-          {/* Title */}
+
+                  {/* Title */}
           <h3 className="text-xl font-light text-white mb-4">{pillar.title}</h3>
           
           {/* Description */}
@@ -173,11 +173,11 @@ const Feature = () => {
         />
         <div 
           className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full opacity-40"
-          style={{
+        style={{
             background: 'radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 60%)',
           }}
         />
-      </div>
+            </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Header */}
@@ -205,11 +205,11 @@ const Feature = () => {
         </motion.div>
 
         {/* Pillars Grid */}
-        <motion.div
+            <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+              viewport={{ once: true }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         >
           {pillars.map((pillar) => (
@@ -218,7 +218,7 @@ const Feature = () => {
         </motion.div>
 
         {/* CTA */}
-        <motion.div
+      <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -239,8 +239,8 @@ const Feature = () => {
             <ArrowRight className="w-4 h-4 text-violet-400 group-hover:translate-x-1 transition-transform" />
           </motion.a>
         </motion.div>
-      </div>
-    </section>
+          </div>
+      </section>
   );
 };
 

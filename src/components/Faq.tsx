@@ -83,8 +83,8 @@ const containerVariants: Variants = {
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 15 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
   }
@@ -93,7 +93,7 @@ const itemVariants: Variants = {
 /* ---------------- FAQ Item ---------------- */
 interface FaqItemProps {
   faq: { q: string; a: string };
-  isOpen: boolean;
+  isOpen: boolean; 
   onToggle: () => void;
 }
 
@@ -113,43 +113,43 @@ const FaqItem = ({ faq, isOpen, onToggle }: FaqItemProps) => {
           />
         )}
         
-        <button
-          onClick={onToggle}
+      <button
+        onClick={onToggle}
           className="relative z-10 w-full flex items-center justify-between gap-4 p-5 text-left"
         >
           <span className={`text-sm md:text-base font-light transition-colors duration-300
                           ${isOpen ? 'text-white' : 'text-zinc-300'}`}>
             {faq.q}
           </span>
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
             className={`shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-300
                        ${isOpen ? 'bg-violet-500/20 border border-violet-500/30' : 'bg-white/[0.03] border border-white/[0.06]'}`}
           >
             <ChevronDown className={`w-4 h-4 transition-colors duration-300
                                     ${isOpen ? 'text-violet-400' : 'text-zinc-500'}`} />
-          </motion.div>
-        </button>
-        
+        </motion.div>
+      </button>
+
         <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="overflow-hidden"
-            >
+            className="overflow-hidden"
+          >
               <div className="relative z-10 px-5 pb-5 pt-0">
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-4" />
                 <p className="text-sm text-zinc-400 font-light leading-relaxed whitespace-pre-line">
                   {faq.a}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       </div>
     </motion.div>
   );
@@ -170,7 +170,7 @@ const Faq = () => {
           }}
         />
       </div>
-
+      
       <div className="relative z-10 max-w-3xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -235,10 +235,10 @@ const Faq = () => {
         >
           <p className="text-sm text-zinc-500 font-light">
             Still have questions?{' '}
-            <a 
-              href="https://calendly.com/onboarding-elystra/30min" 
-              target="_blank"
-              rel="noopener noreferrer"
+                <a 
+                  href="https://calendly.com/onboarding-elystra/30min" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
               className="text-violet-400 hover:text-violet-300 transition-colors underline underline-offset-4"
             >
               Book a demo and we will answer everything live

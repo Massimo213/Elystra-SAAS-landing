@@ -170,7 +170,7 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
           {[...Array(5)].map((_, i) => (
             <Star key={i} className="w-4 h-4 text-amber-400 fill-current" />
           ))}
-        </div>
+            </div>
 
         {/* Quote */}
         <blockquote className="text-sm text-zinc-300 font-light leading-relaxed mb-6 whitespace-pre-line">
@@ -188,7 +188,7 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
             }}
           >
             <span className="text-violet-300">{testimonial.avatar}</span>
-          </div>
+            </div>
           <div>
             <p className="text-sm text-white font-light">{testimonial.author}</p>
             <p className="text-xs text-zinc-500">{testimonial.company}</p>
@@ -218,10 +218,10 @@ const Review = () => {
           }}
         />
       </div>
-
+      
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Header */}
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -236,18 +236,18 @@ const Review = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Numbers Don't Lie
+              When agencies stop hoping and start controlling the close
             </span>
           </h2>
           <p className="text-lg font-extralight text-zinc-500 max-w-xl mx-auto">
-            Real results from agencies who stopped hoping and started closing.
+            What the rail changes in real businesses. Mid-size performance agencies, high-ticket consultancies, founder-led shops.
           </p>
-        </motion.div>
+          </motion.div>
 
         {/* Testimonials Grid */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+            initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -261,7 +261,7 @@ const Review = () => {
         {/* Second row - 2 cards centered */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+              initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-4xl mx-auto"
@@ -298,7 +298,7 @@ const Review = () => {
                 170+
               </p>
               <p className="text-xs text-zinc-500 mt-1">agencies on the rail</p>
-            </div>
+          </div>
             <div className="w-px h-10 bg-white/10 hidden sm:block" />
             <div className="text-center">
               <p 
@@ -312,7 +312,7 @@ const Review = () => {
                 $4.6M
               </p>
               <p className="text-xs text-zinc-500 mt-1">closed last quarter</p>
-            </div>
+                </div>
             <div className="w-px h-10 bg-white/10 hidden sm:block" />
             <div className="text-center">
               <p 
@@ -326,7 +326,7 @@ const Review = () => {
                 +23%
               </p>
               <p className="text-xs text-zinc-500 mt-1">avg close-rate lift</p>
-            </div>
+                </div>
           </div>
         </motion.div>
       </div>

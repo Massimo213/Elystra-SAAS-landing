@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+public/videos/Video1.mp4
+public/videos/Video2.mp4
+public/videos/Video3.mp4

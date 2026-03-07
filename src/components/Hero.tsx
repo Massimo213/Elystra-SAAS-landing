@@ -70,13 +70,13 @@ const Hero = () => {
           containerClassName="w-full h-full"
         />
       </div>
-
+      
       {/* Premium overlays */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
         {/* Subtle noise */}
         <div
           className="absolute inset-0 opacity-[0.12] mix-blend-soft-light"
-          style={{
+        style={{
             backgroundImage:
               "url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/></filter><rect width=%22160%22 height=%22160%22 filter=%22url(%23n)%22 opacity=%220.35%22/></svg>')",
           }}
@@ -85,7 +85,7 @@ const Hero = () => {
         {/* Top violet wash */}
         <div
           className="absolute inset-0 opacity-70"
-          style={{
+                style={{
             background: `
               radial-gradient(ellipse 85% 55% at 50% 0%, rgba(139, 92, 246, 0.34), transparent 62%),
               radial-gradient(ellipse 55% 45% at 72% 10%, rgba(168, 85, 247, 0.22), transparent 55%),
@@ -97,14 +97,14 @@ const Hero = () => {
         {/* Luminous orbs — drifting */}
         <div
           className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl opacity-40 hero-orb-drift"
-          style={{
+                style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(168,85,247,0.65), transparent 60%)",
           }}
         />
         <div
           className="absolute top-6 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-35 hero-orb-drift animation-delay-2000"
-          style={{
+                  style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(99,102,241,0.55), transparent 62%)",
           }}
@@ -113,7 +113,7 @@ const Hero = () => {
         {/* Dark center mask for readability */}
         <div
           className="absolute inset-0"
-          style={{
+                  style={{
             background:
               "radial-gradient(ellipse 72% 58% at 50% 42%, rgba(0,0,0,0.74) 0%, rgba(0,0,0,0.28) 45%, transparent 72%)",
           }}
@@ -122,7 +122,7 @@ const Hero = () => {
         {/* Bottom fade */}
         <div
           className="absolute bottom-0 left-0 right-0 h-56"
-          style={{
+                  style={{
             background:
               "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 42%, rgba(0,0,0,0.2) 72%, transparent 100%)",
           }}
@@ -131,12 +131,12 @@ const Hero = () => {
         {/* Vignette */}
         <div
           className="absolute inset-0"
-          style={{
+                style={{
             background:
               "radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,0.62) 100%)",
-          }}
-        />
-      </div>
+                }}
+              />
+          </div>
 
       {/* Content */}
       <div className="relative z-10 pt-4 md:pt-6 pb-16 flex flex-col justify-center min-h-[calc(100vh-6rem)]">
@@ -189,7 +189,7 @@ const Hero = () => {
                     }}
                   />
                   <div className="relative" style={{ textShadow: glowTextShadow }}>
-                    <motion.div
+                <motion.div
                       variants={titleLine}
                       className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1]"
                     >
@@ -200,7 +200,7 @@ const Hero = () => {
                         revealDelayMs={85}
                         flipDelayMs={60}
                       />
-                    </motion.div>
+                </motion.div>
                     <motion.div
                       variants={titleLine}
                       className="mt-2 text-[2.75rem] md:text-[3.9rem] lg:text-[5.0rem] font-light tracking-[-0.03em] leading-[1.1] hero-gradient-shift"
@@ -231,7 +231,7 @@ const Hero = () => {
                 style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}
               >
                 <TextGenerateEffect
-                  words="Elystra standardizes and automates the path from interest to payment. Every serious opportunity becomes a tracked proposal, a buying signal, and a clean path to payment."
+                  words="Elystra is the sales infrastructure for agencies. The system that standardizes, controls, and accelerates the agency sales process after interest exists."
                   className="font-light"
                   wordClassName="text-zinc-200/90"
                   filter={true}
@@ -239,7 +239,7 @@ const Hero = () => {
                   staggerDelay={0.05}
                   startDelay={3.4}
                 />
-              </motion.div>
+      </motion.div>
 
               {/* Proof tiles — breathe + stagger */}
               <motion.div
@@ -256,11 +256,11 @@ const Hero = () => {
               >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   {[
-                    { value: "170+", label: "agencies onboarded" },
+                    { value: "170+", label: "agencies running deals on the rail" },
                     { value: "$4.6M", label: "closed last quarter" },
-                    { value: "+23%", label: "avg close-rate lift" },
+                    { value: "+23%", label: "average close-rate lift" },
                   ].map((s, idx) => (
-                    <motion.div
+      <motion.div
                       key={idx}
                       variants={item}
                       whileHover={{ scale: 1.05, y: -4 }}
@@ -281,10 +281,10 @@ const Hero = () => {
                         <p className="text-sm text-zinc-300/80 mt-1 font-light">
                           {s.label}
                         </p>
-                      </div>
+            </div>
                     </motion.div>
                   ))}
-                </div>
+            </div>
               </motion.div>
 
               {/* Guarantee — pulse */}
@@ -302,8 +302,8 @@ const Hero = () => {
                   <span className="text-sm text-emerald-200/90 font-light">
                     Close-rate moves or you pay nothing
                   </span>
-                </div>
-              </motion.div>
+        </div>
+      </motion.div>
 
               {/* SINGLE CTA — booking only */}
               <motion.div variants={item} className="mb-4">
@@ -363,7 +363,7 @@ const Hero = () => {
               </motion.div>
 
               {/* Micro-benefits — hover lift */}
-              <motion.div
+      <motion.div
                 variants={item}
                 className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-zinc-400/70"
               >
@@ -385,7 +385,7 @@ const Hero = () => {
             </div>
           </motion.div>
         </motion.div>
-      </div>
+        </div>
     </section>
   );
 };

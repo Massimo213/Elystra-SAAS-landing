@@ -15,9 +15,10 @@ const modules = [
   {
     num: '01',
     icon: FileText,
-    title: 'Proposal Engine',
+    title: 'Proposal Standardization Layer',
+    subtitle: 'Proposal Engine',
     headline: 'Your proposal. Same structure. Done while the call is still warm.',
-    subline: "Call recording, notes, or docs in \u2192 your branded scope out. Elystra doesn\u2019t invent a new way to sell. It makes your existing way instant and consistent.",
+    subline: "This is how agencies stop missing quarterly targets because every rep sells a little differently. Call recording, notes, or docs \u2192 your branded scope out. Elystra doesn\u2019t invent a new way to sell. It makes your existing way instant and consistent.",
     bullets: [
       'Takes whatever you have \u2014 notes, transcript, Zoom/Loom link, existing doc \u2014 and turns it into a clean scope',
       'Uses your proposal structure, your pricing logic, your language',
@@ -30,9 +31,10 @@ const modules = [
   {
     num: '02',
     icon: CreditCard,
-    title: 'Close Rail',
+    title: 'Close-and-Collect Rail',
+    subtitle: 'Close Rail',
     headline: 'Review \u2192 sign \u2192 pay in one motion. No invoice gap.',
-    subline: 'The client sees the scope, signs, and pays on the same screen. No DocuSign hop, no Stripe link chase, no "I\u2019ll do it later".',
+    subline: "Once a prospect says yes, Elystra removes the operational dead zone where deals usually cool off, stall, or disappear. The client sees the scope, signs, and pays on the same screen. No DocuSign hop, no Stripe link chase, no \"I'll do it later\".",
     bullets: [
       'Client reviews the full scope, accepts, and signs on the proposal page',
       'Deposit, retainer, or full fee collected in the same flow',
@@ -45,8 +47,9 @@ const modules = [
   {
     num: '03',
     icon: BarChart3,
-    title: 'Deal Intelligence & Follow-Up Brain',
-    headline: 'Every proposal becomes a monitored asset, not a file you lose in email.',
+    title: 'Deal Intelligence Layer',
+    subtitle: 'Deal Intelligence & Follow-Up Brain',
+    headline: 'Every live deal is ranked by urgency and intent, so your team always knows where revenue is actually moving.',
     subline: 'Elystra watches what happens after send and tells you exactly who to move on, when, and why.',
     bullets: [
       'Tracks who opened, how long they stayed, and where they sat on pricing',
@@ -61,7 +64,8 @@ const modules = [
   {
     num: '04',
     icon: Plug,
-    title: 'Ops & Client Portal',
+    title: 'Client Relationship & Ops Layer',
+    subtitle: 'Client Portal',
     headline: 'One close updates your entire stack. Your client gets a live control panel.',
     subline: 'For the agency, a close pushes data into CRM, PM, finance, and Slack. For the client, the portal becomes the only place they expect to see agreements, payments, and renewals.',
     bullets: [
@@ -176,8 +180,11 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
             </span>
           </div>
           
-          {/* Title */}
-          <h3 className="text-xl font-light text-white mb-2">{module.title}</h3>
+          {/* Title + optional subtitle */}
+          <h3 className="text-xl font-light text-white mb-1">{module.title}</h3>
+          {module.subtitle && (
+            <p className={`text-xs ${config.text} opacity-70 mb-2`}>{module.subtitle}</p>
+          )}
 
           {/* Headline */}
           <p className="text-sm text-zinc-200 font-medium mb-3 leading-relaxed">{module.headline}</p>

@@ -105,7 +105,7 @@ const ProcessComparison = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-extralight tracking-tight mb-4">
-            <span className="text-zinc-500">Proposal tools help you </span>
+            <span className="text-zinc-500">Documents don't </span>
             <span 
               style={{
                 background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
@@ -113,11 +113,11 @@ const ProcessComparison = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              send documents.
+              grow agencies.
             </span>
           </h2>
           <h2 className="text-3xl md:text-5xl font-extralight tracking-tight">
-            <span className="text-zinc-500">Elystra helps you </span>
+            <span className="text-zinc-500">Controlled sales systems </span>
             <span 
               style={{
                 background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
@@ -125,7 +125,7 @@ const ProcessComparison = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              collect money.
+              do.
             </span>
           </h2>
         </motion.div>

@@ -51,13 +51,23 @@ const Cta = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl font-extralight text-zinc-400 max-w-2xl mx-auto mb-12"
+          className="text-lg md:text-xl font-extralight text-zinc-400 max-w-2xl mx-auto mb-6"
         >
           Your competitor just closed a deal while you were formatting a PDF.
           <br className="hidden md:block" />
           <span className="text-white font-light">
             Every day you wait is revenue you won't recover.
           </span>
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="text-base md:text-lg font-light text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed"
+        >
+          If your sales process still depends on PDFs, separate signature tools, invoice chasing, and manual follow-up, it is not a system. It is friction.
         </motion.p>
 
         {/* Value props */}
