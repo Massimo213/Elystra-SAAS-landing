@@ -12,6 +12,9 @@ CALENDLY_EVENT_TYPE_URI=https://api.calendly.com/event_types/YOUR_EVENT_TYPE_UUI
 ## Optional
 
 ```env
+# Timezone for slot display/filtering (default: America/New_York)
+DEMO_AVAILABILITY_TIMEZONE=America/New_York
+
 # Meeting location. Default: zoom_conference
 # Options: zoom_conference, google_conference, custom_location, out_of_office
 CALENDLY_LOCATION_KIND=zoom_conference
@@ -58,4 +61,4 @@ If your event type has no location, set `CALENDLY_LOCATION_KIND=` (empty) to omi
 ## Notes
 
 - Calendly's Scheduling API requires a **paid plan**.
-- **Slot alignment**: `SLOTS_PER_DAY` in DemoBookingModal.tsx must match your Calendly availability.
+- **Per-day slot variety**: `PREFERRED_TIMES_BY_WEEKDAY` in `api/demo-availability.ts` controls which times show per weekday. Edit to change Mon vs Thu vs Fri sequences.
