@@ -143,11 +143,6 @@ export function DemoBookingModal({
     setStep(result);
   };
 
-  const handleSlotSelect = (date: Date, slot: string) => {
-    setSelectedDate(date);
-    setSelectedSlot(slot);
-  };
-
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedDate || !selectedSlot) return;
