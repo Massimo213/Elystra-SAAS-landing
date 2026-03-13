@@ -1,9 +1,8 @@
 /**
  * Demo Booking API
  * Receives qualified demo bookings from in-site flow.
- * Creates Calendly event via Scheduling API — no redirect.
- *
- * Env: CALENDLY_API_TOKEN, CALENDLY_EVENT_TYPE_URI, CALENDLY_LOCATION_KIND (optional)
+ * Sends email to elystrateam@gmail.com — you configure the meeting manually.
+ * No Calendly dependency.
  */
 
 interface DemoBookingPayload {
@@ -15,106 +14,90 @@ interface DemoBookingPayload {
   avgDealSize: string;
   role: string;
   agencyType: string;
-  slotDateTime: string; // ISO 8601 UTC
-  timezone?: string; // IANA e.g. America/New_York
+  slotDate: string; // YYYY-MM-DD
+  slotTime: string; // HH:MM
 }
 
-/** Normalize to E.164 for Calendly SMS reminders (e.g. +15551234567) */
-function toE164(phone: string): string {
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length === 10 && !phone.startsWith("+")) {
-    return "+1" + digits; // US default
-  }
-  if (digits.length === 11 && digits.startsWith("1")) {
-    return "+" + digits;
-  }
-  return phone.startsWith("+") ? phone : "+" + digits;
-}
+const TEAM_EMAIL = "elystrateam@gmail.com";
 
-const CALENDLY_BASE = "https://api.calendly.com";
+async function sendBookingEmail(payload: DemoBookingPayload): Promise<void> {
+  const apiKey = process.env.SENDGRID_API_KEY;
+  const fromEmail = process.env.SENDGRID_FROM_EMAIL || "onboarding@elystra.online";
+  const fromName = process.env.SENDGRID_FROM_NAME || "Elystra";
 
-async function createCalendlyInvitee(payload: DemoBookingPayload): Promise<{
-  event: string;
-  cancelUrl: string;
-  rescheduleUrl: string;
-}> {
-  const token = process.env.CALENDLY_API_TOKEN;
-  const eventTypeUri = process.env.CALENDLY_EVENT_TYPE_URI;
-  const locationKind = process.env.CALENDLY_LOCATION_KIND || "zoom_conference";
-
-  if (!token || !eventTypeUri) {
-    throw new Error(
-      "Calendly not configured. Set CALENDLY_API_TOKEN and CALENDLY_EVENT_TYPE_URI."
-    );
+  if (!apiKey) {
+    throw new Error("SENDGRID_API_KEY not configured");
   }
 
-  const timezone = payload.timezone || "America/New_York";
-  const phoneE164 = payload.phone ? toE164(payload.phone) : null;
+  const subject = `Demo Request: ${payload.name} @ ${payload.agencyName} – ${payload.slotDate} ${payload.slotTime}`;
 
-  const invitee: Record<string, unknown> = {
-    name: payload.name,
-    email: payload.email,
-    timezone,
-  };
-  if (phoneE164) {
-    invitee.text_reminder_number = phoneE164;
-  }
+  const textBody = `
+New demo booking from website
 
-  const body: Record<string, unknown> = {
-    event_type: eventTypeUri,
-    start_time: payload.slotDateTime,
-    invitee,
-  };
+--- Lead ---
+Name: ${payload.name}
+Agency: ${payload.agencyName}
+Email: ${payload.email}
+Phone: ${payload.phone}
 
-  // location_configuration (not "location") — must match event type
-  if (locationKind) {
-    body.location_configuration = { kind: locationKind };
-  }
+--- Qualification ---
+Proposals/month: ${payload.proposalsPerMonth}
+Deal size: ${payload.avgDealSize}
+Role: ${payload.role}
+Agency type: ${payload.agencyType}
 
-  // Answer required "Phone number for reminders" custom question (SMS follow-up)
-  if (phoneE164) {
-    body.questions_and_answers = [
-      { question: "Phone number for reminders", answer: phoneE164, position: 0 },
-    ];
-  }
+--- Requested slot ---
+Date: ${payload.slotDate}
+Time: ${payload.slotTime}
 
-  // Agency/qual data: log for your CRM; Calendly invitee creation doesn't support
-  // custom questions via API — add "Agency Name" etc. in Calendly event type if needed
-  console.log("Demo booking qual data:", {
-    agencyName: payload.agencyName,
-    proposalsPerMonth: payload.proposalsPerMonth,
-    avgDealSize: payload.avgDealSize,
-    role: payload.role,
-    agencyType: payload.agencyType,
-  });
+---
+Create the meeting and send the calendar invite to ${payload.email}
+`.trim();
 
-  const res = await fetch(`${CALENDLY_BASE}/invitees`, {
+  const htmlBody = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>body{font-family:-apple-system,sans-serif;line-height:1.6;color:#333;max-width:540px;margin:0 auto;padding:24px}h2{margin:0 0 16px;font-size:18px}.section{margin:16px 0;padding:16px;background:#f5f5f5;border-radius:8px}.section strong{display:inline-block;width:140px}table{width:100%;border-collapse:collapse}td{padding:6px 0;border-bottom:1px solid #eee}.slot{font-size:18px;font-weight:600;color:#7c3aed}</style></head>
+<body>
+  <h2>New demo booking</h2>
+  <div class="section">
+    <strong>Lead</strong><br>
+    ${payload.name} · ${payload.agencyName}<br>
+    <a href="mailto:${payload.email}">${payload.email}</a> · ${payload.phone}
+  </div>
+  <div class="section">
+    <strong>Qualification</strong><br>
+    ${payload.proposalsPerMonth} proposals/mo · ${payload.avgDealSize} deal · ${payload.role} · ${payload.agencyType}
+  </div>
+  <div class="section">
+    <strong>Requested slot</strong><br>
+    <span class="slot">${payload.slotDate} at ${payload.slotTime}</span>
+  </div>
+  <p>Create the meeting and send the calendar invite to <a href="mailto:${payload.email}">${payload.email}</a></p>
+</body>
+</html>
+`;
+
+  const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: TEAM_EMAIL }], subject }],
+      from: { email: fromEmail, name: fromName },
+      content: [
+        { type: "text/plain", value: textBody },
+        { type: "text/html", value: htmlBody },
+      ],
+    }),
   });
 
-  const data = await res.json();
-
   if (!res.ok) {
-    const details = data?.details;
-    const detailStr = Array.isArray(details)
-      ? details.map((d: { parameter?: string; code?: string }) => `${d.parameter || ""}: ${d.code || ""}`).filter(Boolean).join("; ")
-      : "";
-    const errMsg =
-      detailStr || data?.message || data?.title || res.statusText;
-    console.error("Calendly API error:", { status: res.status, data });
-    throw new Error(errMsg || `Calendly API error: ${res.status}`);
+    const err = await res.text();
+    throw new Error(`SendGrid: ${err}`);
   }
-
-  return {
-    event: data.resource?.uri || "",
-    cancelUrl: data.resource?.cancel_url || "",
-    rescheduleUrl: data.resource?.reschedule_url || "",
-  };
 }
 
 const rateLimit = new Map<string, { count: number; resetTime: number }>();
@@ -123,7 +106,6 @@ function checkRateLimit(ip: string): boolean {
   const now = Date.now();
   const windowMs = 60 * 1000;
   const maxRequests = 5;
-
   const record = rateLimit.get(ip);
   if (!record || now > record.resetTime) {
     rateLimit.set(ip, { count: 1, resetTime: now + windowMs });
@@ -161,32 +143,29 @@ export default async function handler(req: any, res: any) {
     if (
       !body.name ||
       !body.agencyName ||
-      !body.email ||
-      !body.email.includes("@") ||
+      !body.email?.includes("@") ||
       !body.phone ||
-      !body.slotDateTime
+      !body.slotDate ||
+      !body.slotTime
     ) {
       res.status(400).json({
         success: false,
-        error: "Missing required fields: name, agencyName, email, phone, slotDateTime",
+        error: "Missing required fields",
       });
       return;
     }
 
-    const result = await createCalendlyInvitee(body);
+    await sendBookingEmail(body);
 
     res.status(200).json({
       success: true,
-      message: "Demo booked. We'll send a calendar invite shortly.",
-      cancelUrl: result.cancelUrl,
-      rescheduleUrl: result.rescheduleUrl,
+      message: "We'll send a calendar invite shortly.",
     });
   } catch (err) {
     console.error("Demo booking error:", err);
-    const msg = err instanceof Error ? err.message : "Booking failed. Please try again.";
     res.status(500).json({
       success: false,
-      error: msg,
+      error: "Booking failed. Please try again.",
     });
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,18 +19,18 @@ type LeadData = {
 
 /* ---------------- Qualification ---------------- */
 const PROPOSAL_OPTIONS = [
-  { value: "1-4", label: "1–4", min: 1, max: 4 },
-  { value: "5-9", label: "5–9", min: 5, max: 9 },
-  { value: "10-24", label: "10–24", min: 10, max: 24 },
-  { value: "25+", label: "25+", min: 25, max: 999 },
+  { value: "1-4", label: "1–4" },
+  { value: "5-9", label: "5–9" },
+  { value: "10-24", label: "10–24" },
+  { value: "25+", label: "25+" },
 ];
 
 const DEAL_SIZE_OPTIONS = [
-  { value: "under-2k", label: "Under $2K", min: 0, max: 2000 },
-  { value: "2k-5k", label: "$2K–$5K", min: 2000, max: 5000 },
-  { value: "5k-15k", label: "$5K–$15K", min: 5000, max: 15000 },
-  { value: "15k-50k", label: "$15K–$50K", min: 15000, max: 50000 },
-  { value: "50k+", label: "$50K+", min: 50000, max: 999999 },
+  { value: "under-2k", label: "Under $2K" },
+  { value: "2k-5k", label: "$2K–$5K" },
+  { value: "5k-15k", label: "$5K–$15K" },
+  { value: "15k-50k", label: "$15K–$50K" },
+  { value: "50k+", label: "$50K+" },
 ];
 
 const ROLE_OPTIONS = [
@@ -49,6 +49,17 @@ const AGENCY_TYPE_OPTIONS = [
   "Other",
 ];
 
+/* ---------------- Our times: 6–8 per day, varied by weekday ---------------- */
+const SLOTS_BY_WEEKDAY: Record<number, string[]> = {
+  0: ["10:00", "14:00"],
+  1: ["09:00", "10:30", "12:00", "15:00", "17:00", "18:00"],
+  2: ["08:30", "11:30", "14:00", "16:30", "17:30"],
+  3: ["08:30", "11:30", "12:00", "14:00", "16:00", "18:00"],
+  4: ["09:30", "11:00", "14:30", "17:00", "18:00"],
+  5: ["09:00", "10:00", "12:30", "15:30", "17:30"],
+  6: ["10:00", "14:00"],
+};
+
 type QualData = {
   proposalsPerMonth: string;
   avgDealSize: string;
@@ -56,18 +67,15 @@ type QualData = {
   agencyType: string;
 };
 
-type Step = "lead" | "qualify" | "qualified" | "not-qualified" | "confirm";
+type Step = "lead" | "qualify" | "qualified" | "confirm" | "not-qualified";
 
 function qualify(data: QualData): "qualified" | "not-qualified" {
   const proposalsVal = PROPOSAL_OPTIONS.find((o) => o.value === data.proposalsPerMonth);
   const dealVal = DEAL_SIZE_OPTIONS.find((o) => o.value === data.avgDealSize);
-
   if (!proposalsVal || !dealVal) return "not-qualified";
-
-  const minProposals = proposalsVal.min;
-  const minDeal = dealVal.min;
-
-  if (minProposals <= 4 && minDeal < 5000) return "not-qualified";
+  if (data.proposalsPerMonth === "1-4" && (data.avgDealSize === "under-2k" || data.avgDealSize === "2k-5k")) {
+    return "not-qualified";
+  }
   return "qualified";
 }
 
@@ -79,24 +87,16 @@ function formatDate(d: Date): string {
   });
 }
 
-function formatSlotTime(iso: string): string {
-  return new Date(iso).toLocaleTimeString(undefined, {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-/** Group ISO slot strings by date key (YYYY-MM-DD) */
-function groupSlotsByDate(slots: string[]): Map<string, string[]> {
-  const map = new Map<string, string[]>();
-  for (const s of slots) {
-    const d = new Date(s);
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-    if (!map.has(key)) map.set(key, []);
-    map.get(key)!.push(s);
+function getNextDays(count: number): Date[] {
+  const days: Date[] = [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  for (let i = 0; i < count; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    days.push(d);
   }
-  for (const arr of map.values()) arr.sort();
-  return map;
+  return days;
 }
 
 const inputClass =
@@ -123,36 +123,18 @@ export function DemoBookingModal({
     role: "",
     agencyType: "",
   });
-  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
-  const [loadingSlots, setLoadingSlots] = useState(false);
-  const [slotsError, setSlotsError] = useState<string | null>(null);
-  const [selectedDateKey, setSelectedDateKey] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const slotsByDate = useMemo(() => groupSlotsByDate(availableSlots), [availableSlots]);
-  const dateKeys = useMemo(() => [...slotsByDate.keys()].sort(), [slotsByDate]);
+  const nextDays = useMemo(() => getNextDays(14), []);
 
-  useEffect(() => {
-    if (step !== "qualified") return;
-    setLoadingSlots(true);
-    setSlotsError(null);
-    setAvailableSlots([]);
-    setSelectedDateKey(null);
-    setSelectedSlot(null);
-    fetch("/api/demo-availability")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.success && Array.isArray(data.slots)) {
-          setAvailableSlots(data.slots);
-        } else {
-          setSlotsError(data.error || "Could not load availability");
-        }
-      })
-      .catch(() => setSlotsError("Could not load availability"))
-      .finally(() => setLoadingSlots(false));
-  }, [step]);
+  const slotsForDate = useMemo(() => {
+    if (!selectedDate) return [];
+    const wd = selectedDate.getDay();
+    return SLOTS_BY_WEEKDAY[wd] || ["10:00", "14:00"];
+  }, [selectedDate]);
 
   const handleLeadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,30 +143,27 @@ export function DemoBookingModal({
 
   const handleQualifySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = qualify(qual);
-    setStep(result);
+    setStep(qualify(qual));
+    if (qualify(qual) === "qualified") {
+      setSelectedDate(null);
+      setSelectedSlot(null);
+    }
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedSlot) return;
+    if (!selectedDate || !selectedSlot) return;
 
     setIsSubmitting(true);
     setSubmitError(null);
 
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const slotDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
 
     const payload = {
-      name: lead.name,
-      agencyName: lead.agencyName,
-      email: lead.email,
-      phone: lead.phone,
-      proposalsPerMonth: qual.proposalsPerMonth,
-      avgDealSize: qual.avgDealSize,
-      role: qual.role,
-      agencyType: qual.agencyType,
-      slotDateTime: selectedSlot,
-      timezone,
+      ...lead,
+      ...qual,
+      slotDate,
+      slotTime: selectedSlot,
     };
 
     try {
@@ -199,20 +178,11 @@ export function DemoBookingModal({
       try {
         data = text ? JSON.parse(text) : {};
       } catch {
-        if (!res.ok) {
-          throw new Error(
-            res.status === 404
-              ? "API not available. Use `vercel dev` for local testing or deploy to Vercel."
-              : `Server error (${res.status})`
-          );
-        }
-        throw new Error("Invalid response from server");
+        if (!res.ok) throw new Error(res.status === 404 ? "API unavailable. Deploy to Vercel." : `Error ${res.status}`);
+        throw new Error("Invalid response");
       }
 
-      if (!res.ok) {
-        throw new Error(data.error || "Booking failed");
-      }
-
+      if (!res.ok) throw new Error(data.error || "Booking failed");
       setStep("confirm");
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -225,14 +195,8 @@ export function DemoBookingModal({
     if (!nextOpen) {
       setStep("lead");
       setLead({ name: "", agencyName: "", email: "", phone: "" });
-      setQual({
-        proposalsPerMonth: "",
-        avgDealSize: "",
-        role: "",
-        agencyType: "",
-      });
-      setAvailableSlots([]);
-      setSelectedDateKey(null);
+      setQual({ proposalsPerMonth: "", avgDealSize: "", role: "", agencyType: "" });
+      setSelectedDate(null);
       setSelectedSlot(null);
       setSubmitError(null);
     }
@@ -244,12 +208,10 @@ export function DemoBookingModal({
       <DialogContent
         className="max-w-lg border-white/10 bg-black/95 backdrop-blur-sm p-0 overflow-hidden max-h-[90vh] overflow-y-auto"
         style={{
-          boxShadow:
-            "0 0 0 1px rgba(255,255,255,0.06), 0 40px 100px rgba(0,0,0,0.8)",
+          boxShadow: "0 0 0 1px rgba(255,255,255,0.06), 0 40px 100px rgba(0,0,0,0.8)",
         }}
       >
         <div className="p-6 md:p-8">
-          {/* Step 1: Lead capture — name, agency, email first */}
           {step === "lead" && (
             <>
               <DialogHeader>
@@ -264,183 +226,72 @@ export function DemoBookingModal({
               <form onSubmit={handleLeadSubmit} className="mt-6 space-y-4">
                 <div>
                   <label className={labelClass}>Your name</label>
-                  <input
-                    type="text"
-                    required
-                    value={lead.name}
-                    onChange={(e) =>
-                      setLead((p) => ({ ...p, name: e.target.value }))
-                    }
-                    className={inputClass}
-                    placeholder="Jane Smith"
-                  />
+                  <input type="text" required value={lead.name} onChange={(e) => setLead((p) => ({ ...p, name: e.target.value }))} className={inputClass} placeholder="Jane Smith" />
                 </div>
                 <div>
                   <label className={labelClass}>Agency name</label>
-                  <input
-                    type="text"
-                    required
-                    value={lead.agencyName}
-                    onChange={(e) =>
-                      setLead((p) => ({ ...p, agencyName: e.target.value }))
-                    }
-                    className={inputClass}
-                    placeholder="Acme Media"
-                  />
+                  <input type="text" required value={lead.agencyName} onChange={(e) => setLead((p) => ({ ...p, agencyName: e.target.value }))} className={inputClass} placeholder="Acme Media" />
                 </div>
                 <div>
                   <label className={labelClass}>Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={lead.email}
-                    onChange={(e) =>
-                      setLead((p) => ({ ...p, email: e.target.value }))
-                    }
-                    className={inputClass}
-                    placeholder="jane@acmemedia.com"
-                  />
+                  <input type="email" required value={lead.email} onChange={(e) => setLead((p) => ({ ...p, email: e.target.value }))} className={inputClass} placeholder="jane@acmemedia.com" />
                 </div>
                 <div>
-                  <label className={labelClass}>Phone (for SMS reminders)</label>
-                  <input
-                    type="tel"
-                    required
-                    value={lead.phone}
-                    onChange={(e) =>
-                      setLead((p) => ({ ...p, phone: e.target.value }))
-                    }
-                    className={inputClass}
-                    placeholder="+1 555 123 4567"
-                  />
+                  <label className={labelClass}>Phone</label>
+                  <input type="tel" required value={lead.phone} onChange={(e) => setLead((p) => ({ ...p, phone: e.target.value }))} className={inputClass} placeholder="+1 555 123 4567" />
                 </div>
-
-                <button
-                  type="submit"
-                  className="w-full mt-6 flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)",
-                    boxShadow: "0 0 40px rgba(139,92,246,0.3)",
-                  }}
-                >
-                  Continue
-                  <ArrowRight className="w-4 h-4" />
+                <button type="submit" className="w-full mt-6 flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium" style={{ background: "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)", boxShadow: "0 0 40px rgba(139,92,246,0.3)" }}>
+                  Continue <ArrowRight className="w-4 h-4" />
                 </button>
               </form>
             </>
           )}
 
-          {/* Step 2: Qualification */}
           {step === "qualify" && (
             <>
               <DialogHeader>
                 <DialogTitle className="text-xl font-light text-white text-center">
                   Four quick questions
                 </DialogTitle>
-                <p className="text-sm text-zinc-400 font-light text-center mt-1">
-                  Qualified agencies only.
-                </p>
+                <p className="text-sm text-zinc-400 font-light text-center mt-1">Qualified agencies only.</p>
               </DialogHeader>
 
               <form onSubmit={handleQualifySubmit} className="mt-6 space-y-4">
                 <div>
-                  <label className={labelClass}>
-                    How many proposals do you send per month?
-                  </label>
-                  <select
-                    required
-                    value={qual.proposalsPerMonth}
-                    onChange={(e) =>
-                      setQual((p) => ({ ...p, proposalsPerMonth: e.target.value }))
-                    }
-                    className={inputClass}
-                  >
+                  <label className={labelClass}>How many proposals do you send per month?</label>
+                  <select required value={qual.proposalsPerMonth} onChange={(e) => setQual((p) => ({ ...p, proposalsPerMonth: e.target.value }))} className={inputClass}>
                     <option value="">Select</option>
-                    {PROPOSAL_OPTIONS.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
+                    {PROPOSAL_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
                 </div>
-
                 <div>
                   <label className={labelClass}>What is your average deal size?</label>
-                  <select
-                    required
-                    value={qual.avgDealSize}
-                    onChange={(e) =>
-                      setQual((p) => ({ ...p, avgDealSize: e.target.value }))
-                    }
-                    className={inputClass}
-                  >
+                  <select required value={qual.avgDealSize} onChange={(e) => setQual((p) => ({ ...p, avgDealSize: e.target.value }))} className={inputClass}>
                     <option value="">Select</option>
-                    {DEAL_SIZE_OPTIONS.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
+                    {DEAL_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
                 </div>
-
                 <div>
                   <label className={labelClass}>What is your role?</label>
-                  <select
-                    required
-                    value={qual.role}
-                    onChange={(e) =>
-                      setQual((p) => ({ ...p, role: e.target.value }))
-                    }
-                    className={inputClass}
-                  >
+                  <select required value={qual.role} onChange={(e) => setQual((p) => ({ ...p, role: e.target.value }))} className={inputClass}>
                     <option value="">Select</option>
-                    {ROLE_OPTIONS.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
+                    {ROLE_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
                   </select>
                 </div>
-
                 <div>
-                  <label className={labelClass}>
-                    What type of agency are you?
-                  </label>
-                  <select
-                    required
-                    value={qual.agencyType}
-                    onChange={(e) =>
-                      setQual((p) => ({ ...p, agencyType: e.target.value }))
-                    }
-                    className={inputClass}
-                  >
+                  <label className={labelClass}>What type of agency are you?</label>
+                  <select required value={qual.agencyType} onChange={(e) => setQual((p) => ({ ...p, agencyType: e.target.value }))} className={inputClass}>
                     <option value="">Select</option>
-                    {AGENCY_TYPE_OPTIONS.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
+                    {AGENCY_TYPE_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
                   </select>
                 </div>
-
-                <button
-                  type="submit"
-                  className="w-full mt-6 flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)",
-                    boxShadow: "0 0 40px rgba(139,92,246,0.3)",
-                  }}
-                >
-                  Continue
-                  <ArrowRight className="w-4 h-4" />
+                <button type="submit" className="w-full mt-6 flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium" style={{ background: "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)", boxShadow: "0 0 40px rgba(139,92,246,0.3)" }}>
+                  Continue <ArrowRight className="w-4 h-4" />
                 </button>
               </form>
             </>
           )}
 
-          {/* Step 3: In-site slot picker — real Calendly availability */}
           {step === "qualified" && (
             <>
               <DialogHeader>
@@ -448,113 +299,50 @@ export function DemoBookingModal({
                   Pick the closest time you can actually protect
                 </DialogTitle>
                 <p className="text-sm text-zinc-400 font-light text-center mt-1">
-                  Qualified agencies only. All times in your local timezone.
+                  We&apos;ll email you and send a calendar invite.
                 </p>
               </DialogHeader>
 
-              <form
-                onSubmit={handleBookingSubmit}
-                className="mt-6 space-y-6"
-              >
-                {loadingSlots && (
-                  <p className="text-sm text-zinc-400 text-center">Loading availability…</p>
-                )}
-                {slotsError && (
-                  <p className="text-sm text-amber-400 text-center">{slotsError}</p>
-                )}
-                {!loadingSlots && !slotsError && dateKeys.length > 0 && (
-                  <>
-                    <div>
-                      <p className={labelClass}>
-                        <Calendar className="inline w-3.5 h-3.5 mr-1" />
-                        Date
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {dateKeys.map((key) => {
-                          const d = new Date(key + "T12:00:00Z");
-                          const isSelected = selectedDateKey === key;
-                          return (
-                            <button
-                              key={key}
-                              type="button"
-                              onClick={() => {
-                                setSelectedDateKey(key);
-                                setSelectedSlot(null);
-                              }}
-                              className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${
-                                isSelected
-                                  ? "bg-violet-600 text-white"
-                                  : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"
-                              }`}
-                            >
-                              {formatDate(d)}
-                            </button>
-                          );
-                        })}
-                      </div>
+              <form onSubmit={handleBookingSubmit} className="mt-6 space-y-6">
+                <div>
+                  <p className={labelClass}><Calendar className="inline w-3.5 h-3.5 mr-1" />Date</p>
+                  <div className="flex flex-wrap gap-2">
+                    {nextDays.map((d) => {
+                      const isSelected = selectedDate?.toDateString() === d.toDateString();
+                      return (
+                        <button key={d.toISOString()} type="button" onClick={() => { setSelectedDate(d); setSelectedSlot(null); }} className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${isSelected ? "bg-violet-600 text-white" : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"}`}>
+                          {formatDate(d)}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {selectedDate && slotsForDate.length > 0 && (
+                  <div>
+                    <p className={labelClass}><Clock className="inline w-3.5 h-3.5 mr-1" />Time</p>
+                    <div className="flex flex-wrap gap-2">
+                      {slotsForDate.map((slot) => {
+                        const isSelected = selectedSlot === slot;
+                        return (
+                          <button key={slot} type="button" onClick={() => setSelectedSlot(slot)} className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${isSelected ? "bg-violet-600 text-white" : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"}`}>
+                            {slot}
+                          </button>
+                        );
+                      })}
                     </div>
-
-                    {selectedDateKey && slotsByDate.get(selectedDateKey) && (
-                      <div>
-                        <p className={labelClass}>
-                          <Clock className="inline w-3.5 h-3.5 mr-1" />
-                          Time
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {slotsByDate.get(selectedDateKey)!.map((iso) => {
-                            const isSelected = selectedSlot === iso;
-                            return (
-                              <button
-                                key={iso}
-                                type="button"
-                                onClick={() => setSelectedSlot(iso)}
-                                className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${
-                                  isSelected
-                                    ? "bg-violet-600 text-white"
-                                    : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"
-                                }`}
-                              >
-                                {formatSlotTime(iso)}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </>
+                  </div>
                 )}
 
-                {submitError && (
-                  <p className="text-xs text-red-400 text-center">
-                    {submitError}
-                  </p>
-                )}
+                {submitError && <p className="text-xs text-red-400 text-center">{submitError}</p>}
 
-                <button
-                  type="submit"
-                  disabled={!selectedSlot || isSubmitting}
-                  className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)",
-                    boxShadow: "0 0 40px rgba(139,92,246,0.3)",
-                  }}
-                >
-                  {isSubmitting ? (
-                    "Booking…"
-                  ) : (
-                    <>
-                      <Sparkles className="w-4 h-4" />
-                      Confirm demo
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
+                <button type="submit" disabled={!selectedDate || !selectedSlot || isSubmitting} className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium disabled:opacity-50" style={{ background: "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)", boxShadow: "0 0 40px rgba(139,92,246,0.3)" }}>
+                  {isSubmitting ? "Sending…" : <><Sparkles className="w-4 h-4" />Confirm demo <ArrowRight className="w-4 h-4" /></>}
                 </button>
               </form>
             </>
           )}
 
-          {/* Step: Confirmed */}
           {step === "confirm" && (
             <>
               <DialogHeader>
@@ -562,23 +350,15 @@ export function DemoBookingModal({
                   You&apos;re all set
                 </DialogTitle>
                 <p className="text-sm text-zinc-400 font-light text-center mt-1 max-w-sm mx-auto">
-                  We&apos;ll send a calendar invite to {lead.email} and reach out to confirm.
+                  We got your request. We&apos;ll create the meeting and send a calendar invite to {lead.email}.
                 </p>
               </DialogHeader>
-
               <div className="mt-6 text-center">
-                <button
-                  type="button"
-                  onClick={() => handleClose(false)}
-                  className="text-violet-400 hover:text-violet-300 text-sm font-light"
-                >
-                  Close
-                </button>
+                <button type="button" onClick={() => handleClose(false)} className="text-violet-400 hover:text-violet-300 text-sm font-light">Close</button>
               </div>
             </>
           )}
 
-          {/* Not qualified */}
           {step === "not-qualified" && (
             <>
               <DialogHeader>
@@ -586,22 +366,11 @@ export function DemoBookingModal({
                   Not the right fit right now
                 </DialogTitle>
                 <p className="text-sm text-zinc-400 font-light text-center mt-1 max-w-sm mx-auto">
-                  Elystra is built for agencies sending 6+ proposals per month with
-                  $5K+ deal sizes. We&apos;re optimizing for serious close volume.
+                  Elystra is built for agencies sending 6+ proposals per month with $5K+ deal sizes.
                 </p>
               </DialogHeader>
-
               <div className="mt-6 space-y-3">
-                <p className="text-xs text-zinc-500 text-center">
-                  When you&apos;re ready, we&apos;ll still be here.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => handleClose(false)}
-                  className="block w-full text-center text-sm text-violet-400 hover:text-violet-300 font-light"
-                >
-                  Back to site
-                </button>
+                <button type="button" onClick={() => handleClose(false)} className="block w-full text-center text-sm text-violet-400 hover:text-violet-300 font-light">Back to site</button>
               </div>
             </>
           )}

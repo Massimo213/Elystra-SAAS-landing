@@ -1,6 +1,20 @@
-# Calendly API Setup
+# Calendly Setup
 
-The demo booking flow creates Calendly events via the Scheduling API — no redirect. Add these to `.env`:
+The demo booking flow uses the **Calendly embed** — works on free plans, no API required. Users stay on your site.
+
+## Embed (Current — Free Plan)
+
+- Lead capture → qualification → Calendly inline widget in the modal
+- Name, email, phone are pre-filled from the qualifier
+- No `CALENDLY_API_TOKEN` or `CALENDLY_EVENT_TYPE_URI` needed
+
+To change the event URL: edit `CALENDLY_URL` in `src/components/DemoBookingModal.tsx`.
+
+---
+
+## API Setup (Paid Plan Only)
+
+If you upgrade to a Calendly paid plan and want the API flow back, add these to `.env`:
 
 ## Required
 
