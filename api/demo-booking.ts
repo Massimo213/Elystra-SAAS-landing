@@ -64,10 +64,6 @@ async function createCalendlyInvitee(payload: DemoBookingPayload): Promise<{
     event_type: eventTypeUri,
     start_time: payload.slotDateTime,
     invitee,
-    tracking: {
-      utm_source: "website",
-      utm_medium: "demo_booking",
-    },
   };
 
   // location_configuration (not "location") — must match event type
