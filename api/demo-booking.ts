@@ -21,12 +21,12 @@ interface DemoBookingPayload {
 const TEAM_EMAIL = "elystrateam@gmail.com";
 
 async function sendBookingEmail(payload: DemoBookingPayload): Promise<void> {
-  const apiKey = process.env.SENDGRID_API_KEY;
+  const apiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.SENDGRID_FROM_EMAIL || "onboarding@elystra.online";
   const fromName = process.env.SENDGRID_FROM_NAME || "Elystra";
 
   if (!apiKey) {
-    throw new Error("SENDGRID_API_KEY not configured");
+    throw new Error("RESEND_API_KEY not configured");
   }
 
   const subject = `Demo Request: ${payload.name} @ ${payload.agencyName} – ${payload.slotDate} ${payload.slotTime}`;
@@ -78,25 +78,24 @@ Create the meeting and send the calendar invite to ${payload.email}
 </html>
 `;
 
-  const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+  const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      personalizations: [{ to: [{ email: TEAM_EMAIL }], subject }],
-      from: { email: fromEmail, name: fromName },
-      content: [
-        { type: "text/plain", value: textBody },
-        { type: "text/html", value: htmlBody },
-      ],
+      from: `${fromName} <${fromEmail}>`,
+      to: [TEAM_EMAIL],
+      subject,
+      text: textBody,
+      html: htmlBody,
     }),
   });
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`SendGrid: ${err}`);
+    throw new Error(`Resend: ${err}`);
   }
 }
 
