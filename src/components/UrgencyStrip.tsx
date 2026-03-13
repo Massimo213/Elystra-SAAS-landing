@@ -6,8 +6,10 @@
 
 import { motion } from 'framer-motion';
 import { Zap, ArrowRight } from 'lucide-react';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
 const UrgencyStrip = () => {
+  const { openDemoBooking } = useDemoBooking();
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
@@ -35,15 +37,14 @@ const UrgencyStrip = () => {
             </span>
           </div>
 
-          <a
-            href="https://calendly.com/onboarding-elystra/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={openDemoBooking}
             className="hidden md:flex items-center gap-1.5 text-xs text-violet-300 hover:text-white transition-colors font-light"
           >
             See it live
             <ArrowRight className="w-3 h-3" />
-          </a>
+          </button>
         </div>
       </div>
     </motion.div>

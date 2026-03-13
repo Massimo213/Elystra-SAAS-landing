@@ -7,6 +7,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
 /* ---------------- FAQ Data ---------------- */
 const faqs = [
@@ -157,6 +158,7 @@ const FaqItem = ({ faq, isOpen, onToggle }: FaqItemProps) => {
 
 /* ---------------- Main Component ---------------- */
 const Faq = () => {
+  const { openDemoBooking } = useDemoBooking();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -235,14 +237,13 @@ const Faq = () => {
         >
           <p className="text-sm text-zinc-500 font-light">
             Still have questions?{' '}
-                <a 
-                  href="https://calendly.com/onboarding-elystra/30min" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={openDemoBooking}
               className="text-violet-400 hover:text-violet-300 transition-colors underline underline-offset-4"
             >
               Book a demo and we will answer everything live
-            </a>
+            </button>
           </p>
         </motion.div>
       </div>

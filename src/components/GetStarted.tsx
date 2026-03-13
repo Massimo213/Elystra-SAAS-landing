@@ -6,6 +6,7 @@
 import { motion, useInView, Variants } from 'framer-motion';
 import { useRef } from 'react';
 import Faq from '@/components/Faq';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 const containerVariants: Variants = {
@@ -27,6 +28,7 @@ const itemVariants: Variants = {
 const GetStarted = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const { openDemoBooking } = useDemoBooking();
 
   return (
     <section 
@@ -54,10 +56,9 @@ const GetStarted = () => {
             <span className="text-zinc-500">170+ agencies. $4.6M closed last quarter. +23% avg close-rate lift.</span>
           </p>
 
-          <motion.a
-            href="https://calendly.com/onboarding-elystra/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.button
+            type="button"
+            onClick={openDemoBooking}
             className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full overflow-hidden"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -78,7 +79,7 @@ const GetStarted = () => {
               <span className="text-lg font-medium text-white">Book a 7-Minute Demo</span>
               <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
             </div>
-          </motion.a>
+          </motion.button>
 
           <p className="mt-5 text-sm text-zinc-600 font-light">
             30-day guarantee · close-rate moves or you pay nothing

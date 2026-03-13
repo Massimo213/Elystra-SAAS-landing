@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Calculator, TrendingDown, AlertTriangle, ArrowRight, Flame } from 'lucide-react';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
 /* ---------------- Animated Counter ---------------- */
 const AnimatedNumber = ({ value, prefix = '', suffix = '' }: { value: number; prefix?: string; suffix?: string }) => {
@@ -29,6 +30,7 @@ const AnimatedNumber = ({ value, prefix = '', suffix = '' }: { value: number; pr
 };
 
 const BleedingCalculator = () => {
+  const { openDemoBooking } = useDemoBooking();
   const [proposalsPerMonth, setProposalsPerMonth] = useState(10);
   const [avgDealSize, setAvgDealSize] = useState(15000);
   const [closeRate, setCloseRate] = useState(30);
@@ -393,10 +395,9 @@ const BleedingCalculator = () => {
                     </div>
 
                     {/* CTA */}
-                    <motion.a
-                      href="https://calendly.com/onboarding-elystra/30min"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <motion.button
+                      type="button"
+                      onClick={openDemoBooking}
                       className="relative flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-medium text-white overflow-hidden"
                       style={{
                         background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
@@ -416,7 +417,7 @@ const BleedingCalculator = () => {
                       />
                       <span className="relative z-10">Book a 7-Minute Demo</span>
                       <ArrowRight className="w-5 h-5 relative z-10" />
-                    </motion.a>
+                    </motion.button>
                   </motion.div>
                 </AnimatePresence>
               </div>

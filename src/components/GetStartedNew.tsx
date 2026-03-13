@@ -8,6 +8,7 @@ import { motion, useInView, Variants } from 'motion/react';
 import { useRef, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { 
   Mail, 
   HelpCircle,
@@ -79,7 +80,9 @@ const captureTrackingData = (): TrackingData => {
 };
 
 /* ---------------- How it Works Modal ---------------- */
-const HowItWorksModal = () => (
+const HowItWorksModal = () => {
+  const { openDemoBooking } = useDemoBooking();
+  return (
   <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white border-0 rounded-3xl p-0">
     <div className="relative p-8 md:p-12">
       {/* Header */}
@@ -222,15 +225,17 @@ const HowItWorksModal = () => (
         <p className="text-slate-800 mb-4">
           See how agencies close deals 3x faster. Book a live demo and we'll walk you through the complete flow.
         </p>
-        <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
-          <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold">
-            Book Your Demo
-          </Button>
-        </a>
+        <Button
+          onClick={openDemoBooking}
+          className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold"
+        >
+          Book Your Demo
+        </Button>
       </div>
     </div>
   </DialogContent>
-);
+  );
+};
 
 const EmailCapture = () => {
   const [email, setEmail] = useState('');

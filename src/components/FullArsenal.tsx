@@ -8,6 +8,7 @@ import {
   FileText, CreditCard, BarChart3, Plug, 
   ArrowRight, CheckCircle
 } from 'lucide-react';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { CometCard } from '@/components/ui/comet-card';
 
 /* ---------------- 4 Core Modules ---------------- */
@@ -224,6 +225,7 @@ const ModuleCard = ({ module }: ModuleCardProps) => {
 
 /* ---------------- Main Component ---------------- */
 const FullArsenal = () => {
+  const { openDemoBooking } = useDemoBooking();
   return (
     <section id="the-rail" className="relative py-28 md:py-36 overflow-hidden bg-transparent">
       {/* Static background accents */}
@@ -318,10 +320,9 @@ const FullArsenal = () => {
           transition={{ delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <motion.a
-            href="https://calendly.com/onboarding-elystra/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.button
+            type="button"
+            onClick={openDemoBooking}
             className="group inline-flex items-center gap-3 px-8 py-4 rounded-full"
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
@@ -332,7 +333,7 @@ const FullArsenal = () => {
           >
             <span className="text-sm font-light text-white">Book a 7-Minute Demo</span>
             <ArrowRight className="w-4 h-4 text-violet-400 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
+          </motion.button>
         </motion.div>
       </div>
     </section>

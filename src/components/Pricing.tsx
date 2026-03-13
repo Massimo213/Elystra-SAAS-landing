@@ -1,10 +1,12 @@
 import { pricingData } from "@/constants";
 import { CheckIcon, Sparkles, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { useDemoBooking } from "@/contexts/DemoBookingContext";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 
 export default function Pricing() {
+  const { openDemoBooking } = useDemoBooking();
   return (
     <div id='pricing' className="bg-white">
       <div className="py-24 sm:py-32">
@@ -110,17 +112,16 @@ export default function Pricing() {
                     ))}
                   </ul>
                 </div>
-                <a href="https://calendly.com/onboarding-elystra/30min" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    className={`mt-8 w-full transition-all duration-300 ${
-                      plan.popular 
-                        ? 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20' 
-                        : 'bg-white text-primary hover:bg-gray-50 hover:shadow-md border border-gray-200'
-                    }`}
-                  >
-                    {plan.cta}
-                  </Button>
-                </a>
+                <Button
+                  onClick={openDemoBooking}
+                  className={`mt-8 w-full transition-all duration-300 ${
+                    plan.popular 
+                      ? 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20' 
+                      : 'bg-white text-primary hover:bg-gray-50 hover:shadow-md border border-gray-200'
+                  }`}
+                >
+                  {plan.cta}
+                </Button>
               </motion.div>
             ))}
           </motion.div>

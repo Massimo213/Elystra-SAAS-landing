@@ -9,6 +9,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
+import { useDemoBooking } from "@/contexts/DemoBookingContext";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { EncryptedText } from "@/components/ui/encrypted-text";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -58,6 +59,7 @@ const glowTextShadow =
   "0 2px 18px rgba(0,0,0,0.88), 0 0 44px rgba(0,0,0,0.60)";
 
 const Hero = () => {
+  const { openDemoBooking } = useDemoBooking();
   return (
     <section className="relative min-h-screen overflow-hidden bg-transparent">
       {/* Bottom Waves only */}
@@ -307,11 +309,10 @@ const Hero = () => {
 
               {/* SINGLE CTA — booking only */}
               <motion.div variants={item} className="mb-4">
-                <motion.a
-                  href="https://calendly.com/onboarding-elystra/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-4 px-10 md:px-12 py-5 md:py-6 rounded-full text-white overflow-hidden"
+                <motion.button
+                  type="button"
+                  onClick={openDemoBooking}
+                  className="group relative inline-flex items-center gap-4 px-10 md:px-12 py-5 md:py-6 rounded-full text-white overflow-hidden w-full sm:w-auto justify-center"
                   style={{
                     background:
                       "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(147,51,234,1) 55%, rgba(99,102,241,1) 100%)",
@@ -352,7 +353,7 @@ const Hero = () => {
                   </span>
 
                   <ArrowRight className="w-5 h-5 relative z-10 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.a>
+                </motion.button>
 
                 <p
                   className="mt-5 text-sm text-zinc-300/70 font-light"

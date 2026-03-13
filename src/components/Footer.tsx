@@ -44,10 +44,23 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-8 pt-6 border-t border-white/[0.04] text-center">
+        <div className="mt-8 pt-6 border-t border-white/[0.04] flex flex-col md:flex-row items-center justify-center gap-6">
           <p className="text-xs text-zinc-600 font-light">
             © {new Date().getFullYear()} Elystra. Proposal-to-cash infrastructure for agencies.
           </p>
+          <a
+            href="https://www.aicpa.org/soc4so"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-80 hover:opacity-100 transition-opacity"
+            aria-label="AICPA SOC for Service Organizations"
+          >
+            <img
+              src="/ACIPA.png"
+              alt="AICPA SOC for Service Organizations"
+              className="h-14 w-14 object-contain"
+            />
+          </a>
         </div>
       </div>
     </footer>

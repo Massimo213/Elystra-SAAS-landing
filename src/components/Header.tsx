@@ -8,11 +8,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '@/assets/LogoElystra.png';
+import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight, X, Menu } from 'lucide-react';
 import { navMenu } from '@/constants';
 
 const Header = () => {
+  const { openDemoBooking } = useDemoBooking();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -154,13 +156,10 @@ const Header = () => {
             </Link>
 
             {/* CTA */}
-            <a
-              href="https://calendly.com/onboarding-elystra/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:flex"
-            >
+            <div className="hidden lg:flex">
               <motion.button
+                type="button"
+                onClick={openDemoBooking}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className="group relative flex items-center gap-2.5 px-6 py-2.5 rounded-full text-white text-sm font-light overflow-hidden cursor-pointer"
@@ -189,7 +188,7 @@ const Header = () => {
                 <span className="relative z-10 tracking-wide">Book Demo</span>
                 <ArrowRight className="w-3.5 h-3.5 relative z-10 group-hover:translate-x-0.5 transition-transform duration-300" />
               </motion.button>
-            </a>
+            </div>
 
             {/* Mobile toggle */}
             <button
@@ -248,10 +247,9 @@ const Header = () => {
                 </Link>
               </motion.div>
 
-              <motion.a
-                href="https://calendly.com/onboarding-elystra/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.button
+                type="button"
+                onClick={() => { openDemoBooking(); setMobileOpen(false); }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
@@ -265,7 +263,7 @@ const Header = () => {
                 <Sparkles className="w-4 h-4" />
                 <span>Book a 7-Minute Demo</span>
                 <ArrowRight className="w-4 h-4" />
-              </motion.a>
+              </motion.button>
             </nav>
           </motion.div>
         )}

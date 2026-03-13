@@ -2,6 +2,7 @@ import { ReactLenis } from 'lenis/react';
 import { Routes, Route } from 'react-router-dom';
 
 import { Analytics } from '@vercel/analytics/react';
+import { DemoBookingProvider } from '@/contexts/DemoBookingContext';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Review from '@/components/Review';
@@ -81,20 +82,22 @@ const lenisOptions = {
 
 const App = () => {
   return (
-    <ReactLenis root options={lenisOptions}>
-      <Analytics /> 
-      <div className='relative isolate overflow-hidden bg-black min-h-screen'>
-        <GlobalVortex />
-        <Header />
-        <Routes>
+    <DemoBookingProvider>
+      <ReactLenis root options={lenisOptions}>
+        <Analytics /> 
+        <div className='relative isolate overflow-hidden bg-black min-h-screen'>
+          <GlobalVortex />
+          <Header />
+          <Routes>
           <Route path="/" element={<MainContent />} />
           
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
-        </Routes>
-      </div>
-    </ReactLenis>
+          </Routes>
+        </div>
+      </ReactLenis>
+    </DemoBookingProvider>
   );
 };
 
