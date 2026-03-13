@@ -70,9 +70,9 @@ async function createCalendlyInvitee(payload: DemoBookingPayload): Promise<{
     },
   };
 
-  // Location required if event type has one; omit if event type has no location
+  // location_configuration (not "location") — must match event type
   if (locationKind) {
-    body.location = { kind: locationKind };
+    body.location_configuration = { kind: locationKind };
   }
 
   // Answer required "Phone number for reminders" custom question (SMS follow-up)
@@ -104,8 +104,12 @@ async function createCalendlyInvitee(payload: DemoBookingPayload): Promise<{
   const data = await res.json();
 
   if (!res.ok) {
+    const details = data?.details;
+    const detailStr = Array.isArray(details)
+      ? details.map((d: { parameter?: string; code?: string }) => `${d.parameter || ""}: ${d.code || ""}`).filter(Boolean).join("; ")
+      : "";
     const errMsg =
-      data?.message || data?.errors?.[0]?.message || data?.title || res.statusText;
+      detailStr || data?.message || data?.title || res.statusText;
     console.error("Calendly API error:", { status: res.status, data });
     throw new Error(errMsg || `Calendly API error: ${res.status}`);
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -49,16 +49,6 @@ const AGENCY_TYPE_OPTIONS = [
   "Other",
 ];
 
-/* ---------------- In-site slots: 5–6 per day that work for you ---------------- */
-const SLOTS_PER_DAY = [
-  "09:00",
-  "11:00",
-  "14:00",
-  "16:00",
-  "17:00",
-  "18:00",
-] as const; // 6 slots — adjust to your availability
-
 type QualData = {
   proposalsPerMonth: string;
   avgDealSize: string;
@@ -89,16 +79,24 @@ function formatDate(d: Date): string {
   });
 }
 
-function getNextDays(count: number): Date[] {
-  const days: Date[] = [];
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  for (let i = 0; i < count; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
-    days.push(d);
+function formatSlotTime(iso: string): string {
+  return new Date(iso).toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/** Group ISO slot strings by date key (YYYY-MM-DD) */
+function groupSlotsByDate(slots: string[]): Map<string, string[]> {
+  const map = new Map<string, string[]>();
+  for (const s of slots) {
+    const d = new Date(s);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(s);
   }
-  return days;
+  for (const arr of map.values()) arr.sort();
+  return map;
 }
 
 const inputClass =
@@ -125,12 +123,36 @@ export function DemoBookingModal({
     role: "",
     agencyType: "",
   });
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [slotsError, setSlotsError] = useState<string | null>(null);
+  const [selectedDateKey, setSelectedDateKey] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const nextDays = useMemo(() => getNextDays(14), []);
+  const slotsByDate = useMemo(() => groupSlotsByDate(availableSlots), [availableSlots]);
+  const dateKeys = useMemo(() => [...slotsByDate.keys()].sort(), [slotsByDate]);
+
+  useEffect(() => {
+    if (step !== "qualified") return;
+    setLoadingSlots(true);
+    setSlotsError(null);
+    setAvailableSlots([]);
+    setSelectedDateKey(null);
+    setSelectedSlot(null);
+    fetch("/api/demo-availability")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.slots)) {
+          setAvailableSlots(data.slots);
+        } else {
+          setSlotsError(data.error || "Could not load availability");
+        }
+      })
+      .catch(() => setSlotsError("Could not load availability"))
+      .finally(() => setLoadingSlots(false));
+  }, [step]);
 
   const handleLeadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,14 +167,10 @@ export function DemoBookingModal({
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDate || !selectedSlot) return;
+    if (!selectedSlot) return;
 
     setIsSubmitting(true);
     setSubmitError(null);
-
-    const slotDateTime = new Date(selectedDate);
-    const [h, m] = selectedSlot.split(":").map(Number);
-    slotDateTime.setHours(h, m, 0, 0);
 
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -165,7 +183,7 @@ export function DemoBookingModal({
       avgDealSize: qual.avgDealSize,
       role: qual.role,
       agencyType: qual.agencyType,
-      slotDateTime: slotDateTime.toISOString(),
+      slotDateTime: selectedSlot,
       timezone,
     };
 
@@ -213,7 +231,8 @@ export function DemoBookingModal({
         role: "",
         agencyType: "",
       });
-      setSelectedDate(null);
+      setAvailableSlots([]);
+      setSelectedDateKey(null);
       setSelectedSlot(null);
       setSubmitError(null);
     }
@@ -421,7 +440,7 @@ export function DemoBookingModal({
             </>
           )}
 
-          {/* Step 3: In-site slot picker — 5–6 times per day, no Calendly */}
+          {/* Step 3: In-site slot picker — real Calendly availability */}
           {step === "qualified" && (
             <>
               <DialogHeader>
@@ -437,62 +456,72 @@ export function DemoBookingModal({
                 onSubmit={handleBookingSubmit}
                 className="mt-6 space-y-6"
               >
-                <div>
-                  <p className={labelClass}>
-                    <Calendar className="inline w-3.5 h-3.5 mr-1" />
-                    Date
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {nextDays.map((d) => {
-                      const isSelected =
-                        selectedDate?.toDateString() === d.toDateString();
-                      return (
-                        <button
-                          key={d.toISOString()}
-                          type="button"
-                          onClick={() => {
-                            setSelectedDate(d);
-                            setSelectedSlot(null);
-                          }}
-                          className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${
-                            isSelected
-                              ? "bg-violet-600 text-white"
-                              : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"
-                          }`}
-                        >
-                          {formatDate(d)}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {selectedDate && (
-                  <div>
-                    <p className={labelClass}>
-                      <Clock className="inline w-3.5 h-3.5 mr-1" />
-                      Time
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {SLOTS_PER_DAY.map((slot) => {
-                        const isSelected = selectedSlot === slot;
-                        return (
-                          <button
-                            key={slot}
-                            type="button"
-                            onClick={() => setSelectedSlot(slot)}
-                            className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${
-                              isSelected
-                                ? "bg-violet-600 text-white"
-                                : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"
-                            }`}
-                          >
-                            {slot}
-                          </button>
-                        );
-                      })}
+                {loadingSlots && (
+                  <p className="text-sm text-zinc-400 text-center">Loading availability…</p>
+                )}
+                {slotsError && (
+                  <p className="text-sm text-amber-400 text-center">{slotsError}</p>
+                )}
+                {!loadingSlots && !slotsError && dateKeys.length > 0 && (
+                  <>
+                    <div>
+                      <p className={labelClass}>
+                        <Calendar className="inline w-3.5 h-3.5 mr-1" />
+                        Date
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {dateKeys.map((key) => {
+                          const d = new Date(key + "T12:00:00Z");
+                          const isSelected = selectedDateKey === key;
+                          return (
+                            <button
+                              key={key}
+                              type="button"
+                              onClick={() => {
+                                setSelectedDateKey(key);
+                                setSelectedSlot(null);
+                              }}
+                              className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${
+                                isSelected
+                                  ? "bg-violet-600 text-white"
+                                  : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"
+                              }`}
+                            >
+                              {formatDate(d)}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
+
+                    {selectedDateKey && slotsByDate.get(selectedDateKey) && (
+                      <div>
+                        <p className={labelClass}>
+                          <Clock className="inline w-3.5 h-3.5 mr-1" />
+                          Time
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {slotsByDate.get(selectedDateKey)!.map((iso) => {
+                            const isSelected = selectedSlot === iso;
+                            return (
+                              <button
+                                key={iso}
+                                type="button"
+                                onClick={() => setSelectedSlot(iso)}
+                                className={`px-4 py-2.5 rounded-xl text-sm font-light transition-colors ${
+                                  isSelected
+                                    ? "bg-violet-600 text-white"
+                                    : "bg-white/5 border border-white/10 text-zinc-300 hover:border-violet-500/50"
+                                }`}
+                              >
+                                {formatSlotTime(iso)}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {submitError && (
@@ -503,7 +532,7 @@ export function DemoBookingModal({
 
                 <button
                   type="submit"
-                  disabled={!selectedDate || !selectedSlot || isSubmitting}
+                  disabled={!selectedSlot || isSubmitting}
                   className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-full text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
                     background:
