@@ -33,10 +33,15 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
+    // Calendly requires start_time and end_time IN THE FUTURE — use start of next hour
     const now = new Date();
-    const startTime = now.toISOString();
-    const endDate = new Date(now);
-    endDate.setDate(endDate.getDate() + 7);
+    const startDate = new Date(now);
+    startDate.setUTCHours(startDate.getUTCHours() + 1, 0, 0, 0);
+    const startTime = startDate.toISOString();
+    // Range cannot exceed 7 days
+    const endDate = new Date(startDate);
+    endDate.setUTCDate(endDate.getUTCDate() + 6);
+    endDate.setUTCHours(23, 59, 59, 999);
     const endTime = endDate.toISOString();
 
     const url = new URL(`${CALENDLY_BASE}/event_type_available_times`);
@@ -51,10 +56,20 @@ export default async function handler(req: any, res: any) {
     const data = await calRes.json();
 
     if (!calRes.ok) {
-      console.error("Calendly availability error:", { status: calRes.status, data });
+      const details = data?.details || [];
+      const detailMsgs = details.map(
+        (d: { parameter?: string; code?: string; message?: string }) =>
+          `${d.parameter || "?"}: ${d.code || d.message || "invalid"}`
+      );
+      const errDetail = detailMsgs.length ? detailMsgs.join("; ") : "";
+      console.error("Calendly availability error:", {
+        status: calRes.status,
+        data,
+        requested: { startTime, endTime, eventType: eventTypeUri },
+      });
       res.status(calRes.status).json({
         success: false,
-        error: data?.message || "Failed to fetch availability",
+        error: errDetail || data?.message || "Failed to fetch availability",
       });
       return;
     }
