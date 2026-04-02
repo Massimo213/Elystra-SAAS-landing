@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
-import { Calculator, TrendingDown, AlertTriangle, ArrowRight, Flame } from 'lucide-react';
+import { Calculator, TrendingDown, TrendingUp, AlertTriangle, ArrowRight, Flame, Layers, Zap } from 'lucide-react';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
 /* ---------------- Animated Counter ---------------- */
@@ -37,13 +37,21 @@ const BleedingCalculator = () => {
 
   // Decay factor: 30% of lost deals were recoverable (conservative, defensible)
   const DECAY_FACTOR = 0.30;
+  // Illustrative paid-close lift on identical proposal volume (rail + follow-up brain; not additive to recapture in reality — shown as separate “headroom” signal)
+  const ILLUSTRATIVE_CLOSE_LIFT_PTS = 12;
+  const RAIL_CLOSE_CEILING = 50;
 
-  // Calculate the bleeding
+  // Phase 1 — their baseline & leak
   const lostDeals = proposalsPerMonth * (1 - closeRate / 100);
   const recoverableDeals = lostDeals * DECAY_FACTOR;
   const monthlyDecay = recoverableDeals * avgDealSize;
   const quarterlyDecay = monthlyDecay * 3;
   const yearlyDecay = monthlyDecay * 12;
+
+  const liftedClose = Math.min(closeRate + ILLUSTRATIVE_CLOSE_LIFT_PTS, RAIL_CLOSE_CEILING);
+  const extraDealsFromLift =
+    proposalsPerMonth * Math.max(0, (liftedClose - closeRate) / 100);
+  const monthlyFromCloseHeadroom = extraDealsFromLift * avgDealSize;
 
   const formatCurrency = (value: number) => {
     if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`;
@@ -88,7 +96,7 @@ const BleedingCalculator = () => {
           >
             <AlertTriangle className="w-4 h-4 text-red-400" />
             <span className="text-xs tracking-[0.25em] uppercase text-red-400/80 font-light">
-              THE MATH YOUR COMPETITORS DON'T SHOW YOU
+              TWO-PHASE MATH · BASELINE → ELYSTRA DELTA
             </span>
           </motion.div>
           
@@ -100,32 +108,33 @@ const BleedingCalculator = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              How Much Are You{' '}
+              First the Leak.{' '}
             </span>
             <span className="relative inline-block">
               <span 
                 style={{
-                  background: 'linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%)',
+                  background: 'linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                Bleeding
+                Then the Delta.
               </span>
-            </span>
-            <span 
-              style={{
-                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              ?
             </span>
           </h2>
           
-          <p className="text-lg md:text-xl text-zinc-500 font-extralight max-w-xl mx-auto">
-            Input your numbers. See how many deals are dying in the gap.
+          <p className="text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
+            <span className="text-zinc-400">Phase 1:</span> here is what your current sales motion leaks.{' '}
+            <span className="text-zinc-400">Phase 2:</span> here is what Elystra can recover without asking you to become someone else.
+          </p>
+          <p className="mt-4 text-base text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
+            Elystra does not change how your agency sells. It strengthens the part of the sales motion where revenue usually leaks — after buyer interest already exists.
+          </p>
+          <p className="mt-6 text-base md:text-lg text-zinc-400 font-extralight max-w-2xl mx-auto leading-relaxed border-t border-white/[0.06] pt-6">
+            <span className="text-zinc-200">Your process stays yours.</span> Elystra installs underneath it and gives it a stronger finish. Across{' '}
+            <span className="text-zinc-200">170+ agency pipelines</span>, when Elystra is installed properly, shops typically recover{' '}
+            <span className="text-emerald-400/90">1–2 deals from the same pipeline</span> in the{' '}
+            <span className="text-zinc-200">first few weeks</span>, then the rail keeps compounding.
           </p>
         </motion.div>
 
@@ -154,6 +163,15 @@ const BleedingCalculator = () => {
               }}
             />
             
+            {/* Phase 1 label */}
+            <div className="relative flex items-center gap-3 mb-8">
+              <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
+                Phase 1
+              </span>
+              <span className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent max-w-[120px]" />
+              <span className="text-xs text-zinc-500 font-light">What your current motion leaks</span>
+            </div>
+
             <div className="relative grid md:grid-cols-2 gap-14">
               {/* Inputs */}
               <div className="space-y-10">
@@ -167,7 +185,10 @@ const BleedingCalculator = () => {
                   >
                     <Calculator className="w-5 h-5 text-zinc-400" />
                   </div>
-                  <span className="text-xl font-extralight text-white tracking-wide">Your Numbers</span>
+                  <div>
+                    <span className="text-xl font-extralight text-white tracking-wide block">Your current sales motion</span>
+                    <span className="text-xs text-zinc-600 font-light">The pipeline you already generate today</span>
+                  </div>
                 </div>
 
                 {/* Proposals per month */}
@@ -301,13 +322,13 @@ const BleedingCalculator = () => {
                 </div>
 
                 <div className="pt-6 border-t border-white/[0.06]">
-                  <p className="text-xs text-zinc-600 font-light">
-                    Based on 170+ agencies: ~30% of "lost" deals are recoverable with proper follow-up timing.
+                  <p className="text-xs text-zinc-600 font-light leading-relaxed">
+                    Conservative model. Based on what we keep seeing across 170+ agency pipelines, a meaningful share of apparently lost deals are not truly lost. They are leaking through delay, weak follow-up, fragmented commitment, and lack of visibility.
                   </p>
                 </div>
               </div>
 
-              {/* Results */}
+              {/* Phase 1 — leak output */}
               <div>
                 <div className="flex items-center gap-4 mb-10">
                   <div 
@@ -320,7 +341,10 @@ const BleedingCalculator = () => {
                   >
                     <TrendingDown className="w-5 h-5 text-red-400" />
                   </div>
-                  <span className="text-xl font-extralight text-white tracking-wide">Your Deal Decay</span>
+                  <div>
+                    <span className="text-xl font-extralight text-white tracking-wide block">What your current sales motion is leaking</span>
+                    <span className="text-xs text-zinc-600 font-light">Revenue left exposed without infrastructure underneath</span>
+                  </div>
                 </div>
 
                 <AnimatePresence mode="wait">
@@ -352,14 +376,14 @@ const BleedingCalculator = () => {
                         <div className="flex items-center gap-2 mb-4">
                           <Flame className="w-4 h-4 text-red-400/60" />
                           <p className="text-xs tracking-[0.2em] uppercase text-red-400/60">
-                            Monthly Deal Decay
+                            Monthly revenue leaking in the gap
                           </p>
                         </div>
                         <p className="text-6xl md:text-7xl font-extralight text-red-400">
                           <AnimatedNumber value={monthlyDecay} prefix="$" />
                         </p>
                         <p className="text-sm text-zinc-500 mt-4 font-light">
-                          {recoverableDeals.toFixed(1)} deals/month dying in the gap
+                          Roughly {recoverableDeals.toFixed(1)} deals/month slipping out after buyer interest already existed
                         </p>
                       </div>
                     </div>
@@ -380,46 +404,159 @@ const BleedingCalculator = () => {
                       </div>
                     </div>
 
-                    {/* The punchline */}
-                    <div 
-                      className="p-6 rounded-2xl"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05))',
-                        border: '1px solid rgba(16, 185, 129, 0.2)',
-                      }}
-                    >
-                      <p className="text-sm text-zinc-400 font-light">
-                  
-                        Agencies on Elystra typically recover <span className="text-emerald-400 font-medium">{formatCurrency(avgDealSize * 2)}–{formatCurrency(avgDealSize * 4)}</span> in deals that were going dark. Per quarter.
-                      </p>
-                    </div>
-
-                    {/* CTA */}
-                    <motion.button
-                      type="button"
-                      onClick={openDemoBooking}
-                      className="relative flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-medium text-white overflow-hidden"
-                      style={{
-                        background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
-                        boxShadow: '0 0 40px rgba(139, 92, 246, 0.3)',
-                      }}
-                      whileHover={{ 
-                        scale: 1.02,
-                        boxShadow: '0 0 60px rgba(139, 92, 246, 0.4)'
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <span
-                        className="absolute inset-0"
-                        style={{
-                          background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
-                        }}
-                      />
-                      <span className="relative z-10">Book a 7-Minute Demo</span>
-                      <ArrowRight className="w-5 h-5 relative z-10" />
-                    </motion.button>
                   </motion.div>
                 </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Bridge */}
+            <div className="relative my-14 flex flex-col items-center gap-4 text-center max-w-lg mx-auto px-2">
+              <div className="h-12 w-px bg-gradient-to-b from-red-500/40 via-white/20 to-emerald-500/40" />
+              <div className="flex items-center justify-center gap-2 text-zinc-500 text-xs tracking-[0.2em] uppercase">
+                <Layers className="w-4 h-4 text-zinc-600 shrink-0" />
+                Same pipeline · stronger sales motion
+              </div>
+              <p className="text-sm text-zinc-500 font-light leading-relaxed normal-case tracking-normal">
+                That is the repeat pattern: when Elystra is installed properly, agencies start recovering value from the same pipeline they already generate, usually within the first few weeks, then the rail keeps compounding the finish after that.
+              </p>
+            </div>
+
+            {/* Phase 2 — Elystra Delta */}
+            <div className="relative">
+              <div className="flex flex-wrap items-center gap-3 mb-8">
+                <span className="text-[10px] tracking-[0.35em] uppercase text-emerald-500/90 font-medium">
+                  Phase 2
+                </span>
+                <span className="h-px flex-1 bg-gradient-to-r from-emerald-500/30 to-transparent min-w-[80px]" />
+                <span className="text-xs text-zinc-500 font-light">Recovery on the same pipeline</span>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+                <motion.div
+                  key={`delta-${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45 }}
+                  className="relative p-10 rounded-2xl overflow-hidden md:col-span-1"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.06))',
+                    border: '1px solid rgba(16, 185, 129, 0.28)',
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 opacity-40 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(circle at 40% 30%, rgba(16, 185, 129, 0.2), transparent 65%)',
+                    }}
+                  />
+                  <div className="relative flex items-center gap-3 mb-4">
+                    <Zap className="w-5 h-5 text-emerald-400" />
+                    <p className="text-xs tracking-[0.2em] uppercase text-emerald-400/80">
+                      Monthly value recaptured
+                    </p>
+                  </div>
+                  <p className="text-5xl md:text-6xl font-extralight text-emerald-400 mb-3">
+                    <AnimatedNumber value={monthlyDecay} prefix="$" />
+                  </p>
+                  <p className="text-sm text-zinc-400 font-light leading-relaxed">
+                    Conservative value currently leaking in stalled, softened, or badly-followed-up opportunities. Elystra is built to pull that value back from the same pipeline, with the same offers, through a stronger finish from buyer interest to collected cash.
+                  </p>
+                  <div
+                    className="mt-5 p-4 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06]"
+                  >
+                    <p className="text-[11px] tracking-[0.15em] uppercase text-emerald-500/80 mb-2">The pattern we keep seeing</p>
+                    <p className="text-sm text-zinc-300 font-light leading-relaxed">
+                      Across 170+ agency pipelines, the same failure modes repeat. When Elystra is installed properly, agencies usually recover{' '}
+                      <span className="text-emerald-400/95">1–2 deals from the same pipeline</span> inside the first few weeks, then benefit from a cleaner finish on everything after that.
+                    </p>
+                  </div>
+                  <div className="mt-6 grid grid-cols-2 gap-3">
+                    <div className="p-4 rounded-xl bg-black/30 border border-white/[0.06]">
+                      <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Quarter</p>
+                      <p className="text-xl font-extralight text-emerald-300/90">
+                        <AnimatedNumber value={quarterlyDecay} prefix="$" />
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-black/30 border border-white/[0.06]">
+                      <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Year</p>
+                      <p className="text-xl font-extralight text-emerald-300/90">
+                        <AnimatedNumber value={yearlyDecay} prefix="$" />
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  key={`headroom-${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: 0.08 }}
+                  className="space-y-6"
+                >
+                  <div
+                    className="p-8 rounded-2xl"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                    }}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <TrendingUp className="w-5 h-5 text-zinc-400" />
+                      <p className="text-xs tracking-[0.2em] uppercase text-zinc-500">
+                        Close-rate headroom
+                      </p>
+                    </div>
+                    <p className="text-3xl md:text-4xl font-extralight text-white mb-3">
+                      {closeRate}% → {liftedClose}%
+                    </p>
+                    <p className="text-sm text-zinc-400 font-light mb-2 leading-relaxed">
+                      Same pipeline, stronger finish. That shift means more of the work you already do actually turns into paid business.
+                    </p>
+                    <p className="text-sm text-zinc-500 font-light">
+                      ~<span className="text-zinc-300">{extraDealsFromLift.toFixed(1)}</span> extra deals/month ≈{' '}
+                      <span className="text-emerald-400/90">{formatCurrency(monthlyFromCloseHeadroom)}/month</span>
+                      <span className="text-zinc-600"> · +{liftedClose - closeRate} pts paid close (cap {RAIL_CLOSE_CEILING}%)</span>
+                    </p>
+                  </div>
+
+                  <div className="p-6 rounded-2xl border border-white/[0.06] bg-black/20">
+                    <p className="text-sm text-zinc-400 font-light leading-relaxed">
+                      Elystra does not ask you to change how you sell. Your calls stay yours. Your discovery stays yours. Your scope stays yours.
+                    </p>
+                    <p className="text-sm text-zinc-400 font-light leading-relaxed mt-4">
+                      What Elystra changes is what happens after buyer interest exists. It gives your agency a cleaner, faster, more controlled sales motion from send to signature to payment to follow-up.
+                    </p>
+                    <p className="text-sm text-zinc-300 font-light leading-relaxed mt-4">
+                      The result is simple: more visibility, less drift, less ghosting, less competitive slippage, and a better finish on the same pipeline you already generate.
+                    </p>
+                  </div>
+
+                  <motion.button
+                    type="button"
+                    onClick={openDemoBooking}
+                    className="relative flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-medium text-white overflow-hidden"
+                    style={{
+                      background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
+                      boxShadow: '0 0 40px rgba(139, 92, 246, 0.3)',
+                    }}
+                    whileHover={{
+                      scale: 1.02,
+                      boxShadow: '0 0 60px rgba(139, 92, 246, 0.4)',
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span
+                      className="absolute inset-0"
+                      style={{
+                        background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
+                      }}
+                    />
+                    <span className="relative z-10">Book a 7-Minute Revenue Review</span>
+                    <ArrowRight className="w-5 h-5 relative z-10" />
+                  </motion.button>
+                </motion.div>
               </div>
             </div>
           </div>

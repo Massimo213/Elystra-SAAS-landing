@@ -11,6 +11,7 @@ import Cta from '@/components/Cta';
 import SignIn from '@/components/SignIn';
 import SignUp from '@/components/SignUp';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
+import Careers from '@/components/Careers';
 import Footer from '@/components/Footer';
 
 import UrgencyStrip from '@/components/UrgencyStrip';
@@ -94,6 +95,7 @@ const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/careers" element={<Careers />} />
           </Routes>
         </div>
       </ReactLenis>
