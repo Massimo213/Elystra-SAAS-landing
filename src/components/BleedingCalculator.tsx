@@ -4,7 +4,7 @@
  * Stunning interactive calculator with cinematic effects
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Calculator, TrendingDown, TrendingUp, AlertTriangle, ArrowRight, Flame, Layers, Zap } from 'lucide-react';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
@@ -31,6 +31,23 @@ const AnimatedNumber = ({ value, prefix = '', suffix = '' }: { value: number; pr
 
 const BleedingCalculator = () => {
   const { openDemoBooking } = useDemoBooking();
+  const phaseScrollerRef = useRef<HTMLDivElement>(null);
+  const [phaseIndex, setPhaseIndex] = useState(0);
+
+  const onPhaseScroll = useCallback(() => {
+    const el = phaseScrollerRef.current;
+    if (!el) return;
+    const w = el.clientWidth;
+    if (w <= 0) return;
+    setPhaseIndex(Math.min(1, Math.round(el.scrollLeft / w)));
+  }, []);
+
+  const scrollToPhase = useCallback((idx: number) => {
+    const el = phaseScrollerRef.current;
+    if (!el) return;
+    el.scrollTo({ left: idx * el.clientWidth, behavior: 'smooth' });
+  }, []);
+
   const [proposalsPerMonth, setProposalsPerMonth] = useState(10);
   const [avgDealSize, setAvgDealSize] = useState(15000);
   const [closeRate, setCloseRate] = useState(30);
@@ -60,7 +77,7 @@ const BleedingCalculator = () => {
   };
 
   return (
-    <section className="relative py-28 md:py-36 overflow-hidden bg-transparent">
+    <section className="relative py-20 md:py-28 overflow-hidden bg-transparent">
       {/* Optimized Background - Static gradients */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
@@ -84,7 +101,7 @@ const BleedingCalculator = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-12"
         >
           <motion.div 
             className="inline-flex items-center gap-3 px-6 py-3 rounded-full mb-10"
@@ -96,7 +113,7 @@ const BleedingCalculator = () => {
           >
             <AlertTriangle className="w-4 h-4 text-red-400" />
             <span className="text-xs tracking-[0.25em] uppercase text-red-400/80 font-light">
-              TWO-PHASE MATH · BASELINE → ELYSTRA DELTA
+              LEAK → RECOVERY · SAME PIPELINE
             </span>
           </motion.div>
           
@@ -108,7 +125,7 @@ const BleedingCalculator = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              First the Leak.{' '}
+              First the leak.{' '}
             </span>
             <span className="relative inline-block">
               <span 
@@ -118,23 +135,22 @@ const BleedingCalculator = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                Then the Delta.
+                Then the recovery.
               </span>
             </span>
           </h2>
           
           <p className="text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
-            <span className="text-zinc-400">Phase 1:</span> here is what your current sales motion leaks.{' '}
-            <span className="text-zinc-400">Phase 2:</span> here is what Elystra can recover without asking you to become someone else.
+            This is what your current sales motion is leaving on the table.
           </p>
-          <p className="mt-4 text-base text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
-            Elystra does not change how your agency sells. It strengthens the part of the sales motion where revenue usually leaks — after buyer interest already exists.
+          <p className="mt-4 text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
+            Then this is what Elystra can recover from the same pipeline once the rail is in place.
           </p>
-          <p className="mt-6 text-base md:text-lg text-zinc-400 font-extralight max-w-2xl mx-auto leading-relaxed border-t border-white/[0.06] pt-6">
-            <span className="text-zinc-200">Your process stays yours.</span> Elystra installs underneath it and gives it a stronger finish. Across{' '}
-            <span className="text-zinc-200">170+ agency pipelines</span>, when Elystra is installed properly, shops typically recover{' '}
-            <span className="text-emerald-400/90">1–2 deals from the same pipeline</span> in the{' '}
-            <span className="text-zinc-200">first few weeks</span>, then the rail keeps compounding.
+          <p className="mt-8 text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
+            Elystra strengthens the part of the sale where agencies usually lose control: after buyer interest exists, before the money lands.
+          </p>
+          <p className="mt-4 text-lg md:text-xl text-zinc-300 font-extralight max-w-2xl mx-auto leading-relaxed">
+            The result is simple: more of the same pipeline moves to signed, paid, and collected revenue.
           </p>
         </motion.div>
 
@@ -163,16 +179,58 @@ const BleedingCalculator = () => {
               }}
             />
             
-            {/* Phase 1 label */}
-            <div className="relative flex items-center gap-3 mb-8">
-              <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
-                Phase 1
-              </span>
-              <span className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent max-w-[120px]" />
-              <span className="text-xs text-zinc-500 font-light">What your current motion leaks</span>
-            </div>
+            {/* Horizontal phases — saves vertical space */}
+            <div className="relative z-10 flex flex-col gap-4">
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <div className="flex items-center gap-2" role="tablist" aria-label="Calculator phase">
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={phaseIndex === 0}
+                    onClick={() => scrollToPhase(0)}
+                    className={`rounded-full px-4 py-1.5 text-xs tracking-wide transition-colors ${
+                      phaseIndex === 0
+                        ? 'bg-white/10 text-white border border-white/20'
+                        : 'text-zinc-500 border border-transparent hover:text-zinc-300'
+                    }`}
+                  >
+                    Leak
+                  </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={phaseIndex === 1}
+                    onClick={() => scrollToPhase(1)}
+                    className={`rounded-full px-4 py-1.5 text-xs tracking-wide transition-colors ${
+                      phaseIndex === 1
+                        ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                        : 'text-zinc-500 border border-transparent hover:text-zinc-300'
+                    }`}
+                  >
+                    Recovery
+                  </button>
+                </div>
+                <span className="text-[11px] text-zinc-600 font-light hidden sm:inline">
+                  Swipe horizontally or use tabs
+                </span>
+              </div>
 
-            <div className="relative grid md:grid-cols-2 gap-14">
+              <div
+                ref={phaseScrollerRef}
+                onScroll={onPhaseScroll}
+                className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x pb-1 [-webkit-overflow-scrolling:touch] [scrollbar-width:thin]"
+              >
+                {/* ——— Panel 1: Leak ——— */}
+                <div className="min-w-full w-full shrink-0 snap-center snap-always box-border pr-1 md:pr-2">
+                  <div className="relative flex items-center gap-3 mb-6">
+                    <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
+                      Leak
+                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent max-w-[100px]" />
+                    <span className="text-xs text-zinc-500 font-light">What your motion leaves on the table</span>
+                  </div>
+
+                  <div className="relative grid md:grid-cols-2 gap-10 md:gap-12">
               {/* Inputs */}
               <div className="space-y-10">
                 <div className="flex items-center gap-4 mb-10">
@@ -409,29 +467,28 @@ const BleedingCalculator = () => {
               </div>
             </div>
 
-            {/* Bridge */}
-            <div className="relative my-14 flex flex-col items-center gap-4 text-center max-w-lg mx-auto px-2">
-              <div className="h-12 w-px bg-gradient-to-b from-red-500/40 via-white/20 to-emerald-500/40" />
-              <div className="flex items-center justify-center gap-2 text-zinc-500 text-xs tracking-[0.2em] uppercase">
-                <Layers className="w-4 h-4 text-zinc-600 shrink-0" />
-                Same pipeline · stronger sales motion
-              </div>
-              <p className="text-sm text-zinc-500 font-light leading-relaxed normal-case tracking-normal">
-                That is the repeat pattern: when Elystra is installed properly, agencies start recovering value from the same pipeline they already generate, usually within the first few weeks, then the rail keeps compounding the finish after that.
-              </p>
-            </div>
+                  <div className="mt-8 flex flex-col items-center gap-2 text-center border-t border-white/[0.06] pt-6">
+                    <div className="flex items-center justify-center gap-2 text-zinc-500 text-xs tracking-[0.2em] uppercase">
+                      <Layers className="w-4 h-4 text-zinc-600 shrink-0" />
+                      Same pipeline · stronger motion
+                    </div>
+                    <p className="text-xs text-zinc-600 font-light max-w-md">
+                      → Swipe or tap <span className="text-zinc-400">Recovery</span> for what the rail returns on this same motion.
+                    </p>
+                  </div>
+                </div>
 
-            {/* Phase 2 — Elystra Delta */}
-            <div className="relative">
-              <div className="flex flex-wrap items-center gap-3 mb-8">
-                <span className="text-[10px] tracking-[0.35em] uppercase text-emerald-500/90 font-medium">
-                  Phase 2
-                </span>
-                <span className="h-px flex-1 bg-gradient-to-r from-emerald-500/30 to-transparent min-w-[80px]" />
-                <span className="text-xs text-zinc-500 font-light">Recovery on the same pipeline</span>
-              </div>
+                {/* ——— Panel 2: Recovery ——— */}
+                <div className="min-w-full w-full shrink-0 snap-center snap-always box-border pl-1 md:pl-2">
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
+                    <span className="text-[10px] tracking-[0.35em] uppercase text-emerald-500/90 font-medium">
+                      Recovery
+                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-emerald-500/30 to-transparent min-w-[80px]" />
+                    <span className="text-xs text-zinc-500 font-light">Same pipeline once the rail is in place</span>
+                  </div>
 
-              <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+                  <div className="grid md:grid-cols-2 gap-8 md:gap-10">
                 <motion.div
                   key={`delta-${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
                   initial={{ opacity: 0, y: 16 }}
@@ -523,13 +580,10 @@ const BleedingCalculator = () => {
 
                   <div className="p-6 rounded-2xl border border-white/[0.06] bg-black/20">
                     <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                      Elystra does not ask you to change how you sell. Your calls stay yours. Your discovery stays yours. Your scope stays yours.
-                    </p>
-                    <p className="text-sm text-zinc-400 font-light leading-relaxed mt-4">
-                      What Elystra changes is what happens after buyer interest exists. It gives your agency a cleaner, faster, more controlled sales motion from send to signature to payment to follow-up.
+                      Elystra strengthens the part of the sale where agencies usually lose control: after buyer interest exists, before the money lands.
                     </p>
                     <p className="text-sm text-zinc-300 font-light leading-relaxed mt-4">
-                      The result is simple: more visibility, less drift, less ghosting, less competitive slippage, and a better finish on the same pipeline you already generate.
+                      The result is simple: more of the same pipeline moves to signed, paid, and collected revenue.
                     </p>
                   </div>
 
@@ -557,6 +611,8 @@ const BleedingCalculator = () => {
                     <ArrowRight className="w-5 h-5 relative z-10" />
                   </motion.button>
                 </motion.div>
+              </div>
+                </div>
               </div>
             </div>
           </div>
