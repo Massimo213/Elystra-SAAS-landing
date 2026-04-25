@@ -180,9 +180,10 @@ export default function ElystraGlobe() {
   const arcColor = useCallback(
     (_arc: object) => (t: number) => {
       if (t < 0.1) return "rgba(255, 255, 255, 0.98)";
-      if (t < 0.32) return "rgba(255, 255, 255, 0.72)";
-      if (t < 0.58) return "rgba(196, 181, 253, 0.42)";
-      if (t < 0.82) return "rgba(161, 161, 170, 0.28)";
+      if (t < 0.28) return "rgba(233, 213, 255, 0.84)";
+      if (t < 0.52) return "rgba(196, 181, 253, 0.52)";
+      if (t < 0.76) return "rgba(217, 70, 239, 0.3)";
+      if (t < 0.88) return "rgba(161, 161, 170, 0.24)";
       return "rgba(82, 82, 91, 0.14)";
     },
     [],
@@ -203,15 +204,17 @@ export default function ElystraGlobe() {
     if (!g) return;
     g.pointOfView(WORLD_POV, 0);
 
-    const fill = new AmbientLight(0xb4b4c0, 1.4);
-    const key = new DirectionalLight(0xf5f5f5, 1.35);
+    const fill = new AmbientLight(0xc4b5fd, 1.55);
+    const key = new DirectionalLight(0xf5f3ff, 1.4);
     key.position.set(-0.9, 0.45, 0.9);
-    const back = new DirectionalLight(0x9ca3af, 0.45);
+    const back = new DirectionalLight(0xa78bfa, 0.58);
     back.position.set(0.4, 0.1, -1);
-    const rimViolet = new DirectionalLight(new Color("#8b5cf6"), 0.22);
+    const rimViolet = new DirectionalLight(new Color("#8b5cf6"), 0.34);
     rimViolet.position.set(0, -0.3, 0.6);
+    const rimFuchsia = new DirectionalLight(new Color("#d946ef"), 0.18);
+    rimFuchsia.position.set(0.6, 0.2, 0.2);
 
-    g.lights([fill, key, back, rimViolet]);
+    g.lights([fill, key, back, rimViolet, rimFuchsia]);
 
     const controls = g.controls();
     controls.enableZoom = false;
@@ -232,21 +235,24 @@ export default function ElystraGlobe() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: [
-            "radial-gradient(ellipse 70% 50% at 30% 30%, rgba(30, 25, 45, 0.45) 0%, transparent 55%)",
-            "radial-gradient(ellipse 55% 45% at 75% 65%, rgba(20, 18, 30, 0.35) 0%, transparent 50%)",
+            "radial-gradient(ellipse 70% 50% at 30% 30%, rgba(76, 29, 149, 0.34) 0%, transparent 55%)",
+            "radial-gradient(ellipse 55% 45% at 75% 65%, rgba(91, 33, 182, 0.26) 0%, transparent 50%)",
+            "radial-gradient(ellipse 45% 35% at 52% 48%, rgba(217, 70, 239, 0.12) 0%, transparent 55%)",
             "radial-gradient(ellipse 130% 100% at 50% 50%, #020203 0%, #000 100%)",
           ].join(","),
         }}
       />
 
       <div
-        className="absolute inset-0 pointer-events-none opacity-50"
+        className="absolute inset-0 pointer-events-none opacity-60"
         style={{
           backgroundImage: [
             "radial-gradient(0.5px 0.5px at 12% 18%, rgba(255,255,255,0.4), transparent)",
+            "radial-gradient(0.75px 0.75px at 22% 32%, rgba(192,132,252,0.45), transparent)",
             "radial-gradient(0.5px 0.5px at 45% 22%, rgba(255,255,255,0.3), transparent)",
+            "radial-gradient(0.75px 0.75px at 58% 16%, rgba(217,70,239,0.36), transparent)",
             "radial-gradient(0.5px 0.5px at 78% 8%, rgba(255,255,255,0.35), transparent)",
-            "radial-gradient(0.5px 0.5px at 88% 55%, rgba(255,255,255,0.25), transparent)",
+            "radial-gradient(0.75px 0.75px at 88% 55%, rgba(168,85,247,0.34), transparent)",
             "radial-gradient(0.5px 0.5px at 20% 72%, rgba(255,255,255,0.2), transparent)",
             "radial-gradient(0.5px 0.5px at 60% 88%, rgba(255,255,255,0.22), transparent)",
           ].join(","),
@@ -254,7 +260,7 @@ export default function ElystraGlobe() {
       />
 
       <div
-        className="relative transition-opacity duration-[1.4s] [&>canvas]:saturate-[0.32] [&>canvas]:contrast-110 [&>canvas]:brightness-125"
+        className="relative transition-opacity duration-[1.4s] [&>canvas]:saturate-[0.6] [&>canvas]:contrast-110 [&>canvas]:brightness-125"
         style={{ opacity: ready ? 1 : 0 }}
       >
         <Globe
@@ -266,7 +272,7 @@ export default function ElystraGlobe() {
           globeImageUrl={EARTH}
           bumpImageUrl={EARTH_TOPO}
           showAtmosphere
-          atmosphereColor="#a1a1aa"
+          atmosphereColor="#a78bfa"
           atmosphereAltitude={0.14}
           arcsData={arcsData}
           arcStartLat="startLat"

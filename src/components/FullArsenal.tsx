@@ -1,343 +1,702 @@
-/**
- * FullArsenal.tsx
- * ELYSTRA — Four Modules. One Rail.
- */
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { useLenis } from "lenis/react";
+import { useDemoBooking } from "@/contexts/DemoBookingContext";
 
-import { motion, Variants } from 'framer-motion';
-import { 
-  FileText, CreditCard, BarChart3, Plug, 
-  ArrowRight, CheckCircle
-} from 'lucide-react';
-import { useDemoBooking } from '@/contexts/DemoBookingContext';
-import { CometCard } from '@/components/ui/comet-card';
-
-/* ---------------- 4 Core Modules ---------------- */
-const modules = [
-  {
-    num: '01',
-    icon: FileText,
-    title: 'Proposal Standardization Layer',
-    subtitle: 'Proposal Engine',
-    headline: 'Your proposal. Same structure. Done while the call is still warm.',
-    subline: "This is how agencies stop missing quarterly targets because every rep sells a little differently. Call recording, notes, or docs \u2192 your branded scope out. Elystra doesn\u2019t invent a new way to sell. It makes your existing way instant and consistent.",
-    bullets: [
-      'Takes whatever you have \u2014 notes, transcript, Zoom/Loom link, existing doc \u2014 and turns it into a clean scope',
-      'Uses your proposal structure, your pricing logic, your language',
-      'Layout and branding are locked to your look; no slide surgery, no manual formatting',
-      'Output is send-ready by the time the prospect has finished "thinking about it"',
-    ],
-    result: 'Proposals that used to take days are out while trust and urgency are still high.',
-    color: 'violet',
-  },
-  {
-    num: '02',
-    icon: CreditCard,
-    title: 'Close-and-Collect Rail',
-    subtitle: 'Close Rail',
-    headline: 'Review \u2192 sign \u2192 pay in one motion. No invoice gap.',
-    subline: "Once a prospect says yes, Elystra removes the operational dead zone where deals usually cool off, stall, or disappear. The client sees the scope, signs, and pays on the same screen. No DocuSign hop, no Stripe link chase, no \"I'll do it later\".",
-    bullets: [
-      'Client reviews the full scope, accepts, and signs on the proposal page',
-      'Deposit, retainer, or full fee collected in the same flow',
-      'No separate DocuSign tab, no separate Stripe invoice, no "I\u2019ll pay when I get to it"',
-      'Deal is marked closed, payment routed, and the job moves forward off that one action',
-    ],
-    result: 'Once someone says "yes", there is no dead time for them to cool off or shop around.',
-    color: 'emerald',
-  },
-  {
-    num: '03',
-    icon: BarChart3,
-    title: 'Deal Intelligence Layer',
-    subtitle: 'Deal Intelligence & Follow-Up Brain',
-    headline: 'Every live deal is ranked by urgency and intent, so your team always knows where revenue is actually moving.',
-    subline: 'Elystra watches what happens after send and tells you exactly who to move on, when, and why.',
-    bullets: [
-      'Tracks who opened, how long they stayed, and where they sat on pricing',
-      'Detects forwards and new decision-makers \u2014 turns "mystery CCs" into a visible map',
-      'Every deal is auto-ranked by heat so your team always knows which 5 to touch today',
-      'Follow-up queue gives concrete next moves (call, email, nudge) instead of generic "reminders"',
-      'When a deal is clearly dead, it\u2019s marked dead \u2014 no zombie pipeline',
-    ],
-    result: 'Follow-up stops being guesswork and becomes a list of precise, high-leverage actions for your closers.',
-    color: 'amber',
-  },
-  {
-    num: '04',
-    icon: Plug,
-    title: 'Client Relationship & Ops Layer',
-    subtitle: 'Client Portal',
-    headline: 'One close updates your entire stack. Your client gets a live control panel.',
-    subline: 'For the agency, a close pushes data into CRM, PM, finance, and Slack. For the client, the portal becomes the only place they expect to see agreements, payments, and renewals.',
-    bullets: [
-      'One close updates CRM, creates PM tasks, notifies finance, and posts the win into your internal channels',
-      'All agreements, invoices, receipts, and renewals live in a single portal instead of 40 email threads',
-      'Clients can review past work, pay outstanding balances, and request new work without pinging your team',
-      'Portal activity (logins, document views, renewal clicks) feeds back into deal intelligence',
-      'Over time, clients get trained: "if it\u2019s not in the portal, it doesn\u2019t exist" \u2014 making it painful to leave',
-    ],
-    result: "The rail doesn\u2019t end at \"paid\". It locks in the relationship and turns your client base into a recurring, visible, expandable book of business.",
-    color: 'blue',
-  },
-];
-
-const colorConfig: Record<string, { 
-  gradient: string; 
-  border: string; 
-  glow: string;
-  bg: string;
-  text: string;
-}> = {
-  violet: {
-    gradient: 'from-violet-500/20 to-purple-500/10',
-    border: 'border-violet-500/20',
-    glow: 'rgba(139, 92, 246, 0.15)',
-    bg: 'bg-violet-500/10',
-    text: 'text-violet-400',
-  },
-  emerald: {
-    gradient: 'from-emerald-500/20 to-green-500/10',
-    border: 'border-emerald-500/20',
-    glow: 'rgba(16, 185, 129, 0.15)',
-    bg: 'bg-emerald-500/10',
-    text: 'text-emerald-400',
-  },
-  amber: {
-    gradient: 'from-amber-500/20 to-orange-500/10',
-    border: 'border-amber-500/20',
-    glow: 'rgba(245, 158, 11, 0.15)',
-    bg: 'bg-amber-500/10',
-    text: 'text-amber-400',
-  },
-  blue: {
-    gradient: 'from-blue-500/20 to-indigo-500/10',
-    border: 'border-blue-500/20',
-    glow: 'rgba(59, 130, 246, 0.15)',
-    bg: 'bg-blue-500/10',
-    text: 'text-blue-400',
-  },
+type Shot = {
+  src: string;
+  label: string;
 };
 
-/* ---------------- Motion Variants ---------------- */
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
+type Feature = {
+  id: string;
+  tab: string;
+  eyebrow: string;
+  titleStart?: string;
+  titleAccent: string;
+  titleEnd?: string;
+  description: string;
+  bullets: readonly string[];
+  shots: readonly Shot[];
+};
+
+const FEATURES: readonly Feature[] = [
+  {
+    id: "scope",
+    tab: "SCOPE",
+    eyebrow: "Proposal standardization",
+    titleStart: "Clean scopes.",
+    titleAccent: "No broken momentum.",
+    description:
+      "From local accounts to Fortune 500 buyers, Elystra turns live conversations into send-ready scopes while intent is still hot.",
+    bullets: [
+      "Notes, transcripts, recordings, and docs become structured scopes instantly.",
+      "Pricing logic, language, and layout stay locked to your real selling motion.",
+      "No formatting drag. No proposal lag.",
+    ],
+    shots: [{ src: "/presentation-rail/proposal-1.png", label: "Proposal structure" }],
+  },
+  {
+    id: "intel",
+    tab: "INTEL",
+    eyebrow: "Deal intelligence",
+    titleStart: "See where",
+    titleAccent: "money is moving.",
+    description:
+      "Buyer movement, blockers, urgency, and next actions become visible before revenue dies in the dark.",
+    bullets: [
+      "Track opens, pricing attention, stakeholder circulation, and decision activity.",
+      "Spot deals that are heating up, cooling off, or trapped in review.",
+      "Turn follow-up from guessing into directed action.",
+    ],
+    shots: [
+      { src: "/presentation-rail/deal-offers.png", label: "Offer intelligence" },
+      { src: "/presentation-rail/deal-overview-1.png", label: "Deal overview" },
+      { src: "/presentation-rail/deal-analytics-2.png", label: "Buying analytics" },
+    ],
+  },
+  {
+    id: "close",
+    tab: "CLOSE",
+    eyebrow: "Close and collect",
+    titleStart: "Tighten intent",
+    titleAccent: "into revenue.",
+    description:
+      "Review, signature, and payment happen inside one rail instead of leaking across documents, tabs, links, and delay.",
+    bullets: [
+      "Move buyers from review to signature to payment in one controlled flow.",
+      "Collect deposits, retainers, or full fees without invoice chasing.",
+      "Kill the dead time where prospects cool off after saying yes.",
+    ],
+    shots: [
+      { src: "/presentation-rail/collect-leakage.png", label: "Leakage control" },
+      { src: "/presentation-rail/collect-followup.png", label: "Follow-up rail" },
+    ],
+  },
+  {
+    id: "client",
+    tab: "CLIENT",
+    eyebrow: "Client continuity",
+    titleStart: "Keep the relationship",
+    titleAccent: "inside the rail.",
+    description:
+      "After the money lands, the relationship stays visible, structured, and under control instead of falling back into chaos.",
+    bullets: [
+      "Give clients one place for agreements, invoices, files, renewals, and history.",
+      "Keep messages, deliverables, and account activity attached to the relationship.",
+      "Turn post-close interaction into retention and expansion signal.",
+    ],
+    shots: [
+      { src: "/presentation-rail/portal-client-1.png", label: "Client workspace" },
+      { src: "/presentation-rail/portal-client-2.png", label: "Account visibility" },
+      { src: "/presentation-rail/portal-client-3.png", label: "Renewal continuity" },
+    ],
+  },
+] as const;
+
+const WHEEL_THRESHOLD = 70;
+const LOCK_TRIGGER_TOP = 120;
+const PRELOCK_ZONE_TOP = 180;
+const STEP_COOLDOWN_MS = 700;
+const RELEASE_COOLDOWN_MS = 950;
+
+function setPageScrollLocked(locked: boolean) {
+  if (locked) {
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  } else {
+    document.documentElement.style.removeProperty("overflow");
+    document.body.style.removeProperty("overflow");
   }
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
-  }
-};
-
-/* ---------------- Module Card ---------------- */
-interface ModuleCardProps {
-  module: typeof modules[0];
 }
 
-const ModuleCard = ({ module }: ModuleCardProps) => {
-  const Icon = module.icon;
-  const config = colorConfig[module.color];
-
-  return (
-    <motion.div
-      variants={cardVariants}
-      className="group relative h-full"
-    >
-      <CometCard rotateDepth={12} translateDepth={12} className="h-full">
-        <div 
-          className="relative bg-black/50 rounded-2xl p-8 border border-white/[0.06] 
-                    hover:border-white/[0.1] transition-colors duration-300 h-full"
-        >
-        {/* Inner gradient */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-20 rounded-2xl`} />
-        
-        {/* Number watermark */}
-        <div 
-          className="absolute -right-2 -top-4 text-[5rem] font-extralight tracking-tight opacity-[0.04] select-none"
-          style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
-          {module.num}
-        </div>
-        
-        <div className="relative z-10">
-          {/* Icon + Module label */}
-          <div className="flex items-center gap-4 mb-5">
-            <div className={`w-12 h-12 rounded-xl ${config.bg} border ${config.border} flex items-center justify-center`}>
-              <Icon className={`w-5 h-5 ${config.text}`} />
-            </div>
-            <span className={`text-xs tracking-[0.15em] ${config.text} opacity-70`}>
-              MODULE {module.num}
-            </span>
-          </div>
-          
-          {/* Title + optional subtitle */}
-          <h3 className="text-xl font-light text-white mb-1">{module.title}</h3>
-          {module.subtitle && (
-            <p className={`text-xs ${config.text} opacity-70 mb-2`}>{module.subtitle}</p>
-          )}
-
-          {/* Headline */}
-          <p className="text-sm text-zinc-200 font-medium mb-3 leading-relaxed">{module.headline}</p>
-
-          {/* Subline */}
-          <p className="text-sm text-zinc-400 font-light mb-6 leading-relaxed">{module.subline}</p>
-          
-          {/* Bullets */}
-          <ul className="space-y-2.5 mb-6">
-            {module.bullets.map((bullet, i) => (
-              <li key={i} className="flex items-start gap-2.5">
-                <CheckCircle className={`w-3.5 h-3.5 ${config.text} shrink-0 mt-0.5`} />
-                <span className="text-xs text-zinc-400 font-light leading-relaxed">{bullet}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Result */}
-          <div 
-            className="px-4 py-3 rounded-xl"
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.06)',
-            }}
-          >
-            <p className="text-xs text-zinc-300 font-light leading-relaxed">
-              <span className="text-white font-medium">Result: </span>
-              {module.result}
-            </p>
-          </div>
-        </div>
-      </div>
-      </CometCard>
-    </motion.div>
-  );
-};
-
-/* ---------------- Main Component ---------------- */
 const FullArsenal = () => {
   const { openDemoBooking } = useDemoBooking();
+  const lenis = useLenis();
+  const shouldReduce = useReducedMotion();
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const lockedRef = useRef(false);
+  const wheelAccumRef = useRef(0);
+  const releasedDownRef = useRef(false);
+  const releasedUpRef = useRef(false);
+  const wheelCooldownUntilRef = useRef(0);
+  const lenisRef = useRef(lenis);
+  lenisRef.current = lenis;
+
+  const [locked, setLocked] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeShotIndex, setActiveShotIndex] = useState(0);
+
+  const activeFeature = FEATURES[activeIndex];
+  const shots = activeFeature.shots;
+  const safeShotIndex = Math.min(activeShotIndex, Math.max(0, shots.length - 1));
+  const activeShot = shots[safeShotIndex];
+
+  useEffect(() => {
+    setActiveShotIndex(0);
+  }, [activeIndex]);
+
+  const unlockAndScroll = useCallback((target: number, releasedDown: boolean) => {
+    const safeTarget = Math.max(0, target);
+    wheelAccumRef.current = 0;
+    wheelCooldownUntilRef.current = Date.now() + RELEASE_COOLDOWN_MS;
+    lockedRef.current = false;
+    releasedDownRef.current = releasedDown;
+    releasedUpRef.current = !releasedDown;
+    setLocked(false);
+    setPageScrollLocked(false);
+    lenisRef.current?.start();
+
+    requestAnimationFrame(() => {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(safeTarget, { duration: 1.05, force: true });
+      } else {
+        window.scrollTo({ top: safeTarget, left: 0, behavior: "smooth" });
+      }
+    });
+  }, []);
+
+  const exitDown = useCallback(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    unlockAndScroll(sectionTop + window.innerHeight + 8, true);
+  }, [unlockAndScroll]);
+
+  const exitUp = useCallback(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    unlockAndScroll(sectionTop - 8, false);
+  }, [unlockAndScroll]);
+
+  const nextFeature = useCallback(() => {
+    if (activeIndex < FEATURES.length - 1) {
+      setActiveIndex((index) => index + 1);
+    } else {
+      exitDown();
+    }
+  }, [activeIndex, exitDown]);
+
+  const prevFeature = useCallback(() => {
+    if (activeIndex > 0) {
+      setActiveIndex((index) => index - 1);
+    } else {
+      exitUp();
+    }
+  }, [activeIndex, exitUp]);
+
+  const lockSection = useCallback(() => {
+    if (shouldReduce || lockedRef.current) return;
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(sectionTop, { immediate: true, force: true });
+      lenisRef.current.stop();
+    } else {
+      window.scrollTo({ top: sectionTop, left: 0, behavior: "auto" });
+    }
+
+    wheelAccumRef.current = 0;
+    lockedRef.current = true;
+    setLocked(true);
+    setPageScrollLocked(true);
+  }, [shouldReduce]);
+
+  useEffect(() => {
+    if (shouldReduce) return;
+
+    const onScroll = () => {
+      const section = sectionRef.current;
+      if (!section || lockedRef.current) return;
+
+      const rect = section.getBoundingClientRect();
+
+      if (releasedDownRef.current) {
+        if (rect.top > window.innerHeight * 0.4) {
+          releasedDownRef.current = false;
+        }
+        return;
+      }
+
+      if (releasedUpRef.current) {
+        if (rect.top > window.innerHeight * 0.45) {
+          releasedUpRef.current = false;
+        }
+        return;
+      }
+
+      if (rect.top <= LOCK_TRIGGER_TOP && rect.bottom >= window.innerHeight * 0.82) {
+        lockSection();
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [lockSection, shouldReduce]);
+
+  useEffect(() => {
+    if (shouldReduce || locked) return;
+
+    const onWheelPrelock = (event: WheelEvent) => {
+      const section = sectionRef.current;
+      if (!section || lockedRef.current) return;
+
+      const rect = section.getBoundingClientRect();
+      const enteringFromTop =
+        rect.top <= PRELOCK_ZONE_TOP && rect.bottom >= window.innerHeight * 0.82;
+
+      if (!enteringFromTop) return;
+      if (releasedUpRef.current && event.deltaY < 0) return;
+      if (releasedUpRef.current && event.deltaY > 0) {
+        releasedUpRef.current = false;
+      }
+      if (Date.now() < wheelCooldownUntilRef.current) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      lockSection();
+    };
+
+    window.addEventListener("wheel", onWheelPrelock, { passive: false, capture: true });
+    return () => window.removeEventListener("wheel", onWheelPrelock, true);
+  }, [lockSection, locked, shouldReduce]);
+
+  useEffect(() => {
+    if (!locked || shouldReduce) return;
+
+    const onWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (Date.now() < wheelCooldownUntilRef.current) return;
+
+      wheelAccumRef.current += event.deltaY;
+
+      if (wheelAccumRef.current >= WHEEL_THRESHOLD) {
+        wheelAccumRef.current = 0;
+        wheelCooldownUntilRef.current = Date.now() + STEP_COOLDOWN_MS;
+        nextFeature();
+      } else if (wheelAccumRef.current <= -WHEEL_THRESHOLD) {
+        wheelAccumRef.current = 0;
+        wheelCooldownUntilRef.current = Date.now() + STEP_COOLDOWN_MS;
+        prevFeature();
+      }
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false, capture: true });
+    return () => window.removeEventListener("wheel", onWheel, true);
+  }, [locked, nextFeature, prevFeature, shouldReduce]);
+
+  useEffect(() => {
+    return () => {
+      setPageScrollLocked(false);
+      lenisRef.current?.start();
+    };
+  }, []);
+
+  const jumpToFeature = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+      setActiveShotIndex(0);
+
+      if (!lockedRef.current) {
+        const section = sectionRef.current;
+        if (!section) return;
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(sectionTop, { duration: 0.9 });
+        } else {
+          window.scrollTo({ top: sectionTop, behavior: "smooth" });
+        }
+      }
+    },
+    []
+  );
+
   return (
-    <section id="the-rail" className="relative py-28 md:py-36 overflow-hidden bg-transparent">
-      {/* Static background accents */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-50"
-          style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%)',
+    <section id="the-rail" className="relative bg-transparent">
+      {!shouldReduce && (
+        <section ref={sectionRef} className="relative hidden h-screen md:block">
+          <DesktopFeatureRail
+            activeFeature={activeFeature}
+            activeIndex={activeIndex}
+            activeShot={activeShot}
+            activeShotIndex={safeShotIndex}
+            locked={locked}
+            onDemo={openDemoBooking}
+            onFeatureSelect={jumpToFeature}
+            onShotSelect={setActiveShotIndex}
+          />
+        </section>
+      )}
+
+      <div className={shouldReduce ? "px-4 py-16 md:px-6" : "px-4 py-16 md:hidden md:px-6"}>
+        <MobileFeatureRail
+          activeIndex={activeIndex}
+          activeShotIndex={safeShotIndex}
+          onDemo={openDemoBooking}
+          onFeatureSelect={(index) => {
+            setActiveIndex(index);
+            setActiveShotIndex(0);
           }}
+          onShotSelect={setActiveShotIndex}
         />
-        <div 
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-40"
-          style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 60%)',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-extralight tracking-tight mb-6">
-            <span 
-              style={{
-                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Four Modules. One Rail.
-            </span>
-          </h2>
-          <p className="text-lg font-extralight text-zinc-500 max-w-2xl mx-auto">
-            Everything you need to go from call to cash. Nothing you don't.
-          </p>
-        </motion.div>
-
-        {/* Modules Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {modules.map((module) => (
-            <ModuleCard key={module.num} module={module} />
-          ))}
-        </motion.div>
-
-        {/* Bottom result line */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-16 text-center"
-        >
-          <div 
-            className="inline-block px-8 py-4 rounded-2xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(16, 185, 129, 0.05) 100%)',
-              border: '1px solid rgba(139, 92, 246, 0.15)',
-            }}
-          >
-            <p className="text-base md:text-lg text-zinc-300 font-light">
-              <span className="text-white font-medium">Result:</span> your team stops "chasing paperwork".{' '}
-              <span 
-                style={{
-                  background: 'linear-gradient(135deg, #a855f7 0%, #10b981 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                They talk, the rail does the rest.
-              </span>
-            </p>
-          </div>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 text-center"
-        >
-          <motion.button
-            type="button"
-            onClick={openDemoBooking}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="text-sm font-light text-white">Book a 7-Minute Demo</span>
-            <ArrowRight className="w-4 h-4 text-violet-400 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );
 };
+
+function DesktopFeatureRail({
+  activeFeature,
+  activeIndex,
+  activeShot,
+  activeShotIndex,
+  locked,
+  onDemo,
+  onFeatureSelect,
+  onShotSelect,
+}: {
+  activeFeature: Feature;
+  activeIndex: number;
+  activeShot: Shot;
+  activeShotIndex: number;
+  locked: boolean;
+  onDemo: () => void;
+  onFeatureSelect: (index: number) => void;
+  onShotSelect: (index: number) => void;
+}) {
+  const content = (
+    <div className="relative h-full w-full overflow-hidden bg-transparent">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black via-black/42 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/32 to-transparent" />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(circle at 16% 16%, rgba(255,255,255,0.035) 0%, transparent 26%),
+            radial-gradient(circle at 84% 18%, rgba(255,255,255,0.025) 0%, transparent 24%),
+            radial-gradient(circle at 50% 100%, rgba(255,255,255,0.018) 0%, transparent 36%),
+            linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 18%),
+            linear-gradient(180deg, rgba(7,7,10,0.03) 0%, rgba(7,7,10,0.08) 100%)
+          `,
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.18]"
+        style={{
+          background:
+            "radial-gradient(circle at 12% 26%, rgba(255,255,255,0.045) 0%, transparent 18%), radial-gradient(circle at 78% 22%, rgba(255,255,255,0.04) 0%, transparent 14%), radial-gradient(circle at 62% 78%, rgba(255,255,255,0.03) 0%, transparent 16%)",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-[86rem] flex-col px-4 md:px-6">
+        <div className="relative flex h-full flex-col px-2 pb-8 pt-24 lg:px-4 lg:pb-10 lg:pt-28">
+          <LayoutGroup id="elystra-feature-tabs">
+            <nav
+              className="flex items-center justify-center"
+              role="tablist"
+              aria-label="Feature tabs"
+            >
+              <div className="flex items-center gap-3 rounded-full border border-white/8 bg-white/[0.02] px-4 py-2">
+              {FEATURES.map((feature, index) => {
+                const active = index === activeIndex;
+                return (
+                  <button
+                    key={feature.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => onFeatureSelect(index)}
+                    className="relative px-4 py-2 text-sm font-light tracking-[0.16em] transition-colors duration-300"
+                    style={{
+                      color: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.45)",
+                    }}
+                    onMouseEnter={(event) => {
+                      if (!active) event.currentTarget.style.color = "rgba(255,255,255,0.8)";
+                    }}
+                    onMouseLeave={(event) => {
+                      if (!active) event.currentTarget.style.color = "rgba(255,255,255,0.45)";
+                    }}
+                  >
+                    {feature.tab}
+                    {active && (
+                      <motion.span
+                        layoutId="rail-nav-dot"
+                        className="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-violet-400"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+              </div>
+            </nav>
+          </LayoutGroup>
+
+            <div className="grid min-h-0 flex-1 grid-cols-[0.9fr_1.1fr] items-center gap-12 pt-10">
+              <div className="flex h-full flex-col justify-center">
+              <AnimatePresence initial={false} mode="wait">
+                <motion.div
+                  key={activeFeature.id}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="max-w-[36rem]"
+                >
+                  <p className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-violet-300/78">
+                    {activeFeature.eyebrow}
+                  </p>
+                  <h3 className="mt-5 max-w-[30rem] text-5xl font-extralight leading-[0.96] tracking-[-0.055em] text-white xl:text-[5.1rem]">
+                    {activeFeature.titleStart && <span>{activeFeature.titleStart} </span>}
+                    <span className="bg-gradient-to-r from-violet-200 via-fuchsia-200 to-violet-300 bg-clip-text text-transparent">
+                      {activeFeature.titleAccent}
+                    </span>
+                    {activeFeature.titleEnd && <span> {activeFeature.titleEnd}</span>}
+                  </h3>
+                  <p className="mt-5 max-w-[31rem] text-[1.02rem] font-light leading-[1.6] text-zinc-300">
+                    {activeFeature.description}
+                  </p>
+
+                  <div className="mt-8 space-y-3.5">
+                    {activeFeature.bullets.map((bullet) => (
+                      <div key={bullet} className="flex items-start gap-3">
+                        <span className="mt-[0.45rem] h-2 w-2 rounded-full bg-violet-400" />
+                        <p className="max-w-[31rem] text-[0.98rem] font-light leading-[1.55] text-zinc-300">
+                          {bullet}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-10 flex items-center gap-4">
+                    <motion.button
+                      type="button"
+                      onClick={onDemo}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full px-6 py-2.5 text-sm font-light text-white"
+                      style={{
+                        background: "linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%)",
+                        boxShadow:
+                          "0 0 38px rgba(139,92,246,0.28), inset 0 1px 0 rgba(255,255,255,0.15)",
+                      }}
+                    >
+                      <span
+                        className="absolute inset-0 -translate-x-full transition-transform duration-700 group-hover:translate-x-full"
+                        style={{
+                          background:
+                            "linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.15) 50%, transparent 80%)",
+                        }}
+                      />
+                      <span
+                        className="absolute left-1/2 top-0 h-[1px] w-3/4 -translate-x-1/2"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
+                        }}
+                      />
+                      <Sparkles className="relative z-10 h-3.5 w-3.5" />
+                      <span className="relative z-10 tracking-wide">Book Demo</span>
+                      <ArrowRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </motion.button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="flex min-h-0 items-center justify-center">
+              <AnimatePresence initial={false} mode="wait">
+                <motion.div
+                  key={`${activeFeature.id}-${activeShotIndex}`}
+                  initial={{ opacity: 0, y: 24, scale: 0.986 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -14, scale: 0.986 }}
+                  transition={{ duration: 0.36, ease: "easeOut" }}
+                  className="w-full"
+                >
+                  <div className="overflow-hidden rounded-[2rem] bg-transparent">
+                    <img
+                      src={activeShot.src}
+                      alt={activeShot.label}
+                      className="max-h-[62vh] w-full object-contain object-top drop-shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+                    />
+                  </div>
+
+                  {activeFeature.shots.length > 1 && (
+                    <div className="mt-5 flex items-center justify-center gap-2">
+                      {activeFeature.shots.map((shot, index) => {
+                        const selected = index === activeShotIndex;
+                        return (
+                          <button
+                            key={shot.src}
+                            type="button"
+                            onClick={() => onShotSelect(index)}
+                            className="h-2.5 rounded-full transition-all"
+                            style={{
+                              width: selected ? "2rem" : "0.65rem",
+                              background: selected ? "rgb(167 139 250)" : "rgba(255,255,255,0.22)",
+                            }}
+                            aria-label={shot.label}
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  if (locked) {
+    return (
+      <div className="fixed inset-0 z-40 bg-transparent">
+        {content}
+      </div>
+    );
+  }
+
+  return content;
+}
+
+function MobileFeatureRail({
+  activeIndex,
+  activeShotIndex,
+  onDemo,
+  onFeatureSelect,
+  onShotSelect,
+}: {
+  activeIndex: number;
+  activeShotIndex: number;
+  onDemo: () => void;
+  onFeatureSelect: (index: number) => void;
+  onShotSelect: (index: number) => void;
+}) {
+  const feature = FEATURES[activeIndex];
+  const shots = feature.shots;
+  const safeShotIndex = Math.min(activeShotIndex, Math.max(0, shots.length - 1));
+  const activeShot = shots[safeShotIndex];
+
+  return (
+    <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(10,10,14,0.5)] px-4 py-5 text-white shadow-[0_24px_80px_rgba(0,0,0,0.14)] backdrop-blur-[2px]">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {FEATURES.map((item, index) => {
+          const active = index === activeIndex;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onFeatureSelect(index)}
+              className="rounded-2xl px-3 py-3 text-[0.74rem] font-light uppercase tracking-[0.16em]"
+              style={{
+                color: active ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.58)",
+                background: active ? "rgba(139,92,246,0.12)" : "rgba(255,255,255,0.015)",
+              }}
+            >
+              {item.tab}
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="mt-6 text-[0.72rem] font-medium uppercase tracking-[0.28em] text-violet-300/78">
+        {feature.eyebrow}
+      </p>
+      <h3 className="mt-4 text-4xl font-extralight leading-[1] tracking-[-0.05em] text-white">
+        {feature.titleStart && <span>{feature.titleStart} </span>}
+        <span className="bg-gradient-to-r from-violet-200 via-fuchsia-200 to-violet-300 bg-clip-text text-transparent">
+          {feature.titleAccent}
+        </span>
+        {feature.titleEnd && <span> {feature.titleEnd}</span>}
+      </h3>
+      <p className="mt-4 text-base font-light leading-[1.6] text-zinc-300">
+        {feature.description}
+      </p>
+
+      <div className="mt-6 space-y-3">
+        {feature.bullets.map((bullet) => (
+          <div key={bullet} className="flex items-start gap-3">
+            <span className="mt-[0.45rem] h-2 w-2 rounded-full bg-violet-400" />
+            <p className="text-[0.98rem] font-light leading-[1.55] text-zinc-300">
+              {bullet}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
+        <img
+          src={activeShot.src}
+          alt={activeShot.label}
+          className="w-full object-contain object-top"
+        />
+      </div>
+
+      {shots.length > 1 && (
+        <div className="mt-4 flex items-center justify-center gap-2">
+          {shots.map((shot, index) => {
+            const selected = index === safeShotIndex;
+            return (
+              <button
+                key={shot.src}
+                type="button"
+                onClick={() => onShotSelect(index)}
+                className="h-2.5 rounded-full transition-all"
+                style={{
+                  width: selected ? "2rem" : "0.65rem",
+                  background: selected ? "rgb(167 139 250)" : "rgba(255,255,255,0.22)",
+                }}
+                aria-label={shot.label}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      <motion.button
+        type="button"
+        onClick={onDemo}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        className="group relative mt-8 inline-flex items-center gap-2.5 overflow-hidden rounded-full px-6 py-2.5 text-sm font-light text-white"
+        style={{
+          background: "linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%)",
+          boxShadow:
+            "0 0 34px rgba(139,92,246,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
+        }}
+      >
+        <span
+          className="absolute inset-0 -translate-x-full transition-transform duration-700 group-hover:translate-x-full"
+          style={{
+            background:
+              "linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.15) 50%, transparent 80%)",
+          }}
+        />
+        <span
+          className="absolute left-1/2 top-0 h-[1px] w-3/4 -translate-x-1/2"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
+          }}
+        />
+        <Sparkles className="relative z-10 h-3.5 w-3.5" />
+        <span className="relative z-10 tracking-wide">Book Demo</span>
+        <ArrowRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+      </motion.button>
+    </div>
+  );
+}
 
 export default FullArsenal;

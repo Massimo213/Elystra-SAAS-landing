@@ -77,111 +77,83 @@ const BleedingCalculator = () => {
   };
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-transparent">
-      {/* Optimized Background - Static gradients */}
+    <section className="relative py-10 md:py-14 overflow-hidden bg-transparent min-h-0">
+      {/* Atmosphere: white + gray + violet only */}
       <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-40"
+        <div
+          className="absolute -top-24 left-0 w-[720px] h-[720px] rounded-full opacity-70 blur-3xl"
           style={{
-            background: 'radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.02) 45%, transparent 65%)',
           }}
         />
-        <div 
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-30"
+        <div
+          className="absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full opacity-60"
           style={{
-            background: 'radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(167, 139, 250, 0.07) 0%, transparent 55%)',
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] opacity-50"
+          style={{
+            background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(255, 255, 255, 0.04) 0%, transparent 55%)',
+          }}
+        />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-35"
+          style={{
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.035) 0%, transparent 60%)',
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+      {/* Hero: full-bleed copy on the page — no box, no glass */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        <motion.header
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-10 md:mb-12"
+          transition={{ duration: 0.7 }}
         >
-          <motion.div 
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full mb-10"
-            style={{
-              background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05))',
-              border: '1px solid rgba(239, 68, 68, 0.2)',
-            }}
-            whileHover={{ scale: 1.02 }}
-          >
-            <AlertTriangle className="w-4 h-4 text-red-400" />
-            <span className="text-xs tracking-[0.25em] uppercase text-red-400/80 font-light">
-              LEAK → RECOVERY · SAME PIPELINE
-            </span>
-          </motion.div>
-          
-          <h2 className="text-4xl md:text-6xl font-extralight tracking-tight mb-6">
-            <span 
-              style={{
-                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              First the leak.{' '}
-            </span>
-            <span className="relative inline-block">
-              <span 
-                style={{
-                  background: 'linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Then the recovery.
-              </span>
-            </span>
-          </h2>
-          
-          <p className="text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
-            This is what your current sales motion is leaving on the table.
-          </p>
-          <p className="mt-4 text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
-            Then this is what Elystra can recover from the same pipeline once the rail is in place.
-          </p>
-          <p className="mt-8 text-lg md:text-xl text-zinc-500 font-extralight max-w-2xl mx-auto leading-relaxed">
-            Elystra strengthens the part of the sale where agencies usually lose control: after buyer interest exists, before the money lands.
-          </p>
-          <p className="mt-4 text-lg md:text-xl text-zinc-300 font-extralight max-w-2xl mx-auto leading-relaxed">
-            The result is simple: more of the same pipeline moves to signed, paid, and collected revenue.
-          </p>
-        </motion.div>
-
-        {/* Calculator Card - Premium Glass */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
-        >
-          {/* Static border gradient */}
-          <div
-            className="absolute -inset-[1px] rounded-[2rem] overflow-hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(239,68,68,0.3), rgba(249,115,22,0.2), rgba(239,68,68,0.3))',
-            }}
-          />
-          
-          <div className="relative bg-black/90 rounded-[2rem] p-10 md:p-14 overflow-hidden">
-            {/* Inner atmospheric glow */}
-            <div 
-              className="absolute inset-0 opacity-30"
-              style={{
-                background: 'radial-gradient(ellipse at 30% 20%, rgba(239, 68, 68, 0.1), transparent 50%)',
-              }}
+          <p className="flex items-center justify-center gap-2 text-xs tracking-[0.28em] uppercase text-zinc-500 font-light mb-5 md:mb-6">
+            <AlertTriangle
+              className="w-3.5 h-3.5 shrink-0 text-violet-500/50"
+              aria-hidden
             />
-            
-            {/* Horizontal phases — saves vertical space */}
-            <div className="relative z-10 flex flex-col gap-4">
-              <div className="flex flex-wrap items-center justify-center gap-4">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-400 to-violet-400/80">
+              Leak → recovery · same pipeline
+            </span>
+          </p>
+
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight tracking-tight leading-[1.1] text-balance bg-clip-text text-transparent bg-gradient-to-b from-white via-zinc-100 to-violet-300/90"
+            style={{ WebkitBackgroundClip: 'text' }}
+          >
+            First the leak. Then the recovery.
+          </h2>
+        </motion.header>
+      </div>
+
+      {/* Product proof: model sits below, on the same environment (no frame) */}
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.65, delay: 0.05 }}
+        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 mt-12 md:mt-16 pt-10 md:pt-12"
+      >
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-[min(100%,28rem)] pointer-events-none"
+          style={{
+            background: 'linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.35), rgba(139, 92, 246, 0.25), rgba(167, 139, 250, 0.35), transparent)',
+          }}
+        />
+        <p className="text-center text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-zinc-500 mb-4 md:mb-5">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-500 via-violet-400/70 to-zinc-500">
+            Pipeline model
+          </span>
+        </p>
+        <div className="flex flex-col gap-2 md:gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-2">
                 <div className="flex items-center gap-2" role="tablist" aria-label="Calculator phase">
                   <button
                     type="button"
@@ -190,8 +162,8 @@ const BleedingCalculator = () => {
                     onClick={() => scrollToPhase(0)}
                     className={`rounded-full px-4 py-1.5 text-xs tracking-wide transition-colors ${
                       phaseIndex === 0
-                        ? 'bg-white/10 text-white border border-white/20'
-                        : 'text-zinc-500 border border-transparent hover:text-zinc-300'
+                        ? 'bg-violet-500/15 text-white border border-violet-400/35 shadow-[0_0_28px_rgba(139,92,246,0.12)]'
+                        : 'text-zinc-500 border border-transparent hover:text-violet-300/80'
                     }`}
                   >
                     Leak
@@ -203,8 +175,8 @@ const BleedingCalculator = () => {
                     onClick={() => scrollToPhase(1)}
                     className={`rounded-full px-4 py-1.5 text-xs tracking-wide transition-colors ${
                       phaseIndex === 1
-                        ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
-                        : 'text-zinc-500 border border-transparent hover:text-zinc-300'
+                        ? 'bg-violet-500/15 text-white border border-violet-400/35 shadow-[0_0_28px_rgba(139,92,246,0.12)]'
+                        : 'text-zinc-500 border border-transparent hover:text-violet-300/80'
                     }`}
                   >
                     Recovery
@@ -222,42 +194,48 @@ const BleedingCalculator = () => {
               >
                 {/* ——— Panel 1: Leak ——— */}
                 <div className="min-w-full w-full shrink-0 snap-center snap-always box-border pr-1 md:pr-2">
-                  <div className="relative flex items-center gap-3 mb-6">
+                  <div className="relative flex items-center gap-2 mb-3">
                     <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
                       Leak
                     </span>
-                    <span className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent max-w-[100px]" />
-                    <span className="text-xs text-zinc-500 font-light">What your motion leaves on the table</span>
+                    <span
+                      className="h-px flex-1 max-w-[100px]"
+                      style={{
+                        background: 'linear-gradient(90deg, rgba(167, 139, 250, 0.35), transparent)',
+                      }}
+                    />
+                    <span className="text-[11px] text-zinc-500 font-light hidden min-[400px]:inline">What your motion leaves on the table</span>
                   </div>
 
-                  <div className="relative grid md:grid-cols-2 gap-10 md:gap-12">
+                  <div className="relative grid md:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
               {/* Inputs */}
-              <div className="space-y-10">
-                <div className="flex items-center gap-4 mb-10">
-                  <div 
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center"
+              <div className="space-y-4 md:space-y-5">
+                <div className="flex items-center gap-3 mb-2 md:mb-3">
+                  <div
+                    className="w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      background:
+                        'linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(255, 255, 255, 0.03), rgba(139, 92, 246, 0.06))',
+                      border: '1px solid rgba(167, 139, 250, 0.2)',
                     }}
                   >
-                    <Calculator className="w-5 h-5 text-zinc-400" />
+                    <Calculator className="w-4 h-4 md:w-5 md:h-5 text-violet-300/80" />
                   </div>
-                  <div>
-                    <span className="text-xl font-extralight text-white tracking-wide block">Your current sales motion</span>
-                    <span className="text-xs text-zinc-600 font-light">The pipeline you already generate today</span>
+                  <div className="min-w-0">
+                    <span className="text-base md:text-lg font-extralight text-white tracking-wide block leading-tight">Your current sales motion</span>
+                    <span className="text-[11px] text-zinc-600 font-light">The pipeline you already generate today</span>
                   </div>
                 </div>
 
                 {/* Proposals per month */}
-                <div className="space-y-5">
-                  <div className="flex justify-between items-baseline">
-                    <label className="text-sm text-zinc-500 font-light">Proposals sent per month</label>
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-baseline gap-2">
+                    <label className="text-xs md:text-sm text-zinc-500 font-light">Proposals sent per month</label>
                     <motion.span 
                       key={proposalsPerMonth}
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="text-3xl font-extralight text-white"
+                      className="text-2xl md:text-3xl font-extralight text-white tabular-nums"
                     >
                       {proposalsPerMonth}
                     </motion.span>
@@ -272,13 +250,13 @@ const BleedingCalculator = () => {
                       className="w-full h-2 bg-white/5 rounded-full appearance-none cursor-pointer
                                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
                                [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                               [&::-webkit-slider-thumb]:shadow-[0_0_20px_rgba(255,255,255,0.4)]
+                               [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]
                                [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-300
-                               [&::-webkit-slider-thumb]:hover:shadow-[0_0_30px_rgba(255,255,255,0.6)]"
+                               [&::-webkit-slider-thumb]:hover:shadow-[0_0_26px_rgba(167,139,250,0.5)]"
                     />
                     {/* Track fill */}
-                    <div 
-                      className="absolute top-0 left-0 h-2 bg-gradient-to-r from-white/20 to-white/40 rounded-full pointer-events-none"
+                    <div
+                      className="absolute top-0 left-0 h-2 rounded-full pointer-events-none bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
                       style={{ width: `${(proposalsPerMonth / 50) * 100}%` }}
                     />
                   </div>
@@ -289,14 +267,14 @@ const BleedingCalculator = () => {
                 </div>
 
                 {/* Average deal size */}
-                <div className="space-y-5">
-                  <div className="flex justify-between items-baseline">
-                    <label className="text-sm text-zinc-500 font-light">Average deal size</label>
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-baseline gap-2">
+                    <label className="text-xs md:text-sm text-zinc-500 font-light">Average deal size</label>
                     <motion.span 
                       key={avgDealSize}
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="text-3xl font-extralight text-white"
+                      className="text-2xl md:text-3xl font-extralight text-white tabular-nums"
                     >
                       {formatCurrency(avgDealSize)}
                     </motion.span>
@@ -312,10 +290,10 @@ const BleedingCalculator = () => {
                       className="w-full h-2 bg-white/5 rounded-full appearance-none cursor-pointer
                                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
                                [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                               [&::-webkit-slider-thumb]:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                               [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]"
                     />
-                    <div 
-                      className="absolute top-0 left-0 h-2 bg-gradient-to-r from-white/20 to-white/40 rounded-full pointer-events-none"
+                    <div
+                      className="absolute top-0 left-0 h-2 rounded-full pointer-events-none bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
                       style={{ width: `${((avgDealSize - 1000) / 99000) * 100}%` }}
                     />
                   </div>
@@ -324,17 +302,17 @@ const BleedingCalculator = () => {
                     <span>$100K</span>
                   </div>
                   {/* Quick select */}
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-1.5 flex-wrap">
                     {[5000, 10000, 15000, 25000, 50000].map((val) => (
                       <motion.button
                         key={val}
                         onClick={() => setAvgDealSize(val)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-4 py-2 text-xs rounded-xl border transition-all duration-300 ${
+                        className={`px-2.5 py-1.5 text-[11px] rounded-lg border transition-all duration-300 ${
                           avgDealSize === val
-                            ? 'bg-white/10 border-white/30 text-white shadow-[0_0_20px_rgba(255,255,255,0.1)]'
-                            : 'bg-transparent border-white/[0.06] text-zinc-500 hover:border-white/15 hover:text-zinc-300'
+                            ? 'bg-violet-500/15 border-violet-400/40 text-white shadow-[0_0_20px_rgba(139,92,246,0.15)]'
+                            : 'bg-transparent border-white/[0.06] text-zinc-500 hover:border-violet-500/25 hover:text-violet-200/90'
                         }`}
                       >
                         ${val / 1000}k
@@ -344,14 +322,14 @@ const BleedingCalculator = () => {
                 </div>
 
                 {/* Current close rate */}
-                <div className="space-y-5">
-                  <div className="flex justify-between items-baseline">
-                    <label className="text-sm text-zinc-500 font-light">Current close rate</label>
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-baseline gap-2">
+                    <label className="text-xs md:text-sm text-zinc-500 font-light">Current close rate</label>
                     <motion.span 
                       key={closeRate}
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="text-3xl font-extralight text-white"
+                      className="text-2xl md:text-3xl font-extralight text-white tabular-nums"
                     >
                       {closeRate}%
                     </motion.span>
@@ -366,10 +344,10 @@ const BleedingCalculator = () => {
                       className="w-full h-2 bg-white/5 rounded-full appearance-none cursor-pointer
                                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
                                [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                               [&::-webkit-slider-thumb]:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                               [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]"
                     />
-                    <div 
-                      className="absolute top-0 left-0 h-2 bg-gradient-to-r from-white/20 to-white/40 rounded-full pointer-events-none"
+                    <div
+                      className="absolute top-0 left-0 h-2 rounded-full pointer-events-none bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
                       style={{ width: `${((closeRate - 5) / 55) * 100}%` }}
                     />
                   </div>
@@ -379,29 +357,29 @@ const BleedingCalculator = () => {
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/[0.06]">
-                  <p className="text-xs text-zinc-600 font-light leading-relaxed">
-                    Conservative model. Based on what we keep seeing across 170+ agency pipelines, a meaningful share of apparently lost deals are not truly lost. They are leaking through delay, weak follow-up, fragmented commitment, and lack of visibility.
+                <div className="pt-3 border-t border-violet-500/10">
+                  <p className="text-[10px] md:text-[11px] text-zinc-600 font-light leading-snug">
+                    Conservative model. A meaningful share of “lost” deals are leaking through delay, weak follow-up, and fragmented commitment.
                   </p>
                 </div>
               </div>
 
               {/* Phase 1 — leak output */}
               <div>
-                <div className="flex items-center gap-4 mb-10">
-                  <div 
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                <div className="flex items-center gap-3 mb-2 md:mb-3">
+                  <div
+                    className="w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05))',
-                      border: '1px solid rgba(239, 68, 68, 0.2)',
-                      boxShadow: '0 0 30px rgba(239, 68, 68, 0.15)',
+                      border: '1px solid rgba(167, 139, 250, 0.22)',
+                      background:
+                        'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(24, 24, 27, 0.4))',
                     }}
                   >
-                    <TrendingDown className="w-5 h-5 text-red-400" />
+                    <TrendingDown className="w-4 h-4 md:w-5 md:h-5 text-violet-300/70" />
                   </div>
-                  <div>
-                    <span className="text-xl font-extralight text-white tracking-wide block">What your current sales motion is leaking</span>
-                    <span className="text-xs text-zinc-600 font-light">Revenue left exposed without infrastructure underneath</span>
+                  <div className="min-w-0">
+                    <span className="text-base md:text-lg font-extralight text-white tracking-wide block leading-tight">What you&apos;re leaking</span>
+                    <span className="text-[11px] text-zinc-600 font-light">Revenue left exposed</span>
                   </div>
                 </div>
 
@@ -412,51 +390,65 @@ const BleedingCalculator = () => {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -10 }}
                     transition={{ duration: 0.4 }}
-                    className="space-y-6"
+                    className="space-y-3"
                   >
                     {/* Monthly decay - MAIN NUMBER */}
-                    <div 
-                      className="relative p-10 rounded-2xl overflow-hidden"
+                    <div
+                      className="relative p-4 md:p-5 rounded-xl overflow-hidden"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05))',
-                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        border: '1px solid rgba(139, 92, 246, 0.18)',
+                        background:
+                          'linear-gradient(160deg, rgba(139, 92, 246, 0.08) 0%, rgba(24, 24, 27, 0.35) 50%, rgba(24, 24, 27, 0.2) 100%)',
                       }}
                     >
-                      {/* Static subtle glow */}
                       <div
-                        className="absolute inset-0 opacity-30"
+                        className="absolute inset-0 opacity-50 pointer-events-none"
                         style={{
-                          background: 'radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.15), transparent 70%)',
+                          background:
+                            'radial-gradient(ellipse 90% 70% at 50% 0%, rgba(167, 139, 250, 0.12), transparent 55%)',
                         }}
                       />
-                      
                       <div className="relative">
-                        <div className="flex items-center gap-2 mb-4">
-                          <Flame className="w-4 h-4 text-red-400/60" />
-                          <p className="text-xs tracking-[0.2em] uppercase text-red-400/60">
-                            Monthly revenue leaking in the gap
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <Flame className="w-3.5 h-3.5 text-violet-500/50 shrink-0" />
+                          <p className="text-[10px] tracking-[0.15em] uppercase text-zinc-500">
+                            Monthly revenue leaking
                           </p>
                         </div>
-                        <p className="text-6xl md:text-7xl font-extralight text-red-400">
+                        <p className="text-4xl sm:text-5xl md:text-6xl font-extralight leading-none tabular-nums text-white [text-shadow:0_0_40px_rgba(139,92,246,0.25),0_0_80px_rgba(139,92,246,0.1)]">
                           <AnimatedNumber value={monthlyDecay} prefix="$" />
                         </p>
-                        <p className="text-sm text-zinc-500 mt-4 font-light">
-                          Roughly {recoverableDeals.toFixed(1)} deals/month slipping out after buyer interest already existed
+                        <p className="text-[11px] text-zinc-500 mt-2 font-light leading-snug">
+                          ~{recoverableDeals.toFixed(1)} deals/mo with interest on the table
                         </p>
                       </div>
                     </div>
 
                     {/* Quarterly & Yearly */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="p-6 rounded-2xl glass-glow">
-                        <p className="text-xs text-zinc-500 mb-3 font-light">Per Quarter</p>
-                        <p className="text-3xl font-extralight text-orange-400">
+                    <div className="grid grid-cols-2 gap-2 md:gap-3">
+                      <div
+                        className="p-3 md:p-4 rounded-xl"
+                        style={{
+                          border: '1px solid rgba(167, 139, 250, 0.12)',
+                          background:
+                            'linear-gradient(145deg, rgba(139, 92, 246, 0.06), rgba(255, 255, 255, 0.02))',
+                        }}
+                      >
+                        <p className="text-[10px] text-zinc-500 mb-1 font-light">Per Quarter</p>
+                        <p className="text-xl md:text-2xl font-extralight text-zinc-100 tabular-nums">
                           <AnimatedNumber value={quarterlyDecay} prefix="$" />
                         </p>
                       </div>
-                      <div className="p-6 rounded-2xl glass-glow">
-                        <p className="text-xs text-zinc-500 mb-3 font-light">Per Year</p>
-                        <p className="text-3xl font-extralight text-red-400">
+                      <div
+                        className="p-3 md:p-4 rounded-xl"
+                        style={{
+                          border: '1px solid rgba(167, 139, 250, 0.12)',
+                          background:
+                            'linear-gradient(145deg, rgba(139, 92, 246, 0.06), rgba(255, 255, 255, 0.02))',
+                        }}
+                      >
+                        <p className="text-[10px] text-zinc-500 mb-1 font-light">Per Year</p>
+                        <p className="text-xl md:text-2xl font-extralight text-zinc-100 tabular-nums">
                           <AnimatedNumber value={yearlyDecay} prefix="$" />
                         </p>
                       </div>
@@ -467,77 +459,102 @@ const BleedingCalculator = () => {
               </div>
             </div>
 
-                  <div className="mt-8 flex flex-col items-center gap-2 text-center border-t border-white/[0.06] pt-6">
-                    <div className="flex items-center justify-center gap-2 text-zinc-500 text-xs tracking-[0.2em] uppercase">
-                      <Layers className="w-4 h-4 text-zinc-600 shrink-0" />
+                  <div className="mt-3 flex flex-col items-center gap-1 text-center border-t border-violet-500/10 pt-3">
+                    <div className="flex items-center justify-center gap-1.5 text-zinc-500 text-[10px] tracking-wide uppercase">
+                      <Layers className="w-3.5 h-3.5 text-violet-500/50 shrink-0" />
                       Same pipeline · stronger motion
                     </div>
-                    <p className="text-xs text-zinc-600 font-light max-w-md">
-                      → Swipe or tap <span className="text-zinc-400">Recovery</span> for what the rail returns on this same motion.
+                    <p className="text-[10px] text-zinc-600 font-light max-w-md">
+                      Swipe or tap <span className="text-violet-400/80">Recovery</span> for the second view.
                     </p>
                   </div>
                 </div>
 
                 {/* ——— Panel 2: Recovery ——— */}
                 <div className="min-w-full w-full shrink-0 snap-center snap-always box-border pl-1 md:pl-2">
-                  <div className="flex flex-wrap items-center gap-3 mb-6">
-                    <span className="text-[10px] tracking-[0.35em] uppercase text-emerald-500/90 font-medium">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
                       Recovery
                     </span>
-                    <span className="h-px flex-1 bg-gradient-to-r from-emerald-500/30 to-transparent min-w-[80px]" />
-                    <span className="text-xs text-zinc-500 font-light">Same pipeline once the rail is in place</span>
+                    <span
+                      className="h-px flex-1 min-w-[80px]"
+                      style={{
+                        background: 'linear-gradient(90deg, rgba(167, 139, 250, 0.35), transparent)',
+                      }}
+                    />
+                    <span className="text-[11px] text-zinc-500 font-light">Same pipeline, rail in place</span>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-5">
                 <motion.div
                   key={`delta-${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45 }}
-                  className="relative p-10 rounded-2xl overflow-hidden md:col-span-1"
+                  className="relative p-4 md:p-5 rounded-xl overflow-hidden md:col-span-1"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.06))',
-                    border: '1px solid rgba(16, 185, 129, 0.28)',
+                    border: '1px solid rgba(139, 92, 246, 0.2)',
+                    background:
+                      'linear-gradient(165deg, rgba(139, 92, 246, 0.1) 0%, rgba(24, 24, 27, 0.3) 55%, rgba(0,0,0,0.2) 100%)',
                   }}
                 >
                   <div
-                    className="absolute inset-0 opacity-40 pointer-events-none"
+                    className="absolute inset-0 opacity-50 pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle at 40% 30%, rgba(16, 185, 129, 0.2), transparent 65%)',
+                      background:
+                        'radial-gradient(ellipse 100% 80% at 30% 0%, rgba(167, 139, 250, 0.1), transparent 58%)',
                     }}
                   />
-                  <div className="relative flex items-center gap-3 mb-4">
-                    <Zap className="w-5 h-5 text-emerald-400" />
-                    <p className="text-xs tracking-[0.2em] uppercase text-emerald-400/80">
+                  <div className="relative flex items-center gap-2 mb-2">
+                    <Zap className="w-4 h-4 text-violet-400/60 shrink-0" />
+                    <p className="text-[10px] tracking-[0.15em] uppercase text-zinc-500">
                       Monthly value recaptured
                     </p>
                   </div>
-                  <p className="text-5xl md:text-6xl font-extralight text-emerald-400 mb-3">
+                  <p className="text-4xl sm:text-5xl md:text-6xl font-extralight mb-2 leading-none tabular-nums text-white [text-shadow:0_0_40px_rgba(139,92,246,0.28),0_0_88px_rgba(167,139,250,0.12)]">
                     <AnimatedNumber value={monthlyDecay} prefix="$" />
                   </p>
-                  <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                    Conservative value currently leaking in stalled, softened, or badly-followed-up opportunities. Elystra is built to pull that value back from the same pipeline, with the same offers, through a stronger finish from buyer interest to collected cash.
+                  <p className="text-[11px] text-zinc-400 font-light leading-snug">
+                    Value pulled back from the same pipeline—stronger finish from interest to cash.
                   </p>
                   <div
-                    className="mt-5 p-4 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06]"
+                    className="mt-3 p-2.5 rounded-lg"
+                    style={{
+                      border: '1px solid rgba(167, 139, 250, 0.12)',
+                      background:
+                        'linear-gradient(130deg, rgba(139, 92, 246, 0.05), rgba(255, 255, 255, 0.02))',
+                    }}
                   >
-                    <p className="text-[11px] tracking-[0.15em] uppercase text-emerald-500/80 mb-2">The pattern we keep seeing</p>
-                    <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                      Across 170+ agency pipelines, the same failure modes repeat. When Elystra is installed properly, agencies usually recover{' '}
-                      <span className="text-emerald-400/95">1–2 deals from the same pipeline</span> inside the first few weeks, then benefit from a cleaner finish on everything after that.
+                    <p className="text-[10px] tracking-wide uppercase text-zinc-500 mb-1">What we see</p>
+                    <p className="text-[11px] text-zinc-400 font-light leading-snug">
+                      Teams often recover{' '}
+                      <span className="text-violet-200/90">1–2 deals</span> in the first weeks, then a cleaner finish
+                      on the rest.
                     </p>
                   </div>
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    <div className="p-4 rounded-xl bg-black/30 border border-white/[0.06]">
-                      <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Quarter</p>
-                      <p className="text-xl font-extralight text-emerald-300/90">
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <div
+                      className="p-2.5 rounded-lg"
+                      style={{
+                        border: '1px solid rgba(139, 92, 246, 0.12)',
+                        background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.06), rgba(24, 24, 27, 0.5))',
+                      }}
+                    >
+                      <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5">Quarter</p>
+                      <p className="text-lg font-extralight text-zinc-100 tabular-nums">
                         <AnimatedNumber value={quarterlyDecay} prefix="$" />
                       </p>
                     </div>
-                    <div className="p-4 rounded-xl bg-black/30 border border-white/[0.06]">
-                      <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Year</p>
-                      <p className="text-xl font-extralight text-emerald-300/90">
+                    <div
+                      className="p-2.5 rounded-lg"
+                      style={{
+                        border: '1px solid rgba(139, 92, 246, 0.12)',
+                        background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.06), rgba(24, 24, 27, 0.5))',
+                      }}
+                    >
+                      <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5">Year</p>
+                      <p className="text-lg font-extralight text-zinc-100 tabular-nums">
                         <AnimatedNumber value={yearlyDecay} prefix="$" />
                       </p>
                     </div>
@@ -550,54 +567,55 @@ const BleedingCalculator = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: 0.08 }}
-                  className="space-y-6"
+                  className="space-y-3 flex flex-col"
                 >
                   <div
-                    className="p-8 rounded-2xl"
+                    className="p-4 rounded-xl"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      background:
+                        'linear-gradient(135deg, rgba(139, 92, 246, 0.07), rgba(255, 255, 255, 0.02), rgba(24, 24, 27, 0.4))',
+                      border: '1px solid rgba(167, 139, 250, 0.15)',
                     }}
                   >
-                    <div className="flex items-center gap-3 mb-4">
-                      <TrendingUp className="w-5 h-5 text-zinc-400" />
-                      <p className="text-xs tracking-[0.2em] uppercase text-zinc-500">
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="w-4 h-4 text-zinc-400 shrink-0" />
+                      <p className="text-[10px] tracking-wide uppercase text-zinc-500">
                         Close-rate headroom
                       </p>
                     </div>
-                    <p className="text-3xl md:text-4xl font-extralight text-white mb-3">
+                    <p className="text-2xl md:text-3xl font-extralight text-white mb-1.5 tabular-nums">
                       {closeRate}% → {liftedClose}%
                     </p>
-                    <p className="text-sm text-zinc-400 font-light mb-2 leading-relaxed">
-                      Same pipeline, stronger finish. That shift means more of the work you already do actually turns into paid business.
-                    </p>
-                    <p className="text-sm text-zinc-500 font-light">
-                      ~<span className="text-zinc-300">{extraDealsFromLift.toFixed(1)}</span> extra deals/month ≈{' '}
-                      <span className="text-emerald-400/90">{formatCurrency(monthlyFromCloseHeadroom)}/month</span>
-                      <span className="text-zinc-600"> · +{liftedClose - closeRate} pts paid close (cap {RAIL_CLOSE_CEILING}%)</span>
+                    <p className="text-[11px] text-zinc-500 font-light leading-snug">
+                      ~<span className="text-zinc-300">{extraDealsFromLift.toFixed(1)}</span> extra deals/mo ≈{' '}
+                      <span className="text-violet-200/90">{formatCurrency(monthlyFromCloseHeadroom)}/mo</span>
+                      <span className="text-zinc-600"> · +{liftedClose - closeRate} pts (cap {RAIL_CLOSE_CEILING}%)</span>
                     </p>
                   </div>
 
-                  <div className="p-6 rounded-2xl border border-white/[0.06] bg-black/20">
-                    <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                      Elystra strengthens the part of the sale where agencies usually lose control: after buyer interest exists, before the money lands.
-                    </p>
-                    <p className="text-sm text-zinc-300 font-light leading-relaxed mt-4">
-                      The result is simple: more of the same pipeline moves to signed, paid, and collected revenue.
+                  <div
+                    className="p-3 rounded-xl"
+                    style={{
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background:
+                        'linear-gradient(160deg, rgba(82, 82, 91, 0.25) 0%, rgba(24, 24, 27, 0.55) 100%)',
+                    }}
+                  >
+                    <p className="text-[11px] text-zinc-400 font-light leading-snug">
+                      Control where it usually breaks: after interest, before money. More pipeline → signed and collected.
                     </p>
                   </div>
 
                   <motion.button
                     type="button"
                     onClick={openDemoBooking}
-                    className="relative flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-medium text-white overflow-hidden"
+                    className="relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 py-3.5 text-sm font-medium text-white mt-auto"
                     style={{
-                      background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
-                      boxShadow: '0 0 40px rgba(139, 92, 246, 0.3)',
+                      boxShadow: '0 0 40px rgba(139, 92, 246, 0.32)',
                     }}
                     whileHover={{
                       scale: 1.02,
-                      boxShadow: '0 0 60px rgba(139, 92, 246, 0.4)',
+                      boxShadow: '0 0 56px rgba(167, 139, 250, 0.38)',
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -615,9 +633,7 @@ const BleedingCalculator = () => {
                 </div>
               </div>
             </div>
-          </div>
         </motion.div>
-      </div>
     </section>
   );
 };
