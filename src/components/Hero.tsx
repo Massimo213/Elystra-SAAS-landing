@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, Variants } from "framer-motion";
-import { ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useDemoBooking } from "@/contexts/DemoBookingContext";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { RotatingWordLine } from "@/components/ui/rotating-word-line";
