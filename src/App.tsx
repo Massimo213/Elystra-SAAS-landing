@@ -65,10 +65,9 @@ const MainContent = () => (
     <BleedingCalculator />
     <FullArsenal />
    <ProcessComparison />
- 
+   <NorthAmericaRailSection />
     <Review />
     <Cta />
-    <NorthAmericaRailSection />
     <Guarantee />
 <Faq/>
     <Footer />
