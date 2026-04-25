@@ -595,4 +595,58 @@
       0 20px 40px rgba(0, 0, 0, 0.3),
       0 0 60px rgba(139, 92, 246, 0.1);
   }
+
+  /* Globe HTML HUD — Poppins + violet, unified with Elystra design system */
+  .elystra-globe-hud {
+    font-family: "Poppins", system-ui, sans-serif;
+    @apply text-left;
+    pointer-events: auto;
+    min-width: 0;
+    max-width: 17rem;
+    width: min(16rem, 70vw);
+    box-sizing: border-box;
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.6rem;
+    color: #fafafa;
+    background: rgba(3, 3, 5, 0.52);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.12) inset, 0 8px 32px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(139, 92, 246, 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+  }
+
+  .elystra-globe-hud--wide {
+    width: min(20rem, 78vw);
+    max-width: 28rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .elystra-globe-hud__row {
+    @apply flex items-start gap-2.5;
+  }
+
+  .elystra-globe-hud__icon {
+    @apply flex shrink-0 text-violet-400 mt-0.5;
+    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.35));
+  }
+
+  .elystra-globe-hud__body {
+    @apply flex min-w-0 flex-1 flex-col gap-1;
+  }
+
+  .elystra-globe-hud__value {
+    @apply text-[0.95rem] font-medium leading-tight tracking-tight text-zinc-50 md:text-[1.05rem];
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
+  }
+
+  .elystra-globe-hud__kicker {
+    @apply text-[0.5rem] font-medium uppercase leading-snug text-violet-300/90;
+    font-family: ui-monospace, "SF Mono", Menlo, Monaco, "Courier New", monospace;
+    letter-spacing: 0.2em;
+  }
+
+  .elystra-globe-hud__tertiary {
+    @apply text-[0.55rem] font-light leading-snug text-zinc-500;
+  }
 }

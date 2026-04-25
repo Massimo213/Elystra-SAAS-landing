@@ -16,6 +16,7 @@ import Footer from '@/components/Footer';
 
 import UrgencyStrip from '@/components/UrgencyStrip';
 import BleedingCalculator from '@/components/BleedingCalculator';
+import NorthAmericaRailSection from '@/components/NorthAmericaRailSection';
 import ProcessComparison from '@/components/ProcessComparison';
 import FullArsenal from '@/components/FullArsenal';
 import Guarantee from '@/components/Guarantee';
@@ -60,12 +61,14 @@ const MainContent = () => (
   <main className="relative z-10 pt-14 md:pt-16">
     <UrgencyStrip />
     <Hero />
+ 
     <BleedingCalculator />
     <FullArsenal />
    <ProcessComparison />
  
     <Review />
     <Cta />
+    <NorthAmericaRailSection />
     <Guarantee />
 <Faq/>
     <Footer />

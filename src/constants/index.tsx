@@ -51,6 +51,10 @@ export const navMenu: MenuItem[] = [
     label: 'How It Works',
   },
   {
+    href: '#territory',
+    label: 'Territory',
+  },
+  {
     href: '#the-rail',
     label: 'The Rail',
   },

@@ -162,7 +162,7 @@ const Faq = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-transparent">
+    <section id="faq" className="relative py-24 md:py-32 overflow-hidden bg-transparent">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div 

@@ -16,7 +16,7 @@ const Guarantee = () => {
         />
       </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto px-6">
+      <div className="relative z-10 max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -25,7 +25,7 @@ const Guarantee = () => {
           className="text-center"
         >
           <div 
-            className="inline-block p-10 md:p-14 rounded-3xl"
+            className="inline-block p-10 md:p-14 rounded-3xl w-full"
             style={{
               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(52, 211, 153, 0.04) 100%)',
               border: '1px solid rgba(16, 185, 129, 0.2)',
@@ -41,7 +41,7 @@ const Guarantee = () => {
               <Shield className="w-6 h-6 text-emerald-400" />
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-extralight tracking-tight mb-6">
+            <h2 className="text-3xl md:text-5xl font-extralight tracking-tight mb-8 leading-tight">
               <span 
                 style={{
                   background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
@@ -49,20 +49,30 @@ const Guarantee = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                30-Day Profitability Guarantee
+                30-Day Infrastructure Guarantee
               </span>
             </h2>
 
-            <p className="text-base md:text-lg text-zinc-300 font-light max-w-xl mx-auto leading-relaxed mb-4">
-              Run real deals through Elystra for 30 days. If it doesn't recover enough closed revenue to pay for itself and leave you net-positive, you get the month back.
-            </p>
-            <p className="text-base md:text-lg text-zinc-400 font-light max-w-xl mx-auto leading-relaxed mb-4">
-              170 agencies run deals through Elystra. Closed revenue moves. Time-to-cash compresses.
-            </p>
+            <div className="max-w-xl mx-auto space-y-5 mb-8">
+              <p className="text-base md:text-lg text-zinc-300 font-light leading-relaxed">
+                Run real deals through Elystra for 30 days. If your close-rate doesn&apos;t move and your time-to-cash doesn&apos;t compress, you get the month back.
+              </p>
+              <p className="text-base md:text-lg text-zinc-400 font-light leading-relaxed">
+                170+ agencies on the rail. The numbers move.
+              </p>
+            </div>
             
-            <p className="text-sm md:text-base text-zinc-400 font-medium max-w-lg mx-auto mt-6">
-              That's how confident we are at Elystra: either you win, or we don't get paid.
-            </p>
+            <div 
+              className="inline-block px-6 py-3 rounded-xl"
+              style={{
+                background: 'rgba(16, 185, 129, 0.06)',
+                border: '1px solid rgba(16, 185, 129, 0.15)',
+              }}
+            >
+              <p className="text-sm md:text-base text-zinc-300 font-light">
+                Either you win, or we don&apos;t get paid.
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>
