@@ -1,18 +1,14 @@
 /**
- * Hero.tsx — GREATNESS pass
- * Changes:
- * - Removed "Used by teams at …" logo strip (no placeholders).
- * - Single CTA button only (booking).
- * - CTA label keeps: "Want proof first? Book a 7-Minute Demo".
- * - Title made more visually dominant: heavier contrast, tighter tracking, glow layer, and controlled gradient flare.
+ * Hero.tsx — destination promise → rotating ambition states → bridge → mechanism
+ * (Shopify-style: future self, breadth, then "how" — without cargo-culting their words).
  */
 
-import { motion, Variants } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion, Variants } from "framer-motion";
 import { ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
 import { useDemoBooking } from "@/contexts/DemoBookingContext";
 import { WavyBackground } from "@/components/ui/wavy-background";
-import { EncryptedText } from "@/components/ui/encrypted-text";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { RotatingWordLine } from "@/components/ui/rotating-word-line";
 
 const easeOutExpo = [0.16, 0.84, 0.44, 1] as const;
 const easeOutQuart = [0.25, 0.46, 0.45, 0.94] as const;
@@ -45,21 +41,37 @@ const titleLine: Variants = {
   },
 };
 
-const frameVariants: Variants = {
-  hidden: { opacity: 0, y: 40, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 1, ease: easeOutExpo },
-  },
-};
-
 const glowTextShadow =
   "0 2px 18px rgba(0,0,0,0.88), 0 0 44px rgba(0,0,0,0.60)";
 
+/** Completes: “Become the agency …” — same arc as “future self,” then scale, then infrastructure. */
+const AMBITION_CLAUSES = [
+  "that clients trust first",
+  "that buyers take seriously",
+  "that clients stay with",
+  "that clients expand with",
+  "that runs like infrastructure",
+] as const;
+
+/** Word-in / word-out choreography needs more time per phrase than a raw crossfade. */
+const ROTATE_MS = 5_200;
+
 const Hero = () => {
   const { openDemoBooking } = useDemoBooking();
+  const shouldReduce = useReducedMotion();
+  const [ambitionIndex, setAmbitionIndex] = useState(0);
+
+  useEffect(() => {
+    if (shouldReduce) return;
+    const id = window.setInterval(
+      () => setAmbitionIndex((i) => (i + 1) % AMBITION_CLAUSES.length),
+      ROTATE_MS
+    );
+    return () => clearInterval(id);
+  }, [shouldReduce]);
+
+  const activeClauseIndex = shouldReduce ? 0 : ambitionIndex;
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-transparent">
       {/* Bottom Waves only */}
@@ -140,32 +152,16 @@ const Hero = () => {
               />
           </div>
 
-      {/* Content */}
+      {/* Content — copy on the environment, no card (weakens category if boxed) */}
       <div className="relative z-10 pt-4 md:pt-6 pb-16 flex flex-col justify-center min-h-[calc(100vh-6rem)]">
         <motion.div
           variants={container}
           initial="hidden"
           animate="visible"
-          className="max-w-6xl mx-auto px-6"
+          className="max-w-6xl mx-auto px-4 sm:px-6"
         >
-          {/* Glass frame — living glow, cinematic entrance */}
-          <motion.div
-            variants={frameVariants}
-            className="relative rounded-[30px] border border-white/[0.10] bg-black/60 overflow-hidden hero-frame-glow"
-          >
-            {/* Inner sheen */}
-            <div
-              className="absolute inset-0 opacity-70 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(120deg, rgba(255,255,255,0.10), transparent 35%, rgba(255,255,255,0.06) 65%, transparent)",
-              }}
-            />
-
-            <div className="relative px-6 md:px-12 py-8 md:py-10 text-center">
-            
-
-              {/* TITLE — staggered entrance + gradient shift */}
+          <div className="relative text-center py-2 md:py-4">
+              {/* Promise + rotating ambition */}
               <motion.h1
                 variants={{
                   hidden: { opacity: 0, y: 28, scale: 0.98 },
@@ -180,68 +176,56 @@ const Hero = () => {
                     },
                   },
                 }}
-                className="mb-4"
+                className="mb-2 md:mb-4"
               >
-                <div className="relative inline-block">
+                <div className="relative inline-block max-w-[100vw] px-1">
                   <div
-                    className="absolute -inset-6 blur-3xl opacity-35"
+                    className="absolute -inset-8 sm:-inset-10 md:-inset-12 blur-3xl opacity-28"
                     style={{
                       background:
-                        "radial-gradient(circle at 35% 35%, rgba(139,92,246,0.55), rgba(99,102,241,0.25), transparent 70%)",
+                        "radial-gradient(circle at 35% 35%, rgba(139,92,246,0.5), rgba(99,102,241,0.24), transparent 70%)",
                     }}
                   />
                   <div className="relative" style={{ textShadow: glowTextShadow }}>
-                <motion.div
-                      variants={titleLine}
-                      className="text-[3.05rem] md:text-[4.1rem] lg:text-[5.2rem] font-light tracking-[-0.03em] leading-[1.1]"
-                    >
-                      <EncryptedText
-                        text="Control the Deal."
-                        encryptedClassName="text-zinc-500"
-                        revealedClassName="text-white"
-                        revealDelayMs={85}
-                        flipDelayMs={60}
-                      />
-                </motion.div>
                     <motion.div
                       variants={titleLine}
-                      className="mt-2 text-[2.75rem] md:text-[3.9rem] lg:text-[5.0rem] font-light tracking-[-0.03em] leading-[1.1] hero-gradient-shift"
-                      style={{
-                        background: "linear-gradient(135deg, #a855f7 0%, #34d399 50%, #a855f7 100%)",
-                        backgroundSize: "200% 200%",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                      }}
+                      className="text-[3rem] min-[380px]:text-[3.35rem] min-[420px]:text-[3.55rem] sm:text-[3.95rem] md:text-[4.55rem] lg:text-[5.15rem] xl:text-[5.65rem] font-light tracking-[-0.04em] leading-[1.05] text-white"
                     >
-                      <EncryptedText
-                        text="Collect the Money."
-                        encryptedClassName="text-zinc-500/80"
-                        revealedClassName="text-inherit"
-                        revealDelayMs={85}
-                        flipDelayMs={60}
-                        startDelayMs={1600}
-                      />
+                      Become the agency
+                    </motion.div>
+                    <motion.div
+                      variants={titleLine}
+                      className="mt-2 md:mt-3 min-h-[3rem] min-[400px]:min-h-[3.25rem] sm:min-h-[3.6rem] md:min-h-[4.1rem] lg:min-h-[4.6rem] xl:min-h-[5.1rem] flex flex-col items-center justify-center"
+                    >
+                      <div className="w-full text-[1.9rem] min-[400px]:text-[2.1rem] sm:text-[2.45rem] md:text-[2.9rem] lg:text-[3.4rem] xl:text-[3.6rem] font-light tracking-[-0.03em] leading-[1.12] sm:leading-[1.1]">
+                        <RotatingWordLine
+                          phrases={AMBITION_CLAUSES}
+                          activeIndex={activeClauseIndex}
+                          shouldReduce={!!shouldReduce}
+                        />
+                      </div>
                     </motion.div>
                   </div>
                 </div>
               </motion.h1>
 
-              {/* Subhead */}
-              <motion.div
+              {/* Bridge — one clean line, instant legibility */}
+              <motion.p
                 variants={item}
-                className="mb-6 text-lg md:text-xl font-light max-w-3xl mx-auto leading-relaxed"
-                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}
+                className="mb-4 text-lg sm:text-xl md:text-2xl font-light text-zinc-100/90 tracking-[-0.02em] leading-snug"
+                style={{ textShadow: "0 2px 14px rgba(0,0,0,0.5)" }}
               >
-                <TextGenerateEffect
-                  words="Elystra is the sales infrastructure for agencies. The system that standardizes, controls, and accelerates the agency sales process after interest exists. Every serious opportunity becomes a tracked scope, a buying signal, and a clean path to payment."
-                  className="font-light"
-                  wordClassName="text-zinc-200/90"
-                  filter={true}
-                  duration={0.5}
-                  staggerDelay={0.05}
-                  startDelay={3.4}
-                />
-      </motion.div>
+               The one sales operating system behind agency growth.
+              </motion.p>
+
+              {/* Platform compression — static, no word-by-word gen */}
+              <motion.p
+                variants={item}
+                className="mb-8 text-base md:text-lg font-light text-zinc-400/90 max-w-2xl mx-auto leading-relaxed"
+                style={{ textShadow: "0 2px 10px rgba(0,0,0,0.45)" }}
+              >
+               Elystra is the sales infrastructure for agencies — controlling everything after interest exists, Every serious opportunity becomes a tracked scope, a buying signal, and a clean path to payment while engeneering for long-term client continuity .
+              </motion.p>
 
               {/* Proof tiles — breathe + stagger */}
               <motion.div
@@ -289,23 +273,7 @@ const Hero = () => {
             </div>
               </motion.div>
 
-              {/* Guarantee — pulse */}
-              <motion.div variants={item} className="mb-6">
-                <div
-                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full hero-guarantee-pulse"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(16, 185, 129, 0.08))",
-                    border: "1px solid rgba(16, 185, 129, 0.32)",
-                    boxShadow: "0 0 50px rgba(16,185,129,0.1)",
-                  }}
-                >
-                  <ShieldCheck className="w-4 h-4 text-emerald-300" />
-                  <span className="text-sm text-emerald-200/90 font-light">
-                    Close-rate moves or you pay nothing
-                  </span>
-        </div>
-      </motion.div>
+              
 
               {/* SINGLE CTA — booking only */}
               <motion.div variants={item} className="mb-4">
@@ -384,9 +352,8 @@ const Hero = () => {
                 ))}
               </motion.div>
             </div>
-          </motion.div>
         </motion.div>
-        </div>
+      </div>
     </section>
   );
 };
