@@ -243,7 +243,7 @@ const Hero = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   {[
                     { value: "170+", label: "agencies running deals on the rail" },
-                    { value: "$4.6M", label: "closed last quarter" },
+                    { value: "$6.2M", label: "closed last quarter" },
                     { value: "+23%", label: "average close-rate lift" },
                   ].map((s, idx) => (
       <motion.div
