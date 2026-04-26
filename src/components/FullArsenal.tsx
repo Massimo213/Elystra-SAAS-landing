@@ -138,6 +138,14 @@ const FullArsenal = () => {
     setActiveShotIndex(0);
   }, [activeIndex]);
 
+  useEffect(() => {
+    if (shots.length <= 1) return;
+    const id = window.setInterval(() => {
+      setActiveShotIndex((index) => (index + 1) % shots.length);
+    }, 2600);
+    return () => window.clearInterval(id);
+  }, [activeIndex, shots.length]);
+
   const unlockAndScroll = useCallback((target: number, releasedDown: boolean) => {
     const safeTarget = Math.max(0, target);
     wheelAccumRef.current = 0;
@@ -374,6 +382,14 @@ function DesktopFeatureRail({
   onFeatureSelect: (index: number) => void;
   onShotSelect: (index: number) => void;
 }) {
+  const stackedShots = activeFeature.shots
+    .map((shot, index) => ({
+      shot,
+      index,
+      offset: (index - activeShotIndex + activeFeature.shots.length) % activeFeature.shots.length,
+    }))
+    .filter((item) => item.offset > 0 && item.offset < 3);
+
   const content = (
     <div className="relative h-full w-full overflow-hidden bg-transparent">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black via-black/42 to-transparent" />
@@ -522,36 +538,61 @@ function DesktopFeatureRail({
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -14, scale: 0.986 }}
                   transition={{ duration: 0.36, ease: "easeOut" }}
-                  className="w-full"
+                  className="relative w-full"
                 >
-                  <div className="overflow-hidden rounded-[2rem] bg-transparent">
-                    <img
-                      src={activeShot.src}
-                      alt={activeShot.label}
-                      className="max-h-[62vh] w-full object-contain object-top drop-shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
-                    />
+                  <div className="relative mx-auto w-full max-w-[52rem] pt-8">
+                    {stackedShots
+                      .slice()
+                      .reverse()
+                      .map(({ shot, offset }) => (
+                        <motion.div
+                          key={`${shot.src}-stack`}
+                          className="pointer-events-none absolute inset-x-10 top-0 overflow-hidden rounded-[1.7rem] border border-white/8 bg-white/[0.02]"
+                          style={{
+                            transform: `translateY(${offset * 18}px) scale(${1 - offset * 0.035})`,
+                            opacity: offset === 1 ? 0.26 : 0.14,
+                            zIndex: 1,
+                          }}
+                        >
+                          <img
+                            src={shot.src}
+                            alt=""
+                            className="max-h-[50vh] w-full object-contain object-top blur-[0.2px]"
+                          />
+                        </motion.div>
+                      ))}
+
+                    <div className="relative z-10 overflow-hidden rounded-[2rem] bg-transparent">
+                      <img
+                        src={activeShot.src}
+                        alt={activeShot.label}
+                        className="max-h-[62vh] w-full object-contain object-top drop-shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+                      />
+                    </div>
                   </div>
 
-                  {activeFeature.shots.length > 1 && (
-                    <div className="mt-5 flex items-center justify-center gap-2">
-                      {activeFeature.shots.map((shot, index) => {
-                        const selected = index === activeShotIndex;
-                        return (
-                          <button
-                            key={shot.src}
-                            type="button"
-                            onClick={() => onShotSelect(index)}
-                            className="h-2.5 rounded-full transition-all"
-                            style={{
-                              width: selected ? "2rem" : "0.65rem",
-                              background: selected ? "rgb(167 139 250)" : "rgba(255,255,255,0.22)",
-                            }}
-                            aria-label={shot.label}
-                          />
-                        );
-                      })}
-                    </div>
-                  )}
+                  <div className="mt-4 text-center text-[0.72rem] uppercase tracking-[0.18em] text-zinc-500">
+                    {activeShot.label}
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-center gap-2">
+                    {activeFeature.shots.map((shot, index) => {
+                      const selected = index === activeShotIndex;
+                      return (
+                        <button
+                          key={shot.src}
+                          type="button"
+                          onClick={() => onShotSelect(index)}
+                          className="h-2.5 rounded-full transition-all"
+                          style={{
+                            width: selected ? "2rem" : "0.65rem",
+                            background: selected ? "rgb(167 139 250)" : "rgba(255,255,255,0.22)",
+                          }}
+                          aria-label={shot.label}
+                        />
+                      );
+                    })}
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>

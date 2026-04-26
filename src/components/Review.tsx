@@ -1,333 +1,268 @@
-/**
- * Review.tsx
- * ELYSTRA — Full testimonials with stories, metrics, and faces
- * "Numbers Don't Lie" section
- */
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Briefcase, Clock3, DollarSign, Star, TrendingUp, User } from 'lucide-react';
 
-import { motion, Variants } from 'framer-motion';
-import { Star, TrendingUp, Clock, DollarSign, User, Briefcase } from 'lucide-react';
-
-/* ---------------- Testimonial Data ---------------- */
 const testimonials = [
   {
+    eyebrow: 'Close-rate lift',
     badge: '+34% close-rate',
-    badgeIcon: TrendingUp,
-    badgeColor: 'emerald',
+    icon: TrendingUp,
     type: 'Performance Agency',
     metric: '$2.4M ARR',
-    quote: `We used to 'close' on the call verbally and then wait 1–3 weeks for signatures and payment. At least a quarter of those deals just died in the gap.
-
-With Elystra, we build the proposal from the call, they sign and pay on the same screen, and the team gets a follow-up queue if they don't.
-
-Our close-rate went from 19% to 32% in 60 days without touching lead volume.`,
+    quote:
+      "We used to 'close' on the call verbally and then wait 1-3 weeks for signatures and payment. At least a quarter of those deals died in the gap. With Elystra, we build the proposal from the call, they sign and pay on the same screen, and the team gets a follow-up queue if they don't.",
+    outcome: '19% to 32% in 60 days',
     author: 'Founder',
     company: 'Performance & media agency',
     avatar: 'JM',
   },
   {
-    badge: '3 days → 20 minutes',
-    badgeIcon: Clock,
-    badgeColor: 'blue',
+    eyebrow: 'Speed to send',
+    badge: '3 days to 20 minutes',
+    icon: Clock3,
     type: 'Creative Studio',
     metric: '18-person team',
-    quote: `Before Elystra, a 'simple' proposal took us 2–3 days between decks, approvals and formatting. Clients loved the call and then cooled off while we were designing slides.
-
-Now we hang up with the proposal already sent, signature and deposit on the same link. No PDFs, no juggling DocuSign and Stripe.
-
-The big shift is speed: proposals that used to clog our pipeline for a week now close the same day.`,
+    quote:
+      'Before Elystra, a simple proposal took us 2-3 days between decks, approvals and formatting. Now we hang up with the proposal already sent, signature and deposit on the same link. Proposals that used to clog our pipeline for a week now close the same day.',
+    outcome: 'Same-day send became standard',
     author: 'Founder',
     company: 'Brand & creative studio',
     avatar: 'SK',
   },
   {
+    eyebrow: 'Revenue recovered',
     badge: '$127K recovered',
-    badgeIcon: DollarSign,
-    badgeColor: 'amber',
+    icon: DollarSign,
     type: 'SEO Agency',
-    metric: '90 days',
-    quote: `We thought our problem was 'more leads'. It wasn't. It was deal decay.
-
-Elystra exposed exactly where retainers were dying: clients who said yes, got a PDF, then vanished.
-
-In the first quarter we recovered $127K in retainers that would have quietly died. Same leads, same offers, same close team. The only change was closing on the rail instead of over email.`,
+    metric: 'First 90 days',
+    quote:
+      "We thought our problem was more leads. It wasn't. It was deal decay. Elystra exposed exactly where retainers were dying: clients who said yes, got a PDF, then vanished. Same leads, same offers, same close team. The only change was closing on the rail instead of over email.",
+    outcome: 'Retainers recovered without new pipeline',
     author: 'Managing Partner',
     company: 'SEO agency (enterprise accounts)',
     avatar: 'RP',
   },
   {
-    badge: 'Founder out of admin',
-    badgeIcon: User,
-    badgeColor: 'violet',
+    eyebrow: 'Founder leverage',
+    badge: '8 to 10 hours back',
+    icon: User,
     type: 'Media Agency',
     metric: '6-person team',
-    quote: `I was spending 1–2 hours a day just building proposals, chasing signatures and sending Stripe links. It felt normal because every agency does it.
-
-Elystra killed all of that. I talk, it builds. Client signs and pays. As soon as they do, ClickUp, Slack and Xero all update without me touching anything.
-
-I got back roughly 8–10 hours a week of founder time and we closed enough extra revenue in month one to cover a year of Elystra.`,
+    quote:
+      'I was spending 1-2 hours a day building proposals, chasing signatures and sending Stripe links. Elystra killed all of that. I talk, it builds. Client signs and pays. ClickUp, Slack and Xero update without me touching anything.',
+    outcome: 'Month one covered a full year of Elystra',
     author: 'Founder',
     company: 'Paid media agency',
     avatar: 'AT',
   },
   {
-    badge: '$50K–$150K deals',
-    badgeIcon: Briefcase,
-    badgeColor: 'rose',
+    eyebrow: 'High-ticket conversion',
+    badge: '$50K to $150K scopes',
+    icon: Briefcase,
     type: 'Strategic Consultancy',
     metric: 'High-ticket',
-    quote: `We don't sell $3K retainers. Our proposals are $50K–$150K strategy scopes. Any friction in that process costs us real money.
-
-Elystra didn't 'simplify' the work. It killed the dead time. Our clients review the scope, sign and wire the first payment in one motion.
-
-The biggest change is psychological: once someone says yes, there's no window for them to cool off or shop around. The rail forces a decision.`,
+    quote:
+      "We don't sell $3K retainers. Our proposals are $50K-$150K strategy scopes. Elystra didn't simplify the work. It killed the dead time. Our clients review the scope, sign and wire the first payment in one motion. There's no window for them to cool off or shop around.",
+    outcome: 'Decision velocity went up immediately',
     author: 'Principal',
     company: 'Strategy & transformation firm',
     avatar: 'MK',
   },
 ];
 
-const badgeColors: Record<string, { bg: string; border: string; text: string }> = {
-  emerald: {
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20',
-    text: 'text-emerald-400',
-  },
-  blue: {
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/20',
-    text: 'text-blue-400',
-  },
-  amber: {
-    bg: 'bg-amber-500/10',
-    border: 'border-amber-500/20',
-    text: 'text-amber-400',
-  },
-  violet: {
-    bg: 'bg-violet-500/10',
-    border: 'border-violet-500/20',
-    text: 'text-violet-400',
-  },
-  rose: {
-    bg: 'bg-rose-500/10',
-    border: 'border-rose-500/20',
-    text: 'text-rose-400',
-  },
-};
+const upperTrack = [...testimonials, ...testimonials];
+const lowerTrack = [...testimonials.slice(2), ...testimonials.slice(0, 2), ...testimonials.slice(2), ...testimonials.slice(0, 2)];
 
-/* ---------------- Motion Variants ---------------- */
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
+const metrics = [
+  { value: '170+', label: 'agencies now closing on the rail' },
+  { value: '$6.2M', label: 'closed last quarter through Elystra' },
+  { value: '+23%', label: 'average lift in close-rate' },
+];
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
-  }
-};
+type Testimonial = (typeof testimonials)[number];
 
-/* ---------------- Testimonial Card ---------------- */
-interface TestimonialCardProps {
-  testimonial: typeof testimonials[0];
-}
-
-const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
-  const colors = badgeColors[testimonial.badgeColor];
-  const BadgeIcon = testimonial.badgeIcon;
+const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
+  const Icon = testimonial.icon;
 
   return (
-    <motion.div
-      variants={cardVariants}
-      className="group relative"
-    >
-      <div className="relative bg-black/30 rounded-2xl p-6 md:p-8 border border-white/[0.06] 
-                     hover:border-white/[0.1] transition-all duration-300 h-full">
-        {/* Header */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
-          {/* Main badge */}
-          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${colors.bg} border ${colors.border}`}>
-            <BadgeIcon className={`w-3.5 h-3.5 ${colors.text}`} />
-            <span className={`text-xs font-medium ${colors.text}`}>{testimonial.badge}</span>
+    <article className="proof-card group relative w-[22rem] shrink-0 overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[rgba(8,8,12,0.72)] p-6 md:w-[26rem] md:p-7">
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div
+          className="absolute inset-x-10 top-0 h-24 blur-3xl"
+          style={{
+            background:
+              'radial-gradient(circle, rgba(167, 139, 250, 0.18) 0%, rgba(99, 102, 241, 0.12) 45%, transparent 72%)',
+          }}
+        />
+      </div>
+
+      <div className="relative flex items-start justify-between gap-4">
+        <div className="space-y-3">
+          <span className="inline-flex rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.22em] text-violet-200">
+            {testimonial.eyebrow}
+          </span>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-violet-400/15 bg-violet-400/10 text-violet-200">
+              <Icon className="h-4 w-4" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-white">{testimonial.badge}</p>
+              <p className="text-xs text-zinc-400">{testimonial.type}</p>
+            </div>
           </div>
-          
-          {/* Type badge */}
-          <div className="px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
-            <span className="text-xs text-zinc-400">{testimonial.type}</span>
-          </div>
-          
-          {/* Metric */}
-          <span className="text-xs text-zinc-500">{testimonial.metric}</span>
         </div>
 
-        {/* Stars */}
-        <div className="flex gap-1 mb-5">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 text-amber-400 fill-current" />
-          ))}
-            </div>
+        <span className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-[0.65rem] uppercase tracking-[0.18em] text-zinc-400">
+          {testimonial.metric}
+        </span>
+      </div>
 
-        {/* Quote */}
-        <blockquote className="text-sm text-zinc-300 font-light leading-relaxed mb-6 whitespace-pre-line">
-          "{testimonial.quote}"
-        </blockquote>
+      <div className="mt-6 flex items-center gap-1 text-violet-200">
+        {[...Array(5)].map((_, index) => (
+          <Star key={index} className="h-3.5 w-3.5 fill-current" />
+        ))}
+      </div>
 
-        {/* Author */}
-        <div className="flex items-center gap-3 pt-5 border-t border-white/[0.06]">
-          {/* Avatar */}
-          <div 
-            className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium"
+      <blockquote className="mt-5 text-[0.98rem] leading-7 text-zinc-200/88">
+        “{testimonial.quote}”
+      </blockquote>
+
+      <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/[0.08] pt-5">
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold text-white"
             style={{
-              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%)',
-              border: '1px solid rgba(139, 92, 246, 0.3)',
+              background: 'linear-gradient(135deg, rgba(139,92,246,0.34) 0%, rgba(99,102,241,0.16) 100%)',
+              borderColor: 'rgba(255,255,255,0.12)',
             }}
           >
-            <span className="text-violet-300">{testimonial.avatar}</span>
-            </div>
+            {testimonial.avatar}
+          </div>
           <div>
-            <p className="text-sm text-white font-light">{testimonial.author}</p>
+            <p className="text-sm text-white">{testimonial.author}</p>
             <p className="text-xs text-zinc-500">{testimonial.company}</p>
           </div>
         </div>
+
+        <div className="max-w-[10rem] text-right">
+          <p className="text-[0.65rem] uppercase tracking-[0.18em] text-zinc-500">Outcome</p>
+          <p className="mt-1 text-xs leading-5 text-violet-100/90">{testimonial.outcome}</p>
+        </div>
       </div>
-    </motion.div>
+    </article>
   );
 };
 
-/* ---------------- Main Component ---------------- */
 const Review = () => {
   return (
-    <section id="proof" className="relative py-24 md:py-32 overflow-hidden bg-transparent">
-      {/* Background */}
+    <section
+      id="proof"
+      className="relative flex min-h-screen items-center overflow-hidden bg-transparent py-24 md:py-28"
+    >
       <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full opacity-30"
+        <div
+          className="absolute left-[-8%] top-[10%] h-[28rem] w-[28rem] rounded-full blur-3xl opacity-30"
           style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 68%)',
           }}
         />
-        <div 
-          className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-30"
+        <div
+          className="absolute bottom-[2%] right-[-4%] h-[30rem] w-[30rem] rounded-full blur-3xl opacity-30"
           style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.28) 18%, rgba(0,0,0,0.56) 48%, rgba(0,0,0,0.76) 100%)',
           }}
         />
       </div>
-      
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Header */}
-          <motion.div
-          initial={{ opacity: 0, y: 30 }}
+
+      <div className="relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-14"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.75 }}
+          className="mx-auto mb-14 max-w-6xl px-6 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-extralight tracking-tight mb-4">
-            <span 
-              style={{
-                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              When agencies stop hoping and start controlling the close
-            </span>
+          <span className="inline-flex rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-1.5 text-[0.7rem] uppercase tracking-[0.28em] text-zinc-300/72">
+            The standard is visible.
+          </span>
+          <h2 className="mx-auto mt-6 max-w-4xl text-4xl font-extralight tracking-[-0.04em] text-white md:text-6xl">
+            Cleaner motion. Faster collection. Stronger client continuity.
           </h2>
-          <p className="text-lg font-extralight text-zinc-500 max-w-xl mx-auto">
-            What the rail changes in real businesses. Mid-size performance agencies, high-ticket consultancies, founder-led shops.
+          <p className="mx-auto mt-5 max-w-3xl text-base font-light leading-7 text-zinc-400 md:text-lg">
+            These are the agencies that stopped running on scattered follow-up, slow scopes, and loose commitment - and started moving through one controlled rail.
           </p>
-          </motion.div>
-
-        {/* Testimonials Grid */}
-        <motion.div
-          variants={containerVariants}
-            initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {/* First row - 3 cards */}
-          {testimonials.slice(0, 3).map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} />
-          ))}
         </motion.div>
 
-        {/* Second row - 2 cards centered */}
-        <motion.div
-          variants={containerVariants}
-              initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-4xl mx-auto"
-        >
-          {testimonials.slice(3, 5).map((testimonial, index) => (
-            <TestimonialCard key={index + 3} testimonial={testimonial} />
-          ))}
-        </motion.div>
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-20 bg-gradient-to-r from-black via-black/90 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-20 bg-gradient-to-l from-black via-black/90 to-transparent" />
 
-        {/* Bottom social proof strip */}
+          <div className="proof-marquee mb-6">
+            <div className="proof-track proof-track-forward">
+              {upperTrack.map((testimonial, index) => (
+                <TestimonialCard key={`upper-${testimonial.author}-${index}`} testimonial={testimonial} />
+              ))}
+            </div>
+          </div>
+
+          <div className="proof-marquee">
+            <div className="proof-track proof-track-reverse">
+              {lowerTrack.map((testimonial, index) => (
+                <TestimonialCard key={`lower-${testimonial.author}-${index}`} testimonial={testimonial} />
+              ))}
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 hidden -translate-y-1/2 px-6 lg:block">
+            <div className="mx-auto max-w-4xl">
+              <div className="overflow-hidden rounded-[2rem] border border-white/[0.08] bg-black/55 px-8 py-6 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-[2px]">
+                <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                  <div className="max-w-xl">
+                    <p className="text-[0.72rem] uppercase tracking-[0.3em] text-violet-200">
+                      Elystra operating effect
+                    </p>
+                    <p className="mt-3 text-2xl font-light leading-tight text-white md:text-3xl">
+                      Buyers never drop into the dead air between “yes” and “paid.”
+                    </p>
+                  </div>
+                  <div className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-2 text-sm text-zinc-300">
+                    Signature, payment, follow-up, tracking
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.75, delay: 0.1 }}
+          className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-4 px-6 md:grid-cols-3"
         >
-          <div 
-            className="inline-flex flex-wrap items-center justify-center gap-8 px-8 py-5 rounded-2xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%)',
-              border: '1px solid rgba(255,255,255,0.06)',
-            }}
-          >
-            <div className="text-center">
-              <p 
-                className="text-2xl md:text-3xl font-light"
-                style={{
-                  background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                170+
-              </p>
-              <p className="text-xs text-zinc-500 mt-1">agencies on the rail</p>
-          </div>
-            <div className="w-px h-10 bg-white/10 hidden sm:block" />
-            <div className="text-center">
-              <p 
-                className="text-2xl md:text-3xl font-light"
-                style={{
-                  background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                $4.6M
-              </p>
-              <p className="text-xs text-zinc-500 mt-1">closed last quarter</p>
+          {metrics.map((metric) => (
+            <div
+              key={metric.label}
+              className="rounded-[1.75rem] border border-white/[0.08] bg-white/[0.035] px-6 py-5"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-3xl font-light tracking-tight text-white">{metric.value}</p>
+                  <p className="mt-2 max-w-[15rem] text-sm leading-6 text-zinc-400">{metric.label}</p>
                 </div>
-            <div className="w-px h-10 bg-white/10 hidden sm:block" />
-            <div className="text-center">
-              <p 
-                className="text-2xl md:text-3xl font-light"
-                style={{
-                  background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                +23%
-              </p>
-              <p className="text-xs text-zinc-500 mt-1">avg close-rate lift</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-violet-400/15 bg-violet-400/10 text-violet-200">
+                  <ArrowUpRight className="h-4 w-4" />
                 </div>
-          </div>
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

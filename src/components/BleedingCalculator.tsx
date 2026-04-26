@@ -1,16 +1,17 @@
-/**
- * BleedingCalculator.tsx
- * ELYSTRA — PREMIUM TIER
- * Stunning interactive calculator with cinematic effects
- */
-
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
-import { Calculator, TrendingDown, TrendingUp, AlertTriangle, ArrowRight, Flame, Layers, Zap } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { ArrowRight, Calculator, Sparkles, TrendingUp } from 'lucide-react';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
-/* ---------------- Animated Counter ---------------- */
-const AnimatedNumber = ({ value, prefix = '', suffix = '' }: { value: number; prefix?: string; suffix?: string }) => {
+const AnimatedNumber = ({
+  value,
+  prefix = '',
+  suffix = '',
+}: {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+}) => {
   const motionValue = useMotionValue(0);
   const rounded = useTransform(motionValue, (latest) => {
     if (latest >= 1000000) return `${prefix}${(latest / 1000000).toFixed(1)}M${suffix}`;
@@ -31,44 +32,22 @@ const AnimatedNumber = ({ value, prefix = '', suffix = '' }: { value: number; pr
 
 const BleedingCalculator = () => {
   const { openDemoBooking } = useDemoBooking();
-  const phaseScrollerRef = useRef<HTMLDivElement>(null);
-  const [phaseIndex, setPhaseIndex] = useState(0);
-
-  const onPhaseScroll = useCallback(() => {
-    const el = phaseScrollerRef.current;
-    if (!el) return;
-    const w = el.clientWidth;
-    if (w <= 0) return;
-    setPhaseIndex(Math.min(1, Math.round(el.scrollLeft / w)));
-  }, []);
-
-  const scrollToPhase = useCallback((idx: number) => {
-    const el = phaseScrollerRef.current;
-    if (!el) return;
-    el.scrollTo({ left: idx * el.clientWidth, behavior: 'smooth' });
-  }, []);
+  const [phase, setPhase] = useState<'leak' | 'recovery'>('leak');
 
   const [proposalsPerMonth, setProposalsPerMonth] = useState(10);
   const [avgDealSize, setAvgDealSize] = useState(15000);
   const [closeRate, setCloseRate] = useState(30);
 
-  // Decay factor: 30% of lost deals were recoverable (conservative, defensible)
-  const DECAY_FACTOR = 0.30;
-  // Illustrative paid-close lift on identical proposal volume (rail + follow-up brain; not additive to recapture in reality — shown as separate “headroom” signal)
-  const ILLUSTRATIVE_CLOSE_LIFT_PTS = 12;
-  const RAIL_CLOSE_CEILING = 50;
+  const currentMonthlyWonRevenue = proposalsPerMonth * avgDealSize * (closeRate / 100);
+  const currentAnnualWonRevenue = currentMonthlyWonRevenue * 12;
+  const exposedAfterInterest = proposalsPerMonth * avgDealSize - currentMonthlyWonRevenue;
 
-  // Phase 1 — their baseline & leak
-  const lostDeals = proposalsPerMonth * (1 - closeRate / 100);
-  const recoverableDeals = lostDeals * DECAY_FACTOR;
-  const monthlyDecay = recoverableDeals * avgDealSize;
-  const quarterlyDecay = monthlyDecay * 3;
-  const yearlyDecay = monthlyDecay * 12;
-
-  const liftedClose = Math.min(closeRate + ILLUSTRATIVE_CLOSE_LIFT_PTS, RAIL_CLOSE_CEILING);
-  const extraDealsFromLift =
-    proposalsPerMonth * Math.max(0, (liftedClose - closeRate) / 100);
-  const monthlyFromCloseHeadroom = extraDealsFromLift * avgDealSize;
+  const modeledCloseRate = Math.min(closeRate + 12, 55);
+  const modeledMonthlyWonRevenue = proposalsPerMonth * avgDealSize * (modeledCloseRate / 100);
+  const modeledAnnualWonRevenue = modeledMonthlyWonRevenue * 12;
+  const monthlyRecoveredRevenue = modeledMonthlyWonRevenue - currentMonthlyWonRevenue;
+  const annualRecoveredRevenue = modeledAnnualWonRevenue - currentAnnualWonRevenue;
+  const closeRateHeadroom = modeledCloseRate - closeRate;
 
   const formatCurrency = (value: number) => {
     if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`;
@@ -77,565 +56,421 @@ const BleedingCalculator = () => {
   };
 
   return (
-    <section className="relative py-10 md:py-14 overflow-hidden bg-transparent min-h-0">
-      {/* Atmosphere: white + gray + violet only */}
+    <section className="relative overflow-hidden bg-transparent py-16 md:py-24">
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute -top-24 left-0 w-[720px] h-[720px] rounded-full opacity-70 blur-3xl"
+          className="absolute -top-20 left-0 h-[36rem] w-[36rem] rounded-full blur-3xl opacity-60"
           style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.02) 45%, transparent 65%)',
+            background:
+              'radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(139,92,246,0.02) 48%, transparent 68%)',
           }}
         />
         <div
-          className="absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full opacity-60"
+          className="absolute right-0 top-1/3 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-45"
           style={{
-            background: 'radial-gradient(circle, rgba(167, 139, 250, 0.07) 0%, transparent 55%)',
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] opacity-50"
-          style={{
-            background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(255, 255, 255, 0.04) 0%, transparent 55%)',
-          }}
-        />
-        <div
-          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-35"
-          style={{
-            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.035) 0%, transparent 60%)',
+            background:
+              'radial-gradient(circle, rgba(217,70,239,0.08) 0%, rgba(217,70,239,0.01) 52%, transparent 68%)',
           }}
         />
       </div>
 
-      {/* Hero: full-bleed copy on the page — no box, no glass */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <motion.header
-          initial={{ opacity: 0, y: 24 }}
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.65 }}
+          className="mx-auto max-w-4xl text-center"
         >
-          <p className="flex items-center justify-center gap-2 text-xs tracking-[0.28em] uppercase text-zinc-500 font-light mb-5 md:mb-6">
-            <AlertTriangle
-              className="w-3.5 h-3.5 shrink-0 text-violet-500/50"
-              aria-hidden
-            />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-400 to-violet-400/80">
-              Leak → recovery · same pipeline
-            </span>
+          <p className="mb-5 text-xs font-light uppercase tracking-[0.28em] text-zinc-500">
+            Revenue indictment
           </p>
-
-          <h2
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight tracking-tight leading-[1.1] text-balance bg-clip-text text-transparent bg-gradient-to-b from-white via-zinc-100 to-violet-300/90"
-            style={{ WebkitBackgroundClip: 'text' }}
-          >
-            First the leak. Then the recovery.
+          <h2 className="text-3xl font-extralight leading-[1.06] tracking-[-0.05em] text-white sm:text-4xl md:text-6xl">
+            Your pipeline is not the problem.
+            <span className="bg-gradient-to-r from-violet-200 via-fuchsia-200 to-violet-300 bg-clip-text text-transparent">
+              {' '}Your finish is.
+            </span>
           </h2>
-        </motion.header>
-      </div>
+          <p className="mx-auto mt-5 max-w-3xl text-base font-light leading-[1.65] text-zinc-300 md:text-lg">
+            See what your current motion converts today. Then compare it to what the same pipeline can do with a stronger finish.
+          </p>
+        </motion.div>
 
-      {/* Product proof: model sits below, on the same environment (no frame) */}
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.65, delay: 0.05 }}
-        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 mt-12 md:mt-16 pt-10 md:pt-12"
-      >
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-[min(100%,28rem)] pointer-events-none"
-          style={{
-            background: 'linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.35), rgba(139, 92, 246, 0.25), rgba(167, 139, 250, 0.35), transparent)',
-          }}
-        />
-        <p className="text-center text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-zinc-500 mb-4 md:mb-5">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-500 via-violet-400/70 to-zinc-500">
-            Pipeline model
-          </span>
-        </p>
-        <div className="flex flex-col gap-2 md:gap-3">
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <div className="flex items-center gap-2" role="tablist" aria-label="Calculator phase">
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={phaseIndex === 0}
-                    onClick={() => scrollToPhase(0)}
-                    className={`rounded-full px-4 py-1.5 text-xs tracking-wide transition-colors ${
-                      phaseIndex === 0
-                        ? 'bg-violet-500/15 text-white border border-violet-400/35 shadow-[0_0_28px_rgba(139,92,246,0.12)]'
-                        : 'text-zinc-500 border border-transparent hover:text-violet-300/80'
-                    }`}
-                  >
-                    Leak
-                  </button>
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={phaseIndex === 1}
-                    onClick={() => scrollToPhase(1)}
-                    className={`rounded-full px-4 py-1.5 text-xs tracking-wide transition-colors ${
-                      phaseIndex === 1
-                        ? 'bg-violet-500/15 text-white border border-violet-400/35 shadow-[0_0_28px_rgba(139,92,246,0.12)]'
-                        : 'text-zinc-500 border border-transparent hover:text-violet-300/80'
-                    }`}
-                  >
-                    Recovery
-                  </button>
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+          className="mx-auto mt-12 max-w-5xl"
+        >
+          <div className="mb-5 flex flex-col items-center gap-3 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.02] p-1">
+              <button
+                type="button"
+                onClick={() => setPhase('leak')}
+                className={`rounded-full px-4 py-2 text-[0.72rem] font-light uppercase tracking-[0.18em] transition-colors ${
+                  phase === 'leak' ? 'bg-violet-500/14 text-white' : 'text-zinc-500 hover:text-white'
+                }`}
+              >
+                Leak
+              </button>
+              <button
+                type="button"
+                onClick={() => setPhase('recovery')}
+                className={`rounded-full px-4 py-2 text-[0.72rem] font-light uppercase tracking-[0.18em] transition-colors ${
+                  phase === 'recovery' ? 'bg-violet-500/14 text-white' : 'text-zinc-500 hover:text-white'
+                }`}
+              >
+                Recovery
+              </button>
+            </div>
+
+            {phase === 'leak' && (
+              <motion.button
+                type="button"
+                onClick={() => setPhase('recovery')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-500/8 px-4 py-2 text-sm font-light text-violet-100"
+              >
+                See Recovery
+                <ArrowRight className="h-4 w-4" />
+              </motion.button>
+            )}
+          </div>
+
+          {phase === 'leak' ? (
+            <div className="rounded-[2rem] border border-white/10 bg-[rgba(10,10,14,0.62)] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.2)] backdrop-blur-[2px] md:p-6">
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[0.72rem] font-medium uppercase tracking-[0.24em] text-zinc-500">
+                    Current Motion
+                  </p>
+                  <h3 className="mt-2 text-2xl font-extralight tracking-[-0.03em] text-white md:text-3xl">
+                    What your current motion is converting today.
+                  </h3>
                 </div>
-                <span className="text-[11px] text-zinc-600 font-light hidden sm:inline">
-                  Swipe horizontally or use tabs
-                </span>
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, rgba(139,92,246,0.14), rgba(255,255,255,0.03))',
+                    border: '1px solid rgba(167,139,250,0.16)',
+                  }}
+                >
+                  <Calculator className="h-5 w-5 text-violet-300/80" />
+                </div>
+              </div>
+
+              <div className="space-y-5">
+                <RangeField
+                  label="Proposals per month"
+                  valueLabel={`${proposalsPerMonth}`}
+                  minLabel="1"
+                  maxLabel="50"
+                  value={proposalsPerMonth}
+                  min={1}
+                  max={50}
+                  onChange={setProposalsPerMonth}
+                />
+
+                <RangeField
+                  label="Average deal size"
+                  valueLabel={formatCurrency(avgDealSize)}
+                  minLabel="$1K"
+                  maxLabel="$100K"
+                  value={avgDealSize}
+                  min={1000}
+                  max={100000}
+                  step={1000}
+                  onChange={setAvgDealSize}
+                />
+
+                <RangeField
+                  label="Current close rate"
+                  valueLabel={`${closeRate}%`}
+                  minLabel="5%"
+                  maxLabel="60%"
+                  value={closeRate}
+                  min={5}
+                  max={60}
+                  onChange={setCloseRate}
+                />
+              </div>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <MetricCard
+                  label="Current monthly won revenue"
+                  value={<AnimatedNumber value={currentMonthlyWonRevenue} prefix="$" />}
+                />
+                <MetricCard
+                  label="Current annualized won revenue"
+                  value={<AnimatedNumber value={currentAnnualWonRevenue} prefix="$" />}
+                />
+                <MetricCard
+                  label="Current collected revenue"
+                  value={<AnimatedNumber value={currentMonthlyWonRevenue} prefix="$" />}
+                  subtle="Per month"
+                />
+                <MetricCard
+                  label="Revenue exposed after interest"
+                  value={<AnimatedNumber value={exposedAfterInterest} prefix="$" />}
+                  accent
+                />
+              </div>
+
+              <p className="mt-6 text-sm font-light leading-[1.6] text-zinc-500">
+                This is what your current motion is converting today.
+              </p>
+              <p className="mt-2 text-[0.82rem] font-light leading-[1.6] text-zinc-600">
+                No extra leads. No extra headcount. Just your current pipeline under its current finish.
+              </p>
+
+              <div className="mt-8 flex justify-center">
+                <motion.button
+                  type="button"
+                  onClick={() => setPhase('recovery')}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-500/8 px-5 py-2.5 text-sm font-light text-violet-100"
+                >
+                  See Recovery
+                  <ArrowRight className="h-4 w-4" />
+                </motion.button>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-[2rem] border border-white/10 bg-[rgba(10,10,14,0.62)] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.2)] backdrop-blur-[2px] md:p-6">
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[0.72rem] font-medium uppercase tracking-[0.24em] text-violet-300/80">
+                    With Elystra
+                  </p>
+                  <h3 className="mt-2 text-2xl font-extralight tracking-[-0.03em] text-white md:text-3xl">
+                    Same pipeline. Stronger finish.
+                  </h3>
+                </div>
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, rgba(139,92,246,0.18), rgba(168,85,247,0.06))',
+                    border: '1px solid rgba(167,139,250,0.18)',
+                  }}
+                >
+                  <TrendingUp className="h-5 w-5 text-violet-200" />
+                </div>
+              </div>
+
+              <div className="mb-6 flex flex-wrap gap-2">
+                {['Same pipeline', 'Same team', 'Same demand', 'Stronger finish'].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[0.72rem] font-light uppercase tracking-[0.16em] text-zinc-300"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <MetricCard
+                  label="Monthly recovered revenue"
+                  value={<AnimatedNumber value={monthlyRecoveredRevenue} prefix="$" />}
+                  accent
+                />
+                <MetricCard
+                  label="Annual recovered revenue"
+                  value={<AnimatedNumber value={annualRecoveredRevenue} prefix="$" />}
+                  accent
+                />
+                <MetricCard
+                  label="Close-rate headroom"
+                  value={`${closeRate}% → ${modeledCloseRate}%`}
+                  subtle={`+${closeRateHeadroom} pts`}
+                />
+                <MetricCard
+                  label="Faster path to collected cash"
+                  value="Tighter"
+                  subtle="Same-call send. Less post-yes drag."
+                />
               </div>
 
               <div
-                ref={phaseScrollerRef}
-                onScroll={onPhaseScroll}
-                className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x pb-1 [-webkit-overflow-scrolling:touch] [scrollbar-width:thin]"
+                className="mt-6 rounded-[1.5rem] border p-4 md:p-5"
+                style={{
+                  borderColor: 'rgba(139,92,246,0.16)',
+                  background:
+                    'linear-gradient(145deg, rgba(139,92,246,0.09), rgba(255,255,255,0.02), rgba(10,10,14,0.28))',
+                }}
               >
-                {/* ——— Panel 1: Leak ——— */}
-                <div className="min-w-full w-full shrink-0 snap-center snap-always box-border pr-1 md:pr-2">
-                  <div className="relative flex items-center gap-2 mb-3">
-                    <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
-                      Leak
-                    </span>
-                    <span
-                      className="h-px flex-1 max-w-[100px]"
-                      style={{
-                        background: 'linear-gradient(90deg, rgba(167, 139, 250, 0.35), transparent)',
-                      }}
-                    />
-                    <span className="text-[11px] text-zinc-500 font-light hidden min-[400px]:inline">What your motion leaves on the table</span>
-                  </div>
-
-                  <div className="relative grid md:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
-              {/* Inputs */}
-              <div className="space-y-4 md:space-y-5">
-                <div className="flex items-center gap-3 mb-2 md:mb-3">
-                  <div
-                    className="w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{
-                      background:
-                        'linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(255, 255, 255, 0.03), rgba(139, 92, 246, 0.06))',
-                      border: '1px solid rgba(167, 139, 250, 0.2)',
-                    }}
-                  >
-                    <Calculator className="w-4 h-4 md:w-5 md:h-5 text-violet-300/80" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-base md:text-lg font-extralight text-white tracking-wide block leading-tight">Your current sales motion</span>
-                    <span className="text-[11px] text-zinc-600 font-light">The pipeline you already generate today</span>
-                  </div>
-                </div>
-
-                {/* Proposals per month */}
-                <div className="space-y-2.5">
-                  <div className="flex justify-between items-baseline gap-2">
-                    <label className="text-xs md:text-sm text-zinc-500 font-light">Proposals sent per month</label>
-                    <motion.span 
-                      key={proposalsPerMonth}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      className="text-2xl md:text-3xl font-extralight text-white tabular-nums"
-                    >
-                      {proposalsPerMonth}
-                    </motion.span>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="range"
-                      min="1"
-                      max="50"
-                      value={proposalsPerMonth}
-                      onChange={(e) => setProposalsPerMonth(Number(e.target.value))}
-                      className="w-full h-2 bg-white/5 rounded-full appearance-none cursor-pointer
-                               [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
-                               [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                               [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]
-                               [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-300
-                               [&::-webkit-slider-thumb]:hover:shadow-[0_0_26px_rgba(167,139,250,0.5)]"
-                    />
-                    {/* Track fill */}
-                    <div
-                      className="absolute top-0 left-0 h-2 rounded-full pointer-events-none bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
-                      style={{ width: `${(proposalsPerMonth / 50) * 100}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between text-xs text-zinc-600">
-                    <span>1</span>
-                    <span>50</span>
-                  </div>
-                </div>
-
-                {/* Average deal size */}
-                <div className="space-y-2.5">
-                  <div className="flex justify-between items-baseline gap-2">
-                    <label className="text-xs md:text-sm text-zinc-500 font-light">Average deal size</label>
-                    <motion.span 
-                      key={avgDealSize}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      className="text-2xl md:text-3xl font-extralight text-white tabular-nums"
-                    >
-                      {formatCurrency(avgDealSize)}
-                    </motion.span>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="range"
-                      min="1000"
-                      max="100000"
-                      step="1000"
-                      value={avgDealSize}
-                      onChange={(e) => setAvgDealSize(Number(e.target.value))}
-                      className="w-full h-2 bg-white/5 rounded-full appearance-none cursor-pointer
-                               [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
-                               [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                               [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]"
-                    />
-                    <div
-                      className="absolute top-0 left-0 h-2 rounded-full pointer-events-none bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
-                      style={{ width: `${((avgDealSize - 1000) / 99000) * 100}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between text-xs text-zinc-600">
-                    <span>$1K</span>
-                    <span>$100K</span>
-                  </div>
-                  {/* Quick select */}
-                  <div className="flex gap-1.5 flex-wrap">
-                    {[5000, 10000, 15000, 25000, 50000].map((val) => (
-                      <motion.button
-                        key={val}
-                        onClick={() => setAvgDealSize(val)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`px-2.5 py-1.5 text-[11px] rounded-lg border transition-all duration-300 ${
-                          avgDealSize === val
-                            ? 'bg-violet-500/15 border-violet-400/40 text-white shadow-[0_0_20px_rgba(139,92,246,0.15)]'
-                            : 'bg-transparent border-white/[0.06] text-zinc-500 hover:border-violet-500/25 hover:text-violet-200/90'
-                        }`}
-                      >
-                        ${val / 1000}k
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Current close rate */}
-                <div className="space-y-2.5">
-                  <div className="flex justify-between items-baseline gap-2">
-                    <label className="text-xs md:text-sm text-zinc-500 font-light">Current close rate</label>
-                    <motion.span 
-                      key={closeRate}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      className="text-2xl md:text-3xl font-extralight text-white tabular-nums"
-                    >
-                      {closeRate}%
-                    </motion.span>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="range"
-                      min="5"
-                      max="60"
-                      value={closeRate}
-                      onChange={(e) => setCloseRate(Number(e.target.value))}
-                      className="w-full h-2 bg-white/5 rounded-full appearance-none cursor-pointer
-                               [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
-                               [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                               [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]"
-                    />
-                    <div
-                      className="absolute top-0 left-0 h-2 rounded-full pointer-events-none bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
-                      style={{ width: `${((closeRate - 5) / 55) * 100}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between text-xs text-zinc-600">
-                    <span>5%</span>
-                    <span>60%</span>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-violet-500/10">
-                  <p className="text-[10px] md:text-[11px] text-zinc-600 font-light leading-snug">
-                    Conservative model. A meaningful share of “lost” deals are leaking through delay, weak follow-up, and fragmented commitment.
-                  </p>
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.24em] text-zinc-500">
+                  Elystra proof
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  <ProofStat value="$6.2M" label="Extra revenue for agencies" sub="Q1 2026" />
+                  <ProofStat value="55% / 92%" label="Median close rate" sub="Outbound / inbound" />
+                  <ProofStat value="62%" label="Cold buyers to loyal accounts" sub="Converted into continuity" />
                 </div>
               </div>
 
-              {/* Phase 1 — leak output */}
-              <div>
-                <div className="flex items-center gap-3 mb-2 md:mb-3">
-                  <div
-                    className="w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{
-                      border: '1px solid rgba(167, 139, 250, 0.22)',
-                      background:
-                        'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(24, 24, 27, 0.4))',
-                    }}
-                  >
-                    <TrendingDown className="w-4 h-4 md:w-5 md:h-5 text-violet-300/70" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-base md:text-lg font-extralight text-white tracking-wide block leading-tight">What you&apos;re leaking</span>
-                    <span className="text-[11px] text-zinc-600 font-light">Revenue left exposed</span>
-                  </div>
-                </div>
+              <div className="mt-8 flex flex-col items-center gap-3">
+                <motion.button
+                  type="button"
+                  onClick={() => setPhase('leak')}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-light text-zinc-300"
+                >
+                  Back to Leak
+                </motion.button>
 
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    transition={{ duration: 0.4 }}
-                    className="space-y-3"
-                  >
-                    {/* Monthly decay - MAIN NUMBER */}
-                    <div
-                      className="relative p-4 md:p-5 rounded-xl overflow-hidden"
-                      style={{
-                        border: '1px solid rgba(139, 92, 246, 0.18)',
-                        background:
-                          'linear-gradient(160deg, rgba(139, 92, 246, 0.08) 0%, rgba(24, 24, 27, 0.35) 50%, rgba(24, 24, 27, 0.2) 100%)',
-                      }}
-                    >
-                      <div
-                        className="absolute inset-0 opacity-50 pointer-events-none"
-                        style={{
-                          background:
-                            'radial-gradient(ellipse 90% 70% at 50% 0%, rgba(167, 139, 250, 0.12), transparent 55%)',
-                        }}
-                      />
-                      <div className="relative">
-                        <div className="flex items-center gap-1.5 mb-2">
-                          <Flame className="w-3.5 h-3.5 text-violet-500/50 shrink-0" />
-                          <p className="text-[10px] tracking-[0.15em] uppercase text-zinc-500">
-                            Monthly revenue leaking
-                          </p>
-                        </div>
-                        <p className="text-4xl sm:text-5xl md:text-6xl font-extralight leading-none tabular-nums text-white [text-shadow:0_0_40px_rgba(139,92,246,0.25),0_0_80px_rgba(139,92,246,0.1)]">
-                          <AnimatedNumber value={monthlyDecay} prefix="$" />
-                        </p>
-                        <p className="text-[11px] text-zinc-500 mt-2 font-light leading-snug">
-                          ~{recoverableDeals.toFixed(1)} deals/mo with interest on the table
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Quarterly & Yearly */}
-                    <div className="grid grid-cols-2 gap-2 md:gap-3">
-                      <div
-                        className="p-3 md:p-4 rounded-xl"
-                        style={{
-                          border: '1px solid rgba(167, 139, 250, 0.12)',
-                          background:
-                            'linear-gradient(145deg, rgba(139, 92, 246, 0.06), rgba(255, 255, 255, 0.02))',
-                        }}
-                      >
-                        <p className="text-[10px] text-zinc-500 mb-1 font-light">Per Quarter</p>
-                        <p className="text-xl md:text-2xl font-extralight text-zinc-100 tabular-nums">
-                          <AnimatedNumber value={quarterlyDecay} prefix="$" />
-                        </p>
-                      </div>
-                      <div
-                        className="p-3 md:p-4 rounded-xl"
-                        style={{
-                          border: '1px solid rgba(167, 139, 250, 0.12)',
-                          background:
-                            'linear-gradient(145deg, rgba(139, 92, 246, 0.06), rgba(255, 255, 255, 0.02))',
-                        }}
-                      >
-                        <p className="text-[10px] text-zinc-500 mb-1 font-light">Per Year</p>
-                        <p className="text-xl md:text-2xl font-extralight text-zinc-100 tabular-nums">
-                          <AnimatedNumber value={yearlyDecay} prefix="$" />
-                        </p>
-                      </div>
-                    </div>
-
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-
-                  <div className="mt-3 flex flex-col items-center gap-1 text-center border-t border-violet-500/10 pt-3">
-                    <div className="flex items-center justify-center gap-1.5 text-zinc-500 text-[10px] tracking-wide uppercase">
-                      <Layers className="w-3.5 h-3.5 text-violet-500/50 shrink-0" />
-                      Same pipeline · stronger motion
-                    </div>
-                    <p className="text-[10px] text-zinc-600 font-light max-w-md">
-                      Swipe or tap <span className="text-violet-400/80">Recovery</span> for the second view.
-                    </p>
-                  </div>
-                </div>
-
-                {/* ——— Panel 2: Recovery ——— */}
-                <div className="min-w-full w-full shrink-0 snap-center snap-always box-border pl-1 md:pl-2">
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 font-medium">
-                      Recovery
-                    </span>
-                    <span
-                      className="h-px flex-1 min-w-[80px]"
-                      style={{
-                        background: 'linear-gradient(90deg, rgba(167, 139, 250, 0.35), transparent)',
-                      }}
-                    />
-                    <span className="text-[11px] text-zinc-500 font-light">Same pipeline, rail in place</span>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4 md:gap-5">
-                <motion.div
-                  key={`delta-${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45 }}
-                  className="relative p-4 md:p-5 rounded-xl overflow-hidden md:col-span-1"
+                <motion.button
+                  type="button"
+                  onClick={openDemoBooking}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full px-6 py-3 text-sm font-light text-white"
                   style={{
-                    border: '1px solid rgba(139, 92, 246, 0.2)',
-                    background:
-                      'linear-gradient(165deg, rgba(139, 92, 246, 0.1) 0%, rgba(24, 24, 27, 0.3) 55%, rgba(0,0,0,0.2) 100%)',
+                    background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%)',
+                    boxShadow:
+                      '0 0 38px rgba(139,92,246,0.28), inset 0 1px 0 rgba(255,255,255,0.15)',
                   }}
                 >
-                  <div
-                    className="absolute inset-0 opacity-50 pointer-events-none"
+                  <span
+                    className="absolute inset-0 -translate-x-full transition-transform duration-700 group-hover:translate-x-full"
                     style={{
                       background:
-                        'radial-gradient(ellipse 100% 80% at 30% 0%, rgba(167, 139, 250, 0.1), transparent 58%)',
+                        'linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.15) 50%, transparent 80%)',
                     }}
                   />
-                  <div className="relative flex items-center gap-2 mb-2">
-                    <Zap className="w-4 h-4 text-violet-400/60 shrink-0" />
-                    <p className="text-[10px] tracking-[0.15em] uppercase text-zinc-500">
-                      Monthly value recaptured
-                    </p>
-                  </div>
-                  <p className="text-4xl sm:text-5xl md:text-6xl font-extralight mb-2 leading-none tabular-nums text-white [text-shadow:0_0_40px_rgba(139,92,246,0.28),0_0_88px_rgba(167,139,250,0.12)]">
-                    <AnimatedNumber value={monthlyDecay} prefix="$" />
-                  </p>
-                  <p className="text-[11px] text-zinc-400 font-light leading-snug">
-                    Value pulled back from the same pipeline—stronger finish from interest to cash.
-                  </p>
-                  <div
-                    className="mt-3 p-2.5 rounded-lg"
-                    style={{
-                      border: '1px solid rgba(167, 139, 250, 0.12)',
-                      background:
-                        'linear-gradient(130deg, rgba(139, 92, 246, 0.05), rgba(255, 255, 255, 0.02))',
-                    }}
-                  >
-                    <p className="text-[10px] tracking-wide uppercase text-zinc-500 mb-1">What we see</p>
-                    <p className="text-[11px] text-zinc-400 font-light leading-snug">
-                      Teams often recover{' '}
-                      <span className="text-violet-200/90">1–2 deals</span> in the first weeks, then a cleaner finish
-                      on the rest.
-                    </p>
-                  </div>
-                  <div className="mt-3 grid grid-cols-2 gap-2">
-                    <div
-                      className="p-2.5 rounded-lg"
-                      style={{
-                        border: '1px solid rgba(139, 92, 246, 0.12)',
-                        background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.06), rgba(24, 24, 27, 0.5))',
-                      }}
-                    >
-                      <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5">Quarter</p>
-                      <p className="text-lg font-extralight text-zinc-100 tabular-nums">
-                        <AnimatedNumber value={quarterlyDecay} prefix="$" />
-                      </p>
-                    </div>
-                    <div
-                      className="p-2.5 rounded-lg"
-                      style={{
-                        border: '1px solid rgba(139, 92, 246, 0.12)',
-                        background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.06), rgba(24, 24, 27, 0.5))',
-                      }}
-                    >
-                      <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5">Year</p>
-                      <p className="text-lg font-extralight text-zinc-100 tabular-nums">
-                        <AnimatedNumber value={yearlyDecay} prefix="$" />
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  key={`headroom-${proposalsPerMonth}-${avgDealSize}-${closeRate}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: 0.08 }}
-                  className="space-y-3 flex flex-col"
-                >
-                  <div
-                    className="p-4 rounded-xl"
+                  <span
+                    className="absolute left-1/2 top-0 h-[1px] w-3/4 -translate-x-1/2"
                     style={{
                       background:
-                        'linear-gradient(135deg, rgba(139, 92, 246, 0.07), rgba(255, 255, 255, 0.02), rgba(24, 24, 27, 0.4))',
-                      border: '1px solid rgba(167, 139, 250, 0.15)',
+                        'linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)',
                     }}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <TrendingUp className="w-4 h-4 text-zinc-400 shrink-0" />
-                      <p className="text-[10px] tracking-wide uppercase text-zinc-500">
-                        Close-rate headroom
-                      </p>
-                    </div>
-                    <p className="text-2xl md:text-3xl font-extralight text-white mb-1.5 tabular-nums">
-                      {closeRate}% → {liftedClose}%
-                    </p>
-                    <p className="text-[11px] text-zinc-500 font-light leading-snug">
-                      ~<span className="text-zinc-300">{extraDealsFromLift.toFixed(1)}</span> extra deals/mo ≈{' '}
-                      <span className="text-violet-200/90">{formatCurrency(monthlyFromCloseHeadroom)}/mo</span>
-                      <span className="text-zinc-600"> · +{liftedClose - closeRate} pts (cap {RAIL_CLOSE_CEILING}%)</span>
-                    </p>
-                  </div>
-
-                  <div
-                    className="p-3 rounded-xl"
-                    style={{
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      background:
-                        'linear-gradient(160deg, rgba(82, 82, 91, 0.25) 0%, rgba(24, 24, 27, 0.55) 100%)',
-                    }}
-                  >
-                    <p className="text-[11px] text-zinc-400 font-light leading-snug">
-                      Control where it usually breaks: after interest, before money. More pipeline → signed and collected.
-                    </p>
-                  </div>
-
-                  <motion.button
-                    type="button"
-                    onClick={openDemoBooking}
-                    className="relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 py-3.5 text-sm font-medium text-white mt-auto"
-                    style={{
-                      boxShadow: '0 0 40px rgba(139, 92, 246, 0.32)',
-                    }}
-                    whileHover={{
-                      scale: 1.02,
-                      boxShadow: '0 0 56px rgba(167, 139, 250, 0.38)',
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
-                      }}
-                    />
-                    <span className="relative z-10">Book a 7-Minute Revenue Review</span>
-                    <ArrowRight className="w-5 h-5 relative z-10" />
-                  </motion.button>
-                </motion.div>
-              </div>
-                </div>
+                  />
+                  <Sparkles className="relative z-10 h-3.5 w-3.5" />
+                  <span className="relative z-10 tracking-wide">Book a 7-Minute Revenue Review</span>
+                  <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </motion.button>
               </div>
             </div>
+          )}
         </motion.div>
+      </div>
     </section>
   );
 };
+
+function RangeField({
+  label,
+  valueLabel,
+  minLabel,
+  maxLabel,
+  value,
+  min,
+  max,
+  step = 1,
+  onChange,
+}: {
+  label: string;
+  valueLabel: string;
+  minLabel: string;
+  maxLabel: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  onChange: (value: number) => void;
+}) {
+  const fill = ((value - min) / (max - min)) * 100;
+
+  return (
+    <div className="space-y-2.5">
+      <div className="flex items-baseline justify-between gap-3">
+        <label className="text-sm font-light text-zinc-500">{label}</label>
+        <span className="text-2xl font-extralight tabular-nums text-white md:text-3xl">
+          {valueLabel}
+        </span>
+      </div>
+      <div className="relative">
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(event) => onChange(Number(event.target.value))}
+          className="h-2 w-full appearance-none rounded-full bg-white/5 cursor-pointer
+                   [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
+                   [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white
+                   [&::-webkit-slider-thumb]:shadow-[0_0_18px_rgba(139,92,246,0.45)]"
+        />
+        <div
+          className="pointer-events-none absolute left-0 top-0 h-2 rounded-full bg-gradient-to-r from-violet-500/40 via-violet-400/35 to-violet-300/25"
+          style={{ width: `${fill}%` }}
+        />
+      </div>
+      <div className="flex justify-between text-xs text-zinc-600">
+        <span>{minLabel}</span>
+        <span>{maxLabel}</span>
+      </div>
+    </div>
+  );
+}
+
+function MetricCard({
+  label,
+  value,
+  subtle,
+  accent = false,
+}: {
+  label: string;
+  value: React.ReactNode;
+  subtle?: string;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      className="rounded-[1.35rem] border p-4"
+      style={{
+        borderColor: accent ? 'rgba(139,92,246,0.18)' : 'rgba(255,255,255,0.08)',
+        background: accent
+          ? 'linear-gradient(145deg, rgba(139,92,246,0.09), rgba(255,255,255,0.02))'
+          : 'linear-gradient(145deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015))',
+      }}
+    >
+      <p className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-zinc-500">
+        {label}
+      </p>
+      <p className="mt-2 text-2xl font-extralight tracking-[-0.03em] text-white md:text-3xl">
+        {value}
+      </p>
+      {subtle && <p className="mt-1.5 text-sm font-light text-zinc-500">{subtle}</p>}
+    </div>
+  );
+}
+
+function ProofStat({
+  value,
+  label,
+  sub,
+}: {
+  value: string;
+  label: string;
+  sub: string;
+}) {
+  return (
+    <div className="rounded-[1.2rem] border border-white/8 bg-black/10 p-3.5">
+      <p className="text-2xl font-extralight tracking-[-0.03em] text-white">{value}</p>
+      <p className="mt-1 text-sm font-light leading-[1.4] text-zinc-300">{label}</p>
+      <p className="mt-1 text-[0.72rem] font-light uppercase tracking-[0.16em] text-zinc-500">
+        {sub}
+      </p>
+    </div>
+  );
+}
 
 export default BleedingCalculator;
