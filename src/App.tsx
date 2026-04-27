@@ -18,7 +18,6 @@ import UrgencyStrip from '@/components/UrgencyStrip';
 import BleedingCalculator from '@/components/BleedingCalculator';
 import NorthAmericaRailSection from '@/components/NorthAmericaRailSection';
 import FullArsenal from '@/components/FullArsenal';
-import Guarantee from '@/components/Guarantee';
 import { Vortex } from '@/components/ui/vortex';
 import Faq from '@/components/Faq';
 
@@ -67,7 +66,6 @@ const MainContent = () => (
    <NorthAmericaRailSection />
     <Review />
     <Cta />
-    <Guarantee />
     <Faq/>
     <Footer />
   </main>
