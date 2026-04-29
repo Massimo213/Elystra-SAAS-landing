@@ -1,7 +1,5 @@
 /**
- * Faq.tsx
- * ELYSTRA — Full FAQ with objection-killing answers
- * Speaks in money, risk, and time — not features
+ * Faq.tsx — Final 9-question FAQ (commercial OS positioning)
  */
 
 import { useState } from 'react';
@@ -12,64 +10,49 @@ import { useDemoBooking } from '@/contexts/DemoBookingContext';
 /* ---------------- FAQ Data ---------------- */
 const faqs = [
   {
-    q: "Does Elystra require me to change my workflow?",
-    a: "No.\nYou keep your sales calls, your CRM, your PM tool, your pricing.\n\nElystra sits under your current process and removes one thing only: the 2–14 day gap between \"yes\" and money in the account.\n\nIf you can run a call, send a proposal, and collect a payment — you already know how to \"use\" Elystra. We just compress it into one rail.",
+    q: "What is Elystra?",
+    a:
+      "Elystra is the commercial operating system for agencies.\n\nIt gives agencies control over the layer where money is usually won or lost: while the deal is live, while commitment is still loose, and long after the first payment lands.\n\nThat means control over:\nscope speed, deal visibility, blocker diagnosis, follow-up direction, offer intelligence, leakage visibility, commitment capture, payment flow, and client continuity.\n\n170+ agencies already run through the rail.\nThat matters because serious agencies do not need more noise. They need more control over how revenue actually moves.",
   },
   {
-    q: "How fast can I close my first deal with Elystra?",
-    a: "Usually within 24–72 hours of turning it on.\n\nFor most agencies:\n• Demo day: we build your first template on the call.\n• Same day: you run a real prospect through the rail.\n• Within 1–3 days: that deal is either signed + paid, or you have a crystal-clear \"no\".\n\nOur 30-day guarantee is built around this: \"Run at least one real deal through Elystra. If your close-rate doesn't move, you pay nothing.\"",
+    q: "Why does Elystra matter if our agency is already selling?",
+    a:
+      "Because selling and controlling are not the same thing.\n\nAn agency closing 30% outbound is playing a different game from one closing 55% outbound.\nAn agency closing 55% inbound is playing a different game from one closing 90% inbound.\n\nBoth may look \"fine\" from the outside.\nOnly one is converting anywhere near its potential.\n\nElystra matters when the question stops being \"can we sell?\" and becomes \"how much more would this business collect if the motion were fully controlled?\"",
   },
   {
-    q: "What tools does Elystra replace?",
-    a: "At minimum:\n• Proposal software (PandaDoc/Proposify/etc.)\n• DocuSign / e-signature tools\n• Stripe payment links / manual invoices\n• Spreadsheet tracking of \"who signed / who paid / which template works\"\n\nIn many shops it also quietly replaces:\n• A chunk of sales admin headcount\n• A chunk of \"follow-up\" time that never happens\n\nYou keep your CRM and PM. Elystra becomes the proposal → sign → pay layer that connects them.",
+    q: "What does Elystra know that most agencies do not?",
+    a:
+      "Elystra turns the sales motion into readable commercial truth.\n\nIt shows:\nwhat is likely blocking a live deal, why Elystra believes that, what deserves attention now, which offers are actually converting, which ones are creating friction, where revenue is leaking repeatedly, and what the team should push, change, or stop selling.\n\nThat is the intelligence layer:\ndeal intelligence, offer intelligence, leakage intelligence, follow-up direction, and pipeline truth.\n\nMost agencies feel the problem.\nVery few can see it clearly enough to act with precision.",
   },
   {
-    q: "Will Elystra work with my revenue model (retainers, projects, performance, hybrids)?",
-    a: "Yes. The rail doesn't care what you sell.\n• Monthly retainers\n• One-off projects\n• Performance / rev-share\n• Hybrid retainers + upsells\n• Irregular, \"we build a custom thing each time\" work\n\nYou define how you charge. Elystra just ensures that once someone says \"yes\", they sign and pay inside that same motion instead of drifting for 2–3 weeks.",
+    q: "What happens after the client says yes?",
+    a:
+      "The relationship stays under control.\n\nThe rail continues into:\naccount visibility, files, messages, billing history, relationship memory, client-facing continuity, and expansion signal.\n\nThat matters because the first close is only part of the value.\nThe retained account is where the business compounds.\n\nOn the rail, 62% of cold buyers have converted into retained client relationships where the system was actually used properly.\nThat is what happens when the relationship does not fall back into scattered systems after payment.",
   },
   {
-    q: "Will it work with custom pricing or service scopes?",
-    a: "Yes. That's the default, not the edge case.\n• We build your first templates on the demo call.\n• You or your team tweak scope, pricing, clauses per deal.\n• The system keeps everything on-brand, trackable and fast.\n\nIf your current \"custom scope\" approach is \"Copy old deck → rewrite → reformat → export PDF\"… you'll feel the speed difference in the first week.",
+    q: "How quickly does Elystra prove value?",
+    a:
+      "Fast enough that agencies usually feel it in live motion, not theory.\n\nThe right way to judge Elystra is on real opportunities, with real money exposure, inside the actual rail.\n\nOn the rail, 72% of agencies prove value in the first month.\nIn practice, that usually means the same thing: the agency recovers one or two deals in month one that would otherwise have slowed, drifted, or died.\n\nThat is why Elystra gets judged quickly.\nThe economics show up quickly.",
   },
   {
-    q: "How does pricing work?",
-    a: "Flat monthly. Unlimited users. Unlimited proposals. Unlimited signatures. Unlimited deposits.\n\nNo per-seat tax. No per-proposal tax. No % of deals.\n\nIf you're losing even one deal a month to the \"we'll get back to you\" gap, Elystra is cheaper than your current system.\n\nAnd if the first 30 days don't move your close-rate? We refund you and switch you off. No forms, no \"conditions\".",
+    q: "What changes economically once Elystra is installed?",
+    a:
+      "The same pipeline starts finishing harder.\n\nThat means:\nmore live opportunities converted, faster movement from intent to cash, less drift after verbal yes, less revenue dying in weak follow-up, better visibility into what is actually worth pushing, and stronger retained value after the close.\n\nLast quarter alone, $6.2M closed through Elystra.\nAcross agencies that actually adopted the rail properly, Elystra produced 23% average uplift.\n\nThe point is simple:\nthe value is not more software.\nThe value is more money collected from the demand you already have.",
   },
   {
-    q: "What if my clients are slow to sign?",
-    a: "That's exactly what Elystra is built to kill.\n\nSlow signing usually means:\n• proposal went cold in their inbox\n• no clear payment path\n• no structured follow-up\n• multiple people internally, no one owning the decision\n\nElystra attacks all of that:\n• They review → sign → pay on one screen\n• Behavioral X-ray shows who's reading what, when, and with whom\n• Follow-up queue tells your team who to call now vs who to ignore\n\nYour \"slow\" clients either commit inside the call window, or they cleanly disqualify themselves. No more 3-week limbo.",
+    q: "Why are agencies on the rail stronger than agencies off it?",
+    a:
+      "Because agencies off the rail still depend on partial visibility, stitched-together tools, rep memory, and scattered follow-up.\n\nAgencies on the rail operate with:\nclearer truth, tighter movement, stronger commitment capture, better offer judgment, faster collection, and deeper control after the close.\n\nOne agency is \"selling.\"\nThe other is compounding.\n\nThat difference widens over time.",
   },
   {
-    q: "Does Elystra work for high-ticket agencies?",
-    a: "Yes. Elystra was built for high-ticket first.\n\nWhether it's $5K retainers, $50K projects, or $150K+ scopes — they all run on the same rail:\n• scoped from the call\n• signed on the proposal page\n• deposit collected immediately\n• internal onboarding triggered automatically\n\nThe bigger the deal, the more expensive your current \"gap\" is. Elystra makes that gap smaller.",
+    q: "Who should not use Elystra?",
+    a:
+      "Agencies that are comfortable with:\nloose follow-up, scattered systems, weak visibility, manual chasing, and money leaking after buyer interest already exists.\n\nAgencies that do not want operational truth should stay away.\n\nElystra is for agencies that want the commercial layer under control.",
   },
   {
-    q: "What if I have a complex, multi-step onboarding process?",
-    a: "Elystra doesn't remove steps. It removes manual handoffs.\n\nAfter signature + payment, you can have Elystra:\n• create the deal in your CRM\n• fire tasks + checklists in your PM tool\n• send Slack/Email notifications to your team\n• trigger finance workflows (invoice, PO, records)\n\nYour internal process can stay as complex as you like. You just stop depending on humans to remember 12 steps after every close.",
-  },
-  {
-    q: "Do I need to change my sales calls?",
-    a: "No.\n• You don't need a new script.\n• You don't need \"Elystra-style closing lines\".\n• You don't need training modules.\n\nTalk the way you talk today. Elystra listens to the call / notes, builds the proposal, and gives you a rail where \"yes\" automatically routes to signed + paid.\n\nIf anything, Elystra lets you be more direct: \"If this makes sense, we'll send you the proposal while we're still on the call and you can sign + pay in one motion.\"",
-  },
-  {
-    q: "What is the learning curve?",
-    a: "For a closer who can already sell: about one deal.\n• We set up your first templates on the demo + onboarding.\n• You run one real call through it.\n• After that, you repeat the same clicks.\n\nIf someone can't pick this up in under 5 minutes, they don't have a tech problem. They have a performance problem.",
-  },
-  {
-    q: "What if I already have a proposal system?",
-    a: "Then you know its limits better than anyone.\n\nIf your current \"system\" still involves typing into a doc, formatting, exporting, attaching, waiting… you don't have a system. You have manual labor with nicer UI.\n\nElystra isn't \"another proposal tool\". It's:\n• proposal generation from call\n• signature on the page\n• payment on the page\n• follow-up automation\n• deal intelligence\n• ops handoff\n\nIf your current stack truly closes deals on the call with full analytics and zero admin, keep it. If not, Elystra will feel like cheating.",
-  },
-  {
-    q: "Does Elystra support retainers?",
-    a: "Yes. This is where it prints the most money.\n\nA typical retainer flow:\n1. You set monthly/quarterly rate inside Elystra.\n2. Client signs the retainer agreement on the proposal page.\n3. Stripe handles recurring billing on autopilot.\n4. You get predictable cash every month/quarter with zero chasing.\n\nNo manual invoices. No \"just bumping this to the top of your inbox.\" You either have a live retainer lane, or you don't.",
-  },
-  {
-    q: "What if my team does not use it?",
-    a: "Then two things are true:\n1. Your close-rate and time-to-cash won't change.\n2. You shouldn't keep paying for Elystra.\n\nWe don't make money if Elystra becomes \"another icon on the dock\". Our best customers make it clear internally: \"This is the rail. Deals run on this or they don't run.\"\n\nWe support you with templates, onboarding, and a simple playbook. But enforcement is on your side. If you won't enforce it, don't book a demo.",
-  },
-  {
-    q: "Who is Elystra not for?",
-    a: "• Agencies who are comfortable waiting 7–21 days for signed proposals\n• Teams who hate process and ignore any tool you give them\n• Owners who want \"shiny\" software, not more closed revenue\n\nIf you're happy typing into docs, sending PDFs, chasing signatures, waiting for Stripe invoices to be paid… you don't need Elystra.\n\nIf you look at your pipeline and know there's money dying between \"yes\" and \"paid\", the only logical next step is to see the rail live for 7 minutes.\n\nBook the demo. Judge it in your own numbers.",
+    q: "Does Elystra work for retainers, projects, custom scopes, or enterprise deals?",
+    a:
+      "Yes.\n\nThe rail does not care whether you sell retainers, projects, hybrid engagements, custom scopes, enterprise work, or irregular high-ticket work.\n\nYou define the commercial structure.\n\nElystra controls how that structure moves through the motion:\nfrom live opportunity, to commitment, to money, to continuity.\n\nThat is why the rail works across very different agency models.\nThe offer can change. The need for control does not.",
   },
 ];
 
@@ -205,7 +188,7 @@ const Faq = () => {
             </span>
           </h2>
           <p className="text-base font-extralight text-zinc-500">
-            Real questions from agencies. Straight answers.
+            How the commercial layer works—on and off the rail.
           </p>
         </motion.div>
 
@@ -219,7 +202,7 @@ const Faq = () => {
         >
           {faqs.map((faq, index) => (
             <FaqItem
-              key={index}
+              key={faq.q}
               faq={faq}
               isOpen={openIndex === index}
               onToggle={() => setOpenIndex(openIndex === index ? null : index)}
@@ -235,15 +218,23 @@ const Faq = () => {
           transition={{ delay: 0.3 }}
           className="mt-12 text-center"
         >
-          <p className="text-sm text-zinc-500 font-light">
-            Still have questions?{' '}
+          <p className="text-sm text-zinc-400 font-light leading-relaxed max-w-xl mx-auto">
+            170+ agencies are already through the rail.
+            <br />
+            <span className="text-zinc-500">
+              The question is whether your agency wants to keep operating with partial control, or start
+              converting, collecting, and retaining at a higher standard.
+            </span>
+          </p>
+          <p className="mt-6 text-sm text-zinc-500 font-light">
             <button
               type="button"
               onClick={openDemoBooking}
               className="text-violet-400 hover:text-violet-300 transition-colors underline underline-offset-4"
             >
-              Book a demo and we will answer everything live
+              Book a demo
             </button>
+            {' '}and we will answer what is left live.
           </p>
         </motion.div>
       </div>
