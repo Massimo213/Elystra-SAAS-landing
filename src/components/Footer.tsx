@@ -4,7 +4,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import Logo from '@/assets/LogoElystra.png';
+import { logo } from '@/assets';
 
 const Footer = () => {
   return (
@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            <img src={Logo} alt="Elystra" className="h-8 w-8" />
+            <img src={logo} alt="Elystra" className="h-8 w-8" />
             <span 
               className="text-lg font-light tracking-wide"
               style={{

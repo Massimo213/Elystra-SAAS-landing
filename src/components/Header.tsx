@@ -7,7 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from '@/assets/LogoElystra.png';
+import { logo } from '@/assets';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight, X, Menu } from 'lucide-react';
@@ -86,7 +86,7 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-3 group shrink-0">
             <div className="relative">
               <img
-                src={Logo}
+                src={logo}
                 alt="Elystra"
                 className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105"
               />

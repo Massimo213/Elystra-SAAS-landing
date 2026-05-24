@@ -12,6 +12,7 @@ import SignIn from '@/components/SignIn';
 import SignUp from '@/components/SignUp';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 import Careers from '@/components/Careers';
+import Reschedule from '@/components/Reschedule';
 import Footer from '@/components/Footer';
 
 import UrgencyStrip from '@/components/UrgencyStrip';
@@ -95,6 +96,8 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/reschedule" element={<Reschedule />} />
+          <Route path="/r" element={<Reschedule />} />
           </Routes>
         </div>
       </ReactLenis>
