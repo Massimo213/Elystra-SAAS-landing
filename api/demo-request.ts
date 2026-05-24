@@ -161,7 +161,6 @@ async function sendViaEmail(request: DemoRequest): Promise<{ success: boolean; m
  */
 function generateDemoEmail(request: DemoRequest) {
   const isFromCall = request.source === 'cold_call';
-  const salesperson = request.trackingData?.salesperson || 'the team';
   
   const subject = isFromCall 
     ? `Your Elystra Free Trial is Ready (2 minutes)` 

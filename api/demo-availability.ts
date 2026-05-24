@@ -19,6 +19,18 @@ const PREFERRED_TIMES_BY_WEEKDAY: Record<number, string[]> = {
 
 const DEMO_TIMEZONE = process.env.DEMO_AVAILABILITY_TIMEZONE || "America/New_York";
 
+interface CalendlyErrorDetail {
+  parameter?: string;
+  code?: string;
+  message?: string;
+}
+
+interface CalendlyAvailabilityResponse {
+  message?: string;
+  details?: CalendlyErrorDetail[];
+  collection?: Array<{ start_time?: string; start?: string }>;
+}
+
 function parseTimeToMinutes(time: string): number {
   const [h, m] = time.split(":").map(Number);
   return (h || 0) * 60 + (m || 0);
@@ -127,7 +139,7 @@ export default async function handler(req: any, res: any) {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    const data = await calRes.json();
+    const data = (await calRes.json()) as CalendlyAvailabilityResponse;
 
     if (!calRes.ok) {
       const details = data?.details || [];
