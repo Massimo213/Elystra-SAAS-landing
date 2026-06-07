@@ -220,7 +220,7 @@ const Cta = () => {
             <div className="shrink-0">
               <motion.button
                 type="button"
-                onClick={openDemoBooking}
+                onClick={() => openDemoBooking()}
                 className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full px-9 py-5"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

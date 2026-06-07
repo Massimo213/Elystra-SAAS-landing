@@ -39,7 +39,7 @@ const UrgencyStrip = () => {
 
           <button
             type="button"
-            onClick={openDemoBooking}
+            onClick={() => openDemoBooking()}
             className="hidden md:flex items-center gap-1.5 text-xs text-violet-300 hover:text-white transition-colors font-light"
           >
             See it live

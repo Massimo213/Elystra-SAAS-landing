@@ -159,7 +159,7 @@ const Header = () => {
             <div className="hidden lg:flex">
               <motion.button
                 type="button"
-                onClick={openDemoBooking}
+                onClick={() => openDemoBooking()}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className="group relative flex items-center gap-2.5 px-6 py-2.5 rounded-full text-white text-sm font-light overflow-hidden cursor-pointer"

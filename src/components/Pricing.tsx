@@ -113,7 +113,7 @@ export default function Pricing() {
                   </ul>
                 </div>
                 <Button
-                  onClick={openDemoBooking}
+                  onClick={() => openDemoBooking()}
                   className={`mt-8 w-full transition-all duration-300 ${
                     plan.popular 
                       ? 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20' 

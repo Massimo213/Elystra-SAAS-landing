@@ -229,7 +229,7 @@ const Faq = () => {
           <p className="mt-6 text-sm text-zinc-500 font-light">
             <button
               type="button"
-              onClick={openDemoBooking}
+              onClick={() => openDemoBooking()}
               className="text-violet-400 hover:text-violet-300 transition-colors underline underline-offset-4"
             >
               Book a demo

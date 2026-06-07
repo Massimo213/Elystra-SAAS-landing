@@ -58,7 +58,7 @@ const GetStarted = () => {
 
           <motion.button
             type="button"
-            onClick={openDemoBooking}
+            onClick={() => openDemoBooking()}
             className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full overflow-hidden"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

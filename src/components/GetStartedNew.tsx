@@ -226,7 +226,7 @@ const HowItWorksModal = () => {
           See how agencies close deals 3x faster. Book a live demo and we'll walk you through the complete flow.
         </p>
         <Button
-          onClick={openDemoBooking}
+          onClick={() => openDemoBooking()}
           className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold"
         >
           Book Your Demo

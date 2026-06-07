@@ -279,7 +279,7 @@ const Hero = () => {
               <motion.div variants={item} className="mb-4">
                 <motion.button
                   type="button"
-                  onClick={openDemoBooking}
+                  onClick={() => openDemoBooking()}
                   className="group relative inline-flex items-center gap-4 px-10 md:px-12 py-5 md:py-6 rounded-full text-white overflow-hidden w-full sm:w-auto justify-center"
                   style={{
                     background:
