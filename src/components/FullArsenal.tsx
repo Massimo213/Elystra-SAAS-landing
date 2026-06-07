@@ -3,11 +3,7 @@ import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-m
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useLenis } from "lenis/react";
 import { useDemoBooking } from "@/contexts/DemoBookingContext";
-
-type Shot = {
-  src: string;
-  label: string;
-};
+import { getArsenalPanels } from "@/components/ArsenalPanels";
 
 type Feature = {
   id: string;
@@ -18,82 +14,68 @@ type Feature = {
   titleEnd?: string;
   description: string;
   bullets: readonly string[];
-  shots: readonly Shot[];
 };
 
 const FEATURES: readonly Feature[] = [
   {
     id: "scope",
     tab: "SCOPE",
-    eyebrow: "Proposal standardization",
-    titleStart: "Clean scopes.",
-    titleAccent: "No broken momentum.",
+    eyebrow: "Proposal builder",
+    titleStart: "A call becomes",
+    titleAccent: "signed and paid.",
     description:
-      "From local accounts to Fortune 500 buyers, Elystra turns live conversations into send-ready scopes while intent is still hot.",
+      "Upload the conversation. Elystra builds the priced scope, captures signature and deposit on one screen, then fires your whole stack — no chasing, no formatting, no dead time.",
     bullets: [
-      "Notes, transcripts, recordings, and docs become structured scopes instantly.",
-      "Pricing logic, language, and layout stay locked to your real selling motion.",
-      "No formatting drag. No proposal lag.",
+      "Notes, transcripts, and recordings become structured, priced scopes.",
+      "Sign and collect the deposit in the same motion — zero days waiting.",
+      "One signature triggers CRM, invoicing, delivery, and onboarding.",
     ],
-    shots: [{ src: "/presentation-rail/proposal-1.png", label: "Proposal structure" }],
   },
   {
     id: "intel",
     tab: "INTEL",
     eyebrow: "Deal intelligence",
-    titleStart: "See where",
-    titleAccent: "money is moving.",
+    titleStart: "Read the buyer.",
+    titleAccent: "Predict the close.",
     description:
-      "Buyer movement, blockers, urgency, and next actions become visible before revenue dies in the dark.",
+      "Elystra reads what the buyer does — every open, every second on pricing, every forward — and turns it into named patterns and calibrated probabilities.",
     bullets: [
-      "Track opens, pricing attention, stakeholder circulation, and decision activity.",
-      "Spot deals that are heating up, cooling off, or trapped in review.",
-      "Turn follow-up from guessing into directed action.",
-    ],
-    shots: [
-      { src: "/presentation-rail/deal-offers.png", label: "Offer intelligence" },
-      { src: "/presentation-rail/deal-overview-1.png", label: "Deal overview" },
-      { src: "/presentation-rail/deal-analytics-2.png", label: "Buying analytics" },
+      "Behavioral signals flag comparison-shopping, stalls, and cooling intent.",
+      "Deal X-Ray shows where the buyer's attention actually went.",
+      "Every live deal carries a probability drawn from your own history.",
     ],
   },
   {
     id: "close",
     tab: "CLOSE",
-    eyebrow: "Close and collect",
-    titleStart: "Tighten intent",
-    titleAccent: "into revenue.",
+    eyebrow: "Close & collect",
+    titleStart: "Find the money,",
+    titleAccent: "then collect it.",
     description:
-      "Review, signature, and payment happen inside one rail instead of leaking across documents, tabs, links, and delay.",
+      "Elystra autopsies exactly where revenue dies, drafts the rescue for every stalled deal, and surfaces the cash already signed but uncollected — with speed you can measure.",
     bullets: [
-      "Move buyers from review to signature to payment in one controlled flow.",
-      "Collect deposits, retainers, or full fees without invoice chasing.",
-      "Kill the dead time where prospects cool off after saying yes.",
-    ],
-    shots: [
-      { src: "/presentation-rail/collect-leakage.png", label: "Leakage control" },
-      { src: "/presentation-rail/collect-followup.png", label: "Follow-up rail" },
+      "The death map shows what's lost at each stage, in dollars.",
+      "The war room diagnoses each blocker and writes the next move.",
+      "Signed-but-unpaid deals get pushed to the top — collect now.",
     ],
   },
   {
     id: "client",
     tab: "CLIENT",
     eyebrow: "Client continuity",
-    titleStart: "Keep the relationship",
-    titleAccent: "inside the rail.",
+    titleStart: "Turn the close into a",
+    titleAccent: "compounding account.",
     description:
-      "After the money lands, the relationship stays visible, structured, and under control instead of falling back into chaos.",
+      "After payment, the relationship stays on the rail — health scored, churn watched, concentration risk flagged, and recurring revenue charging itself. Retention is engineered, not hoped for.",
     bullets: [
-      "Give clients one place for agreements, invoices, files, renewals, and history.",
-      "Keep messages, deliverables, and account activity attached to the relationship.",
-      "Turn post-close interaction into retention and expansion signal.",
-    ],
-    shots: [
-      { src: "/presentation-rail/portal-client-1.png", label: "Client workspace" },
-      { src: "/presentation-rail/portal-client-2.png", label: "Account visibility" },
-      { src: "/presentation-rail/portal-client-3.png", label: "Renewal continuity" },
+      "Client health, churn risk, and expansion probability stay visible.",
+      "Portfolio concentration is flagged before a churn becomes a crisis.",
+      "Retainers auto-charge on schedule — no invoices, no chasing.",
     ],
   },
 ] as const;
+
+const SUBPANEL_CYCLE_MS = 4200;
 
 const WHEEL_THRESHOLD = 70;
 const LOCK_TRIGGER_TOP = 120;
@@ -127,24 +109,24 @@ const FullArsenal = () => {
 
   const [locked, setLocked] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeShotIndex, setActiveShotIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
 
   const activeFeature = FEATURES[activeIndex];
-  const shots = activeFeature.shots;
-  const safeShotIndex = Math.min(activeShotIndex, Math.max(0, shots.length - 1));
-  const activeShot = shots[safeShotIndex];
+  const panelCount = getArsenalPanels(activeFeature.id).length;
 
+  // Reset sub-panel when the feature changes.
   useEffect(() => {
-    setActiveShotIndex(0);
+    setSubIndex(0);
   }, [activeIndex]);
 
+  // Auto-advance sub-panels so the depth of each tab is visible without input.
   useEffect(() => {
-    if (shots.length <= 1) return;
+    if (shouldReduce || panelCount <= 1) return;
     const id = window.setInterval(() => {
-      setActiveShotIndex((index) => (index + 1) % shots.length);
-    }, 2600);
+      setSubIndex((i) => (i + 1) % panelCount);
+    }, SUBPANEL_CYCLE_MS);
     return () => window.clearInterval(id);
-  }, [activeIndex, shots.length]);
+  }, [activeIndex, panelCount, shouldReduce]);
 
   const unlockAndScroll = useCallback((target: number, releasedDown: boolean) => {
     const safeTarget = Math.max(0, target);
@@ -311,24 +293,20 @@ const FullArsenal = () => {
     };
   }, []);
 
-  const jumpToFeature = useCallback(
-    (index: number) => {
-      setActiveIndex(index);
-      setActiveShotIndex(0);
+  const jumpToFeature = useCallback((index: number) => {
+    setActiveIndex(index);
 
-      if (!lockedRef.current) {
-        const section = sectionRef.current;
-        if (!section) return;
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        if (lenisRef.current) {
-          lenisRef.current.scrollTo(sectionTop, { duration: 0.9 });
-        } else {
-          window.scrollTo({ top: sectionTop, behavior: "smooth" });
-        }
+    if (!lockedRef.current) {
+      const section = sectionRef.current;
+      if (!section) return;
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(sectionTop, { duration: 0.9 });
+      } else {
+        window.scrollTo({ top: sectionTop, behavior: "smooth" });
       }
-    },
-    []
-  );
+    }
+  }, []);
 
   return (
     <section id="the-rail" className="relative bg-transparent">
@@ -337,12 +315,11 @@ const FullArsenal = () => {
           <DesktopFeatureRail
             activeFeature={activeFeature}
             activeIndex={activeIndex}
-            activeShot={activeShot}
-            activeShotIndex={safeShotIndex}
+            subIndex={subIndex}
             locked={locked}
             onDemo={openDemoBooking}
             onFeatureSelect={jumpToFeature}
-            onShotSelect={setActiveShotIndex}
+            onSubSelect={setSubIndex}
           />
         </section>
       )}
@@ -350,45 +327,75 @@ const FullArsenal = () => {
       <div className={shouldReduce ? "px-4 py-16 md:px-6" : "px-4 py-16 md:hidden md:px-6"}>
         <MobileFeatureRail
           activeIndex={activeIndex}
-          activeShotIndex={safeShotIndex}
+          subIndex={subIndex}
           onDemo={openDemoBooking}
-          onFeatureSelect={(index) => {
-            setActiveIndex(index);
-            setActiveShotIndex(0);
-          }}
-          onShotSelect={setActiveShotIndex}
+          onFeatureSelect={setActiveIndex}
+          onSubSelect={setSubIndex}
         />
       </div>
     </section>
   );
 };
 
+/** Labeled sub-panel selector — communicates that each tab holds multiple weapons. */
+function SubPanelSelector({
+  featureId,
+  subIndex,
+  onSubSelect,
+  align = "center",
+}: {
+  featureId: string;
+  subIndex: number;
+  onSubSelect: (index: number) => void;
+  align?: "center" | "start";
+}) {
+  const panels = getArsenalPanels(featureId);
+  if (panels.length <= 1) return null;
+
+  return (
+    <div className={`flex flex-wrap items-center gap-2 ${align === "center" ? "justify-center" : "justify-start"}`}>
+      {panels.map((p, idx) => {
+        const active = idx === subIndex;
+        return (
+          <button
+            key={p.label}
+            type="button"
+            onClick={() => onSubSelect(idx)}
+            className="rounded-full border px-3 py-1.5 text-[0.66rem] font-light uppercase tracking-[0.14em] transition-all duration-300"
+            style={{
+              color: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.42)",
+              borderColor: active ? "rgba(167,139,250,0.45)" : "rgba(255,255,255,0.08)",
+              background: active ? "rgba(139,92,246,0.14)" : "rgba(255,255,255,0.015)",
+            }}
+          >
+            {p.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function DesktopFeatureRail({
   activeFeature,
   activeIndex,
-  activeShot,
-  activeShotIndex,
+  subIndex,
   locked,
   onDemo,
   onFeatureSelect,
-  onShotSelect,
+  onSubSelect,
 }: {
   activeFeature: Feature;
   activeIndex: number;
-  activeShot: Shot;
-  activeShotIndex: number;
+  subIndex: number;
   locked: boolean;
   onDemo: () => void;
   onFeatureSelect: (index: number) => void;
-  onShotSelect: (index: number) => void;
+  onSubSelect: (index: number) => void;
 }) {
-  const stackedShots = activeFeature.shots
-    .map((shot, index) => ({
-      shot,
-      index,
-      offset: (index - activeShotIndex + activeFeature.shots.length) % activeFeature.shots.length,
-    }))
-    .filter((item) => item.offset > 0 && item.offset < 3);
+  const panels = getArsenalPanels(activeFeature.id);
+  const safeSub = Math.min(subIndex, Math.max(0, panels.length - 1));
+  const activePanel = panels[safeSub];
 
   const content = (
     <div className="relative h-full w-full overflow-hidden bg-transparent">
@@ -406,60 +413,47 @@ function DesktopFeatureRail({
           `,
         }}
       />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.18]"
-        style={{
-          background:
-            "radial-gradient(circle at 12% 26%, rgba(255,255,255,0.045) 0%, transparent 18%), radial-gradient(circle at 78% 22%, rgba(255,255,255,0.04) 0%, transparent 14%), radial-gradient(circle at 62% 78%, rgba(255,255,255,0.03) 0%, transparent 16%)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[86rem] flex-col px-4 md:px-6">
         <div className="relative flex h-full flex-col px-2 pb-8 pt-24 lg:px-4 lg:pb-10 lg:pt-28">
           <LayoutGroup id="elystra-feature-tabs">
-            <nav
-              className="flex items-center justify-center"
-              role="tablist"
-              aria-label="Feature tabs"
-            >
+            <nav className="flex items-center justify-center" role="tablist" aria-label="Feature tabs">
               <div className="flex items-center gap-3 rounded-full border border-white/8 bg-white/[0.02] px-4 py-2">
-              {FEATURES.map((feature, index) => {
-                const active = index === activeIndex;
-                return (
-                  <button
-                    key={feature.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => onFeatureSelect(index)}
-                    className="relative px-4 py-2 text-sm font-light tracking-[0.16em] transition-colors duration-300"
-                    style={{
-                      color: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.45)",
-                    }}
-                    onMouseEnter={(event) => {
-                      if (!active) event.currentTarget.style.color = "rgba(255,255,255,0.8)";
-                    }}
-                    onMouseLeave={(event) => {
-                      if (!active) event.currentTarget.style.color = "rgba(255,255,255,0.45)";
-                    }}
-                  >
-                    {feature.tab}
-                    {active && (
-                      <motion.span
-                        layoutId="rail-nav-dot"
-                        className="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-violet-400"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                );
-              })}
+                {FEATURES.map((feature, index) => {
+                  const active = index === activeIndex;
+                  return (
+                    <button
+                      key={feature.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => onFeatureSelect(index)}
+                      className="relative px-4 py-2 text-sm font-light tracking-[0.16em] transition-colors duration-300"
+                      style={{ color: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.45)" }}
+                      onMouseEnter={(event) => {
+                        if (!active) event.currentTarget.style.color = "rgba(255,255,255,0.8)";
+                      }}
+                      onMouseLeave={(event) => {
+                        if (!active) event.currentTarget.style.color = "rgba(255,255,255,0.45)";
+                      }}
+                    >
+                      {feature.tab}
+                      {active && (
+                        <motion.span
+                          layoutId="rail-nav-dot"
+                          className="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-violet-400"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </nav>
           </LayoutGroup>
 
-            <div className="grid min-h-0 flex-1 grid-cols-[0.9fr_1.1fr] items-center gap-12 pt-10">
-              <div className="flex h-full flex-col justify-center">
+          <div className="grid min-h-0 flex-1 grid-cols-[0.9fr_1.1fr] items-center gap-12 pt-10">
+            <div className="flex h-full flex-col justify-center">
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={activeFeature.id}
@@ -503,8 +497,7 @@ function DesktopFeatureRail({
                       className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full px-6 py-2.5 text-sm font-light text-white"
                       style={{
                         background: "linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%)",
-                        boxShadow:
-                          "0 0 38px rgba(139,92,246,0.28), inset 0 1px 0 rgba(255,255,255,0.15)",
+                        boxShadow: "0 0 38px rgba(139,92,246,0.28), inset 0 1px 0 rgba(255,255,255,0.15)",
                       }}
                     >
                       <span
@@ -517,8 +510,7 @@ function DesktopFeatureRail({
                       <span
                         className="absolute left-1/2 top-0 h-[1px] w-3/4 -translate-x-1/2"
                         style={{
-                          background:
-                            "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
+                          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
                         }}
                       />
                       <Sparkles className="relative z-10 h-3.5 w-3.5" />
@@ -530,71 +522,22 @@ function DesktopFeatureRail({
               </AnimatePresence>
             </div>
 
-            <div className="flex min-h-0 items-center justify-center">
-              <AnimatePresence initial={false} mode="wait">
-                <motion.div
-                  key={`${activeFeature.id}-${activeShotIndex}`}
-                  initial={{ opacity: 0, y: 24, scale: 0.986 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -14, scale: 0.986 }}
-                  transition={{ duration: 0.36, ease: "easeOut" }}
-                  className="relative w-full"
-                >
-                  <div className="relative mx-auto w-full max-w-[52rem] pt-8">
-                    {stackedShots
-                      .slice()
-                      .reverse()
-                      .map(({ shot, offset }) => (
-                        <motion.div
-                          key={`${shot.src}-stack`}
-                          className="pointer-events-none absolute inset-x-10 top-0 overflow-hidden rounded-[1.7rem] border border-white/8 bg-white/[0.02]"
-                          style={{
-                            transform: `translateY(${offset * 18}px) scale(${1 - offset * 0.035})`,
-                            opacity: offset === 1 ? 0.26 : 0.14,
-                            zIndex: 1,
-                          }}
-                        >
-                          <img
-                            src={shot.src}
-                            alt=""
-                            className="max-h-[50vh] w-full object-contain object-top blur-[0.2px]"
-                          />
-                        </motion.div>
-                      ))}
-
-                    <div className="relative z-10 overflow-hidden rounded-[2rem] bg-transparent">
-                      <img
-                        src={activeShot.src}
-                        alt={activeShot.label}
-                        className="max-h-[62vh] w-full object-contain object-top drop-shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-4 text-center text-[0.72rem] uppercase tracking-[0.18em] text-zinc-500">
-                    {activeShot.label}
-                  </div>
-
-                  <div className="mt-5 flex items-center justify-center gap-2">
-                    {activeFeature.shots.map((shot, index) => {
-                      const selected = index === activeShotIndex;
-                      return (
-                        <button
-                          key={shot.src}
-                          type="button"
-                          onClick={() => onShotSelect(index)}
-                          className="h-2.5 rounded-full transition-all"
-                          style={{
-                            width: selected ? "2rem" : "0.65rem",
-                            background: selected ? "rgb(167 139 250)" : "rgba(255,255,255,0.22)",
-                          }}
-                          aria-label={shot.label}
-                        />
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+            <div className="flex min-h-0 flex-col items-center justify-center gap-5">
+              <div className="flex w-full max-w-[34rem] items-center justify-center">
+                <AnimatePresence initial={false} mode="wait">
+                  <motion.div
+                    key={`${activeFeature.id}-${safeSub}`}
+                    initial={{ opacity: 0, y: 22, scale: 0.986 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -14, scale: 0.986 }}
+                    transition={{ duration: 0.36, ease: "easeOut" }}
+                    className="w-full"
+                  >
+                    {activePanel?.node}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              <SubPanelSelector featureId={activeFeature.id} subIndex={safeSub} onSubSelect={onSubSelect} />
             </div>
           </div>
         </div>
@@ -603,11 +546,7 @@ function DesktopFeatureRail({
   );
 
   if (locked) {
-    return (
-      <div className="fixed inset-0 z-40 bg-transparent">
-        {content}
-      </div>
-    );
+    return <div className="fixed inset-0 z-40 bg-transparent">{content}</div>;
   }
 
   return content;
@@ -615,21 +554,21 @@ function DesktopFeatureRail({
 
 function MobileFeatureRail({
   activeIndex,
-  activeShotIndex,
+  subIndex,
   onDemo,
   onFeatureSelect,
-  onShotSelect,
+  onSubSelect,
 }: {
   activeIndex: number;
-  activeShotIndex: number;
+  subIndex: number;
   onDemo: () => void;
   onFeatureSelect: (index: number) => void;
-  onShotSelect: (index: number) => void;
+  onSubSelect: (index: number) => void;
 }) {
   const feature = FEATURES[activeIndex];
-  const shots = feature.shots;
-  const safeShotIndex = Math.min(activeShotIndex, Math.max(0, shots.length - 1));
-  const activeShot = shots[safeShotIndex];
+  const panels = getArsenalPanels(feature.id);
+  const safeSub = Math.min(subIndex, Math.max(0, panels.length - 1));
+  const activePanel = panels[safeSub];
 
   return (
     <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(10,10,14,0.5)] px-4 py-5 text-white shadow-[0_24px_80px_rgba(0,0,0,0.14)] backdrop-blur-[2px]">
@@ -663,49 +602,34 @@ function MobileFeatureRail({
         </span>
         {feature.titleEnd && <span> {feature.titleEnd}</span>}
       </h3>
-      <p className="mt-4 text-base font-light leading-[1.6] text-zinc-300">
-        {feature.description}
-      </p>
+      <p className="mt-4 text-base font-light leading-[1.6] text-zinc-300">{feature.description}</p>
 
       <div className="mt-6 space-y-3">
         {feature.bullets.map((bullet) => (
           <div key={bullet} className="flex items-start gap-3">
             <span className="mt-[0.45rem] h-2 w-2 rounded-full bg-violet-400" />
-            <p className="text-[0.98rem] font-light leading-[1.55] text-zinc-300">
-              {bullet}
-            </p>
+            <p className="text-[0.98rem] font-light leading-[1.55] text-zinc-300">{bullet}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
-        <img
-          src={activeShot.src}
-          alt={activeShot.label}
-          className="w-full object-contain object-top"
-        />
+      <div className="mt-7">
+        <AnimatePresence initial={false} mode="wait">
+          <motion.div
+            key={`${feature.id}-${safeSub}`}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.32, ease: "easeOut" }}
+          >
+            {activePanel?.node}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {shots.length > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2">
-          {shots.map((shot, index) => {
-            const selected = index === safeShotIndex;
-            return (
-              <button
-                key={shot.src}
-                type="button"
-                onClick={() => onShotSelect(index)}
-                className="h-2.5 rounded-full transition-all"
-                style={{
-                  width: selected ? "2rem" : "0.65rem",
-                  background: selected ? "rgb(167 139 250)" : "rgba(255,255,255,0.22)",
-                }}
-                aria-label={shot.label}
-              />
-            );
-          })}
-        </div>
-      )}
+      <div className="mt-5">
+        <SubPanelSelector featureId={feature.id} subIndex={safeSub} onSubSelect={onSubSelect} align="start" />
+      </div>
 
       <motion.button
         type="button"
@@ -715,22 +639,18 @@ function MobileFeatureRail({
         className="group relative mt-8 inline-flex items-center gap-2.5 overflow-hidden rounded-full px-6 py-2.5 text-sm font-light text-white"
         style={{
           background: "linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%)",
-          boxShadow:
-            "0 0 34px rgba(139,92,246,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
+          boxShadow: "0 0 34px rgba(139,92,246,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
         }}
       >
         <span
           className="absolute inset-0 -translate-x-full transition-transform duration-700 group-hover:translate-x-full"
           style={{
-            background:
-              "linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.15) 50%, transparent 80%)",
+            background: "linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.15) 50%, transparent 80%)",
           }}
         />
         <span
           className="absolute left-1/2 top-0 h-[1px] w-3/4 -translate-x-1/2"
-          style={{
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
-          }}
+          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)" }}
         />
         <Sparkles className="relative z-10 h-3.5 w-3.5" />
         <span className="relative z-10 tracking-wide">Book Demo</span>

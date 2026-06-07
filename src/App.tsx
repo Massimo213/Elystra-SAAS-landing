@@ -60,12 +60,15 @@ const MainContent = () => (
   <main className="relative z-10 pt-14 md:pt-16">
     <UrgencyStrip />
     <Hero />
- 
-    <BleedingCalculator />
+
+    {/* Slot #2 answers "what does Elystra do" before anything abstract. */}
     <FullArsenal />
    {/* <ProcessComparison /> */}
    <NorthAmericaRailSection />
     <Review />
+
+    {/* Demoted to the "justify the spend" closer, right before the CTA. */}
+    <BleedingCalculator />
     <Cta />
     <Faq/>
     <Footer />

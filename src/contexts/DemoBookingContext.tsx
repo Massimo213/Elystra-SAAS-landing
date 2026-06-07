@@ -1,9 +1,9 @@
 "use client";
 import React, { createContext, useContext, useState, useCallback } from "react";
-import { DemoBookingModal } from "@/components/DemoBookingModal";
+import { DemoBookingModal, type DemoPrefill } from "@/components/DemoBookingModal";
 
 type DemoBookingContextType = {
-  openDemoBooking: () => void;
+  openDemoBooking: (prefill?: DemoPrefill) => void;
 };
 
 const DemoBookingContext = createContext<DemoBookingContextType | null>(null);
@@ -16,15 +16,17 @@ export const useDemoBooking = () => {
 
 export const DemoBookingProvider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
+  const [prefill, setPrefill] = useState<DemoPrefill>(null);
 
-  const openDemoBooking = useCallback(() => {
+  const openDemoBooking = useCallback((next?: DemoPrefill) => {
+    setPrefill(next ?? null);
     setOpen(true);
   }, []);
 
   return (
     <DemoBookingContext.Provider value={{ openDemoBooking }}>
       {children}
-      <DemoBookingModal open={open} onOpenChange={setOpen} />
+      <DemoBookingModal open={open} onOpenChange={setOpen} prefill={prefill} />
     </DemoBookingContext.Provider>
   );
 };

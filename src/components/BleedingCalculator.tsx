@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { ArrowRight, Calculator, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowRight, Calculator, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
+
+/**
+ * Benchmark close rate of agencies running Elystra's finish.
+ * This is a published median (see ProofStat), framed as a benchmark — NOT a
+ * promise. "Recovery" is the gap between the visitor's close rate and this
+ * benchmark. No fabricated lift.
+ */
+const BENCHMARK_CLOSE_RATE = 55;
 
 const AnimatedNumber = ({
   value,
@@ -38,16 +46,30 @@ const BleedingCalculator = () => {
   const [avgDealSize, setAvgDealSize] = useState(15000);
   const [closeRate, setCloseRate] = useState(30);
 
-  const currentMonthlyWonRevenue = proposalsPerMonth * avgDealSize * (closeRate / 100);
+  const pipelineValue = proposalsPerMonth * avgDealSize;
+  const currentMonthlyWonRevenue = pipelineValue * (closeRate / 100);
   const currentAnnualWonRevenue = currentMonthlyWonRevenue * 12;
-  const exposedAfterInterest = proposalsPerMonth * avgDealSize - currentMonthlyWonRevenue;
 
-  const modeledCloseRate = Math.min(closeRate + 12, 55);
-  const modeledMonthlyWonRevenue = proposalsPerMonth * avgDealSize * (modeledCloseRate / 100);
-  const modeledAnnualWonRevenue = modeledMonthlyWonRevenue * 12;
-  const monthlyRecoveredRevenue = modeledMonthlyWonRevenue - currentMonthlyWonRevenue;
-  const annualRecoveredRevenue = modeledAnnualWonRevenue - currentAnnualWonRevenue;
+  // Real leak: value of opportunities where interest existed but the deal never closed.
+  const exposedAfterInterest = pipelineValue - currentMonthlyWonRevenue;
+  const annualExposed = exposedAfterInterest * 12;
+
+  // Honest benchmark model — no fabricated lift. Gap to the published median.
+  const aboveBenchmark = closeRate >= BENCHMARK_CLOSE_RATE;
+  const modeledCloseRate = Math.max(closeRate, BENCHMARK_CLOSE_RATE);
+  const modeledMonthlyWonRevenue = pipelineValue * (modeledCloseRate / 100);
+  const monthlyRecoveredRevenue = Math.max(0, modeledMonthlyWonRevenue - currentMonthlyWonRevenue);
+  const annualRecoveredRevenue = monthlyRecoveredRevenue * 12;
   const closeRateHeadroom = modeledCloseRate - closeRate;
+
+  const handleBookReview = () =>
+    openDemoBooking({
+      proposalsPerMonth,
+      avgDealSize,
+      closeRate,
+      annualExposed,
+      annualRecoverable: annualRecoveredRevenue,
+    });
 
   const formatCurrency = (value: number) => {
     if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`;
@@ -208,13 +230,14 @@ const BleedingCalculator = () => {
                   value={<AnimatedNumber value={currentAnnualWonRevenue} prefix="$" />}
                 />
                 <MetricCard
-                  label="Current collected revenue"
-                  value={<AnimatedNumber value={currentMonthlyWonRevenue} prefix="$" />}
-                  subtle="Per month"
+                  label="Monthly revenue exposed after interest"
+                  value={<AnimatedNumber value={exposedAfterInterest} prefix="$" />}
+                  accent
                 />
                 <MetricCard
-                  label="Revenue exposed after interest"
-                  value={<AnimatedNumber value={exposedAfterInterest} prefix="$" />}
+                  label="Annual revenue exposed after interest"
+                  value={<AnimatedNumber value={annualExposed} prefix="$" />}
+                  subtle="Opportunities that showed interest and never closed"
                   accent
                 />
               </div>
@@ -273,28 +296,68 @@ const BleedingCalculator = () => {
                 ))}
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                <MetricCard
-                  label="Monthly recovered revenue"
-                  value={<AnimatedNumber value={monthlyRecoveredRevenue} prefix="$" />}
-                  accent
-                />
-                <MetricCard
-                  label="Annual recovered revenue"
-                  value={<AnimatedNumber value={annualRecoveredRevenue} prefix="$" />}
-                  accent
-                />
-                <MetricCard
-                  label="Close-rate headroom"
-                  value={`${closeRate}% → ${modeledCloseRate}%`}
-                  subtle={`+${closeRateHeadroom} pts`}
-                />
-                <MetricCard
-                  label="Faster path to collected cash"
-                  value="Tighter"
-                  subtle="Same-call send. Less post-yes drag."
-                />
-              </div>
+              {aboveBenchmark ? (
+                <div className="space-y-3">
+                  <div
+                    className="rounded-[1.5rem] border p-5"
+                    style={{
+                      borderColor: 'rgba(139,92,246,0.16)',
+                      background:
+                        'linear-gradient(145deg, rgba(139,92,246,0.09), rgba(255,255,255,0.02))',
+                    }}
+                  >
+                    <div className="flex items-center gap-2 text-violet-200">
+                      <Zap className="h-4 w-4" />
+                      <p className="text-[0.72rem] font-medium uppercase tracking-[0.2em]">
+                        You already close above benchmark
+                      </p>
+                    </div>
+                    <p className="mt-3 text-base font-light leading-[1.6] text-zinc-300">
+                      At {closeRate}% you beat the {BENCHMARK_CLOSE_RATE}% median agencies reach on Elystra.
+                      Your leak isn&apos;t the close — it&apos;s the <span className="text-white">post-yes drag</span>:
+                      the days between &ldquo;send the contract&rdquo; and cash in the bank.
+                    </p>
+                    <p className="mt-3 text-sm font-light leading-[1.6] text-zinc-500">
+                      Elystra collapses that to one motion — signature and deposit on the same screen, no chasing.
+                      That&apos;s where your money is hiding.
+                    </p>
+                  </div>
+                  <MetricCard
+                    label="Annualized won revenue at risk in post-yes drag"
+                    value={<AnimatedNumber value={currentAnnualWonRevenue} prefix="$" />}
+                    subtle="Cash you've earned but collect slower than you should"
+                    accent
+                  />
+                </div>
+              ) : (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <MetricCard
+                    label="Recoverable / month at benchmark"
+                    value={<AnimatedNumber value={monthlyRecoveredRevenue} prefix="$" />}
+                    accent
+                  />
+                  <MetricCard
+                    label="Recoverable / year at benchmark"
+                    value={<AnimatedNumber value={annualRecoveredRevenue} prefix="$" />}
+                    accent
+                  />
+                  <MetricCard
+                    label="Close rate vs. benchmark"
+                    value={`${closeRate}% → ${modeledCloseRate}%`}
+                    subtle={`+${closeRateHeadroom} pts to the Elystra median`}
+                  />
+                  <MetricCard
+                    label="Faster path to collected cash"
+                    value="Same-call"
+                    subtle="Sign + deposit in one motion. Less post-yes drag."
+                  />
+                </div>
+              )}
+
+              <p className="mt-4 text-[0.78rem] font-light leading-[1.6] text-zinc-600">
+                {BENCHMARK_CLOSE_RATE}% is the published median of agencies running Elystra&apos;s finish — a
+                benchmark, not a promise. We map your real number live on the call.
+              </p>
 
               <div
                 className="mt-6 rounded-[1.5rem] border p-4 md:p-5"
@@ -327,7 +390,7 @@ const BleedingCalculator = () => {
 
                 <motion.button
                   type="button"
-                  onClick={openDemoBooking}
+                  onClick={handleBookReview}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full px-6 py-3 text-sm font-light text-white"
@@ -352,7 +415,7 @@ const BleedingCalculator = () => {
                     }}
                   />
                   <Sparkles className="relative z-10 h-3.5 w-3.5" />
-                  <span className="relative z-10 tracking-wide">Book a 7-Minute Revenue Review</span>
+                  <span className="relative z-10 tracking-wide">Map my real leak — book a review</span>
                   <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </motion.button>
               </div>

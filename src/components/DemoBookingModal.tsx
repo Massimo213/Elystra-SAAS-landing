@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,30 @@ type LeadData = {
   email: string;
   phone: string;
 };
+
+/* ---------------- Prefill from the Revenue Leak Calculator ---------------- */
+export type DemoPrefill = {
+  proposalsPerMonth: number;
+  avgDealSize: number;
+  closeRate: number;
+  annualExposed: number;
+  annualRecoverable: number;
+} | null;
+
+function proposalsToBucket(n: number): string {
+  if (n <= 4) return "1-4";
+  if (n <= 9) return "5-9";
+  if (n <= 24) return "10-24";
+  return "25+";
+}
+
+function dealSizeToBucket(v: number): string {
+  if (v < 2000) return "under-2k";
+  if (v < 5000) return "2k-5k";
+  if (v < 15000) return "5k-15k";
+  if (v < 50000) return "15k-50k";
+  return "50k+";
+}
 
 /* ---------------- Qualification ---------------- */
 const PROPOSAL_OPTIONS = [
@@ -106,9 +130,11 @@ const labelClass = "block text-xs text-zinc-400 font-light mb-1.5";
 export function DemoBookingModal({
   open,
   onOpenChange,
+  prefill = null,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  prefill?: DemoPrefill;
 }) {
   const [step, setStep] = useState<Step>("lead");
   const [lead, setLead] = useState<LeadData>({
@@ -135,6 +161,18 @@ export function DemoBookingModal({
     const wd = selectedDate.getDay();
     return SLOTS_BY_WEEKDAY[wd] || ["10:00", "14:00"];
   }, [selectedDate]);
+
+  // Carry calculator inputs into the qualify step so the lead arrives pre-qualified
+  // with their own leak numbers attached.
+  useEffect(() => {
+    if (open && prefill) {
+      setQual((p) => ({
+        ...p,
+        proposalsPerMonth: proposalsToBucket(prefill.proposalsPerMonth),
+        avgDealSize: dealSizeToBucket(prefill.avgDealSize),
+      }));
+    }
+  }, [open, prefill]);
 
   const handleLeadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -164,6 +202,12 @@ export function DemoBookingModal({
       ...qual,
       slotDate,
       slotTime: selectedSlot,
+      source: prefill ? "revenue-leak-calculator" : "cta",
+      ...(prefill && {
+        calcCloseRate: prefill.closeRate,
+        calcAnnualExposed: prefill.annualExposed,
+        calcAnnualRecoverable: prefill.annualRecoverable,
+      }),
     };
 
     try {
