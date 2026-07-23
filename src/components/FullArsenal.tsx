@@ -24,10 +24,10 @@ const FEATURES: readonly Feature[] = [
     titleStart: "A call becomes",
     titleAccent: "signed and paid.",
     description:
-      "Upload the conversation. Elystra builds the priced scope, captures signature and deposit on one screen, then fires your whole stack — no chasing, no formatting, no dead time.",
+      "Upload the conversation. Elystra builds the priced scope, captures signature and deposit on one screen, then fires your whole stack, no chasing, no formatting, no dead time.",
     bullets: [
       "Notes, transcripts, and recordings become structured, priced scopes.",
-      "Sign and collect the deposit in the same motion — zero days waiting.",
+      "Sign and collect the deposit in the same motion, zero days waiting.",
       "One signature triggers CRM, invoicing, delivery, and onboarding.",
     ],
   },
@@ -38,7 +38,7 @@ const FEATURES: readonly Feature[] = [
     titleStart: "Read the buyer.",
     titleAccent: "Predict the close.",
     description:
-      "Elystra reads what the buyer does — every open, every second on pricing, every forward — and turns it into named patterns and calibrated probabilities.",
+      "Elystra reads what the buyer does, every open, every second on pricing, every forward, and turns it into named patterns and calibrated probabilities.",
     bullets: [
       "Behavioral signals flag comparison-shopping, stalls, and cooling intent.",
       "Deal X-Ray shows where the buyer's attention actually went.",
@@ -52,11 +52,11 @@ const FEATURES: readonly Feature[] = [
     titleStart: "Find the money,",
     titleAccent: "then collect it.",
     description:
-      "Elystra autopsies exactly where revenue dies, drafts the rescue for every stalled deal, and surfaces the cash already signed but uncollected — with speed you can measure.",
+      "Elystra autopsies exactly where revenue dies, drafts the rescue for every stalled deal, and surfaces the cash already signed but uncollected, with speed you can measure.",
     bullets: [
       "The death map shows what's lost at each stage, in dollars.",
       "The war room diagnoses each blocker and writes the next move.",
-      "Signed-but-unpaid deals get pushed to the top — collect now.",
+      "Signed-but-unpaid deals get pushed to the top, collect now.",
     ],
   },
   {
@@ -66,11 +66,11 @@ const FEATURES: readonly Feature[] = [
     titleStart: "Turn the close into a",
     titleAccent: "compounding account.",
     description:
-      "After payment, the relationship stays on the rail — health scored, churn watched, concentration risk flagged, and recurring revenue charging itself. Retention is engineered, not hoped for.",
+      "After payment, the relationship stays on the rail, health scored, churn watched, concentration risk flagged, and recurring revenue charging itself. Retention is engineered, not hoped for.",
     bullets: [
       "Client health, churn risk, and expansion probability stay visible.",
       "Portfolio concentration is flagged before a churn becomes a crisis.",
-      "Retainers auto-charge on schedule — no invoices, no chasing.",
+      "Retainers auto-charge on schedule, no invoices, no chasing.",
     ],
   },
 ] as const;

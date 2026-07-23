@@ -21,8 +21,8 @@ const comparisonData = [
   },
   {
     step: 'Design & Brand',
-    oldWay: 'Every proposal rebuilt from scratch. Format, sections, and wording — all manual.',
-    newWay: 'Elystra adapts to your proposal. Same structure, same story — just faster and consistent.',
+    oldWay: 'Every proposal rebuilt from scratch. Format, sections, and wording, all manual.',
+    newWay: 'Elystra adapts to your proposal. Same structure, same story, just faster and consistent.',
     oldIcon: FileText,
     newIcon: Sparkles,
   },
@@ -31,7 +31,7 @@ const comparisonData = [
     oldWay:
       'You push a PDF / DocuSign link and pray. Maybe you see “opened”, but you still don’t know who read it, who matters, or if the deal is already dying.',
     newWay:
-      'One send from Elystra and the rail takes over: every viewer is fingerprinted, decision-makers are surfaced, intent is scored, and the exact next move lands in your follow-up queue. No hope, no guessing — just controlled progression of the deal.',
+      'One send from Elystra and the rail takes over: every viewer is fingerprinted, decision-makers are surfaced, intent is scored, and the exact next move lands in your follow-up queue. No hope, no guessing, just controlled progression of the deal.',
     oldIcon: Send,
     newIcon: Zap,
   },
@@ -250,7 +250,7 @@ const ProcessComparison = () => {
             }}
           >
             <p className="text-base md:text-lg text-zinc-300 font-light leading-relaxed">
-              If your stack still needs a separate tool for signature, another for Stripe, and manual follow-up —{' '}
+              If your stack still needs a separate tool for signature, another for Stripe, and manual follow-up, {' '}
               <span className="text-white font-medium">you don't have a rail.</span>{' '}
               <span 
                 style={{

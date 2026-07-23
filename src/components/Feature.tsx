@@ -13,7 +13,7 @@ const pillars = [
     icon: FileText,
     title: 'Proposal, Sign, Pay. One Rail.',
     desc: 'Build and send branded proposals in minutes. Signature and payment live on the same screen. No separate Stripe links, no chasing invoices.',
-    netEffect: 'Average agency goes from 3–7 days between "yes" and send… to under 10 minutes.',
+    netEffect: 'Average agency goes from 3, 7 days between "yes" and send… to under 10 minutes.',
     color: 'violet',
   },
   {
@@ -21,7 +21,7 @@ const pillars = [
     icon: Workflow,
     title: 'Ops That Move Themselves',
     desc: 'One close updates CRM, PM tool, Slack, and Finance automatically. Sales stops doing follow-through admin.',
-    netEffect: 'Your ops team saves 8–12 hours per week on manual handoffs. Zero dropped balls.',
+    netEffect: 'Your ops team saves 8, 12 hours per week on manual handoffs. Zero dropped balls.',
     color: 'blue',
   },
   {
@@ -29,7 +29,7 @@ const pillars = [
     icon: BarChart3,
     title: 'Know What Prints Money',
     desc: 'Templates ranked by cash collected, not views. Rep performance exposed. Board-ready revenue analytics.',
-    netEffect: 'Kill 10–30% of offers that never convert and pour budget into the ones that do — using data, not vibes.',
+    netEffect: 'Kill 10–30% of offers that never convert and pour budget into the ones that do, using data, not vibes.',
     color: 'emerald',
   },
   {
@@ -37,7 +37,7 @@ const pillars = [
     icon: Zap,
     title: 'The Proposal-to-Cash Rail',
     desc: 'You don\'t improve proposals. You remove the gap where deals die. Send. Sign. Deposit.',
-    netEffect: '+20–30% close-rate lift without a single extra lead.',
+    netEffect: '+20, 30% close-rate lift without a single extra lead.',
     color: 'amber',
   },
 ];

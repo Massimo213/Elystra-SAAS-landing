@@ -5,7 +5,7 @@ import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
 /**
  * Benchmark close rate of agencies running Elystra's finish.
- * This is a published median (see ProofStat), framed as a benchmark — NOT a
+ * This is a published median (see ProofStat), framed as a benchmark, NOT a
  * promise. "Recovery" is the gap between the visitor's close rate and this
  * benchmark. No fabricated lift.
  */
@@ -314,13 +314,10 @@ const BleedingCalculator = () => {
                     </div>
                     <p className="mt-3 text-base font-light leading-[1.6] text-zinc-300">
                       At {closeRate}% you beat the {BENCHMARK_CLOSE_RATE}% median agencies reach on Elystra.
-                      Your leak isn&apos;t the close — it&apos;s the <span className="text-white">post-yes drag</span>:
+                      Your leak isn&apos;t the close. It&apos;s the <span className="text-white">post-yes drag</span>:
                       the days between &ldquo;send the contract&rdquo; and cash in the bank.
                     </p>
-                    <p className="mt-3 text-sm font-light leading-[1.6] text-zinc-500">
-                      Elystra collapses that to one motion — signature and deposit on the same screen, no chasing.
-                      That&apos;s where your money is hiding.
-                    </p>
+                    <p className="mt-3 text-sm font-light leading-[1.6] text-zinc-500"> Elystra collapses that to one motion, signature and deposit on the same screen, no chasing. That&apos;s where your money is hiding. </p>
                   </div>
                   <MetricCard
                     label="Annualized won revenue at risk in post-yes drag"
@@ -355,7 +352,7 @@ const BleedingCalculator = () => {
               )}
 
               <p className="mt-4 text-[0.78rem] font-light leading-[1.6] text-zinc-600">
-                {BENCHMARK_CLOSE_RATE}% is the published median of agencies running Elystra&apos;s finish — a
+                {BENCHMARK_CLOSE_RATE}% is the published median of agencies running Elystra&apos;s finish, a
                 benchmark, not a promise. We map your real number live on the call.
               </p>
 
@@ -415,7 +412,7 @@ const BleedingCalculator = () => {
                     }}
                   />
                   <Sparkles className="relative z-10 h-3.5 w-3.5" />
-                  <span className="relative z-10 tracking-wide">Map my real leak — book a review</span>
+                  <span className="relative z-10 tracking-wide">Map my real leak, book a review</span>
                   <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </motion.button>
               </div>

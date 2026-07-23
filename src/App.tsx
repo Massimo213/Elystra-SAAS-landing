@@ -12,6 +12,7 @@ import SignIn from '@/components/SignIn';
 import SignUp from '@/components/SignUp';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 import Careers from '@/components/Careers';
+import CareerRolePage from '@/components/CareerRolePage';
 import Reschedule from '@/components/Reschedule';
 import Footer from '@/components/Footer';
 
@@ -99,6 +100,7 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/careers/:slug" element={<CareerRolePage />} />
           <Route path="/reschedule" element={<Reschedule />} />
           <Route path="/r" element={<Reschedule />} />
           </Routes>

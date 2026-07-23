@@ -197,7 +197,7 @@ const Row = ({
 const ScopeBuildPanel = memo(() => (
   <PanelShell
     kicker="Proposal Builder"
-    title="Apex Media — Growth Retainer"
+    title="Apex Media, Growth Retainer"
     status="Generated · 47s"
     statusTone="violet"
     footer={<><Lock className="h-3 w-3 text-emerald-400/70" /> Pricing, terms &amp; deposit locked to your standard</>}
@@ -251,10 +251,10 @@ ScopeBuildPanel.displayName = 'ScopeBuildPanel';
 const SignPayPanel = memo(() => (
   <PanelShell
     kicker="Sign + Pay · one screen"
-    title="Apex Media signed — and paid — in the same minute"
+    title="Apex Media signed, and paid, in the same minute"
     status="Closed in one motion"
     statusTone="emerald"
-    footer={<><Zap className="h-3 w-3 text-emerald-400/80" /> Old way: sign today, invoice, chase 1–3 weeks. On the rail: 0 days.</>}
+    footer={<><Zap className="h-3 w-3 text-emerald-400/80" /> Old way: sign today, invoice, chase 1, 3 weeks. On the rail: 0 days.</>}
   >
     {/* signature */}
     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3.5">
@@ -353,7 +353,7 @@ const IntelSignalPanel = memo(() => (
     title="Apex Media is comparison-shopping"
     status="Critical"
     statusTone="red"
-    footer={<>Pattern confidence <span className="mx-1 text-zinc-300">72%</span> — matches deals lost to competitors within 7 days.</>}
+    footer={<>Pattern confidence <span className="mx-1 text-zinc-300">72%</span>, matches deals lost to competitors within 7 days.</>}
   >
     <div className="mb-4 flex items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
       <Ring score={38} label="Health" tone="red" />
@@ -383,9 +383,7 @@ const IntelSignalPanel = memo(() => (
           <p className="text-xs font-light text-white">Buyer is price-anchoring against an alternative.</p>
           <div className="mt-2 flex items-start gap-1.5 rounded-lg bg-white/[0.03] px-2.5 py-2">
             <ArrowRight className="mt-0.5 h-3 w-3 shrink-0 text-violet-400" />
-            <p className="text-[0.72rem] leading-relaxed text-violet-200/90">
-              Send the value-framed pricing note now — call within 24h before they commit elsewhere.
-            </p>
+            <p className="text-[0.72rem] leading-relaxed text-violet-200/90"> Send the value-framed pricing note now, call within 24h before they commit elsewhere. </p>
           </div>
         </div>
       </div>
@@ -443,10 +441,10 @@ DealXrayPanel.displayName = 'DealXrayPanel';
 const ForecastPanel = memo(() => (
   <PanelShell
     kicker="Revenue Forecast"
-    title="Probability-weighted — not a wishlist"
+    title="Probability-weighted, not a wishlist"
     status="Falling · -12%"
     statusTone="amber"
-    footer={<><TrendingDown className="h-3 w-3 text-amber-400/80" /> 2 hot deals went quiet this week — momentum is cooling.</>}
+    footer={<><TrendingDown className="h-3 w-3 text-amber-400/80" /> 2 hot deals went quiet this week, momentum is cooling.</>}
   >
     <div className="mb-3 flex items-end justify-between rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
       <div>
@@ -471,8 +469,8 @@ const ForecastPanel = memo(() => (
     <div className="space-y-1.5">
       {[
         { name: 'Northwind Rebrand', amt: '$38K', prob: 78, eng: 'hot' as const, ev: '$30K' },
-        { name: 'Apex Media — Retainer', amt: '$24K', prob: 41, eng: 'warm' as const, ev: '$10K' },
-        { name: 'Cedar & Co — SEO', amt: '$16K', prob: 22, eng: 'cold' as const, ev: '$4K' },
+        { name: 'Apex Media / Retainer', amt: '$24K', prob: 41, eng: 'warm' as const, ev: '$10K' },
+        { name: 'Cedar & Co / SEO', amt: '$16K', prob: 22, eng: 'cold' as const, ev: '$4K' },
       ].map((d) => (
         <div key={d.name} className="flex items-center gap-3 rounded-lg bg-white/[0.02] px-3 py-2">
           <span className={`h-2 w-2 shrink-0 rounded-full ${engDot(d.eng)}`} />
@@ -494,7 +492,7 @@ const ForecastPanel = memo(() => (
 ForecastPanel.displayName = 'ForecastPanel';
 
 /* ════════════════════════════════════════════════════════════════════════
-   CLOSE — Find money, rescue it, collect it
+   CLOSE, Find money, rescue it, collect it
    ════════════════════════════════════════════════════════════════════════ */
 
 const AutopsyPanel = memo(() => {
@@ -507,10 +505,10 @@ const AutopsyPanel = memo(() => {
   return (
     <PanelShell
       kicker="Money Autopsy"
-      title="Where revenue dies — in dollars"
+      title="Where revenue dies, in dollars"
       status="$63K on the table"
       statusTone="amber"
-      footer={<><AlertTriangle className="h-3 w-3 text-orange-400/80" /> $63K already signed and uncollected — surfaced, not buried.</>}
+      footer={<><AlertTriangle className="h-3 w-3 text-orange-400/80" /> $63K already signed and uncollected, surfaced, not buried.</>}
     >
       <div className="space-y-2">
         {funnel.map((r, i) => (
@@ -556,14 +554,14 @@ const WarRoomPanel = memo(() => (
           name: 'Riverside Co.',
           amt: '$45K',
           eng: 'warm' as const,
-          blocker: 'Price uncertainty — read pricing 3×, no sign',
+          blocker: 'Price uncertainty: read pricing 3×, no sign',
           move: 'ROI one-pager drafted',
         },
         {
           name: 'Vantage Group',
           amt: '$51K',
           eng: 'hot' as const,
-          blocker: 'Awaiting legal — signer went quiet 4 days',
+          blocker: 'Awaiting legal: signer went quiet 4 days',
           move: 'Signer nudge drafted',
         },
       ].map((d, i) => (
@@ -610,7 +608,7 @@ const VelocityPanel = memo(() => {
       title="Sent → cash, measured"
       status="11 days"
       statusTone="emerald"
-      footer={<><Gauge className="h-3 w-3 text-emerald-400/80" /> Signed→paid is near-zero — because signing and paying happen together.</>}
+      footer={<><Gauge className="h-3 w-3 text-emerald-400/80" /> Signed→paid is near-zero, because signing and paying happen together.</>}
     >
       <div className="mb-4 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
         <div>
@@ -637,13 +635,13 @@ const VelocityPanel = memo(() => {
 VelocityPanel.displayName = 'VelocityPanel';
 
 /* ════════════════════════════════════════════════════════════════════════
-   CLIENT — Continuity (anti-CRM: retention + expansion + protection)
+   CLIENT, Continuity (anti-CRM: retention + expansion + protection)
    ════════════════════════════════════════════════════════════════════════ */
 
 const ClientHealthPanel = memo(() => (
   <PanelShell
     kicker="Client Portal"
-    title="Apex Media — retained account"
+    title="Apex Media, retained account"
     status="Healthy"
     statusTone="emerald"
     footer={<><Sparkles className="h-3 w-3 text-violet-400/70" /> Cold buyer → loyal account, without leaving the rail.</>}
@@ -686,7 +684,7 @@ const ClientHealthPanel = memo(() => (
         <Repeat className="h-3.5 w-3.5" />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[0.74rem] text-white/90">Expansion request — add SEO retainer</p>
+        <p className="truncate text-[0.74rem] text-white/90">Expansion request, add SEO retainer</p>
         <p className="text-[0.6rem] text-zinc-500">Submitted from the client portal · +$6K / mo</p>
       </div>
       <TrendingUp className="h-4 w-4 shrink-0 text-violet-300" />
@@ -705,7 +703,7 @@ const ConcentrationPanel = memo(() => {
   return (
     <PanelShell
       kicker="Portfolio Risk"
-      title="Revenue concentration — see the cliff early"
+      title="Revenue concentration, see the cliff early"
       status="Elevated risk"
       statusTone="amber"
       footer={<><PieChart className="h-3 w-3 text-amber-400/80" /> One client is 38% of revenue. Know the risk before churn becomes a crisis.</>}

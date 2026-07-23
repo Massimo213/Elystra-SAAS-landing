@@ -206,8 +206,7 @@ const Reschedule = () => {
             {step === "info" && (
               <>
                 <div className="text-center mb-7">
-                  <p className="text-2xl font-light text-white leading-snug">
-                    No problem —<br />pick a new time.
+                  <p className="text-2xl font-light text-white leading-snug"> No problem, <br />pick a new time.
                   </p>
                   <p className="text-sm text-zinc-500 font-light mt-2">
                     Enter your details to continue.
@@ -251,8 +250,7 @@ const Reschedule = () => {
             {step === "pick" && (
               <>
                 <div className="text-center mb-7">
-                  <p className="text-2xl font-light text-white leading-snug">
-                    No problem —<br />pick a new time.
+                  <p className="text-2xl font-light text-white leading-snug"> No problem, <br />pick a new time.
                   </p>
                   {name && (
                     <p className="text-xs text-zinc-500 font-light mt-2">

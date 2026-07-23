@@ -85,7 +85,7 @@ const GLOBE_HUD_DATA: GlobeHudMarker[] = [
     lng: 3.0,
     alt: 0.19,
     primary: "170+",
-    secondary: "AGENCIES — US + CANADA",
+    secondary: "AGENCIES, US + CANADA",
     tertiary: "Running their sales on one rail.",
     icon: "network",
   },

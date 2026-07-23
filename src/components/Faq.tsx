@@ -187,9 +187,7 @@ const Faq = () => {
               Frequently Asked Questions
             </span>
           </h2>
-          <p className="text-base font-extralight text-zinc-500">
-            How the commercial layer works—on and off the rail.
-          </p>
+          <p className="text-base font-extralight text-zinc-500"> How the commercial layer works, on and off the rail. </p>
         </motion.div>
 
         {/* FAQ List */}
