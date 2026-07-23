@@ -9,9 +9,7 @@ import { logo } from "@/assets";
 import {
   CAREER_DEPARTMENTS,
   CAREER_ROLES,
-  STATUS_LABEL,
   type CareerRole,
-  type RoleStatus,
   rolesByDepartment,
 } from "@/data/careers";
 
@@ -64,7 +62,9 @@ const Careers = () => {
             transition={{ duration: 0.8, delay: 0.08, ease }}
             className="text-4xl font-extralight tracking-[-0.04em] text-white md:text-6xl lg:text-7xl"
           >
-            Help agencies get paid faster.
+            Build the revenue OS.
+            <br className="hidden sm:block" />
+            Build your career.
           </motion.h1>
 
           <motion.p
@@ -73,7 +73,19 @@ const Careers = () => {
             transition={{ duration: 0.75, delay: 0.16, ease }}
             className="mx-auto mt-6 max-w-2xl text-base font-light leading-7 text-zinc-400 md:text-lg"
           >
-            {CAREER_ROLES.length} roles. Three teams. Click any role for the full picture, then apply.
+            Elystra trusts early hires to make an impact from day one. Create real commercial value,
+            own measurable outcomes, and ship the systems that turn agency conversations into
+            collected revenue.
+          </motion.p>
+
+          <motion.p
+            initial={shouldReduce ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.22, ease }}
+            className="mx-auto mt-4 max-w-2xl text-sm font-light leading-7 text-zinc-500 md:text-base"
+          >
+            Elystra people deliver mission-critical outcomes for agencies across North America.{" "}
+            {CAREER_ROLES.length} roles. Three teams. Find where you belong.
           </motion.p>
 
           <motion.div
@@ -86,7 +98,7 @@ const Careers = () => {
               href="#roles"
               className="group inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.06] px-6 py-3 text-sm font-light text-white transition-colors hover:bg-white/[0.1]"
             >
-              See all roles
+              Find your role
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
           </motion.div>
@@ -136,27 +148,6 @@ const Careers = () => {
   );
 };
 
-function StatusPill({ status }: { status: RoleStatus }) {
-  const active = status === "actively-hiring";
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] ${
-        active
-          ? "border border-emerald-400/25 bg-emerald-400/10 text-emerald-300"
-          : "border border-white/[0.08] bg-white/[0.03] text-zinc-500"
-      }`}
-    >
-      {active && (
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        </span>
-      )}
-      {STATUS_LABEL[status]}
-    </span>
-  );
-}
-
 function RoleRow({ role }: { role: CareerRole }) {
   return (
     <Link
@@ -164,12 +155,9 @@ function RoleRow({ role }: { role: CareerRole }) {
       className="group flex flex-col gap-3 py-7 transition-colors sm:flex-row sm:items-center sm:justify-between sm:gap-8"
     >
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-3">
-          <h2 className="text-lg font-light tracking-tight text-white transition-colors group-hover:text-violet-200 md:text-xl">
-            {role.title}
-          </h2>
-          <StatusPill status={role.status} />
-        </div>
+        <h2 className="text-lg font-light tracking-tight text-white transition-colors group-hover:text-violet-200 md:text-xl">
+          {role.title}
+        </h2>
         <p className="mt-2 max-w-xl text-sm font-light leading-6 text-zinc-500">
           {role.summary}
         </p>

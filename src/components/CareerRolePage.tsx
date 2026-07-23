@@ -7,30 +7,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { logo } from "@/assets";
 import CareersApplyForm from "@/components/CareersApplyForm";
-import { getRoleBySlug, STATUS_LABEL, type RoleStatus } from "@/data/careers";
+import { getRoleBySlug } from "@/data/careers";
 
 const ease = [0.16, 0.84, 0.44, 1] as const;
-
-function StatusPill({ status }: { status: RoleStatus }) {
-  const active = status === "actively-hiring";
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] ${
-        active
-          ? "border border-emerald-400/25 bg-emerald-400/10 text-emerald-300"
-          : "border border-white/[0.08] bg-white/[0.03] text-zinc-500"
-      }`}
-    >
-      {active && (
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        </span>
-      )}
-      {STATUS_LABEL[status]}
-    </span>
-  );
-}
 
 const CareerRolePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -74,12 +53,9 @@ const CareerRolePage = () => {
             transition={{ duration: 0.7, delay: 0.06, ease }}
             className="mt-8"
           >
-            <div className="flex flex-wrap items-center gap-3">
-              <p className="text-[0.7rem] uppercase tracking-[0.28em] text-zinc-500">
-                {role.department}
-              </p>
-              <StatusPill status={role.status} />
-            </div>
+            <p className="text-[0.7rem] uppercase tracking-[0.28em] text-zinc-500">
+              {role.department}
+            </p>
 
             <h1 className="mt-4 text-3xl font-extralight tracking-[-0.03em] text-white md:text-5xl">
               {role.title}

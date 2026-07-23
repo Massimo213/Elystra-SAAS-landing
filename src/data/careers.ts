@@ -3,8 +3,6 @@
  * Full role detail for every open position (Indeed-ready copy + compensation).
  */
 
-export type RoleStatus = "actively-hiring" | "pipeline";
-
 export type RoleSection = {
   heading: string;
   body: string[];
@@ -20,7 +18,6 @@ export type CareerRole = {
   slug: string;
   title: string;
   department: "Sales" | "Operations" | "Engineering";
-  status: RoleStatus;
   summary: string;
   /** Short list blurb under the title */
   sections: RoleSection[];
@@ -30,18 +27,12 @@ export type CareerRole = {
   };
 };
 
-export const STATUS_LABEL: Record<RoleStatus, string> = {
-  "actively-hiring": "Actively hiring",
-  pipeline: "Accepting applications",
-};
-
 export const CAREER_ROLES: CareerRole[] = [
   {
     id: "sdr",
     slug: "sales-development-representative",
     title: "Sales Development Representative (SDR)",
     department: "Sales",
-    status: "actively-hiring",
     summary:
       "Remote, Philippines. You don’t close the deal. You start the ones that matter. Own the first conversation with agency owners across North America, and get paid every time a qualified demo hits the calendar.",
     sections: [
@@ -156,7 +147,6 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "account-executive",
     title: "Account Executive (AE)",
     department: "Sales",
-    status: "pipeline",
     summary:
       "Remote. Our SDRs open the door. You walk through it and close. Own the final stage: understand the business, run the demo, handle the commercial conversation, and turn qualified opportunities into signed customers.",
     sections: [
@@ -234,7 +224,6 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "sales-team-lead",
     title: "Sales Team Lead",
     department: "Sales",
-    status: "pipeline",
     summary:
       "Remote. You don’t manage people, you multiply them. Coach SDRs, sharpen call quality, and build a team where execution improves every single week.",
     sections: [
@@ -311,7 +300,6 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "lead-research-intelligence-specialist",
     title: "Lead Research & Intelligence Specialist",
     department: "Operations",
-    status: "pipeline",
     summary:
       "Remote. Sales quality starts before the first dial. You decide who enters the pipeline: build the lists, find the decision-makers, and keep every SDR talking to people worth calling.",
     sections: [
@@ -384,7 +372,6 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "founding-ai-engineer",
     title: "Founding AI Engineer",
     department: "Engineering",
-    status: "pipeline",
     summary:
       "Remote. AI is the core layer of what we build. Not a feature bolted on. Design, ship, and improve production AI systems that power Elystra’s product and internal operations.",
     sections: [
