@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logo } from '@/assets';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -19,6 +19,8 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
+  const isCareersActive = location.pathname.startsWith('/careers');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -29,7 +31,9 @@ const Header = () => {
   // Intersection observer for active section highlighting
   useEffect(() => {
     if (location.pathname !== '/') return;
-    const ids = navMenu.map(m => m.href.replace('#', '')).filter(Boolean);
+    const ids = navMenu
+      .filter((m) => m.href.startsWith('#'))
+      .map((m) => m.href.slice(1));
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -48,15 +52,19 @@ const Header = () => {
   }, [location.pathname]);
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMobileOpen(false);
     if (!href.startsWith('#')) return;
     e.preventDefault();
-    setMobileOpen(false);
-    const id = href.replace('#', '');
+    const id = href.slice(1);
+    if (location.pathname !== '/') {
+      navigate(`/${href}`);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, []);
+  }, [location.pathname, navigate]);
 
   return (
     <>
@@ -114,32 +122,58 @@ const Header = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
             {navMenu.map(({ href, label }) => {
-              const isActive = activeSection === href.replace('#', '');
+              const isRoute = href.startsWith('/');
+              const isActive = isRoute
+                ? href === '/careers'
+                  ? isCareersActive
+                  : location.pathname === href
+                : !isCareersActive && activeSection === href.slice(1);
+              const className = 'relative px-4 py-2 text-sm font-light transition-colors duration-300';
+              const style = {
+                color: isActive ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.45)',
+              } as const;
+              const hoverProps = {
+                onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement>) => {
+                  if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.8)';
+                },
+                onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement>) => {
+                  if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.45)';
+                },
+              };
+              const activeDot = isActive && (
+                <motion.span
+                  layoutId="nav-dot"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-violet-400"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              );
+
+              if (isRoute) {
+                return (
+                  <Link
+                    key={href}
+                    to={href}
+                    className={className}
+                    style={style}
+                    {...hoverProps}
+                  >
+                    {label}
+                    {activeDot}
+                  </Link>
+                );
+              }
+
               return (
                 <a
                   key={href}
                   href={href}
                   onClick={(e) => handleNavClick(e, href)}
-                  className="relative px-4 py-2 text-sm font-light transition-colors duration-300"
-                  style={{
-                    color: isActive ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.45)',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.8)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.45)';
-                  }}
+                  className={className}
+                  style={style}
+                  {...hoverProps}
                 >
                   {label}
-                  {/* Active indicator dot */}
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-dot"
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-violet-400"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
+                  {activeDot}
                 </a>
               );
             })}
@@ -214,20 +248,37 @@ const Header = () => {
             style={{ background: 'rgba(0,0,0,0.95)' }}
           >
             <nav className="flex flex-col items-center justify-center h-full gap-2 px-8">
-              {navMenu.map(({ href, label }, i) => (
-                <motion.a
-                  key={href}
-                  href={href}
-                  onClick={(e) => handleNavClick(e, href)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: i * 0.06, duration: 0.4 }}
-                  className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide"
-                >
-                  {label}
-                </motion.a>
-              ))}
+              {navMenu.map(({ href, label }, i) => {
+                const isRoute = href.startsWith('/');
+                const motionProps = {
+                  initial: { opacity: 0, y: 20 },
+                  animate: { opacity: 1, y: 0 },
+                  exit: { opacity: 0, y: -10 },
+                  transition: { delay: i * 0.06, duration: 0.4 },
+                  className: 'text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide',
+                };
+
+                if (isRoute) {
+                  return (
+                    <motion.div key={href} {...motionProps}>
+                      <Link to={href} onClick={() => setMobileOpen(false)}>
+                        {label}
+                      </Link>
+                    </motion.div>
+                  );
+                }
+
+                return (
+                  <motion.a
+                    key={href}
+                    href={href}
+                    onClick={(e) => handleNavClick(e, href)}
+                    {...motionProps}
+                  >
+                    {label}
+                  </motion.a>
+                );
+              })}
 
               {/* Divider */}
               <div className="w-12 h-[1px] bg-white/10 my-4" />

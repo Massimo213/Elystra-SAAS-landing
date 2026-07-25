@@ -47,10 +47,6 @@ export const profileImages = { p1, p2, p3, p4 };
 // Header — strategic anchor navigation
 export const navMenu: MenuItem[] = [
   {
-    href: '#how-it-works',
-    label: 'How It Works',
-  },
-  {
     href: '#territory',
     label: 'Territory',
   },
@@ -63,12 +59,12 @@ export const navMenu: MenuItem[] = [
     label: 'Proof',
   },
   {
-    href: '#guarantee',
-    label: 'Guarantee',
-  },
-  {
     href: '#faq',
     label: 'FAQ',
+  },
+  {
+    href: '/careers',
+    label: 'Careers',
   },
 ];
 
