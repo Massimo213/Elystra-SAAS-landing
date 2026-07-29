@@ -111,9 +111,13 @@ export const CAREER_ROLES: CareerRole[] = [
       {
         heading: "Growth",
         body: [
-          "High-performing SDRs don’t stay SDRs forever.",
-          "As Elystra scales, we build our commercial organization from within: Account Executive, team lead, and beyond.",
-          "The path is earned: master this level. Then we talk about the next one.",
+          "High performance creates opportunity.",
+          "Sales Development Representatives who consistently produce, demonstrate sound judgment, and take ownership of their work are the first candidates considered as new commercial roles open.",
+          "Career progression may include:",
+          "Account Executive",
+          "Sales Team Lead",
+          "Sales Manager",
+          "Advancement is based on sustained performance, execution, leadership potential, and readiness for greater responsibility, not tenure.",
         ],
       },
     ],
