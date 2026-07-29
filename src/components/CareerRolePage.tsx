@@ -127,7 +127,7 @@ const CareerRolePage = () => {
               </div>
               <div>
                 <h2 className="text-[0.7rem] uppercase tracking-[0.28em] text-zinc-500">
-                  The math
+                  {role.compensation.mathHeading ?? "The math"}
                 </h2>
                 <div className="mt-5 space-y-4 text-sm font-light leading-6 text-zinc-400">
                   {role.compensation.math.map((paragraph) => (

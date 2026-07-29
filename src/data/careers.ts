@@ -24,6 +24,7 @@ export type CareerRole = {
   compensation?: {
     lines: CompLine[];
     math: string[];
+    mathHeading?: string;
   };
 };
 
@@ -57,43 +58,46 @@ export const CAREER_ROLES: CareerRole[] = [
       {
         heading: "Why this role matters",
         body: [
-          "Every customer begins with a single conversation. One call. One moment where you earn their attention.",
-          "Great SDRs don’t fill calendars. They create momentum. They qualify hard. They set the standard for every interaction that comes after.",
-          "The growth of this company runs through this role. Your pipeline is the front line of Elystra’s revenue engine.",
+          "Every customer relationship begins with an initial conversation.",
+          "The quality of our sales pipeline depends on the quality of that first interaction. Consistently generating qualified opportunities allows our Account Executives to focus on moving high-quality opportunities through the remainder of the sales process.",
+          "This role is a foundational part of Elystra’s commercial organization.",
         ],
       },
       {
         heading: "What you’ll own",
         body: [
-          "Hunt marketing and advertising agencies across North America.",
-          "Run outbound cold calls to owners and decision-makers who control the budget.",
-          "Qualify opportunities using our sales framework: no tire-kickers, no “just browsing.”",
-          "Book qualified demo meetings that Account Executives can close.",
-          "Keep CRM records accurate. What gets tracked gets improved.",
-          "Get sharper every week through coaching, call reviews, and repetition.",
-          "We remove the operational friction: lead lists, CRM, dialer, scripts, training, coaching. You show up and execute.",
+          "Prospect marketing and advertising agencies across North America.",
+          "Conduct outbound calls with business owners and decision-makers.",
+          "Qualify opportunities using Elystra’s sales framework.",
+          "Schedule qualified demo meetings for the Account Executive team.",
+          "Maintain accurate CRM records following each conversation.",
+          "Continuously improve through coaching, call reviews, and performance feedback.",
+          "We simplify the SDR experience by providing the lead lists, CRM, dialer, sales process, scripts, training, and coaching so you can focus on execution and consistent outbound performance.",
         ],
       },
       {
         heading: "What success looks like",
         body: [
-          "Success isn’t effort. It’s execution: visible, repeatable, on the board.",
-          "Top SDRs at Elystra take ownership of their numbers like it’s their company.",
-          "They protect their daily calling blocks like sacred time.",
-          "They absorb feedback and come back stronger on the next dial.",
-          "They stay composed when the phone goes cold, and they dial anyway.",
-          "They improve week over week. Performance is transparent. Results speak for themselves.",
+          "Success is measured by consistent execution.",
+          "High-performing SDRs at Elystra:",
+          "Consistently generate qualified demo meetings.",
+          "Maintain disciplined outbound activity.",
+          "Apply coaching quickly and continuously improve.",
+          "Keep CRM data accurate and current.",
+          "Produce reliable performance week after week.",
+          "Performance expectations are transparent, measurable, and reviewed regularly.",
         ],
       },
       {
         heading: "Who thrives here",
         body: [
-          "You love the craft of earning someone’s attention on the phone, under pressure, when they didn’t ask to hear from you.",
-          "You’re comfortable being measured by outcomes, because you intend to win.",
-          "You learn fast from feedback and apply it faster.",
-          "You can run the same play with the same intensity on call 200 as call 1.",
-          "You’re building a long-term career in B2B sales, not collecting a paycheck until something better shows up.",
-          "Previous SDR, BDR, appointment-setting, or outbound experience helps. Coachability and execution matter more than titles.",
+          "You’ll likely perform well in this role if you:",
+          "Communicate confidently with business owners and decision-makers.",
+          "Are comfortable working toward measurable performance targets.",
+          "Learn quickly from coaching and apply feedback consistently.",
+          "Maintain focus and professionalism throughout high-volume outbound calling.",
+          "Want to build long-term expertise in B2B sales.",
+          "Previous SDR, BDR, appointment-setting, or outbound sales experience is valuable, but coachability and execution matter more than specific titles.",
         ],
       },
       {
@@ -129,11 +133,11 @@ export const CAREER_ROLES: CareerRole[] = [
         },
       ],
       math: [
-        "Everyone starts at Entry. Performance unlocks higher earning tiers. Hit the threshold for two straight weeks and you stay on that tier.",
-        "3 demos/day = roughly $1,230/month.",
-        "4 demos/day = roughly $2,280/month.",
-        "The faster you unlock Tier 3 and hold the pace, the faster your monthly check compounds.",
+        "3 demos/day: approximately $1,230/month",
+        "4 demos/day: approximately $2,280/month",
+        "Performance determines progression through each tier.",
       ],
+      mathHeading: "Earnings examples",
     },
   },
   {
