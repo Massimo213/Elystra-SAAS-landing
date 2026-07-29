@@ -265,7 +265,7 @@ export default async function handler(req: any, res: any) {
       if (!body.recordingMimeType || !ALLOWED_RECORDING_MIME.has(body.recordingMimeType)) {
         res.status(400).json({
           success: false,
-          error: "Recording must be MP4, WebM, MOV, MP3, M4A, or WAV.",
+          error: "Recording must be M4A, MP3, WAV, MP4, WebM, or MOV.",
         });
         return;
       }

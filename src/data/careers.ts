@@ -33,8 +33,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "sales-development-representative",
     title: "Sales Development Representative (SDR)",
     department: "Sales",
-    summary:
-      "Remote, Philippines. You don’t close the deal. You start the ones that matter. Own the first conversation with agency owners across North America, and get paid every time a qualified demo hits the calendar.",
+    summary: "",
     sections: [
       {
         heading: "About Elystra",
@@ -52,6 +51,7 @@ export const CAREER_ROLES: CareerRole[] = [
           "Speak with agency owners. Identify the ones who are ready. Book demos that actually run.",
           "You will not close deals. You will not build lead lists. You will not manage customer accounts.",
           "You will own the first conversation, and everything that follows starts with how you open the door.",
+          "North American business hours. Two calling blocks: 10AM–12PM and 1PM–5PM EST.",
         ],
       },
       {
@@ -115,29 +115,23 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     compensation: {
       lines: [
-        { label: "Starting base (everyone)", value: "$600 USD / month" },
-        { label: "Tier 1", value: "$600 / month" },
         {
-          label: "Tier 2",
-          value: "$600 / month + $10 per qualified demo",
+          label: "Entry",
+          value: "$600/month. Prove you can sustain 2 demos/day.",
         },
         {
-          label: "Tier 2 unlock",
-          value: "Avg 3 qualified demos / day for 2 consecutive weeks",
+          label: "Tier 2",
+          value: "$600 + $10/demo. Unlocked at 3 demos/day for 2 consecutive weeks.",
         },
         {
           label: "Tier 3",
-          value: "$600 / month + $20 per qualified demo",
-        },
-        {
-          label: "Tier 3 unlock",
-          value: "Avg 4 qualified demos / day for 2 consecutive weeks",
+          value: "$600 + $20/demo. Unlocked at 4 demos/day for 2 consecutive weeks.",
         },
       ],
       math: [
-        "Everyone starts at $600 USD/month. Performance unlocks higher earning tiers. Hit the threshold for two straight weeks and you stay on that tier.",
-        "Tier 2 at 3 demos/day: ~66 demos/month × $10 = $660 variable + $600 base → ~$1,260/month (~$15K/year).",
-        "Tier 3 at 4 demos/day: ~88 demos/month × $20 = $1,760 variable + $600 base → ~$2,360/month (~$28K/year).",
+        "Everyone starts at Entry. Performance unlocks higher earning tiers. Hit the threshold for two straight weeks and you stay on that tier.",
+        "3 demos/day = roughly $1,230/month.",
+        "4 demos/day = roughly $2,280/month.",
         "The faster you unlock Tier 3 and hold the pace, the faster your monthly check compounds.",
       ],
     },

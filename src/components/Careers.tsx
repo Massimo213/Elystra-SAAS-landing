@@ -158,9 +158,11 @@ function RoleRow({ role }: { role: CareerRole }) {
         <h2 className="text-lg font-light tracking-tight text-white transition-colors group-hover:text-violet-200 md:text-xl">
           {role.title}
         </h2>
-        <p className="mt-2 max-w-xl text-sm font-light leading-6 text-zinc-500">
-          {role.summary}
-        </p>
+        {role.summary ? (
+          <p className="mt-2 max-w-xl text-sm font-light leading-6 text-zinc-500">
+            {role.summary}
+          </p>
+        ) : null}
       </div>
       <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-light text-zinc-500 transition-colors group-hover:text-white">
         View role

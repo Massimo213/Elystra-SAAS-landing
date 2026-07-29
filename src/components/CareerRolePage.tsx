@@ -60,9 +60,11 @@ const CareerRolePage = () => {
             <h1 className="mt-4 text-3xl font-extralight tracking-[-0.03em] text-white md:text-5xl">
               {role.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-base font-light leading-7 text-zinc-400 md:text-lg">
-              {role.summary}
-            </p>
+            {role.summary ? (
+              <p className="mt-5 max-w-2xl text-base font-light leading-7 text-zinc-400 md:text-lg">
+                {role.summary}
+              </p>
+            ) : null}
 
             <a
               href="#apply"

@@ -117,7 +117,7 @@ export default function CareersApplyForm({
       return;
     }
     if (!isRecordingFile(file)) {
-      setSubmitError("Recording must be MP4, WebM, MOV, MP3, M4A, or WAV.");
+      setSubmitError("Recording must be M4A, MP3, WAV, MP4, WebM, or MOV.");
       setRecording(null);
       return;
     }
@@ -277,7 +277,7 @@ export default function CareersApplyForm({
           onChange={(e) => setMessage(e.target.value)}
           rows={4}
           className={`${inputClass} resize-none`}
-          placeholder="A few lines on why this role, and what you've shipped or closed."
+          placeholder="A few lines on your outbound experience and why this role interests you."
         />
       </div>
 
@@ -357,13 +357,13 @@ export default function CareersApplyForm({
               >
                 <input
                   type="file"
-                  accept=".mp4,.webm,.mov,.mp3,.m4a,.wav,video/mp4,video/webm,video/quicktime,audio/mpeg,audio/mp4,audio/wav"
+                  accept=".m4a,.mp3,.wav,.mp4,.webm,.mov,audio/m4a,audio/x-m4a,audio/mpeg,audio/wav,audio/mp4,video/mp4,video/webm,video/quicktime"
                   className="sr-only"
                   onChange={(e) => handleRecordingChange(e.target.files?.[0] ?? null)}
                 />
                 <Upload className="h-5 w-5 text-zinc-500" />
                 <span className="text-sm font-light text-zinc-500">
-                  Drag & drop or browse · MP4, WebM, MOV, MP3, M4A, WAV · under 15MB
+                  Drag & drop or browse · M4A, MP3, WAV, MP4, WebM, MOV · under 15MB
                 </span>
               </label>
 
