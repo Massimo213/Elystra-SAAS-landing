@@ -1,8 +1,15 @@
 /**
  * Careers Apply API
- * Receives CV + message from /careers and emails elystrateam@gmail.com.
+ * Stores applications in Supabase + emails elystrateam@gmail.com.
  * SDR applications may include a call recording (attachment or link).
  */
+
+import {
+  buildStoragePath,
+  insertCareerApplication,
+  isSupabaseConfigured,
+  uploadApplicationFile,
+} from "./lib/supabase-admin";
 
 interface CareersApplyPayload {
   name: string;
@@ -276,7 +283,7 @@ export default async function handler(req: any, res: any) {
       }
     }
 
-    await sendApplicationEmail({
+    const payload = {
       name: body.name.trim().slice(0, 120),
       email: body.email.trim().slice(0, 200),
       role: body.role.trim().slice(0, 120),
@@ -288,7 +295,41 @@ export default async function handler(req: any, res: any) {
       recordingContentBase64: hasRecordingFile ? body.recordingContentBase64 : undefined,
       recordingMimeType: hasRecordingFile ? body.recordingMimeType : undefined,
       recordingLink: recordingLink ? recordingLink.slice(0, 500) : undefined,
-    });
+    };
+
+    if (isSupabaseConfigured()) {
+      const applicationId = crypto.randomUUID();
+      const cvPath = buildStoragePath(applicationId, payload.cvFilename, "cv");
+      await uploadApplicationFile(cvPath, payload.cvContentBase64, payload.cvMimeType);
+
+      let recordingPath: string | undefined;
+      if (payload.recordingFilename && payload.recordingContentBase64 && payload.recordingMimeType) {
+        recordingPath = buildStoragePath(applicationId, payload.recordingFilename, "recording");
+        await uploadApplicationFile(
+          recordingPath,
+          payload.recordingContentBase64,
+          payload.recordingMimeType
+        );
+      }
+
+      await insertCareerApplication({
+        name: payload.name,
+        email: payload.email,
+        role: payload.role,
+        message: payload.message,
+        status: "new",
+        admin_notes: null,
+        cv_filename: payload.cvFilename,
+        cv_mime_type: payload.cvMimeType,
+        cv_storage_path: cvPath,
+        recording_filename: payload.recordingFilename ?? null,
+        recording_mime_type: payload.recordingMimeType ?? null,
+        recording_storage_path: recordingPath ?? null,
+        recording_link: payload.recordingLink ?? null,
+      });
+    }
+
+    await sendApplicationEmail(payload);
 
     res.status(200).json({ success: true });
   } catch (err) {

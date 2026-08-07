@@ -9,6 +9,8 @@ const API_ROUTES: Record<string, () => Promise<{ default: ApiHandler }>> = {
   "/api/demo-booking": () => import("./api/demo-booking"),
   "/api/demo-request": () => import("./api/demo-request"),
   "/api/demo-availability": () => import("./api/demo-availability"),
+  "/api/careers-apply": () => import("./api/careers-apply"),
+  "/api/careers-applications": () => import("./api/careers-applications"),
 };
 
 function readBody(req: IncomingMessage): Promise<unknown> {
@@ -85,7 +87,8 @@ export function apiDevPlugin(): Plugin {
           const mockReq = {
             method: req.method,
             headers: req.headers,
-            body: req.method === "POST" ? await readBody(req) : undefined,
+            url: req.url,
+            body: req.method === "POST" || req.method === "PATCH" ? await readBody(req) : undefined,
           };
 
           await handler(mockReq, mockRes);
