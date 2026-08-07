@@ -1,5 +1,5 @@
 /**
- * Shared apply form — CV + message → /api/careers-apply → elystrateam@gmail.com
+ * Shared apply form — CV + message → /api/careers-apply → email + admin inbox
  * SDR applications also require a call recording (file upload or link).
  */
 

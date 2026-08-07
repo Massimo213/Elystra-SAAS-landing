@@ -89,6 +89,8 @@ async function sendApplicationEmail(payload: CareersApplyPayload): Promise<void>
       ? `Recording: ${payload.recordingFilename} (attached)`
       : "Recording: —";
 
+  const adminUrl = "https://elystra.online/admin/applications";
+
   const textBody = [
     "New career application",
     "",
@@ -100,6 +102,8 @@ async function sendApplicationEmail(payload: CareersApplyPayload): Promise<void>
     "",
     "Message:",
     payload.message,
+    "",
+    `Review in admin inbox: ${adminUrl}`,
   ].join("\n");
 
   const recordingHtml = payload.recordingLink
@@ -134,6 +138,9 @@ async function sendApplicationEmail(payload: CareersApplyPayload): Promise<void>
   </div>
   <p>CV attached: <strong>${escapeHtml(payload.cvFilename)}</strong></p>
   ${recordingHtml}
+  <p style="margin-top: 24px;">
+    <a href="${adminUrl}" style="color: #7c3aed; font-weight: 600;">Open applications inbox</a>
+  </p>
 </body>
 </html>`;
 
@@ -298,35 +305,39 @@ export default async function handler(req: any, res: any) {
     };
 
     if (isSupabaseConfigured()) {
-      const applicationId = crypto.randomUUID();
-      const cvPath = buildStoragePath(applicationId, payload.cvFilename, "cv");
-      await uploadApplicationFile(cvPath, payload.cvContentBase64, payload.cvMimeType);
+      try {
+        const applicationId = crypto.randomUUID();
+        const cvPath = buildStoragePath(applicationId, payload.cvFilename, "cv");
+        await uploadApplicationFile(cvPath, payload.cvContentBase64, payload.cvMimeType);
 
-      let recordingPath: string | undefined;
-      if (payload.recordingFilename && payload.recordingContentBase64 && payload.recordingMimeType) {
-        recordingPath = buildStoragePath(applicationId, payload.recordingFilename, "recording");
-        await uploadApplicationFile(
-          recordingPath,
-          payload.recordingContentBase64,
-          payload.recordingMimeType
-        );
+        let recordingPath: string | undefined;
+        if (payload.recordingFilename && payload.recordingContentBase64 && payload.recordingMimeType) {
+          recordingPath = buildStoragePath(applicationId, payload.recordingFilename, "recording");
+          await uploadApplicationFile(
+            recordingPath,
+            payload.recordingContentBase64,
+            payload.recordingMimeType
+          );
+        }
+
+        await insertCareerApplication({
+          name: payload.name,
+          email: payload.email,
+          role: payload.role,
+          message: payload.message,
+          status: "new",
+          admin_notes: null,
+          cv_filename: payload.cvFilename,
+          cv_mime_type: payload.cvMimeType,
+          cv_storage_path: cvPath,
+          recording_filename: payload.recordingFilename ?? null,
+          recording_mime_type: payload.recordingMimeType ?? null,
+          recording_storage_path: recordingPath ?? null,
+          recording_link: payload.recordingLink ?? null,
+        });
+      } catch (storageErr) {
+        console.error("[careers-apply] Admin storage failed (email will still send):", storageErr);
       }
-
-      await insertCareerApplication({
-        name: payload.name,
-        email: payload.email,
-        role: payload.role,
-        message: payload.message,
-        status: "new",
-        admin_notes: null,
-        cv_filename: payload.cvFilename,
-        cv_mime_type: payload.cvMimeType,
-        cv_storage_path: cvPath,
-        recording_filename: payload.recordingFilename ?? null,
-        recording_mime_type: payload.recordingMimeType ?? null,
-        recording_storage_path: recordingPath ?? null,
-        recording_link: payload.recordingLink ?? null,
-      });
     }
 
     await sendApplicationEmail(payload);
