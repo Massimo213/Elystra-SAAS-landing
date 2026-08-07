@@ -9,7 +9,7 @@ import {
   insertCareerApplication,
   isSupabaseConfigured,
   uploadApplicationFile,
-} from "./lib/supabase-admin";
+} from "./lib/supabase-admin.js";
 
 interface CareersApplyPayload {
   name: string;

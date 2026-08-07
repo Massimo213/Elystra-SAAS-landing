@@ -10,8 +10,8 @@ import {
   updateCareerApplication,
   type ApplicationStatus,
   isSupabaseConfigured,
-} from "./lib/supabase-admin";
-import { requireAdmin } from "./lib/careers-admin-auth";
+} from "./lib/supabase-admin.js";
+import { requireAdmin } from "./lib/careers-admin-auth.js";
 
 const VALID_STATUSES = new Set<ApplicationStatus>(["new", "reviewed", "shortlisted", "rejected"]);
 
