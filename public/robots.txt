@@ -1,8 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /reschedule
+Disallow: /r
+Disallow: /api/
 
-# Sitemap
 Sitemap: https://www.elystra.online/sitemap.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1 

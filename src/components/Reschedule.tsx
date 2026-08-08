@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import Logo from "@/components/Logo";
+import SeoHead from "@/components/SeoHead";
 
 // ─── Slot generation ──────────────────────────────────────────────────────────
 // DYNAMIC dates — recalculated from today every time the page loads.
@@ -152,6 +153,13 @@ const Reschedule = () => {
   };
 
   return (
+    <>
+      <SeoHead
+        title="Reschedule Demo | Elystra"
+        description="Reschedule your Elystra demo."
+        path="/reschedule"
+        noIndex
+      />
     <div className="min-h-screen relative isolate overflow-hidden bg-black flex flex-col">
 
       {/* ── Atmospheric background ─────────────────────────────────────────── */}
@@ -411,6 +419,7 @@ const Reschedule = () => {
         <p className="text-xs text-zinc-700">Elystra</p>
       </footer>
     </div>
+    </>
   );
 };
 

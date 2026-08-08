@@ -44,23 +44,23 @@ import p4 from '@/assets/p4.png';
 // Export profile images for Review component
 export const profileImages = { p1, p2, p3, p4 };
 
-// Header — strategic anchor navigation
+// Header — entity navigation for branded search
 export const navMenu: MenuItem[] = [
   {
-    href: '#territory',
-    label: 'Territory',
+    href: '/product',
+    label: 'Product',
   },
   {
-    href: '#the-rail',
-    label: 'The Rail',
+    href: 'https://app.elystra.online/pricing',
+    label: 'Pricing',
   },
   {
-    href: '#proof',
-    label: 'Proof',
+    href: '/integrations',
+    label: 'Integrations',
   },
   {
-    href: '#faq',
-    label: 'FAQ',
+    href: '/docs',
+    label: 'Docs',
   },
   {
     href: '/careers',

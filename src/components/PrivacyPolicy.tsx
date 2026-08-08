@@ -19,9 +19,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
  * Framer motion variants
  */
 import * as variants from '@/lib/motionVariants';
+import SeoHead from '@/components/SeoHead';
+import { webPageSchema } from '@/lib/seo/schemas';
 
 const PrivacyPolicy = () => {
   return (
+    <>
+      <SeoHead
+        title="Privacy Policy | Elystra"
+        description="Elystra Privacy Policy. How we collect, use, and protect data for agencies using our revenue infrastructure platform."
+        path="/privacy"
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'Privacy Policy', path: '/privacy' },
+        ]}
+        jsonLd={webPageSchema('/privacy', 'Privacy Policy | Elystra', 'Elystra privacy policy.')}
+      />
     <section className='section relative overflow-hidden bg-white py-16 md:py-20'>
       {/* Subtle Background Pattern */}
       <motion.div 
@@ -756,6 +769,7 @@ const PrivacyPolicy = () => {
         </Tabs>
       </div>
     </section>
+    </>
   );
 };
 

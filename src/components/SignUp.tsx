@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Mail, Lock, User, Building, ArrowRight, Sparkles, Check } from 'lucide-react';
 import Logo from '@/components/Logo';
+import SeoHead from '@/components/SeoHead';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +41,12 @@ const SignUp = () => {
   ];
 
   return (
+    <>
+      <SeoHead
+        title="Sign Up | Elystra"
+        description="Create your Elystra account. Revenue infrastructure for agencies — proposal-to-cash rail with sign-and-pay, deal intelligence, and client portal."
+        path="/sign-up"
+      />
     <div className="min-h-screen relative isolate overflow-hidden bg-black">
       {/* CINEMATIC BACKGROUND - Matching Hero */}
       <div className="absolute inset-0 pointer-events-none">
@@ -169,7 +176,7 @@ const SignUp = () => {
                 >
                   <p className="text-slate-500 text-sm">
                     Already have an account?{' '}
-                    <Link to="/sign-in" className="text-orange-400 hover:text-orange-300 font-medium transition-colors">
+                    <Link to="/login" className="text-orange-400 hover:text-orange-300 font-medium transition-colors">
                       Sign in
                     </Link>
                   </p>
@@ -379,6 +386,7 @@ const SignUp = () => {
         </footer>
       </div>
     </div>
+    </>
   );
 };
 

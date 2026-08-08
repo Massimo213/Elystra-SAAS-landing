@@ -4,5 +4,17 @@
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/sign-in",
+      "destination": "/login",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "https://app.elystra.online/pricing",
+      "permanent": true
+    }
   ]
-} 
+}

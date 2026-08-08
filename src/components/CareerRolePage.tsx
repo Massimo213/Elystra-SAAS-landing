@@ -6,8 +6,10 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { logo } from "@/assets";
+import SeoHead from "@/components/SeoHead";
 import CareersApplyForm from "@/components/CareersApplyForm";
 import { getRoleBySlug } from "@/data/careers";
+import { jobPostingSchema, webPageSchema } from "@/lib/seo/schemas";
 
 const ease = [0.16, 0.84, 0.44, 1] as const;
 
@@ -21,6 +23,25 @@ const CareerRolePage = () => {
   }
 
   return (
+    <>
+      <SeoHead
+        title={`${role.title} | Elystra Careers`}
+        description={`${role.title} at Elystra — ${role.department} team. Apply to join Elystra, revenue infrastructure for agencies.`}
+        path={`/careers/${role.slug}`}
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'Careers', path: '/careers' },
+          { name: role.title, path: `/careers/${role.slug}` },
+        ]}
+        jsonLd={[
+          webPageSchema(
+            `/careers/${role.slug}`,
+            `${role.title} | Elystra Careers`,
+            role.summary || `${role.title} at Elystra.`,
+          ),
+          jobPostingSchema(role),
+        ]}
+      />
     <main className="relative z-10 min-h-screen pt-14 md:pt-16">
       <section className="relative overflow-hidden px-6 pb-12 pt-12 md:pb-16 md:pt-20">
         <div className="pointer-events-none absolute inset-0">
@@ -183,6 +204,7 @@ const CareerRolePage = () => {
         </div>
       </footer>
     </main>
+    </>
   );
 };
 

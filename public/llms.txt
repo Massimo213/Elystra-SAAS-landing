@@ -1,0 +1,37 @@
+# Elystra
+
+> Revenue infrastructure for agencies. Proposal-to-cash rail: scope, send, sign, collect, follow up, operate.
+
+Elystra is B2B software for marketing, creative, and performance agencies doing 5+ proposals per month.
+
+## Official URLs
+
+- Website: https://www.elystra.online
+- Login: https://www.elystra.online/login
+- App: https://app.elystra.online
+- Pricing: https://app.elystra.online/pricing
+- Product: https://www.elystra.online/product
+- Documentation: https://www.elystra.online/docs
+- API: https://www.elystra.online/docs/api
+- Integrations: https://www.elystra.online/integrations
+- Help: https://www.elystra.online/help
+- Careers: https://www.elystra.online/careers
+- About: https://www.elystra.online/about
+- Security: https://www.elystra.online/security
+- Contact: support@elystra.online
+
+## Product
+
+Elystra provides four modules on one rail:
+1. Proposal Engine — AI scope from call transcripts
+2. Close Rail — sign-and-pay in one flow
+3. Deal Intelligence — behavior-driven follow-up
+4. Client Portal — post-close ops and retention
+
+## Category
+
+Business software / Revenue operations / Proposal-to-cash infrastructure for agencies.
+
+## Optional
+
+Full sitemap: https://www.elystra.online/sitemap.xml

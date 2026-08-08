@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { logo } from "@/assets";
+import SeoHead from "@/components/SeoHead";
+import { webPageSchema } from "@/lib/seo/schemas";
 import {
   CAREER_DEPARTMENTS,
   CAREER_ROLES,
@@ -19,6 +21,17 @@ const Careers = () => {
   const shouldReduce = useReducedMotion();
 
   return (
+    <>
+      <SeoHead
+        title="Careers | Elystra"
+        description="Careers at Elystra. Join the team building revenue infrastructure for agencies. Open roles in sales, operations, and engineering."
+        path="/careers"
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'Careers', path: '/careers' },
+        ]}
+        jsonLd={webPageSchema('/careers', 'Careers | Elystra', 'Open positions at Elystra.')}
+      />
     <main className="relative z-10 min-h-screen pt-14 md:pt-16">
       <section className="relative overflow-hidden px-6 pb-16 pt-16 md:pb-20 md:pt-24">
         <div className="pointer-events-none absolute inset-0">
@@ -145,6 +158,7 @@ const Careers = () => {
         </div>
       </footer>
     </main>
+    </>
   );
 };
 

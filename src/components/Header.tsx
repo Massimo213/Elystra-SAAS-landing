@@ -5,8 +5,8 @@
  * Brand presence + single dominant CTA.
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { logo } from '@/assets';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,54 +17,23 @@ const Header = () => {
   const { openDemoBooking } = useDemoBooking();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
   const location = useLocation();
-  const navigate = useNavigate();
-  const isCareersActive = location.pathname.startsWith('/careers');
+
+  const isExternal = (href: string) => href.startsWith('http');
+
+  const isNavActive = (href: string) => {
+    if (isExternal(href)) return false;
+    if (href === '/careers') return location.pathname.startsWith('/careers');
+    if (href === '/docs') return location.pathname.startsWith('/docs');
+    if (href === '/product') return location.pathname.startsWith('/product');
+    return location.pathname === href;
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  // Intersection observer for active section highlighting
-  useEffect(() => {
-    if (location.pathname !== '/') return;
-    const ids = navMenu
-      .filter((m) => m.href.startsWith('#'))
-      .map((m) => m.href.slice(1));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        }
-      },
-      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
-    );
-    ids.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, [location.pathname]);
-
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setMobileOpen(false);
-    if (!href.startsWith('#')) return;
-    e.preventDefault();
-    const id = href.slice(1);
-    if (location.pathname !== '/') {
-      navigate(`/${href}`);
-      return;
-    }
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [location.pathname, navigate]);
 
   return (
     <>
@@ -122,12 +91,7 @@ const Header = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
             {navMenu.map(({ href, label }) => {
-              const isRoute = href.startsWith('/');
-              const isActive = isRoute
-                ? href === '/careers'
-                  ? isCareersActive
-                  : location.pathname === href
-                : !isCareersActive && activeSection === href.slice(1);
+              const isActive = isNavActive(href);
               const className = 'relative px-4 py-2 text-sm font-light transition-colors duration-300';
               const style = {
                 color: isActive ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.45)',
@@ -148,33 +112,27 @@ const Header = () => {
                 />
               );
 
-              if (isRoute) {
-                return (
-                  <Link
-                    key={href}
-                    to={href}
-                    className={className}
-                    style={style}
-                    {...hoverProps}
-                  >
-                    {label}
-                    {activeDot}
-                  </Link>
-                );
-              }
-
-              return (
+              return isExternal(href) ? (
                 <a
                   key={href}
                   href={href}
-                  onClick={(e) => handleNavClick(e, href)}
+                  className={className}
+                  style={style}
+                  {...hoverProps}
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={href}
+                  to={href}
                   className={className}
                   style={style}
                   {...hoverProps}
                 >
                   {label}
                   {activeDot}
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -183,7 +141,7 @@ const Header = () => {
           <div className="flex items-center gap-4 shrink-0">
             {/* Sign In — desktop only */}
             <Link
-              to="/sign-in"
+              to="/login"
               className="hidden lg:block text-sm font-light text-zinc-500 hover:text-white transition-colors duration-300"
             >
               Sign In
@@ -248,37 +206,26 @@ const Header = () => {
             style={{ background: 'rgba(0,0,0,0.95)' }}
           >
             <nav className="flex flex-col items-center justify-center h-full gap-2 px-8">
-              {navMenu.map(({ href, label }, i) => {
-                const isRoute = href.startsWith('/');
-                const motionProps = {
-                  initial: { opacity: 0, y: 20 },
-                  animate: { opacity: 1, y: 0 },
-                  exit: { opacity: 0, y: -10 },
-                  transition: { delay: i * 0.06, duration: 0.4 },
-                  className: 'text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide',
-                };
-
-                if (isRoute) {
-                  return (
-                    <motion.div key={href} {...motionProps}>
-                      <Link to={href} onClick={() => setMobileOpen(false)}>
-                        {label}
-                      </Link>
-                    </motion.div>
-                  );
-                }
-
-                return (
-                  <motion.a
-                    key={href}
-                    href={href}
-                    onClick={(e) => handleNavClick(e, href)}
-                    {...motionProps}
-                  >
-                    {label}
-                  </motion.a>
-                );
-              })}
+              {navMenu.map(({ href, label }, i) => (
+                <motion.div
+                  key={href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                  className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide"
+                >
+                  {isExternal(href) ? (
+                    <a href={href} onClick={() => setMobileOpen(false)}>
+                      {label}
+                    </a>
+                  ) : (
+                    <Link to={href} onClick={() => setMobileOpen(false)}>
+                      {label}
+                    </Link>
+                  )}
+                </motion.div>
+              ))}
 
               {/* Divider */}
               <div className="w-12 h-[1px] bg-white/10 my-4" />
@@ -290,7 +237,7 @@ const Header = () => {
                 transition={{ delay: navMenu.length * 0.06, duration: 0.4 }}
               >
                 <Link
-                  to="/sign-in"
+                  to="/login"
                   className="text-sm text-zinc-500 hover:text-white transition-colors mb-6 block"
                   onClick={() => setMobileOpen(false)}
                 >
