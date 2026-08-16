@@ -5,7 +5,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { DemoBookingProvider } from '@/contexts/DemoBookingContext';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Review from '@/components/Review';
 import Cta from '@/components/Cta';
 import SeoHead from '@/components/SeoHead';
 
@@ -79,7 +78,6 @@ const MainContent = () => (
       <Hero />
       <FullArsenal />
       <NorthAmericaRailSection />
-      <Review />
       <BleedingCalculator />
       <Cta />
       <Faq />
