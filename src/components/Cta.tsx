@@ -1,110 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import {
-  siAirtable,
-  siAsana,
-  siCalendly,
-  siClickup,
-  siDropbox,
-  siFigma,
-  siGithub,
-  siGmail,
-  siGooglecalendar,
-  siGoogledocs,
-  siGoogledrive,
-  siHubspot,
-  siIntercom,
-  siLinear,
-  siMailchimp,
-  siNotion,
-  siQuickbooks,
-  siStripe,
-  siTodoist,
-  siTrello,
-  siTypeform,
-  siXero,
-  siZapier,
-  siZoom,
-} from 'simple-icons';
+import IntegrationLogoGrid from '@/components/integrations/IntegrationLogoGrid';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
-
-type IntegrationTile = {
-  icon: {
-    title: string;
-    path: string;
-    hex: string;
-  };
-  bg: string;
-};
-
-const tiles: IntegrationTile[] = [
-  { icon: siHubspot, bg: '#fff3ed' },
-  { icon: siStripe, bg: '#f3f1ff' },
-  { icon: siGoogledrive, bg: '#f2f8ff' },
-  { icon: siNotion, bg: '#ffffff' },
-  { icon: siClickup, bg: '#f5f0ff' },
-  { icon: siXero, bg: '#eefcff' },
-  { icon: siZapier, bg: '#fff3ea' },
-  { icon: siAsana, bg: '#fff0f0' },
-  { icon: siAirtable, bg: '#ffffff' },
-  { icon: siGoogledocs, bg: '#eef5ff' },
-  { icon: siGooglecalendar, bg: '#eef5ff' },
-  { icon: siQuickbooks, bg: '#f0fbf3' },
-  { icon: siZoom, bg: '#eef5ff' },
-  { icon: siGmail, bg: '#ffffff' },
-  { icon: siLinear, bg: '#111111' },
-  { icon: siTrello, bg: '#eef7ff' },
-  { icon: siTodoist, bg: '#fff1ed' },
-  { icon: siCalendly, bg: '#eef7ff' },
-  { icon: siTypeform, bg: '#f6f2ef' },
-  { icon: siIntercom, bg: '#eef5ff' },
-  { icon: siDropbox, bg: '#eef5ff' },
-  { icon: siGithub, bg: '#ffffff' },
-  { icon: siFigma, bg: '#fff4f1' },
-  { icon: siMailchimp, bg: '#fff8dc' },
-];
-
-const logoField = tiles;
-
-const LogoTile = ({
-  tile,
-  outerClassName,
-  innerClassName,
-  imageClassName,
-}: {
-  tile: IntegrationTile;
-  outerClassName: string;
-  innerClassName: string;
-  imageClassName: string;
-}) => (
-  <div
-    className={outerClassName}
-    style={{
-      background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)`,
-      boxShadow:
-        'inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 28px rgba(0,0,0,0.24)',
-    }}
-  >
-    <div
-      className={innerClassName}
-      style={{
-        backgroundColor: tile.bg,
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.58), 0 10px 24px rgba(0,0,0,0.24)',
-      }}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        role="img"
-        aria-label={tile.icon.title}
-        className={imageClassName}
-        style={{ color: tile.bg === '#111111' ? '#ffffff' : `#${tile.icon.hex}` }}
-      >
-        <title>{tile.icon.title}</title>
-        <path d={tile.icon.path} fill="currentColor" />
-      </svg>
-    </div>
-  </div>
-);
 
 const Cta = () => {
   const { openDemoBooking } = useDemoBooking();
@@ -121,27 +18,7 @@ const Cta = () => {
         >
           <div className="relative min-h-[44rem] md:min-h-[48rem]">
             <div className="absolute -right-16 bottom-14 z-0 hidden lg:block">
-              <div className="grid grid-cols-8 gap-4">
-                {logoField.map((tile, index) => (
-                  <motion.div
-                    key={`${tile.icon.title}-field-${index}`}
-                    animate={{ y: [0, index % 2 === 0 ? -3 : 3, 0] }}
-                    transition={{
-                      duration: 7 + (index % 6) * 0.25,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: (index % 7) * 0.08,
-                    }}
-                  >
-                    <LogoTile
-                      tile={tile}
-                      outerClassName="flex h-[88px] w-[88px] items-center justify-center rounded-[1.35rem] border border-white/8 p-2"
-                      innerClassName="flex h-full w-full items-center justify-center rounded-[1.05rem] p-3"
-                      imageClassName="h-9 w-9 object-contain"
-                    />
-                  </motion.div>
-                ))}
-              </div>
+              <IntegrationLogoGrid variant="desktop" />
             </div>
 
             <div className="absolute inset-y-0 left-0 z-10 hidden w-[58%] bg-gradient-to-r from-black/90 via-black/62 to-transparent lg:block" />
@@ -174,27 +51,7 @@ const Cta = () => {
               </div>
 
               <div className="relative mt-12 min-h-[20rem] lg:hidden">
-                <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
-                  {logoField.map((tile, index) => (
-                    <motion.div
-                      key={`${tile.icon.title}-mobile-${index}`}
-                      animate={{ y: [0, index % 2 === 0 ? -4 : 4, 0] }}
-                      transition={{
-                        duration: 5.2 + (index % 5) * 0.24,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                        delay: (index % 6) * 0.06,
-                      }}
-                    >
-                      <LogoTile
-                        tile={tile}
-                        outerClassName="flex aspect-square items-center justify-center rounded-[1.15rem] border border-white/8 p-2"
-                        innerClassName="flex h-[76%] w-[76%] items-center justify-center rounded-[0.95rem] p-2"
-                        imageClassName="h-8 w-8 object-contain"
-                      />
-                    </motion.div>
-                  ))}
-                </div>
+                <IntegrationLogoGrid variant="mobile" />
               </div>
             </div>
           </div>
