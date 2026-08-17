@@ -223,7 +223,7 @@ const Hero = () => {
                 variants={item}
                 className="mb-8 text-base md:text-lg font-light text-zinc-400/90 max-w-2xl mx-auto leading-relaxed"
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,0.45)" }}
-              > Elystra is the sales infrastructure for agencies, controlling everything after interest exists, Every serious opportunity becomes a tracked scope, a buying signal, and a clean path to payment while engeneering for long-term client continuity . </motion.p>
+              >Elystra is the sales infrastructure for agencies — control over everything that happens after interest exists. Every serious opportunity becomes a tracked scope, a read on the buyer, and a clean path to payment.</motion.p>
 
               {/* Proof tiles — breathe + stagger */}
               <motion.div
