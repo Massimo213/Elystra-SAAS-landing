@@ -51,6 +51,10 @@ export const navMenu: MenuItem[] = [
     label: 'Product',
   },
   {
+    href: '/the-gap',
+    label: 'The Gap',
+  },
+  {
     href: '/integrations',
     label: 'Integrations',
   },
@@ -61,6 +65,15 @@ export const navMenu: MenuItem[] = [
   {
     href: '/careers',
     label: 'Careers',
+  },
+  {
+    href: '/privacy',
+    label: 'Legal',
+    submenu: [
+      { href: '/privacy', label: 'Privacy' },
+      { href: '/terms', label: 'Terms' },
+      { href: '/security', label: 'Security' },
+    ],
   },
 ];
 

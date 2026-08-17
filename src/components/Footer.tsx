@@ -10,7 +10,6 @@ const FOOTER_COLUMNS = [
     title: 'Product',
     links: [
       { label: 'Product', href: '/product' },
-      { label: 'Pricing', href: 'https://app.elystra.online/pricing', external: true },
       { label: 'Integrations', href: '/integrations' },
     ],
   },
@@ -19,7 +18,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'Documentation', href: '/docs' },
       { label: 'API Reference', href: '/docs/api' },
-      { label: 'Help Center', href: '/help' },
+      { label: 'FAQ', href: '/#faq' },
     ],
   },
   {
@@ -27,7 +26,6 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'The Gap', href: '/the-gap' },
       { label: 'Careers', href: '/careers' },
-      { label: 'Contact', href: '/contact' },
     ],
   },
   {

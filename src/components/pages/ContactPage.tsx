@@ -9,19 +9,9 @@ import { useDemoBooking } from '@/contexts/DemoBookingContext';
 
 const CONTACT_CHANNELS = [
   {
-    label: 'General support',
+    label: 'Support',
     email: 'support@elystra.online',
-    description: 'Product questions, account help, and agency onboarding.',
-  },
-  {
-    label: 'Sales',
-    email: 'sales@elystra.online',
-    description: 'Demo requests, pricing, and enterprise evaluations.',
-  },
-  {
-    label: 'Security',
-    email: 'security@elystra.online',
-    description: 'Security reviews, vulnerability reports, and compliance.',
+    description: 'Product questions, demos, security, and everything else.',
   },
 ];
 
@@ -32,7 +22,7 @@ const ContactPage = () => {
     <MarketingPageLayout>
       <SeoHead
         title="Contact | Elystra"
-        description="Contact Elystra for support, sales, and security inquiries. Email support@elystra.online or book a demo."
+        description="Contact Elystra. Email support@elystra.online or book a demo."
         path="/contact"
         breadcrumbs={[
           { name: 'Home', path: '/' },
@@ -52,7 +42,7 @@ const ContactPage = () => {
       <PageHero
         eyebrow="Contact"
         title="Get in touch"
-        description="Support, sales, and security — direct lines to the Elystra team."
+        description="Support — write to support@elystra.online or book a demo."
       />
 
       <section className="px-6 pb-20">

@@ -9,7 +9,7 @@ import Cta from '@/components/Cta';
 import SeoHead from '@/components/SeoHead';
 
 import SignUp from '@/components/SignUp';
-import PrivacyPolicy from '@/components/PrivacyPolicy';
+import PrivacyPage from '@/components/pages/PrivacyPage';
 import Careers from '@/components/Careers';
 import CareerRolePage from '@/components/CareerRolePage';
 import CareersApplicationsAdmin from '@/components/CareersApplicationsAdmin';
@@ -29,7 +29,7 @@ import IntegrationsPage from '@/components/pages/IntegrationsPage';
 import DocsPage from '@/components/pages/DocsPage';
 import DocSectionPage from '@/components/pages/DocSectionPage';
 import ApiDocsPage from '@/components/pages/ApiDocsPage';
-import HelpPage from '@/components/pages/HelpPage';
+import HashScroll from '@/components/HashScroll';
 import TheGapPage from '@/components/pages/TheGapPage';
 import SecurityPage from '@/components/pages/SecurityPage';
 import ContactPage from '@/components/pages/ContactPage';
@@ -103,6 +103,7 @@ const App = () => {
         <div className="relative isolate overflow-hidden bg-black min-h-screen">
           <GlobalVortex />
           <Header />
+          <HashScroll />
           <Routes>
             <Route path="/" element={<MainContent />} />
 
@@ -113,7 +114,7 @@ const App = () => {
             <Route path="/docs" element={<DocsPage />} />
             <Route path="/docs/api" element={<ApiDocsPage />} />
             <Route path="/docs/:slug" element={<DocSectionPage />} />
-            <Route path="/help" element={<HelpPage />} />
+            <Route path="/help" element={<Navigate to="/#faq" replace />} />
             <Route path="/the-gap" element={<TheGapPage />} />
             <Route path="/about" element={<Navigate to="/the-gap" replace />} />
             <Route path="/security" element={<SecurityPage />} />
@@ -126,7 +127,7 @@ const App = () => {
             <Route path="/sign-up" element={<SignUp />} />
 
             {/* Legal & careers */}
-            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/careers/:slug" element={<CareerRolePage />} />
             <Route path="/admin/applications" element={<CareersApplicationsAdmin />} />

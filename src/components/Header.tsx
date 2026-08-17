@@ -10,8 +10,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { logo } from '@/assets';
 import { useDemoBooking } from '@/contexts/DemoBookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, X, Menu } from 'lucide-react';
+import { Sparkles, ArrowRight, X, Menu, ChevronDown } from 'lucide-react';
 import { navMenu } from '@/constants';
+import type { MenuItem } from '@/types';
 
 const Header = () => {
   const { openDemoBooking } = useDemoBooking();
@@ -20,13 +21,18 @@ const Header = () => {
   const location = useLocation();
 
   const isExternal = (href: string) => href.startsWith('http');
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [mobileLegalOpen, setMobileLegalOpen] = useState(false);
 
-  const isNavActive = (href: string) => {
-    if (isExternal(href)) return false;
-    if (href === '/careers') return location.pathname.startsWith('/careers');
-    if (href === '/docs') return location.pathname.startsWith('/docs');
-    if (href === '/product') return location.pathname.startsWith('/product');
-    return location.pathname === href;
+  const isNavActive = (item: MenuItem) => {
+    if (item.submenu) {
+      return item.submenu.some((sub) => location.pathname === sub.href);
+    }
+    if (isExternal(item.href)) return false;
+    if (item.href === '/careers') return location.pathname.startsWith('/careers');
+    if (item.href === '/docs') return location.pathname.startsWith('/docs');
+    if (item.href === '/product') return location.pathname.startsWith('/product');
+    return location.pathname === item.href;
   };
 
   useEffect(() => {
@@ -34,6 +40,12 @@ const Header = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenSubmenu(null);
+    setMobileLegalOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -90,17 +102,18 @@ const Header = () => {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
-            {navMenu.map(({ href, label }) => {
-              const isActive = isNavActive(href);
+            {navMenu.map((item) => {
+              const { href, label, submenu } = item;
+              const isActive = isNavActive(item);
               const className = 'relative px-4 py-2 text-sm font-light transition-colors duration-300';
               const style = {
                 color: isActive ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.45)',
               } as const;
               const hoverProps = {
-                onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement>) => {
+                onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
                   if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.8)';
                 },
-                onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement>) => {
+                onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
                   if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.45)';
                 },
               };
@@ -111,6 +124,75 @@ const Header = () => {
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               );
+
+              if (submenu) {
+                const isOpen = openSubmenu === label;
+                return (
+                  <div
+                    key={label}
+                    className="relative"
+                    onMouseEnter={() => setOpenSubmenu(label)}
+                    onMouseLeave={() => setOpenSubmenu(null)}
+                  >
+                    <button
+                      type="button"
+                      className={`${className} inline-flex items-center gap-1`}
+                      style={style}
+                      aria-expanded={isOpen}
+                      aria-haspopup="true"
+                      onClick={() => setOpenSubmenu(isOpen ? null : label)}
+                    >
+                      {label}
+                      <ChevronDown
+                        className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                      />
+                      {activeDot}
+                    </button>
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 6 }}
+                          transition={{ duration: 0.16 }}
+                          className="absolute left-0 top-full pt-2"
+                        >
+                          <div
+                            className="min-w-[11.5rem] overflow-hidden border border-white/[0.08] py-1.5"
+                            style={{ background: 'rgba(8,8,14,0.96)', boxShadow: '0 18px 40px rgba(0,0,0,0.45)' }}
+                          >
+                            {submenu.map((sub) => (
+                              <Link
+                                key={sub.href}
+                                to={sub.href}
+                                onClick={() => setOpenSubmenu(null)}
+                                className="block px-4 py-2.5 text-sm font-light transition-colors"
+                                style={{
+                                  color:
+                                    location.pathname === sub.href
+                                      ? 'rgba(255,255,255,0.95)'
+                                      : 'rgba(255,255,255,0.5)',
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.color = 'rgba(255,255,255,0.9)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.color =
+                                    location.pathname === sub.href
+                                      ? 'rgba(255,255,255,0.95)'
+                                      : 'rgba(255,255,255,0.5)';
+                                }}
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
 
               return isExternal(href) ? (
                 <a
@@ -205,23 +287,58 @@ const Header = () => {
             className="fixed inset-0 z-[45] lg:hidden"
             style={{ background: 'rgba(0,0,0,0.95)' }}
           >
-            <nav className="flex flex-col items-center justify-center h-full gap-2 px-8">
-              {navMenu.map(({ href, label }, i) => (
+            <nav className="flex flex-col items-center justify-center h-full gap-2 px-8 overflow-y-auto py-24">
+              {navMenu.map((item, i) => (
                 <motion.div
-                  key={href}
+                  key={item.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ delay: i * 0.06, duration: 0.4 }}
-                  className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide"
+                  className="text-center"
                 >
-                  {isExternal(href) ? (
-                    <a href={href} onClick={() => setMobileOpen(false)}>
-                      {label}
+                  {item.submenu ? (
+                    <div>
+                      <button
+                        type="button"
+                        className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide inline-flex items-center gap-2"
+                        onClick={() => setMobileLegalOpen((open) => !open)}
+                      >
+                        {item.label}
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${mobileLegalOpen ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                      {mobileLegalOpen && (
+                        <div className="mt-1 mb-2 flex flex-col gap-1">
+                          {item.submenu.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              to={sub.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="text-lg font-light text-zinc-500 hover:text-white py-1.5"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : isExternal(item.href) ? (
+                    <a
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide block"
+                    >
+                      {item.label}
                     </a>
                   ) : (
-                    <Link to={href} onClick={() => setMobileOpen(false)}>
-                      {label}
+                    <Link
+                      to={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-2xl font-light text-zinc-300 hover:text-white transition-colors py-3 tracking-wide block"
+                    >
+                      {item.label}
                     </Link>
                   )}
                 </motion.div>

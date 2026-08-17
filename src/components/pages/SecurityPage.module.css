@@ -1,0 +1,242 @@
+.page {
+  --panel: #0a0a12;
+  --line: rgba(255, 255, 255, 0.09);
+  --txt: #e8e8f0;
+  --txt-2: #8f8fa6;
+  --txt-3: #5c5c72;
+  --violet: #8b5cf6;
+  --code: #c084fc;
+  --yes: #4ade80;
+  --no: #f87171;
+}
+
+.band {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.band h2 {
+  font-size: clamp(24px, 2.9vw, 32px);
+  font-weight: 300;
+  letter-spacing: -0.024em;
+  margin-top: 22px;
+  max-width: 24ch;
+  line-height: 1.2;
+  color: #f4f1ff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.88), 0 0 44px rgba(0, 0, 0, 0.6);
+}
+
+.lead {
+  margin-top: 20px;
+  max-width: 66ch;
+  color: var(--txt-2);
+  font-size: 17px;
+  line-height: 1.6;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.band h3 {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  margin: 38px 0 10px;
+  color: var(--txt);
+}
+
+.band p {
+  max-width: 68ch;
+  color: var(--txt-2);
+  font-size: 15.5px;
+  margin-top: 14px;
+  line-height: 1.65;
+}
+
+.band p strong {
+  color: var(--txt);
+  font-weight: 400;
+}
+
+.inlineCode {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(139, 92, 246, 0.11);
+  color: var(--code);
+  padding: 2px 6px;
+  font-size: 0.88em;
+  border-radius: 2px;
+}
+
+.list {
+  margin-top: 16px;
+  max-width: 68ch;
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  padding: 11px 0 11px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  color: var(--txt-2);
+  position: relative;
+  line-height: 1.55;
+}
+
+.list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--txt-3);
+}
+
+.list li strong {
+  color: var(--txt);
+  font-weight: 400;
+}
+
+.tbl {
+  margin-top: 28px;
+  border: 1px solid var(--line);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tbl th {
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--txt-3);
+  font-weight: 400;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.tbl td {
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14.5px;
+  color: var(--txt-2);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.tbl tr:last-child td {
+  border-bottom: none;
+}
+
+.tbl td strong {
+  color: var(--txt);
+  font-weight: 400;
+}
+
+.cellKey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--code);
+  white-space: nowrap;
+}
+
+.yes {
+  color: var(--yes);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.no {
+  color: var(--no);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 32px;
+}
+
+.col {
+  background: #05050a;
+  padding: 30px 26px;
+}
+
+.colKey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.col .list {
+  margin-top: 16px;
+}
+
+.col .list li {
+  font-size: 14px;
+  padding: 9px 0 9px 18px;
+}
+
+.col .list li:last-child {
+  border-bottom: none;
+}
+
+.note {
+  margin-top: 26px;
+  padding: 20px 24px;
+  border-left: 2px solid var(--violet);
+  background: rgba(139, 92, 246, 0.05);
+  max-width: 68ch;
+}
+
+.noteKey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.note p {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.close {
+  padding: 88px 0 120px;
+  border-bottom: none;
+}
+
+.mail {
+  color: var(--txt);
+  text-decoration: none;
+  border-bottom: 1px solid var(--violet);
+}
+
+.mail:hover {
+  color: var(--violet);
+}
+
+@media (max-width: 760px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .band {
+    padding: 60px 0;
+  }
+
+  .tbl td,
+  .tbl th {
+    padding: 12px 13px;
+    font-size: 13.5px;
+  }
+}

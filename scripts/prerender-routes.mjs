@@ -14,7 +14,6 @@ export const PRERENDER_ROUTES = [
   '/docs/integrations',
   '/docs/webhooks',
   '/docs/api',
-  '/help',
   '/the-gap',
   '/security',
   '/contact',

@@ -199,7 +199,7 @@ const PrivacyPolicy = () => {
                         <li><strong>Registration:</strong> Company Number 12345678, Republic of Ireland</li>
                         <li><strong>Address:</strong> Unit 3, Block C, Crescent Business Park, Dublin 24, D24 X0Y2, Ireland</li>
                         <li><strong>Data Protection Officer:</strong> Massimo Yahya Mounadi</li>
-                        <li><strong>Contact:</strong> dpo@elystra.com</li>
+                        <li><strong>Contact:</strong> support@elystra.online</li>
                       </ul>
                     </div>
                     
@@ -484,7 +484,7 @@ const PrivacyPolicy = () => {
                       <h4 className='font-medium text-blue-800 mb-2'>How to Exercise Your Rights</h4>
                       <p className='text-blue-700 text-sm mb-2'>Contact us via:</p>
                       <ul className='text-blue-700 text-sm space-y-1'>
-                        <li>• Email: <strong>elystra.support@elystra.online</strong></li>
+                        <li>• Email: <strong>support@elystra.online</strong></li>
                         <li>• Data Subject Access Request portal (in your account settings)</li>
                         <li>• Response time: Verified within 3 days, fulfilled within 30 days</li>
                       </ul>
@@ -505,7 +505,7 @@ const PrivacyPolicy = () => {
                   </div>
                   <div className='space-y-4 text-gray-700 text-sm md:text-base'>
                     <p>Our service is designed for business use and is not intended for individuals under 16 years of age. We do not knowingly collect personal data from children under 16.</p>
-                    <p>If you become aware that a child under 16 has provided us with personal data, please contact us immediately at <strong>elystra.support@elystra.online</strong> and we will promptly delete such data.</p>
+                    <p>If you become aware that a child under 16 has provided us with personal data, please contact us immediately at <strong>support@elystra.online</strong> and we will promptly delete such data.</p>
                   </div>
                 </CardContent>
               </Card>
@@ -736,7 +736,7 @@ const PrivacyPolicy = () => {
                         <h4 className='font-medium text-gray-800 mb-2'>Data Protection Officer</h4>
                         <ul className='space-y-1 text-sm'>
                           <li><strong>Name:</strong> Massimo Yahya Mounadi</li>
-                          <li><strong>Email:</strong> elystra.support@elystra.online</li>
+                          <li><strong>Email:</strong> support@elystra.online</li>
                           <li><strong>Response Time:</strong> Within 72 hours</li>
                         </ul>
                       </div>
