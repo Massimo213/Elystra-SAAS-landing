@@ -462,7 +462,11 @@ const PrivacyPage = () => (
               written contract.
             </p>
             <p>
-              A summary of the current assessment is available on request at the address in clause 11.
+              A summary of the current assessment is available on request at{' '}
+              <a className={styles.mail} href="mailto:support@elystra.online">
+                support@elystra.online
+              </a>
+              .
             </p>
           </Section>
 
@@ -565,53 +569,7 @@ const PrivacyPage = () => (
             <p>We do not delay notification in order to complete an investigation first.</p>
           </Section>
 
-          <Section n="11" title="Person in charge of the protection of personal information">
-            <p>
-              Under Québec law, a designated individual is accountable for the protection of personal
-              information at Elystra. That person is:
-            </p>
-            <table className={styles.tbl}>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>Name</strong>
-                  </td>
-                  <td>
-                    <Ph>[name]</Ph>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Title</strong>
-                  </td>
-                  <td>
-                    <Ph>[title]</Ph>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Email</strong>
-                  </td>
-                  <td>
-                    <a className={styles.mail} href="mailto:support@elystra.online">
-                      support@elystra.online
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Address</strong>
-                  </td>
-                  <td>
-                    <Ph>[registered address]</Ph>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <p>Requests, questions and complaints go to that address and are read by the person named.</p>
-          </Section>
-
-          <Section n="12" title="Changes to this policy">
+          <Section n="11" title="Changes to this policy">
             <p>
               We may update this policy. Changes that materially reduce protection are notified in
               writing at least 30 days before they take effect, and where the law requires consent for
