@@ -15,6 +15,11 @@
       "source": "/pricing",
       "destination": "https://app.elystra.online/pricing",
       "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/the-gap",
+      "permanent": true
     }
   ]
 }

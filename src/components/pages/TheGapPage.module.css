@@ -1,0 +1,283 @@
+/* The Gap — extends Product page tokens, editorial two-column bands */
+
+.measure {
+  padding: 48px 0 80px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.mDesktop {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mMobile {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.svgSerif {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 300;
+}
+
+.svgMono {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.14em;
+}
+
+.svgSans {
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.gapBandAnim {
+  transform-origin: 246px 0;
+  animation: gapOpen 1.5s cubic-bezier(0.16, 0.9, 0.3, 1) 0.35s both;
+}
+
+.gapBandAnimMobile {
+  transform-origin: 0 214px;
+  animation: gapOpenV 1.5s cubic-bezier(0.16, 0.9, 0.3, 1) 0.35s both;
+}
+
+.lateAnim {
+  animation: gapFade 0.8s ease 1.35s both;
+}
+
+.anchorIn {
+  animation: gapFade 0.7s ease 0.1s both;
+}
+
+@keyframes gapOpen {
+  from {
+    transform: scaleX(0.02);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gapOpenV {
+  from {
+    transform: scaleY(0.02);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes gapFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gapBandAnim,
+  .gapBandAnimMobile,
+  .lateAnim,
+  .anchorIn {
+    animation: none;
+  }
+}
+
+.standfirst {
+  margin-top: 36px;
+  max-width: 56ch;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #8f8fa6;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.standfirst b {
+  color: #e8e8f0;
+  font-weight: 500;
+}
+
+.band {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.bandInner {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 56px;
+  padding: 66px 0;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #5c5c72;
+  padding-top: 12px;
+}
+
+.col {
+  max-width: 64ch;
+}
+
+.sectionLede {
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 300;
+  line-height: 1.24;
+  letter-spacing: -0.008em;
+  margin: 0 0 26px;
+  color: #f4f1ff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.88), 0 0 44px rgba(0, 0, 0, 0.6);
+}
+
+.col p {
+  margin: 0 0 20px;
+  color: #8f8fa6;
+  font-size: 17px;
+  line-height: 1.62;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.col p:last-child {
+  margin-bottom: 0;
+}
+
+.col strong {
+  font-weight: 500;
+  color: #e8e8f0;
+}
+
+.col em {
+  font-style: italic;
+  color: #d7c6ff;
+}
+
+.deny {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.deny li {
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  color: #8f8fa6;
+}
+
+.deny li::before {
+  content: '—';
+  color: #8b5cf6;
+  margin-right: 14px;
+}
+
+.record {
+  background: rgba(5, 5, 10, 0.72);
+  border-top: 1px solid rgba(139, 92, 246, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.08);
+}
+
+.record .tag {
+  color: #5c5c72;
+}
+
+.record .sectionLede {
+  color: #f4f1ff;
+}
+
+.record .col p {
+  color: #8f8fa6;
+}
+
+.record .col strong {
+  color: #e8e8f0;
+}
+
+.qs {
+  display: grid;
+  gap: 0;
+  margin: 30px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.q {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+}
+
+.q span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #c084fc;
+  white-space: nowrap;
+}
+
+.q p {
+  margin: 0;
+  color: #afb5bd;
+  font-size: 16px;
+}
+
+.sign {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 56px 0 64px;
+}
+
+.sign p {
+  max-width: 60ch;
+  margin: 0 0 18px;
+  color: #8f8fa6;
+  font-size: 17px;
+  line-height: 1.62;
+}
+
+.sign a {
+  color: #c084fc;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.35);
+  transition: border-color 0.2s ease;
+}
+
+.sign a:hover {
+  border-bottom-color: #8b5cf6;
+}
+
+@media (max-width: 900px) {
+  .bandInner {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .tag {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .measure {
+    padding: 36px 0 52px;
+  }
+
+  .mDesktop {
+    display: none;
+  }
+
+  .mMobile {
+    display: block;
+  }
+
+  .bandInner {
+    padding: 48px 0;
+  }
+}

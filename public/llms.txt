@@ -16,7 +16,7 @@ Elystra is B2B software for marketing, creative, and performance agencies doing 
 - Integrations: https://www.elystra.online/integrations
 - Help: https://www.elystra.online/help
 - Careers: https://www.elystra.online/careers
-- About: https://www.elystra.online/about
+- The Gap: https://www.elystra.online/the-gap
 - Security: https://www.elystra.online/security
 - Contact: support@elystra.online
 

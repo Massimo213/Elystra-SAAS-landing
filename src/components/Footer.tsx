@@ -25,7 +25,7 @@ const FOOTER_COLUMNS = [
   {
     title: 'Company',
     links: [
-      { label: 'About', href: '/about' },
+      { label: 'The Gap', href: '/the-gap' },
       { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],

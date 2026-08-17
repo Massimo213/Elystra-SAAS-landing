@@ -30,7 +30,7 @@ import DocsPage from '@/components/pages/DocsPage';
 import DocSectionPage from '@/components/pages/DocSectionPage';
 import ApiDocsPage from '@/components/pages/ApiDocsPage';
 import HelpPage from '@/components/pages/HelpPage';
-import AboutPage from '@/components/pages/AboutPage';
+import TheGapPage from '@/components/pages/TheGapPage';
 import SecurityPage from '@/components/pages/SecurityPage';
 import ContactPage from '@/components/pages/ContactPage';
 import TermsPage from '@/components/pages/TermsPage';
@@ -114,7 +114,8 @@ const App = () => {
             <Route path="/docs/api" element={<ApiDocsPage />} />
             <Route path="/docs/:slug" element={<DocSectionPage />} />
             <Route path="/help" element={<HelpPage />} />
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/the-gap" element={<TheGapPage />} />
+            <Route path="/about" element={<Navigate to="/the-gap" replace />} />
             <Route path="/security" element={<SecurityPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/terms" element={<TermsPage />} />

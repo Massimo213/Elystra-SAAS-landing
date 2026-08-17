@@ -1,74 +1,65 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import SeoHead from '@/components/SeoHead';
-import MarketingPageLayout from '@/components/MarketingPageLayout';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import PageHero from '@/components/pages/PageHero';
-import { DOC_SECTIONS } from '@/data/docs';
+import Footer from '@/components/Footer';
+import DocsSidebar, { useDocsActiveSection } from '@/components/docs/DocsSidebar';
+import DocsSections from '@/components/docs/DocsSections';
+import { Vortex } from '@/components/ui/vortex';
 import { webPageSchema } from '@/lib/seo/schemas';
+import productStyles from './ProductPage.module.css';
+import styles from './DocsPage.module.css';
 
-const DocsPage = () => (
-  <MarketingPageLayout>
-    <SeoHead
-      title="Documentation | Elystra"
-      description="Elystra documentation for agencies. Getting started, proposals, integrations, webhooks, and API reference for the proposal-to-cash rail."
-      path="/docs"
-      breadcrumbs={[
-        { name: 'Home', path: '/' },
-        { name: 'Documentation', path: '/docs' },
-      ]}
-      jsonLd={webPageSchema(
-        '/docs',
-        'Documentation | Elystra',
-        'Product documentation for Elystra revenue infrastructure.',
-      )}
-    />
+const DocsPage = () => {
+  const { activeId, navigate } = useDocsActiveSection();
 
-    <div className="px-6">
-      <div className="mx-auto max-w-4xl">
-        <Breadcrumbs
-          items={[{ name: 'Home', path: '/' }, { name: 'Documentation', path: '/docs' }]}
+  return (
+    <>
+      <div className={productStyles.productPageBg}>
+        <Vortex
+          particleCount={120}
+          baseHue={266}
+          rangeSpeed={0.3}
+          baseRadius={1}
+          rangeRadius={1.6}
+          backgroundColor="#04050a"
+          containerClassName="w-full h-full"
         />
+        <div className={productStyles.productPageAtmosphere} />
       </div>
-    </div>
 
-    <PageHero
-      eyebrow="Documentation"
-      title="Elystra Docs"
-      description="Guides for setting up, sending proposals, wiring integrations, and using the API."
-    />
+      <main className="relative z-20 min-h-screen pt-14 md:pt-16">
+        <div className={productStyles.productPage}>
+          <div className={productStyles.productPageContent}>
+            <SeoHead
+              title="Documentation | Elystra"
+              description="Elystra platform documentation — architecture, deal state model, event reference, integration model, and the public API."
+              path="/docs"
+              jsonLd={webPageSchema(
+                '/docs',
+                'Documentation | Elystra',
+                'Platform documentation for Elystra revenue infrastructure.',
+              )}
+            />
 
-    <section className="px-6 pb-20">
-      <div className="mx-auto max-w-4xl space-y-4">
-        {DOC_SECTIONS.map((section) => (
-          <Link
-            key={section.slug}
-            to={`/docs/${section.slug}`}
-            className="group flex items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-5 transition-colors hover:border-violet-500/30"
-          >
-            <div>
-              <h2 className="text-lg font-light text-white">{section.title}</h2>
-              <p className="mt-1 text-sm font-light text-zinc-400">{section.description}</p>
+            <div className={styles.shell}>
+              <DocsSidebar activeId={activeId} onNavigate={navigate} />
+
+              <div className={styles.main}>
+                <div className={styles.eyebrow}>Documentation</div>
+                <h1 className={styles.pageTitle}>Elystra platform documentation</h1>
+                <p className={styles.sub}>
+                  Elystra is the revenue rail agencies run deals through — scope, signature, payment, and
+                  post-close operations as one instrumented sequence. This document covers the architecture,
+                  the state model, the event system, the integration model, and the public API.
+                </p>
+
+                <DocsSections />
+              </div>
             </div>
-            <ArrowRight className="h-4 w-4 text-zinc-600 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-400" />
-          </Link>
-        ))}
-
-        <Link
-          to="/docs/api"
-          className="group flex items-center justify-between rounded-xl border border-violet-500/20 bg-violet-500/5 px-6 py-5"
-        >
-          <div>
-            <h2 className="text-lg font-light text-white">API Reference</h2>
-            <p className="mt-1 text-sm font-light text-zinc-400">
-              REST API for proposals, deals, and webhooks.
-            </p>
           </div>
-          <ArrowRight className="h-4 w-4 text-violet-400 transition-transform group-hover:translate-x-0.5" />
-        </Link>
-      </div>
-    </section>
-  </MarketingPageLayout>
-);
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+};
 
 export default DocsPage;
