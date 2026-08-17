@@ -168,12 +168,8 @@ const Faq = () => {
           className="mt-12 text-center"
         >
           <p className="text-sm text-zinc-400 font-light leading-relaxed max-w-xl mx-auto">
-            170+ agencies are already through the rail.
-            <br />
-            <span className="text-zinc-500">
-              The question is whether your agency wants to keep operating with partial control, or start
-              converting, collecting, and retaining at a higher standard.
-            </span>
+            The question is whether your agency wants to keep operating with partial control, or start
+            converting, collecting, and retaining at a higher standard.
           </p>
           <p className="mt-6 text-sm text-zinc-500 font-light">
             <button

@@ -105,7 +105,7 @@ const BleedingCalculator = () => {
           className="mx-auto max-w-4xl text-center"
         >
           <p className="mb-5 text-xs font-light uppercase tracking-[0.28em] text-zinc-500">
-            Revenue indictment
+            The leak
           </p>
           <h2 className="text-3xl font-extralight leading-[1.06] tracking-[-0.05em] text-white sm:text-4xl md:text-6xl">
             Your pipeline is not the problem.

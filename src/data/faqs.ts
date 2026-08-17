@@ -3,7 +3,7 @@ export type FaqItem = { q: string; a: string };
 export const FAQ_ITEMS: FaqItem[] = [
   {
     q: 'What is Elystra?',
-    a: 'Elystra is the commercial operating system for agencies.\n\nIt gives agencies control over the layer where money is usually won or lost: while the deal is live, while commitment is still loose, and long after the first payment lands.\n\nThat means control over:\nscope speed, deal visibility, blocker diagnosis, follow-up direction, offer intelligence, leakage visibility, commitment capture, payment flow, and client continuity.\n\n170+ agencies already run through the rail.\nThat matters because serious agencies do not need more noise. They need more control over how revenue actually moves.',
+    a: 'Elystra is the commercial operating system for agencies.\n\nIt gives agencies control over the layer where money is usually won or lost: while the deal is live, while commitment is still loose, and long after the first payment lands.\n\nThat means control over:\nscope speed, deal visibility, blocker diagnosis, follow-up direction, offer intelligence, leakage visibility, commitment capture, payment flow, and client continuity.\n\nSerious agencies do not need more noise. They need more control over how revenue actually moves.',
   },
   {
     q: 'Why does Elystra matter if our agency is already selling?',
