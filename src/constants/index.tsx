@@ -51,10 +51,6 @@ export const navMenu: MenuItem[] = [
     label: 'Product',
   },
   {
-    href: 'https://app.elystra.online/pricing',
-    label: 'Pricing',
-  },
-  {
     href: '/integrations',
     label: 'Integrations',
   },
